@@ -1,0 +1,78 @@
+[gd_scene load_steps=14 format=3 uid="uid://b3amtwq1uxqrl"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_b0j17"]
+[ext_resource type="Texture2D" uid="uid://btd8jj5tvrlj6" path="res://assets/dungeon/wizzard_f_hit_anim_f0.png" id="1_jjcyp"]
+[ext_resource type="PackedScene" uid="uid://bnpwx4xplrcu" path="res://fireball.tscn" id="2_7qp7d"]
+[ext_resource type="Texture2D" uid="uid://dosqofh4hr6yj" path="res://assets/dungeon/wizzard_f_idle_anim_f0.png" id="2_rsr7q"]
+[ext_resource type="Texture2D" uid="uid://djsrmge4k4l4" path="res://assets/dungeon/wizzard_f_idle_anim_f1.png" id="3_htm1u"]
+[ext_resource type="Texture2D" uid="uid://rr5dnee4xq6v" path="res://assets/dungeon/wizzard_f_idle_anim_f2.png" id="4_n2g6i"]
+[ext_resource type="Texture2D" uid="uid://bgg25jogme2ah" path="res://assets/dungeon/wizzard_f_idle_anim_f3.png" id="5_tmu6o"]
+[ext_resource type="Texture2D" uid="uid://c145qaulawjgd" path="res://assets/dungeon/wizzard_f_run_anim_f0.png" id="6_dt4xq"]
+[ext_resource type="Texture2D" uid="uid://col5geusadki0" path="res://assets/dungeon/wizzard_f_run_anim_f1.png" id="7_aw0yd"]
+[ext_resource type="Texture2D" uid="uid://dxm2i1lkcij6e" path="res://assets/dungeon/wizzard_f_run_anim_f2.png" id="8_pkmpr"]
+[ext_resource type="Texture2D" uid="uid://yrrq6u303ik4" path="res://assets/dungeon/wizzard_f_run_anim_f3.png" id="9_nc0wf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e8suv"]
+size = Vector2(15, 22)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r6n5u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_jjcyp")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_rsr7q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_htm1u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_n2g6i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_tmu6o")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_dt4xq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_aw0yd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_pkmpr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_nc0wf")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 2
+motion_mode = 1
+script = ExtResource("1_b0j17")
+projectile = ExtResource("2_7qp7d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -4)
+shape = SubResource("RectangleShape2D_e8suv")
+
+[node name="Animation" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -7)
+sprite_frames = SubResource("SpriteFrames_r6n5u")
+animation = &"run"
+frame_progress = 0.386282
