@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b3amtwq1uxqrl"]
+[gd_scene load_steps=15 format=3 uid="uid://b3amtwq1uxqrl"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_b0j17"]
 [ext_resource type="Texture2D" uid="uid://btd8jj5tvrlj6" path="res://assets/dungeon/wizzard_f_hit_anim_f0.png" id="1_jjcyp"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://col5geusadki0" path="res://assets/dungeon/wizzard_f_run_anim_f1.png" id="7_aw0yd"]
 [ext_resource type="Texture2D" uid="uid://dxm2i1lkcij6e" path="res://assets/dungeon/wizzard_f_run_anim_f2.png" id="8_pkmpr"]
 [ext_resource type="Texture2D" uid="uid://yrrq6u303ik4" path="res://assets/dungeon/wizzard_f_run_anim_f3.png" id="9_nc0wf"]
+[ext_resource type="Texture2D" uid="uid://dr7ppvc6ge54f" path="res://assets/neutral_light.webp" id="12_ikqtg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e8suv"]
 size = Vector2(15, 22)
@@ -75,4 +76,9 @@ shape = SubResource("RectangleShape2D_e8suv")
 position = Vector2(0, -7)
 sprite_frames = SubResource("SpriteFrames_r6n5u")
 animation = &"run"
-frame_progress = 0.386282
+frame_progress = 0.690103
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+shadow_enabled = true
+texture = ExtResource("12_ikqtg")
+texture_scale = 0.2

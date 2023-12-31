@@ -30,6 +30,10 @@ window/size/window_width_override=768
 window/size/window_height_override=672
 window/stretch/mode="viewport"
 
+[editor]
+
+movie_writer/movie_file="C:/Users/Danie/Documents/Prototype/movies/movie.avi"
+
 [input]
 
 up={

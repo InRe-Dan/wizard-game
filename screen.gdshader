@@ -4,7 +4,7 @@ uniform float quantizationSteps = 8;
 uniform float vignetteExponent = 0.5;
 // If you intend to read from mipmaps with `textureLod()` LOD values greater than `0.0`,
 // use `filter_nearest_mipmap` instead. This shader doesn't require it.
-uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
+uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest, source_color;
 
 float random (vec2 uv) {
     return fract(sin(dot(uv.xy,

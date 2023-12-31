@@ -9,7 +9,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f3rsf"]
 shader = ExtResource("2_hbhvt")
-shader_parameter/quantizationSteps = 17.095
+shader_parameter/quantizationSteps = 21.29
 shader_parameter/vignetteExponent = 0.21
 
 [node name="main" type="Node2D"]
