@@ -9,8 +9,9 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f3rsf"]
 shader = ExtResource("2_hbhvt")
-shader_parameter/quantizationSteps = 20.15
-shader_parameter/vignetteExponent = 0.32
+shader_parameter/quantizationSteps = 22.375
+shader_parameter/vignetteExponent = 0.53
+shader_parameter/randomTimeDivisor = 48.295
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_jl44l")

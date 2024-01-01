@@ -2,6 +2,7 @@ shader_type canvas_item;
 
 uniform float quantizationSteps = 8;
 uniform float vignetteExponent = 0.5;
+uniform float randomTimeDivisor = 50.;
 // If you intend to read from mipmaps with `textureLod()` LOD values greater than `0.0`,
 // use `filter_nearest_mipmap` instead. This shader doesn't require it.
 uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest, source_color;
@@ -9,7 +10,7 @@ uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_n
 float random (vec2 uv) {
     return fract(sin(dot(uv.xy,
 		// Very fun effects when the third magic number is just TIME
-        vec2(12.9898,78.233))) * (TIME + 2415.1231) / 20.);
+        vec2(12.9898,78.233))) * (TIME + 12454.12512561) / randomTimeDivisor);
 }
 
 float sdAxisAlignedRect(vec2 uv, vec2 tl, vec2 br)
