@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c3ymrarugklpb"]
+[gd_scene load_steps=8 format=3 uid="uid://c3ymrarugklpb"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_jl44l"]
 [ext_resource type="PackedScene" uid="uid://b85ijfyowcx7n" path="res://room_1.tscn" id="1_pf5qg"]
@@ -13,7 +13,11 @@ shader_parameter/quantizationSteps = 22.375
 shader_parameter/vignetteExponent = 0.53
 shader_parameter/randomTimeDivisor = 48.295
 
-[node name="main" type="Node2D"]
+[sub_resource type="LabelSettings" id="LabelSettings_edlm5"]
+font_size = 9
+font_color = Color(0.980392, 0.980392, 0.980392, 0.207843)
+
+[node name="main" type="Node2D" groups=["main"]]
 script = ExtResource("1_jl44l")
 
 [node name="room1" parent="." instance=ExtResource("1_pf5qg")]
@@ -27,14 +31,29 @@ z_index = 2
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.278431, 0.278431, 0.278431, 1)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Postprocess" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+[node name="ColorRect" type="ColorRect" parent="Postprocess"]
 material = SubResource("ShaderMaterial_f3rsf")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -128.0
+offset_top = -112.0
+offset_right = -128.0
+offset_bottom = -112.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[connection signal="shoot" from="Player" to="." method="_on_player_shoot"]
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 2
+follow_viewport_enabled = true
+
+[node name="Label" type="Label" parent="UI"]
+offset_left = -120.0
+offset_top = 96.0
+offset_right = 15.0
+offset_bottom = 109.0
+text = "Untitled Wizards Game -  Alpha"
+label_settings = SubResource("LabelSettings_edlm5")
