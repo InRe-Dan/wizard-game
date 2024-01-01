@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b3amtwq1uxqrl"]
+[gd_scene load_steps=16 format=3 uid="uid://b3amtwq1uxqrl"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_b0j17"]
 [ext_resource type="Texture2D" uid="uid://btd8jj5tvrlj6" path="res://assets/dungeon/wizzard_f_hit_anim_f0.png" id="1_jjcyp"]
@@ -11,10 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://col5geusadki0" path="res://assets/dungeon/wizzard_f_run_anim_f1.png" id="7_aw0yd"]
 [ext_resource type="Texture2D" uid="uid://dxm2i1lkcij6e" path="res://assets/dungeon/wizzard_f_run_anim_f2.png" id="8_pkmpr"]
 [ext_resource type="Texture2D" uid="uid://yrrq6u303ik4" path="res://assets/dungeon/wizzard_f_run_anim_f3.png" id="9_nc0wf"]
-[ext_resource type="Texture2D" uid="uid://dr7ppvc6ge54f" path="res://assets/neutral_light.webp" id="12_ikqtg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e8suv"]
-size = Vector2(15, 22)
+size = Vector2(15, 18)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_r6n5u"]
 animations = [{
@@ -61,6 +60,17 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Gradient" id="Gradient_akqsn"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_uhgcs"]
+gradient = SubResource("Gradient_akqsn")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.807339, 0.275229)
+
 [node name="CharacterBody2D" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 2
@@ -69,7 +79,7 @@ script = ExtResource("1_b0j17")
 projectile = ExtResource("2_7qp7d")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, -4)
+position = Vector2(-0.5, -2)
 shape = SubResource("RectangleShape2D_e8suv")
 
 [node name="Animation" type="AnimatedSprite2D" parent="."]
@@ -80,5 +90,5 @@ frame_progress = 0.690103
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 shadow_enabled = true
-texture = ExtResource("12_ikqtg")
-texture_scale = 0.2
+texture = SubResource("GradientTexture2D_uhgcs")
+texture_scale = 2.0
