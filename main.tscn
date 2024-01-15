@@ -18,6 +18,7 @@ font_size = 9
 font_color = Color(0.980392, 0.980392, 0.980392, 0.207843)
 
 [node name="main" type="Node2D" groups=["main"]]
+texture_filter = 1
 script = ExtResource("1_jl44l")
 
 [node name="room1" parent="." instance=ExtResource("1_pf5qg")]
