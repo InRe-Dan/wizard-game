@@ -9,9 +9,9 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f3rsf"]
 shader = ExtResource("2_hbhvt")
-shader_parameter/quantizationSteps = 22.375
-shader_parameter/vignetteExponent = 0.53
-shader_parameter/randomTimeDivisor = 48.295
+shader_parameter/quantizationSteps = 15.055
+shader_parameter/vignetteExponent = 0.21
+shader_parameter/randomTimeDivisor = 35.545
 
 [sub_resource type="LabelSettings" id="LabelSettings_edlm5"]
 font_size = 9

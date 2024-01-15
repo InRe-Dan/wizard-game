@@ -26,15 +26,9 @@ func _on_timer_timeout() -> void:
 func _on_sprite_animation_finished() -> void:
 	queue_free()
 
-
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	print(Node2D)
 	velocity = Vector2(0., 0.)
+	# var direction : float = (position - body.positition).angle() % TAU/4.
+	# $Sprite.rotation = direction
 	$Area2D/CollisionShape2D.set_deferred("disabled", true)
-	$Sprite.play("hit") # Replace with function body.
-
-
-func _on_area_2d_area_entered(area: Area2D) -> void:
-	print(Node2D)
-	velocity = Vector2(0., 0.)
 	$Sprite.play("hit") # Replace with function body.

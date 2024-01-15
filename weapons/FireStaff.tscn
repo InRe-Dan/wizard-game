@@ -9,4 +9,5 @@ script = ExtResource("1_b8yr2")
 projectile = ExtResource("2_4q325")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("2_hgayn")
