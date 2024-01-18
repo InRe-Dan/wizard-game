@@ -35,11 +35,16 @@ func _process(delta) -> void:
 		velocity = - aim * recoil
 		$Staff.use(self)
 		$ShootPlayer.play()
-	if Input.is_action_just_pressed("ability"):
+	if Input.is_action_just_pressed("ability") and $DashCooldown.is_stopped():
 		velocity = move.normalized() * dashSpeed
+		$DashCooldown.start()
 		$DashPlayer.play()
+		$DashBar.show()
+		$DashBar.play()
 	velocity += acceleration * delta * move
 	velocity *= 1. / (1. + damping * delta)
 	move_and_slide()
 
-
+func hideDash() -> void:
+	$DashBar.hide()
+	$DashBar.stop()

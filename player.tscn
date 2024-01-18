@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b3amtwq1uxqrl"]
+[gd_scene load_steps=29 format=3 uid="uid://b3amtwq1uxqrl"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_b0j17"]
 [ext_resource type="Texture2D" uid="uid://btd8jj5tvrlj6" path="res://assets/dungeon/wizzard_f_hit_anim_f0.png" id="1_jjcyp"]
@@ -15,6 +15,7 @@
 [ext_resource type="Shader" path="res://testparticle.gdshader" id="12_jehhi"]
 [ext_resource type="AudioStream" uid="uid://b8k1t8yywqvwd" path="res://assets/sounds/jump.wav" id="14_o0ldh"]
 [ext_resource type="AudioStream" uid="uid://btklr1o52eh7" path="res://assets/sounds/laserShoot.wav" id="15_qofop"]
+[ext_resource type="Texture2D" uid="uid://dk5qkaxf4pxoy" path="res://assets/Bars.png" id="16_vn3oy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_65m33"]
 shader = ExtResource("12_jehhi")
@@ -78,6 +79,56 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ngqwn"]
+atlas = ExtResource("16_vn3oy")
+region = Rect2(864, 15, 48, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jb7th"]
+atlas = ExtResource("16_vn3oy")
+region = Rect2(816, 15, 48, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nqxq5"]
+atlas = ExtResource("16_vn3oy")
+region = Rect2(768, 15, 48, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4yxeg"]
+atlas = ExtResource("16_vn3oy")
+region = Rect2(720, 15, 48, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_50240"]
+atlas = ExtResource("16_vn3oy")
+region = Rect2(672, 15, 48, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6oxnb"]
+atlas = ExtResource("16_vn3oy")
+region = Rect2(624, 15, 48, 15)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jkt7l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ngqwn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jb7th")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nqxq5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4yxeg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_50240")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6oxnb")
+}],
+"loop": false,
+"name": &"CooldownVis",
+"speed": 10.0
+}]
+
 [node name="CharacterBody2D" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 2
@@ -115,3 +166,18 @@ max_polyphony = 4
 [node name="ShootPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("15_qofop")
 max_polyphony = 4
+
+[node name="DashCooldown" type="Timer" parent="."]
+wait_time = 0.6
+one_shot = true
+
+[node name="DashBar" type="AnimatedSprite2D" parent="."]
+visible = false
+z_index = 1
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_jkt7l")
+animation = &"CooldownVis"
+frame = 5
+frame_progress = 1.0
+
+[connection signal="animation_finished" from="DashBar" to="." method="hideDash"]
