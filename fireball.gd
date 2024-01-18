@@ -31,4 +31,6 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	# var direction : float = (position - body.positition).angle() % TAU/4.
 	# $Sprite.rotation = direction
 	$Area2D/CollisionShape2D.set_deferred("disabled", true)
+	var soundplayer : AudioStreamPlayer = $AudioStreamPlayer
+	soundplayer.play()
 	$Sprite.play("hit") # Replace with function body.

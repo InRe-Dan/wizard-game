@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b3amtwq1uxqrl"]
+[gd_scene load_steps=21 format=3 uid="uid://b3amtwq1uxqrl"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_b0j17"]
 [ext_resource type="Texture2D" uid="uid://btd8jj5tvrlj6" path="res://assets/dungeon/wizzard_f_hit_anim_f0.png" id="1_jjcyp"]
@@ -13,6 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://dxm2i1lkcij6e" path="res://assets/dungeon/wizzard_f_run_anim_f2.png" id="8_pkmpr"]
 [ext_resource type="Texture2D" uid="uid://yrrq6u303ik4" path="res://assets/dungeon/wizzard_f_run_anim_f3.png" id="9_nc0wf"]
 [ext_resource type="Shader" path="res://testparticle.gdshader" id="12_jehhi"]
+[ext_resource type="AudioStream" uid="uid://b8k1t8yywqvwd" path="res://assets/sounds/jump.wav" id="14_o0ldh"]
+[ext_resource type="AudioStream" uid="uid://btklr1o52eh7" path="res://assets/sounds/laserShoot.wav" id="15_qofop"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_65m33"]
 shader = ExtResource("12_jehhi")
@@ -103,3 +105,13 @@ position = Vector2(0, -7)
 sprite_frames = SubResource("SpriteFrames_r6n5u")
 animation = &"run"
 frame_progress = 0.690103
+
+[node name="DashPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_o0ldh")
+volume_db = -3.698
+pitch_scale = 1.03
+max_polyphony = 4
+
+[node name="ShootPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_qofop")
+max_polyphony = 4

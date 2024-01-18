@@ -34,8 +34,10 @@ func _process(delta) -> void:
 	if Input.is_action_just_pressed("shoot"):
 		velocity = - aim * recoil
 		$Staff.use(self)
+		$ShootPlayer.play()
 	if Input.is_action_just_pressed("ability"):
 		velocity = move.normalized() * dashSpeed
+		$DashPlayer.play()
 	velocity += acceleration * delta * move
 	velocity *= 1. / (1. + damping * delta)
 	move_and_slide()
