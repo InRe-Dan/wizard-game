@@ -1,24 +1,40 @@
-[gd_scene load_steps=29 format=3 uid="uid://b3amtwq1uxqrl"]
+[gd_scene load_steps=30 format=3 uid="uid://b3amtwq1uxqrl"]
 
-[ext_resource type="Script" path="res://player.gd" id="1_b0j17"]
-[ext_resource type="Texture2D" uid="uid://btd8jj5tvrlj6" path="res://assets/dungeon/wizzard_f_hit_anim_f0.png" id="1_jjcyp"]
-[ext_resource type="PackedScene" uid="uid://bnpwx4xplrcu" path="res://fireball.tscn" id="2_7qp7d"]
-[ext_resource type="Texture2D" uid="uid://dosqofh4hr6yj" path="res://assets/dungeon/wizzard_f_idle_anim_f0.png" id="2_rsr7q"]
-[ext_resource type="Texture2D" uid="uid://djsrmge4k4l4" path="res://assets/dungeon/wizzard_f_idle_anim_f1.png" id="3_htm1u"]
-[ext_resource type="Texture2D" uid="uid://dna2vgg102mbc" path="res://assets/dungeon/bomb_f0.png" id="4_efnwa"]
-[ext_resource type="Texture2D" uid="uid://rr5dnee4xq6v" path="res://assets/dungeon/wizzard_f_idle_anim_f2.png" id="4_n2g6i"]
-[ext_resource type="Texture2D" uid="uid://bgg25jogme2ah" path="res://assets/dungeon/wizzard_f_idle_anim_f3.png" id="5_tmu6o"]
-[ext_resource type="Texture2D" uid="uid://c145qaulawjgd" path="res://assets/dungeon/wizzard_f_run_anim_f0.png" id="6_dt4xq"]
-[ext_resource type="Texture2D" uid="uid://col5geusadki0" path="res://assets/dungeon/wizzard_f_run_anim_f1.png" id="7_aw0yd"]
-[ext_resource type="Texture2D" uid="uid://dxm2i1lkcij6e" path="res://assets/dungeon/wizzard_f_run_anim_f2.png" id="8_pkmpr"]
-[ext_resource type="Texture2D" uid="uid://yrrq6u303ik4" path="res://assets/dungeon/wizzard_f_run_anim_f3.png" id="9_nc0wf"]
-[ext_resource type="Shader" path="res://testparticle.gdshader" id="12_jehhi"]
-[ext_resource type="AudioStream" uid="uid://b8k1t8yywqvwd" path="res://assets/sounds/jump.wav" id="14_o0ldh"]
-[ext_resource type="AudioStream" uid="uid://btklr1o52eh7" path="res://assets/sounds/laserShoot.wav" id="15_qofop"]
-[ext_resource type="Texture2D" uid="uid://dk5qkaxf4pxoy" path="res://assets/Bars.png" id="16_vn3oy"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_75qiq"]
+[ext_resource type="Shader" path="res://shaders/testparticle.gdshader" id="3_f8exp"]
+[ext_resource type="Texture2D" uid="uid://dna2vgg102mbc" path="res://assets/dungeon/bomb_f0.png" id="4_j3526"]
+[ext_resource type="Texture2D" uid="uid://btd8jj5tvrlj6" path="res://assets/dungeon/wizzard_f_hit_anim_f0.png" id="5_w6fm1"]
+[ext_resource type="Texture2D" uid="uid://dosqofh4hr6yj" path="res://assets/dungeon/wizzard_f_idle_anim_f0.png" id="6_ojk5n"]
+[ext_resource type="Texture2D" uid="uid://djsrmge4k4l4" path="res://assets/dungeon/wizzard_f_idle_anim_f1.png" id="7_kyfio"]
+[ext_resource type="Texture2D" uid="uid://rr5dnee4xq6v" path="res://assets/dungeon/wizzard_f_idle_anim_f2.png" id="8_5hync"]
+[ext_resource type="Texture2D" uid="uid://bgg25jogme2ah" path="res://assets/dungeon/wizzard_f_idle_anim_f3.png" id="9_qqm87"]
+[ext_resource type="Texture2D" uid="uid://c145qaulawjgd" path="res://assets/dungeon/wizzard_f_run_anim_f0.png" id="10_d5vwp"]
+[ext_resource type="Texture2D" uid="uid://col5geusadki0" path="res://assets/dungeon/wizzard_f_run_anim_f1.png" id="11_1goh6"]
+[ext_resource type="Texture2D" uid="uid://dxm2i1lkcij6e" path="res://assets/dungeon/wizzard_f_run_anim_f2.png" id="12_65fkk"]
+[ext_resource type="Texture2D" uid="uid://yrrq6u303ik4" path="res://assets/dungeon/wizzard_f_run_anim_f3.png" id="13_hi226"]
+[ext_resource type="AudioStream" uid="uid://b8k1t8yywqvwd" path="res://assets/sounds/jump.wav" id="14_4874w"]
+[ext_resource type="AudioStream" uid="uid://btklr1o52eh7" path="res://assets/sounds/laserShoot.wav" id="15_682xm"]
+[ext_resource type="Texture2D" uid="uid://dk5qkaxf4pxoy" path="res://assets/Bars.png" id="16_7qbjc"]
+
+[sub_resource type="GDScript" id="GDScript_k5iid"]
+script/source = "extends Projectile
+"
+
+[sub_resource type="PackedScene" id="PackedScene_nmabh"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("Fireball", "z_index", "script", "Node2D"),
+"node_count": 1,
+"node_paths": [],
+"nodes": PackedInt32Array(-1, -1, 3, 0, -1, 2, 1, 0, 2, 1, 0),
+"variants": [5, SubResource("GDScript_k5iid")],
+"version": 3
+}
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_65m33"]
-shader = ExtResource("12_jehhi")
+shader = ExtResource("3_f8exp")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e8suv"]
 size = Vector2(15, 18)
@@ -38,7 +54,7 @@ fill_to = Vector2(0.807339, 0.275229)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_jjcyp")
+"texture": ExtResource("5_w6fm1")
 }],
 "loop": true,
 "name": &"hit",
@@ -46,16 +62,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_rsr7q")
+"texture": ExtResource("6_ojk5n")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_htm1u")
+"texture": ExtResource("7_kyfio")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_n2g6i")
+"texture": ExtResource("8_5hync")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_tmu6o")
+"texture": ExtResource("9_qqm87")
 }],
 "loop": true,
 "name": &"idle",
@@ -63,16 +79,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_dt4xq")
+"texture": ExtResource("10_d5vwp")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_aw0yd")
+"texture": ExtResource("11_1goh6")
 }, {
 "duration": 1.0,
-"texture": ExtResource("8_pkmpr")
+"texture": ExtResource("12_65fkk")
 }, {
 "duration": 1.0,
-"texture": ExtResource("9_nc0wf")
+"texture": ExtResource("13_hi226")
 }],
 "loop": true,
 "name": &"run",
@@ -80,27 +96,27 @@ animations = [{
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ngqwn"]
-atlas = ExtResource("16_vn3oy")
+atlas = ExtResource("16_7qbjc")
 region = Rect2(864, 15, 48, 15)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jb7th"]
-atlas = ExtResource("16_vn3oy")
+atlas = ExtResource("16_7qbjc")
 region = Rect2(816, 15, 48, 15)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nqxq5"]
-atlas = ExtResource("16_vn3oy")
+atlas = ExtResource("16_7qbjc")
 region = Rect2(768, 15, 48, 15)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4yxeg"]
-atlas = ExtResource("16_vn3oy")
+atlas = ExtResource("16_7qbjc")
 region = Rect2(720, 15, 48, 15)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_50240"]
-atlas = ExtResource("16_vn3oy")
+atlas = ExtResource("16_7qbjc")
 region = Rect2(672, 15, 48, 15)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6oxnb"]
-atlas = ExtResource("16_vn3oy")
+atlas = ExtResource("16_7qbjc")
 region = Rect2(624, 15, 48, 15)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jkt7l"]
@@ -133,13 +149,13 @@ animations = [{
 collision_layer = 4
 collision_mask = 2
 motion_mode = 1
-script = ExtResource("1_b0j17")
-projectile = ExtResource("2_7qp7d")
+script = ExtResource("1_75qiq")
+projectile = SubResource("PackedScene_nmabh")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 position = Vector2(9, -4)
 process_material = SubResource("ShaderMaterial_65m33")
-texture = ExtResource("4_efnwa")
+texture = ExtResource("4_j3526")
 trail_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -158,13 +174,13 @@ animation = &"run"
 frame_progress = 0.690103
 
 [node name="DashPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("14_o0ldh")
+stream = ExtResource("14_4874w")
 volume_db = -3.698
 pitch_scale = 1.03
 max_polyphony = 4
 
 [node name="ShootPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("15_qofop")
+stream = ExtResource("15_682xm")
 max_polyphony = 4
 
 [node name="DashCooldown" type="Timer" parent="."]

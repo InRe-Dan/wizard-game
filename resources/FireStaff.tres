@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=4 format=3 uid="uid://mfvp8treesas"]
+
+[ext_resource type="Texture2D" uid="uid://d4myq117fp7tf" path="res://assets/original/firestaff.png" id="1_7cnsc"]
+[ext_resource type="Script" path="res://resources/weapondata.gd" id="1_8whvu"]
+[ext_resource type="Resource" uid="uid://csav8jofv5joy" path="res://resources/FireProjectile.tres" id="2_c2no5"]
+
+[resource]
+script = ExtResource("1_8whvu")
+image = ExtResource("1_7cnsc")
+projectileShot = ExtResource("2_c2no5")

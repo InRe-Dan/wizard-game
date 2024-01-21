@@ -1,8 +1,8 @@
 [gd_scene load_steps=11 format=3 uid="uid://buhupojqenq2e"]
 
-[ext_resource type="Script" path="res://Chest.gd" id="1_jna5o"]
+[ext_resource type="Script" path="res://scripts/Chest.gd" id="1_jna5o"]
 [ext_resource type="Texture2D" uid="uid://bbjsdwt3jqk5y" path="res://assets/dungeon/chest_full_open_anim_f0.png" id="2_6o7yp"]
-[ext_resource type="Shader" path="res://flash.gdshader" id="2_42q36"]
+[ext_resource type="Shader" path="res://shaders/flash.gdshader" id="2_42q36"]
 [ext_resource type="Texture2D" uid="uid://dtaum2pm5qtdy" path="res://assets/dungeon/chest_full_open_anim_f1.png" id="3_2c058"]
 [ext_resource type="Texture2D" uid="uid://c5q1gggkgrud5" path="res://assets/dungeon/chest_full_open_anim_f2.png" id="4_fh4t1"]
 

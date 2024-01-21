@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=4 format=3 uid="uid://c5c3i2ngrurft"]
+
+[ext_resource type="Script" path="res://resources/weapondata.gd" id="1_ckmfm"]
+[ext_resource type="Texture2D" uid="uid://b6s1p2x4ypxe4" path="res://assets/original/icestaff.png" id="1_qjavh"]
+[ext_resource type="Resource" uid="uid://pl8xvxdg8ku4" path="res://resources/IceProjectile.tres" id="2_niyhp"]
+
+[resource]
+script = ExtResource("1_ckmfm")
+image = ExtResource("1_qjavh")
+projectileShot = ExtResource("2_niyhp")

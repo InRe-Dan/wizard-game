@@ -1,17 +1,17 @@
 [gd_scene load_steps=8 format=3 uid="uid://c3ymrarugklpb"]
 
-[ext_resource type="Script" path="res://main.gd" id="1_jl44l"]
-[ext_resource type="PackedScene" uid="uid://b85ijfyowcx7n" path="res://room_1.tscn" id="1_pf5qg"]
-[ext_resource type="PackedScene" uid="uid://b3amtwq1uxqrl" path="res://player.tscn" id="2_bqysa"]
-[ext_resource type="Shader" path="res://screen.gdshader" id="2_hbhvt"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_jl44l"]
+[ext_resource type="PackedScene" uid="uid://b85ijfyowcx7n" path="res://scenes/room_1.tscn" id="1_pf5qg"]
+[ext_resource type="PackedScene" uid="uid://b3amtwq1uxqrl" path="res://scenes/player.tscn" id="2_bqysa"]
+[ext_resource type="Shader" path="res://shaders/screen.gdshader" id="2_hbhvt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hvxm0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f3rsf"]
 shader = ExtResource("2_hbhvt")
-shader_parameter/quantizationSteps = 15.055
-shader_parameter/vignetteExponent = 0.21
-shader_parameter/randomTimeDivisor = 35.545
+shader_parameter/quantizationSteps = 8.0
+shader_parameter/vignetteExponent = 0.5
+shader_parameter/randomTimeDivisor = 12.635
 
 [sub_resource type="LabelSettings" id="LabelSettings_edlm5"]
 font_size = 9

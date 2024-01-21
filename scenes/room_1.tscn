@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://b85ijfyowcx7n"]
 
-[ext_resource type="TileSet" uid="uid://p8b656ms37q" path="res://floor.tres" id="1_ohwkj"]
-[ext_resource type="TileSet" uid="uid://dsyqknbswyeua" path="res://walls.tres" id="2_5w0h7"]
-[ext_resource type="PackedScene" uid="uid://buhupojqenq2e" path="res://chest.tscn" id="3_6xcbm"]
-[ext_resource type="PackedScene" uid="uid://lfx5rtlesxya" path="res://light.tscn" id="3_xwc2v"]
+[ext_resource type="TileSet" uid="uid://p8b656ms37q" path="res://tilesets/floor.tres" id="1_ohwkj"]
+[ext_resource type="TileSet" uid="uid://dsyqknbswyeua" path="res://tilesets/walls.tres" id="2_5w0h7"]
+[ext_resource type="PackedScene" uid="uid://buhupojqenq2e" path="res://scenes/chest.tscn" id="3_6xcbm"]
+[ext_resource type="PackedScene" uid="uid://lfx5rtlesxya" path="res://scenes/light.tscn" id="3_xwc2v"]
 
 [node name="room1" type="Node2D"]
 
