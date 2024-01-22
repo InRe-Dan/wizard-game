@@ -39,13 +39,20 @@ func _process(delta) -> void:
 		velocity = - aim * recoil
 		weapons[weaponIndex].use(self)
 		$ShootPlayer.play()
+	if Input.is_action_just_pressed("click"):
+		var mouse = get_viewport().get_mouse_position()
+		mouse = mouse - Vector2(get_viewport().size / 6)
+		aim = mouse - position
+		aim = aim.normalized()
+		velocity = -aim * recoil
+		weapons[weaponIndex].use(self)
+		$ShootPlayer.play()
 	if Input.is_action_just_pressed("ability") and $DashCooldown.is_stopped():
 		velocity = move.normalized() * dashSpeed
 		$DashCooldown.start()
 		$DashPlayer.play()
 		$DashBar.show()
 		$DashBar.play()
-	
 	if Input.is_action_just_pressed("cycleforward"):
 		_switch_weapon(1)
 	elif Input.is_action_just_pressed("cyclebackward"):
