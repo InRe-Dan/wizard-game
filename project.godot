@@ -22,7 +22,7 @@ ProjectileHandler="*res://scripts/projectile_handler.gd"
 
 [debug]
 
-gdscript/warnings/untyped_declaration=1
+gdscript/warnings/untyped_declaration=2
 
 [display]
 
