@@ -16,7 +16,7 @@ I was planning on making a devlog when I started development, just to ramble abo
     The first big feature that I'm going to want to prototype is a bunch of nicely encapsulated spellcasting nodes, and then I'll be wanting to find out how to give them to the player in a gameplay sense - I think limited use cards would be fun and unique, but I have yet to see how fun it is. There are already a lot of good ideas about this on Google Docs, but that document is probably going to be made obsolete by this one.
     I'm probably not going to be working on procedural generation until the gameplay loop is solid, but I do need ideas about how to transition from area to area. I want the game to have a room structure, and I think it would be fun to have rooms larger than a single screen. For transitioning between them, I could use simple "teleport" doors for simplicity, but a real level structure would be more fun... and harder to implement with procedural generation. While fiddling with shaders I stumbled on a very interesting way to do screen transitions, which is to turn the quantization levels way down to 0 on my shader, change the screen, and then turn the quantization back up. I'm not sure if I want to keep the graphics the same as they are right now, with the low bit depth, but it could be an easy way to add some style to the game. I'm looking forward to toying with lighting and shaders a lot more, but the built-in lighting system doesn't look to enable a lot of variety, so I might have a lot of learning ahead of me for that one. The built-in stuff is pretty good by itself though!
 
-1/23/24
+23/1/24
 
 I met with my supervisor yesterday, and we discussed due dates, deadlines, the self-imposed MVP deadline, referencing and where marks would come from in my dissertation. The outcome of the meeting was, expectedly, that I need to get to grips with Godot a little bit more, as well as create a detailed specification for my MVP as well as creating a timeline for when I would like to complete tasks by. 
 
@@ -25,3 +25,69 @@ The basis for this work has been Godot's Resources, as suggested by members of t
 This method falls short for modularity and fast prototyping because adding new attributes to resources is quite an involved process, and it is difficult to attach different behaviours to resources since they all need to be compatible with the same Projectile class. Having a different scene for each object seems to require less work and not much more repetition, since I don't plan on having that many different types of weapons or projectiles to begin with anyways. Fail fast!
 
 I've done a little bit more work in understanding what a Godot class even is, so going forward I will try to use nodes, scripts and class extensions, since it is what I am familliar with and what seems most sensible right now. I'm sure I will find better methods later down the line, and that I will find a use for the resource system.
+
+24/1/24
+
+In the meeting we discussed that work done, dissertation coverage and mark weight will be loosely proportional, so I wonder if there should be a section dedicated to explaining my process of learning Godot, and the lessons that I took away from it. So far I've found that I need to lean into Nodes more, and really obey single-responsibility rules, as well as "Keep it Simple, Stupid."
+
+I need to assess which elements would be a good foundation for synergistic mechanics in my game, so I'll start by looking at some other games' implementations of them:
+    Spellbreak. Source: https://spellbreak.fandom.com/wiki/Spells_%26_Sorceries. Spellbreak prides itself on elements which interact with eachother and synergise with eachother, but actual interactions seem to be limited. Most of the synergy comes from setting up one move with another.
+        Elements:
+            Fire:
+                Lingering Flame Puddles on ground hits
+                Walls of fire causing status effects. Blocks Ice/Toxic
+                Status effects deal damage over time.
+            Stone:
+                Must be grounded to use shockwave attacks, which travel down slopes easier. (Maybe in my case, they could travel through walls?)
+                Able to throw boulders which increase damage with airtime. Deals self damage.
+            Toxic:
+                Toxic clouds and streams which apply status effects
+                Status effect ONLY damages armour/shield, and therefore can not kill
+            Lightning:
+                Fires projectiles with high falloff, with consecutive shots increasing projectile speed.
+                Summon lightning strikes after a short delay, damaging in a small radius (inflicting self damage)
+            Ice:
+                Fires projectiles which can be charged up at the cost of mobility and mana. Charging in mid-air inflicts Hover to the player, suspending them in the air. Hovering halts mana recharge and cooldowns.
+                Can create freezing fields in an area around the player, inflicting different tiers of slow status effects leading to a complete freeze. The area is impenetrable by fire, wind and lightning, making it a good defensive option.
+            Wind:
+                Wind projectiles deflect spells
+                Whirlwinds pull opponents in, and pull airborne opponents harder. Can afflict the caster.
+        Immediately there are some interesting ideas to take from Spellbreak:
+            Self-damage: Powerful spells are a risk to the player, meaning that they can only cast them in some situations
+            Status effects: It would be interesting to have a status effect system with stacking statuses and statuses which can nullify others.
+            Charging: Spells are more valuable when charged at the cost of the player's safety
+            Defensive auras: Good area denial and crowd control can translate well to PvE combat, giving the player room to work and breathe.
+
+    Magicka 2. Source: https://magicka.fandom.com/wiki/Spell_Combinations. This game has a very uniqe spell system: from the start, the player has access to 8 elements and 5 spaces in the spell queue. Adding elements to the spell queue and casting clears the queue and creates a spell which combines properties of the things in the queue, with some specific combinations yielding totally unique spells. All elements have an anti-element which nullifies the other from the spell queue, meaning that they can not be cast together. Players can self-cast, creating an area of effect around them. Players can also cast on their weapons, imbuing them with elemental damage for a short time.
+        Elements:
+            Shield: Cast will now encase the player in an element of their choice. Elemental shields absorb matching damage and convert it to healing
+            Rock: Cast now hurls an elemental rock instead. Rock self casts create damaging rock formations.
+            Life/Death: Cast is now a beam, with either added damage or healing. Beams can be combined, but if a life beam intersects a death beam, a very damaging explosion is created.
+            Water: Cast becomes a spray, which has knockback and wets enemies
+            Fire: Cast becomes a spray, which has high damage over time and causes enemies to panic.
+            Cold: Cast becomes a spray, chills targets or freezes wet targets.
+            Lightning: Cast becomes an arcing lightning stream, dealing increased damaage to armoured or wet targets
+        On top of these base elements, there are element combinations which yield new ones:
+            Water and fire make steam, a low damage wetting spray that enables combinations with lightning.
+            Water and cold make ice, chagngning the cast to a rapid fire, piercing shard stream
+            Water and death make poison, a spray-type cast which applies heavy damage over time.
+        Players get a sense of mastery from rapidly adding elements to the queue based on what they need at a given time, and this is exactly the feeling that I want to give players in my game. Elemental interactions are not that distinct, but the sheer number of offensive options is enough to make up for that.
+
+At the moment I think it'd be good to implement a very simple Rock-Paper-Scissors element structure to the game, so that interactions are assured by the x beats y beats z beats x structure, and so that the interactions are easy to understand.
+
+I want elements capable of dealing damage over time, doing area denial, moving targets around (both for mobility and for concussive damage) and map layout manipulation. My first idea is then Fire > Ice > Water > Fire.
+    Fire spells by themselves provide crowd control via area of effect and damage over time. Fire spells are also strong against ice based moves and can cause icy structures to explode into shards/steam. Fireballs melt ice along their path.
+    Water spells by themselves allow for concussive damage through knocking targets into walls (similarly to Poseidon boons in Hades), and can serve as an intuitive mobilty option via self-knockback and surfing on water. Water can douse fires and block fire damage from enemies, but it can also freeze to allow for skating across ice.
+    Ice spells by themselves provide simple kinetic damage and the ability to block passages for enemies via ice walls. Enemies can slip and fail to reach the player due to icy regions, and ice can further freeze and redirect water.
+
+These elements not only have distinct strengths, weaknesses and firing styles, but they also have presence in the game world, enabling to create interesting passive effects for the player to take advantage of.
+    Being on fire is undesirable, and players have to be careful while navigating around firey hazards, but passive cards could buff ignited players or reduce the negative consequences of being on fire.
+    Ice could be difficult to navigate, but there could be passive cards which increase player mobility on ice, or cards which reward the player for slipping around.
+    Flooded terrain would slow player movement and impede fire spells, but passive cards could automatically freeze water in a short radius around the player, or allow them to hover over it to use it as some protection against opponents. 
+Coincidentally, this is the element system of the critically acclaimed and beloved Club Penguin Card-Justu minigame. I hope my work is not seen as derivative (!)
+
+There are a lot of questions to be answered about how to balance these mechanics and about how they all fit in the structure of a run, as well as plenty of technical questions, but I will focus on implementing a barebones version of this system and then play around with what makes it fun.
+
+I am also very interested in implemeting lightning, as it is one of the more fun elements in games like this due to its chaining capabilities. Writing visuals for it would also be very fun! If these three elements don't satisfy me, lightning will be the fourth.
+
+In terms of how I would create the assets for all of this, I am heavily considering using very simple block, circle and line graphics in the prototyping stage and writing particle effects and shaders for the final release, which would just use those (now invisible) blocks and circles and draw over them.
