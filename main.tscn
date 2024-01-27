@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://c3ymrarugklpb"]
+[gd_scene load_steps=9 format=3 uid="uid://c3ymrarugklpb"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_jl44l"]
 [ext_resource type="PackedScene" uid="uid://b85ijfyowcx7n" path="res://scenes/room_1.tscn" id="1_pf5qg"]
 [ext_resource type="PackedScene" uid="uid://b3amtwq1uxqrl" path="res://scenes/player.tscn" id="2_bqysa"]
 [ext_resource type="Shader" path="res://shaders/screen.gdshader" id="2_hbhvt"]
+[ext_resource type="PackedScene" uid="uid://bxl0u3toe2fdk" path="res://scenes/enemy.tscn" id="5_06yge"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hvxm0"]
 
@@ -28,9 +29,6 @@ material = SubResource("ShaderMaterial_hvxm0")
 
 [node name="Player" parent="." instance=ExtResource("2_bqysa")]
 z_index = 2
-maxSpeed = 100.0
-acceleration = 1000.0
-damping = 10.0
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.278431, 0.278431, 0.278431, 1)
@@ -61,3 +59,6 @@ offset_right = 15.0
 offset_bottom = 109.0
 text = "Untitled Wizards Game -  Alpha"
 label_settings = SubResource("LabelSettings_edlm5")
+
+[node name="Enemy" parent="." instance=ExtResource("5_06yge")]
+position = Vector2(64, -51)
