@@ -28,6 +28,9 @@ material = SubResource("ShaderMaterial_hvxm0")
 
 [node name="Player" parent="." instance=ExtResource("2_bqysa")]
 z_index = 2
+maxSpeed = 100.0
+acceleration = 1000.0
+damping = 10.0
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.278431, 0.278431, 0.278431, 1)

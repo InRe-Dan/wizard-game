@@ -1,0 +1,82 @@
+[gd_scene load_steps=13 format=3 uid="uid://d1hw1yc57fluk"]
+
+[ext_resource type="Script" path="res://scripts/Fireball.gd" id="1_1hj8f"]
+[ext_resource type="Shader" path="res://shaders/fireball.gdshader" id="2_qeuqj"]
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_rnwxl"]
+
+[sub_resource type="Gradient" id="Gradient_yxkhk"]
+offsets = PackedFloat32Array(0.00819672, 0.360656, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8acd7"]
+noise_type = 2
+frequency = 0.0302
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_frxdg"]
+width = 128
+height = 128
+color_ramp = SubResource("Gradient_yxkhk")
+noise = SubResource("FastNoiseLite_8acd7")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nd6bc"]
+shader = ExtResource("2_qeuqj")
+shader_parameter/noise = SubResource("NoiseTexture2D_frxdg")
+
+[sub_resource type="Gradient" id="Gradient_hngfo"]
+interpolation_mode = 1
+colors = PackedColorArray(1, 0.282353, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xixq4"]
+gradient = SubResource("Gradient_hngfo")
+width = 8
+height = 8
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.807339, 0.201835)
+
+[sub_resource type="Gradient" id="Gradient_fl76i"]
+offsets = PackedFloat32Array(0.00649351, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_u4q3o"]
+gradient = SubResource("Gradient_fl76i")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.821101, 0.16055)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vkh0m"]
+radius = 4.0
+
+[node name="Fireball" type="Node2D"]
+script = ExtResource("1_1hj8f")
+damage = 48.77
+texture = SubResource("CurveXYZTexture_rnwxl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_nd6bc")
+texture = SubResource("GradientTexture2D_xixq4")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 0.282353, 0, 1)
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_u4q3o")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 26
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_vkh0m")
+
+[node name="CollisionDespawnTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="Ray" type="RayCast2D" parent="."]
+collision_mask = 2
+collide_with_areas = true
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="CollisionDespawnTimer" to="." method="despawn"]
