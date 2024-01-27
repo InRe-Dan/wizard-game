@@ -22,6 +22,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	collide()
 
 func collide() -> void:
+	$GPUParticles2D.emitting = true
 	velocity = 0
 	destroyed = true
 	collision_timer.start()

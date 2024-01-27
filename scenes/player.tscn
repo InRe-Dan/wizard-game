@@ -1,8 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://b3amtwq1uxqrl"]
+[gd_scene load_steps=20 format=3 uid="uid://b3amtwq1uxqrl"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_75qiq"]
 [ext_resource type="Shader" path="res://shaders/testparticle.gdshader" id="3_f8exp"]
-[ext_resource type="Texture2D" uid="uid://dna2vgg102mbc" path="res://assets/dungeon/bomb_f0.png" id="4_j3526"]
 [ext_resource type="Texture2D" uid="uid://btd8jj5tvrlj6" path="res://assets/dungeon/wizzard_f_hit_anim_f0.png" id="5_w6fm1"]
 [ext_resource type="Texture2D" uid="uid://dosqofh4hr6yj" path="res://assets/dungeon/wizzard_f_idle_anim_f0.png" id="6_ojk5n"]
 [ext_resource type="Texture2D" uid="uid://djsrmge4k4l4" path="res://assets/dungeon/wizzard_f_idle_anim_f1.png" id="7_kyfio"]
@@ -16,6 +15,15 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_65m33"]
 shader = ExtResource("3_f8exp")
+
+[sub_resource type="Gradient" id="Gradient_4p04c"]
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lk6ld"]
+gradient = SubResource("Gradient_4p04c")
+fill = 1
+fill_from = Vector2(0.53211, 0.518349)
+fill_to = Vector2(0.509174, 0.302752)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e8suv"]
 size = Vector2(15, 18)
@@ -85,7 +93,7 @@ script = ExtResource("1_75qiq")
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 position = Vector2(9, -4)
 process_material = SubResource("ShaderMaterial_65m33")
-texture = ExtResource("4_j3526")
+texture = SubResource("GradientTexture2D_lk6ld")
 trail_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
