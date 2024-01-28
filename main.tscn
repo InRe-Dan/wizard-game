@@ -1,12 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://c3ymrarugklpb"]
+[gd_scene load_steps=8 format=3 uid="uid://c3ymrarugklpb"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_jl44l"]
 [ext_resource type="PackedScene" uid="uid://b85ijfyowcx7n" path="res://scenes/room_1.tscn" id="1_pf5qg"]
 [ext_resource type="PackedScene" uid="uid://b3amtwq1uxqrl" path="res://scenes/player.tscn" id="2_bqysa"]
 [ext_resource type="Shader" path="res://shaders/screen.gdshader" id="2_hbhvt"]
 [ext_resource type="PackedScene" uid="uid://bxl0u3toe2fdk" path="res://scenes/enemy.tscn" id="5_06yge"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hvxm0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f3rsf"]
 shader = ExtResource("2_hbhvt")
@@ -23,9 +21,6 @@ texture_filter = 1
 script = ExtResource("1_jl44l")
 
 [node name="room1" parent="." instance=ExtResource("1_pf5qg")]
-
-[node name="Camera2D" type="Camera2D" parent="room1"]
-material = SubResource("ShaderMaterial_hvxm0")
 
 [node name="Player" parent="." instance=ExtResource("2_bqysa")]
 z_index = 2
