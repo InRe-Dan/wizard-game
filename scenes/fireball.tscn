@@ -96,7 +96,6 @@ collision_mask = 26
 shape = SubResource("CircleShape2D_vkh0m")
 
 [node name="CollisionDespawnTimer" type="Timer" parent="."]
-wait_time = 0.5
 one_shot = true
 
 [node name="Ray" type="RayCast2D" parent="."]
