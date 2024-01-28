@@ -37,8 +37,7 @@ func _process(delta : float) -> void:
 		animation.scale.x = 1.
 
 	if Input.is_action_just_pressed("click"):
-		var mouse : Vector2 = get_viewport().get_mouse_position()
-		mouse = mouse - Vector2(get_viewport().size / 6)
+		var mouse : Vector2 = get_global_mouse_position()
 		last_aim_dir = mouse - position
 		last_aim_dir = last_aim_dir.normalized()
 		inventory.use_selected(self)

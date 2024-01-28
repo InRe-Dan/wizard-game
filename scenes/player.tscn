@@ -115,4 +115,3 @@ frame_progress = 0.690103
 script = ExtResource("16_vc55h")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position_smoothing_enabled = true
