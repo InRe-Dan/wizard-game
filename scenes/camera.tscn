@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://dkfutwmsr2tli"]
+
+[ext_resource type="Shader" path="res://shaders/screen.gdshader" id="1_p3gnc"]
+
+[sub_resource type="Gradient" id="Gradient_uhjsu"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.52459)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_py0t1"]
+noise_type = 0
+frequency = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qgabh"]
+color_ramp = SubResource("Gradient_uhjsu")
+noise = SubResource("FastNoiseLite_py0t1")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n0wmh"]
+shader = ExtResource("1_p3gnc")
+shader_parameter/quantizationSteps = 8.0
+shader_parameter/vignetteExponent = 0.5
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_qgabh")
+
+[sub_resource type="LabelSettings" id="LabelSettings_pb07d"]
+font_size = 9
+font_color = Color(0.980392, 0.980392, 0.980392, 0.207843)
+
+[node name="Camera" type="Camera2D"]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.278431, 0.278431, 0.278431, 1)
+
+[node name="Postprocess" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Postprocess"]
+material = SubResource("ShaderMaterial_n0wmh")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="Label" type="Label" parent="UI"]
+offset_left = 2.0
+offset_top = 210.0
+offset_right = 137.0
+offset_bottom = 223.0
+text = "Untitled Wizards Game -  Alpha"
+label_settings = SubResource("LabelSettings_pb07d")

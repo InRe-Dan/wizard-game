@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b3amtwq1uxqrl"]
+[gd_scene load_steps=21 format=3 uid="uid://b3amtwq1uxqrl"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_75qiq"]
 [ext_resource type="Shader" path="res://shaders/testparticle.gdshader" id="3_f8exp"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://c145qaulawjgd" path="res://assets/dungeon/wizzard_f_run_anim_f0.png" id="10_d5vwp"]
 [ext_resource type="Texture2D" uid="uid://col5geusadki0" path="res://assets/dungeon/wizzard_f_run_anim_f1.png" id="11_1goh6"]
 [ext_resource type="Texture2D" uid="uid://dxm2i1lkcij6e" path="res://assets/dungeon/wizzard_f_run_anim_f2.png" id="12_65fkk"]
+[ext_resource type="PackedScene" uid="uid://dkfutwmsr2tli" path="res://scenes/camera.tscn" id="13_ewtw6"]
 [ext_resource type="Texture2D" uid="uid://yrrq6u303ik4" path="res://assets/dungeon/wizzard_f_run_anim_f3.png" id="13_hi226"]
 [ext_resource type="Script" path="res://scripts/Inventory.gd" id="16_vc55h"]
 
@@ -114,4 +115,4 @@ frame_progress = 0.690103
 [node name="Inventory" type="Node2D" parent="."]
 script = ExtResource("16_vc55h")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera" parent="." instance=ExtResource("13_ewtw6")]
