@@ -16,8 +16,8 @@ noise = SubResource("FastNoiseLite_py0t1")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n0wmh"]
 shader = ExtResource("1_p3gnc")
-shader_parameter/quantizationSteps = 11.455
-shader_parameter/vignetteExponent = 0.35
+shader_parameter/quantizationSteps = 18.505
+shader_parameter/vignetteExponent = 2.78
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_qgabh")
 
 [sub_resource type="LabelSettings" id="LabelSettings_pb07d"]
@@ -27,7 +27,7 @@ font_color = Color(0.980392, 0.980392, 0.980392, 0.207843)
 [node name="Camera" type="Camera2D"]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.278431, 0.278431, 0.278431, 1)
+color = Color(0.054902, 0.054902, 0.054902, 1)
 
 [node name="Postprocess" type="CanvasLayer" parent="."]
 
