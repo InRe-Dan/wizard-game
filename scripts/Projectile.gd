@@ -2,6 +2,8 @@ class_name Projectile extends Node2D
 
 var direction : Vector2
 @export var velocity : float = 200
+@export var damage : int = 1
+@export var knockback : float = 200.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -18,4 +20,3 @@ func set_attributes(dir : Vector2, pos : Vector2) -> void:
 	
 func despawn() -> void:
 	queue_free()
-	

@@ -1,6 +1,5 @@
 class_name IceBolt extends Projectile
 
-@export var damage : float = 50
 @export var texture : Texture2D
 
 var destroyed : bool = false

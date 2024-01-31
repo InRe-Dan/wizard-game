@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://d1hw1yc57fluk"]
 
-[ext_resource type="Script" path="res://scripts/Fireball.gd" id="1_1hj8f"]
+[ext_resource type="Script" path="res://scripts/fireball.gd" id="1_wjvw7"]
 [ext_resource type="Shader" path="res://shaders/fireball.gdshader" id="2_qeuqj"]
 
 [sub_resource type="CurveXYZTexture" id="CurveXYZTexture_rnwxl"]
@@ -76,8 +76,7 @@ hue_variation_max = 0.1
 collision_mode = 2
 
 [node name="Fireball" type="Node2D"]
-script = ExtResource("1_1hj8f")
-damage = 48.77
+script = ExtResource("1_wjvw7")
 texture = SubResource("CurveXYZTexture_rnwxl")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
