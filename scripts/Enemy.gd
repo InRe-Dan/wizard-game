@@ -17,3 +17,7 @@ func _process(delta: float) -> void:
 		$AnimatedSprite2D.scale.x = -1.
 	
 	move_and_slide()
+
+func hit() -> void:
+	print("Ow!!")
+	queue_free()

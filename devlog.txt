@@ -91,3 +91,7 @@ There are a lot of questions to be answered about how to balance these mechanics
 I am also very interested in implemeting lightning, as it is one of the more fun elements in games like this due to its chaining capabilities. Writing visuals for it would also be very fun! If these three elements don't satisfy me, lightning will be the fourth.
 
 In terms of how I would create the assets for all of this, I am heavily considering using very simple block, circle and line graphics in the prototyping stage and writing particle effects and shaders for the final release, which would just use those (now invisible) blocks and circles and draw over them.
+
+29/1/24
+
+I've gotten to a point now where I really need to work out how to implement some basic combat mechanics in a sensible way, so I wanted to read through the introductory documentation again and take some notes on what might be useful. I want to figure out how to detect projectiles striking a target and applying damage to them. It seems that I should use Area2D to define hitboxes and to act on them accordinly, but the question remains over who should be responsible for dealing damage to a target: the projectile, or the victim?

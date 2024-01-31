@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bxl0u3toe2fdk"]
+[gd_scene load_steps=15 format=3 uid="uid://bxl0u3toe2fdk"]
 
 [ext_resource type="Script" path="res://scripts/Enemy.gd" id="1_8c84j"]
 [ext_resource type="Texture2D" uid="uid://dvn1pu78pfw75" path="res://assets/dungeon/big_demon_idle_anim_f0.png" id="2_odyi2"]
@@ -59,6 +59,8 @@ fill = 1
 fill_from = Vector2(0.5, 0.53211)
 fill_to = Vector2(0.756881, 0.275229)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_efa8n"]
+
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 8
 collision_mask = 14
@@ -78,3 +80,10 @@ shape = SubResource("RectangleShape2D_164gj")
 [node name="PointLight2D" type="PointLight2D" parent="."]
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_uhnp0")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_efa8n")

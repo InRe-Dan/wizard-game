@@ -14,13 +14,15 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	super(delta)
-	ray.target_position = position + velocity * direction # Replace with function body.
-	if not destroyed:
-		if ray.is_colliding():
-			if (ray.get_collision_point() - position).length() < 5:
-				collide()
 		
 func _on_area_2d_body_entered(body: Node2D) -> void:
+	collide()
+
+# Probably hitting a hitbox here
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	if (area.collision_layer & 64):
+		print(area.get_parent())
+		(area.get_parent() as Enemy).hit()
 	collide()
 
 func collide() -> void:
