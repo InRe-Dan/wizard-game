@@ -12,7 +12,7 @@ void fragment() {
 	// apply vignette
 	vec2 resolution = 1. / SCREEN_PIXEL_SIZE;
 	float dist = length(FRAGCOORD.xy - resolution / 2.);
-	float light = dist / resolution.x;
+	float light = dist / length(resolution);
 	//quantize and dither
 	COLOR = texture(screen_texture, SCREEN_UV);
 	COLOR = vec4(COLOR.rgb * pow(1. - light, vignetteExponent), COLOR.a);
