@@ -1,4 +1,4 @@
-class_name MainNode extends Node2D
+class_name Main extends Node2D
 
 @onready var player : Player = $Player
 

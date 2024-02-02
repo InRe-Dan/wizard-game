@@ -47,5 +47,5 @@ offset_left = 2.0
 offset_top = 210.0
 offset_right = 137.0
 offset_bottom = 223.0
-text = "Untitled Wizards Game -  Alpha"
+text = "ver 0.0.1"
 label_settings = SubResource("LabelSettings_pb07d")

@@ -95,3 +95,15 @@ In terms of how I would create the assets for all of this, I am heavily consider
 29/1/24
 
 I've gotten to a point now where I really need to work out how to implement some basic combat mechanics in a sensible way, so I wanted to read through the introductory documentation again and take some notes on what might be useful. I want to figure out how to detect projectiles striking a target and applying damage to them. It seems that I should use Area2D to define hitboxes and to act on them accordinly, but the question remains over who should be responsible for dealing damage to a target: the projectile, or the victim?
+
+
+Air as an additional element
+Limited use and unlimited use cards
+unlimited cards cycle to a discard pile
+potentially abilities to reshuffle or redraw
+Cards imbue your dash
+
+Passive cards to add more charges to dash or give normal dash effects
+One step from eden 
+
+Prepare consent forms and things for next meeting
