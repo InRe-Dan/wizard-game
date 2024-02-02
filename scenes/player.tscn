@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b3amtwq1uxqrl"]
+[gd_scene load_steps=22 format=3 uid="uid://b3amtwq1uxqrl"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_75qiq"]
 [ext_resource type="Shader" path="res://shaders/testparticle.gdshader" id="3_f8exp"]
@@ -85,11 +85,16 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.302752, 0.756881)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5h2hg"]
+size = Vector2(15, 18)
+
 [node name="CharacterBody2D" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 2
 motion_mode = 1
 script = ExtResource("1_75qiq")
+max_speed = 50.0
+ice_acceleration = 299.995
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 position = Vector2(9, -4)
@@ -117,3 +122,14 @@ script = ExtResource("12_86i6t")
 scale = Vector2(1.2, 1.11111)
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_nb3fm")
+
+[node name="BoundingBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BoundingBox"]
+position = Vector2(-1.5, -2)
+shape = SubResource("RectangleShape2D_5h2hg")
+
+[connection signal="area_entered" from="BoundingBox" to="." method="_on_bounding_box_area_entered"]
+[connection signal="area_exited" from="BoundingBox" to="." method="_on_bounding_box_area_exited"]

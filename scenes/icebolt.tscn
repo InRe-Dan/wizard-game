@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://fq2o6qggd27f"]
 
-[ext_resource type="Script" path="res://scenes/icebolt.gd" id="1_4fjp3"]
+[ext_resource type="Script" path="res://scripts/icebolt.gd" id="1_4fjp3"]
 
 [sub_resource type="Gradient" id="Gradient_hngfo"]
 interpolation_mode = 1

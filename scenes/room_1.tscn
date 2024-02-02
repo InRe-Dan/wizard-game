@@ -1,8 +1,39 @@
-[gd_scene load_steps=4 format=3 uid="uid://b85ijfyowcx7n"]
+[gd_scene load_steps=13 format=3 uid="uid://b85ijfyowcx7n"]
 
 [ext_resource type="TileSet" uid="uid://p8b656ms37q" path="res://tilesets/floor.tres" id="1_ohwkj"]
 [ext_resource type="TileSet" uid="uid://dsyqknbswyeua" path="res://tilesets/walls.tres" id="2_5w0h7"]
 [ext_resource type="PackedScene" uid="uid://buhupojqenq2e" path="res://scenes/chest.tscn" id="3_6xcbm"]
+[ext_resource type="Shader" path="res://shaders/ice.gdshader" id="4_1nlvt"]
+[ext_resource type="Script" path="res://scripts/ice.gd" id="4_dckft"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pqsoh"]
+size = Vector2(116, 50)
+
+[sub_resource type="Gradient" id="Gradient_ggs24"]
+interpolation_mode = 2
+colors = PackedColorArray(0, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_nct11"]
+frequency = 0.3395
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_m57tb"]
+color_ramp = SubResource("Gradient_ggs24")
+noise = SubResource("FastNoiseLite_nct11")
+
+[sub_resource type="Gradient" id="Gradient_umfmu"]
+offsets = PackedFloat32Array(0, 0.836066, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.877049, 0.877049, 0.877049, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fvd51"]
+gradient = SubResource("Gradient_umfmu")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f1j7d"]
+shader = ExtResource("4_1nlvt")
+shader_parameter/noise = SubResource("NoiseTexture2D_m57tb")
+shader_parameter/transparencyNoise = SubResource("GradientTexture2D_fvd51")
 
 [node name="room1" type="Node2D"]
 
@@ -24,3 +55,20 @@ position = Vector2(56, 8)
 
 [node name="Chest2" parent="." instance=ExtResource("3_6xcbm")]
 position = Vector2(72, 72)
+
+[node name="Ice" type="Area2D" parent="."]
+texture_filter = 1
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("4_dckft")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ice"]
+position = Vector2(-77, 64)
+shape = SubResource("RectangleShape2D_pqsoh")
+
+[node name="ColorRect" type="ColorRect" parent="Ice"]
+material = SubResource("ShaderMaterial_f1j7d")
+offset_left = -134.0
+offset_top = 38.0
+offset_right = -19.0
+offset_bottom = 89.0

@@ -11,8 +11,8 @@ script = ExtResource("1_jl44l")
 
 [node name="room1" parent="." instance=ExtResource("1_pf5qg")]
 
-[node name="Player" parent="." instance=ExtResource("2_bqysa")]
+[node name="Player" parent="room1" instance=ExtResource("2_bqysa")]
 z_index = 2
 
-[node name="Enemy" parent="." instance=ExtResource("5_06yge")]
-position = Vector2(64, -51)
+[node name="Enemy" parent="room1" instance=ExtResource("5_06yge")]
+position = Vector2(-152, 8)

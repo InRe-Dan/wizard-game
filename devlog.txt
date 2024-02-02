@@ -96,14 +96,31 @@ In terms of how I would create the assets for all of this, I am heavily consider
 
 I've gotten to a point now where I really need to work out how to implement some basic combat mechanics in a sensible way, so I wanted to read through the introductory documentation again and take some notes on what might be useful. I want to figure out how to detect projectiles striking a target and applying damage to them. It seems that I should use Area2D to define hitboxes and to act on them accordinly, but the question remains over who should be responsible for dealing damage to a target: the projectile, or the victim?
 
+2/2/2024
+Meeting notes
+  Air as an additional utility element to boost fire, knock ice around, spread water 
+  Limited use and unlimited use cards
+  unlimited cards cycle to a discard pile
+  Potentially abilities to reshuffle or redraw
+  Cards imbue your dash
 
-Air as an additional element
-Limited use and unlimited use cards
-unlimited cards cycle to a discard pile
-potentially abilities to reshuffle or redraw
-Cards imbue your dash
+  Fire hurts you, but passive cards can:
+    Replenish health on fire damage or casts
+    Empower your fire spells
+    Make you less vulnerable to other elements: totally vulnerable to one hit of water
 
-Passive cards to add more charges to dash or give normal dash effects
-One step from eden 
+  Extra "void/darkness" element for various utility spells like teleportation and deck switches 
 
-Prepare consent forms and things for next meeting
+  Passive cards to add more charges to dash or give normal dash effects
+  One step from eden as a study of a real-time card combat system
+
+  Prepare consent forms and things for next meeting
+
+Note: want to switch to a f=ma based model for movement so that areas can apply forces when you are in them and so that enemies can have mass stopping them from being pushed
+
+Development notes for ice floors:
+First attempt was to completely remove friction as this is quite intuitive, but the current movement model relies on having damping to cap speed
+Added a hard speed limit, but there is some undesirable behaviour when hitting walls after sliding on ice: it is difficult to turn around the character's velocity does not get zeroed on collision, it simply gets prevented.
+This issue is tempting me to use a custom entity class for the player and for enemies, as opposed to the CharacterBody2D, so that I have finer control over movement, but I do lose some nice features. There is likely some utility function on CharacterBody2D to give me the information I need to rectify this stuff.
+
+Brief tangent to try to get icy areas to add a blue tint under them via shaders, but Area2Ds refuse to render.

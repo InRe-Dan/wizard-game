@@ -1,13 +1,14 @@
 shader_type canvas_item;
 
 uniform sampler2D noise;
+uniform sampler2D transparencyNoise;
 
 void vertex() {
 	// Called for every vertex the material is visible on.
 }
 
 void fragment() {
-	COLOR = vec4(texture(noise, UV).rgb, COLOR.a);
+	COLOR = vec4(texture(noise, UV).xyz, texture(transparencyNoise, UV).x);
 }
 
 //void light() {

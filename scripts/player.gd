@@ -1,8 +1,9 @@
 class_name Player extends CharacterBody2D
 
-@export var maxSpeed : float = 100
+@export var max_speed : float = 500
 @export var acceleration : float = 1000
-@export var damping : float = 10.
+@export var damping : float = 5
+@export var ice_acceleration : float = 300
 
 @onready var inventory : Inventory = $Inventory
 @onready var animation : AnimatedSprite2D = $Animation
@@ -10,6 +11,7 @@ class_name Player extends CharacterBody2D
 
 var last_aim_dir : Vector2
 var move : Vector2
+var on_ice : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -48,9 +50,14 @@ func _process(delta : float) -> void:
 		inventory.next()
 	if Input.is_action_just_pressed("cyclebackward"):
 		inventory.prev()
-	
-	velocity += acceleration * delta * move
-	velocity *= 1. / (1. + damping * delta)
+	if not on_ice:
+		velocity += acceleration * delta * move
+		velocity = velocity.limit_length(max_speed)
+		velocity *= 1. / (1. + damping * delta)
+	else:
+		velocity += ice_acceleration * delta * move
+		velocity = velocity.limit_length(max_speed)
+	print(velocity.length())
 	move_and_slide()
 	
 func shoot(projectile : PackedScene) -> void:
@@ -58,3 +65,11 @@ func shoot(projectile : PackedScene) -> void:
 	var proj : Projectile = projectile.instantiate() as Projectile
 	proj.set_attributes(last_aim_dir, position)
 	root.add_child(proj)
+
+
+func _on_bounding_box_area_entered(area : Area2D) -> void:
+	on_ice = true
+
+
+func _on_bounding_box_area_exited(area : Area2D) -> void:
+	on_ice = false
