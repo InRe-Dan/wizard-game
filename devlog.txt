@@ -124,3 +124,10 @@ Added a hard speed limit, but there is some undesirable behaviour when hitting w
 This issue is tempting me to use a custom entity class for the player and for enemies, as opposed to the CharacterBody2D, so that I have finer control over movement, but I do lose some nice features. There is likely some utility function on CharacterBody2D to give me the information I need to rectify this stuff.
 
 Brief tangent to try to get icy areas to add a blue tint under them via shaders, but Area2Ds refuse to render.
+
+3/2/2024
+Did a lot of thinking on how I would like the floor effects to look and function, but eventually I had to cut back on my requirements for the sake of getting a prototype working.
+I wanted to define them as arbitrarilty shaped Area2Ds, but due to concerns over how to program graphics for this (how do I work out which pixels are in the area in a performant way? how do I know how far from the edges are they?) I cut back to having only circular floor effects with ColorRects over them to be able to apply shaders. I am concerned over how this will work for transparent effects (since colorrects can overlap) and how it will work for effects like fire, but I am hoping that creative shader code will save me. Or a slight refactor.
+
+I also had a throught about how to do enemy pathfinding. For some reason I had it in my head that I had to immediately use navigation meshes, graphs and AStar, but it is far easier and more realistic (for most enemies) to use raycasts to check where enemies can go and have different wandering states for them. Also gives me room to make more creative enemy behaviours.
+
