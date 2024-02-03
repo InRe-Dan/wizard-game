@@ -136,4 +136,6 @@ First idea: shoot two rays, left and right, and angle the suggested direction aw
 
 I can actually exactly in which direction the entity should go to be parallel to the surface that they are trying to avoid by making, since I have the points of collision - which are presumably on the same straight surface (bold assumption)
 
-First attempt at this done, there are a lot of in-code comments on why certain decisions were made. This isn't too bad, but needs a lot of iteration. Still need to integrate this with a line of sight check, too. Also, we are not accounting for delta time, so our target direction changes quicker at higher framerates.a
+First attempt at this done, there are a lot of in-code comments on why certain decisions were made. This isn't too bad, but needs a lot of iteration. Still need to integrate this with a line of sight check, too. Also, we are not accounting for delta time, so our target direction changes quicker at higher framerates.
+
+Circling back to the floor effects, I did some more work on the ice shader to clean it up a bit for the new system. It's better than it was, but again, not too good yet since its clear that new areas get added at discrete time steps.

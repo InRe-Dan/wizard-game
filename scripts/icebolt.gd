@@ -24,5 +24,5 @@ func collide() -> void:
 
 
 func _on_ice_drop_timer_timeout() -> void:
-	floor_effect_handler.add_effect(FloorEffect.new(FloorEffect.FloorEffectType.Ice, 5.0, global_position, 30))
+	floor_effect_handler.add_effect(FloorEffect.new(FloorEffect.FloorEffectType.Ice, 5.0, global_position, 15))
 

@@ -29,8 +29,8 @@ func _init(t : FloorEffectType, d : float, pos : Vector2, r : float) -> void:
 	color_rect.material.set_shader_parameter("lifetime_percentage", 1.0)
 
 func tick_down(delta : float) -> bool:
-	color_rect.material.set_shader_parameter("lifetime_percentage", duration / lifetime)
 	duration -= delta
+	color_rect.material.set_shader_parameter("lifetime_percentage", duration / lifetime)
 	if duration < 0.0:
 		return true
 	return false
