@@ -5,18 +5,29 @@ class_name Enemy extends CharacterBody2D
 @export var health : int = 10
 @export var acceleration : float = 400.0
 @export var damping : float = 10.0
+
 @onready var player : Player = get_node("/root/Globals").player
+@onready var avoidance_vision : AvoidanceVision = $AvoidanceVision
 
 signal taken_damage(h : int, max_h : int, damage : int)
+var targetDirection : Vector2
 
 var next_frame_knockback : Vector2
 var max_health : int;
 
 func _ready() -> void:
+	# tell the avoidance helper that we want to get to the player
+	avoidance_vision.targetDirection = (player.position - position)
 	max_health = health
+	# set our target direction to be towards the player at first
+	targetDirection = (player.global_position - global_position)
 
 func _process(delta: float) -> void:
-	velocity += (player.position - position).normalized() * acceleration * delta
+	# tell the avoidance system where we are trying to go
+	avoidance_vision.targetDirection = targetDirection
+	# weigh our previous target destination (which was influenced by the helper) with the suggestion
+	targetDirection = (0.6 * targetDirection.normalized() + 0.35 * avoidance_vision.getSuggestion().normalized() + 0.05 * (player.global_position - global_position).normalized())
+	velocity += targetDirection * acceleration * delta
 	velocity += next_frame_knockback
 	velocity = velocity / (1 + damping * delta)
 	next_frame_knockback = Vector2(0, 0)

@@ -1,23 +1,23 @@
 shader_type canvas_item;
 
 uniform sampler2D noise;
+uniform mat4 global_transform;
+varying vec2 world_pos;
+uniform float lifetime_percentage;
 
+// Shoutout to https://github.com/godotengine/godot/issues/19800#issuecomment-441794862
 void vertex() {
-	// Called for every vertex the material is visible on.
+    world_pos = (global_transform * vec4(VERTEX, 0.0, 1.0)).xy;
 }
 
 void fragment() {
-	vec4 noise_pixel = texture(noise, UV);
-	float dist = pow(1. - (length(UV - 0.5) / sqrt(2)), 5);
-	if (dist > 1. - noise_pixel.x) {
-		dist = 1.0;
+	// Blue channel of the noise actually denotes probability of omission
+	vec4 noise_sample = texture(noise, mod(world_pos * 0.12381251, 1.0));
+	float dist = pow(1. - (length(2. * UV - 1.) / sqrt(2)), 10. - lifetime_percentage * 10.);
+	if (dist > texture(noise, mod(UV + vec2(0.5), 1.0)).r && dist < 0.5) {
+		COLOR = vec4(noise_sample.xyz, 1.0);
 	} else {
-		dist = 0.0;
-	}
-	if (texture(noise, UV).x > 0.5) {
-		COLOR = vec4(noise_pixel.xyz + vec3(0.2, 0., 0.), dist);
-	} else {
-		COLOR = vec4(noise_pixel.xyz + vec3(-0.2, 0., 0.), dist);
+	COLOR = vec4(noise_sample.xyz, 0.0);
 	}
 }
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bxl0u3toe2fdk"]
+[gd_scene load_steps=18 format=3 uid="uid://bxl0u3toe2fdk"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_l4ala"]
 [ext_resource type="Texture2D" uid="uid://dvn1pu78pfw75" path="res://assets/dungeon/big_demon_idle_anim_f0.png" id="2_odyi2"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://2tdjreypo1u1" path="res://assets/dungeon/big_demon_run_anim_f2.png" id="8_7lwxa"]
 [ext_resource type="Texture2D" uid="uid://dpsl68vxn1iij" path="res://assets/dungeon/big_demon_run_anim_f3.png" id="9_xlc27"]
 [ext_resource type="PackedScene" uid="uid://b6r1vluri8tel" path="res://scenes/health_bar.tscn" id="10_5vybk"]
+[ext_resource type="Script" path="res://scripts/avoidance_vision.gd" id="11_mcvqm"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_geswq"]
 animations = [{
@@ -62,6 +63,9 @@ fill_to = Vector2(0.756881, 0.275229)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_efa8n"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_v5xci"]
+radius = 120.0
+
 [node name="Enemy" type="CharacterBody2D"]
 z_index = 2
 collision_layer = 8
@@ -92,5 +96,27 @@ shape = SubResource("RectangleShape2D_efa8n")
 
 [node name="EntityBar" parent="." instance=ExtResource("10_5vybk")]
 position = Vector2(0, -20)
+
+[node name="DetectionRadius" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionRadius"]
+shape = SubResource("CircleShape2D_v5xci")
+
+[node name="AvoidanceVision" type="Node2D" parent="."]
+script = ExtResource("11_mcvqm")
+tolerance = 1.0
+
+[node name="Center" type="RayCast2D" parent="AvoidanceVision"]
+target_position = Vector2(0, -37)
+collision_mask = 2
+collide_with_areas = true
+
+[node name="Left" type="RayCast2D" parent="AvoidanceVision"]
+target_position = Vector2(27, -28)
+collision_mask = 2
+
+[node name="Right" type="RayCast2D" parent="AvoidanceVision"]
+target_position = Vector2(-27, -28)
+collision_mask = 2
 
 [connection signal="taken_damage" from="." to="EntityBar" method="update_bar"]
