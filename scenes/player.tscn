@@ -89,6 +89,7 @@ fill_to = Vector2(0.302752, 0.756881)
 size = Vector2(15, 18)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
+z_index = 2
 collision_layer = 4
 collision_mask = 2
 motion_mode = 1

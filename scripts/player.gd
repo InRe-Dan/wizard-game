@@ -57,11 +57,9 @@ func _process(delta : float) -> void:
 	else:
 		velocity += ice_acceleration * delta * move
 		velocity = velocity.limit_length(max_speed)
-	print(velocity.length())
 	move_and_slide()
 	
 func shoot(projectile : PackedScene) -> void:
-	print("Shooting")
 	var proj : Projectile = projectile.instantiate() as Projectile
 	proj.set_attributes(last_aim_dir, position)
 	root.add_child(proj)

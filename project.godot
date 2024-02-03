@@ -18,6 +18,7 @@ config/icon="res://assets/icon.svg"
 
 [autoload]
 
+FloorEffectHandler="*res://scripts/floor_effect_handler.gd"
 Globals="*res://scripts/globals.gd"
 
 [debug]
@@ -123,6 +124,10 @@ click={
 
 [layer_names]
 
+2d_render/layer_1="Floor"
+2d_render/layer_2="Floor Effects"
+2d_render/layer_3="Entities"
+2d_render/layer_4="Walls"
 2d_physics/layer_1="Floor"
 2d_navigation/layer_1="Floor"
 2d_physics/layer_2="Walls"

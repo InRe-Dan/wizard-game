@@ -16,3 +16,8 @@ z_index = 2
 
 [node name="Enemy" parent="room1" instance=ExtResource("5_06yge")]
 position = Vector2(-152, 8)
+
+[node name="FloorEffects" type="Node2D" parent="."]
+visibility_layer = 2
+z_index = 1
+z_as_relative = false

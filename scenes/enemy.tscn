@@ -63,6 +63,7 @@ fill_to = Vector2(0.756881, 0.275229)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_efa8n"]
 
 [node name="Enemy" type="CharacterBody2D"]
+z_index = 2
 collision_layer = 8
 collision_mask = 14
 motion_mode = 1
