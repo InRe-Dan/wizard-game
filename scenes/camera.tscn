@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dkfutwmsr2tli"]
+[gd_scene load_steps=8 format=3 uid="uid://dkfutwmsr2tli"]
 
 [ext_resource type="Shader" path="res://shaders/screen.gdshader" id="1_p3gnc"]
+[ext_resource type="FontFile" uid="uid://byo6fct4u77e6" path="res://assets/fonts/m3x6.ttf" id="2_efxpv"]
 
 [sub_resource type="Gradient" id="Gradient_uhjsu"]
 interpolation_mode = 1
@@ -21,7 +22,7 @@ shader_parameter/vignetteExponent = 2.78
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_qgabh")
 
 [sub_resource type="LabelSettings" id="LabelSettings_pb07d"]
-font_size = 9
+font = ExtResource("2_efxpv")
 font_color = Color(0.980392, 0.980392, 0.980392, 0.207843)
 
 [node name="Camera" type="Camera2D"]
