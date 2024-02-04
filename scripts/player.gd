@@ -1,17 +1,19 @@
 class_name Player extends CharacterBody2D
 
-@export var max_speed : float = 500
+@export var max_speed : float = 100
 @export var acceleration : float = 1000
 @export var damping : float = 5
 @export var ice_acceleration : float = 300
+@export var ice_speed_mult : float = 1.5
 
 @onready var inventory : Inventory = $Inventory
 @onready var animation : AnimatedSprite2D = $Animation
 @onready var root : Node2D = get_tree().get_first_node_in_group("main")
+@onready var bounding_box : Area2D = $BoundingBox
 
 var last_aim_dir : Vector2
 var move : Vector2
-var on_ice : bool = false
+var iceAreasIntersected : int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -50,24 +52,24 @@ func _process(delta : float) -> void:
 		inventory.next()
 	if Input.is_action_just_pressed("cyclebackward"):
 		inventory.prev()
-	if not on_ice:
-		velocity += acceleration * delta * move
-		velocity = velocity.limit_length(max_speed)
-		velocity *= 1. / (1. + damping * delta)
-	else:
-		velocity += ice_acceleration * delta * move
-		velocity = velocity.limit_length(max_speed)
-	move_and_slide()
+		
+func _physics_process(delta: float) -> void:
+		if not bounding_box.get_overlapping_areas().filter(func isIcy(area : Area2D) -> bool:
+			return area.collision_layer & 128
+		):
+			velocity += acceleration * delta * move
+			velocity = velocity.limit_length(max_speed)
+			velocity *= 1. / (1. + damping * delta)
+		else:
+			velocity += ice_acceleration * delta * move
+			velocity = velocity.limit_length(max_speed * ice_speed_mult)
+		print("Before: ", velocity)
+		var collision : KinematicCollision2D = move_and_collide(velocity * delta)
+		if collision:
+			velocity = velocity.slide(collision.get_normal())
+		print("After: ", velocity)
 	
 func shoot(projectile : PackedScene) -> void:
 	var proj : Projectile = projectile.instantiate() as Projectile
 	proj.set_attributes(last_aim_dir, position)
 	root.add_child(proj)
-
-
-func _on_bounding_box_area_entered(area : Area2D) -> void:
-	on_ice = true
-
-
-func _on_bounding_box_area_exited(area : Area2D) -> void:
-	on_ice = false

@@ -46,6 +46,8 @@ fill_to = Vector2(0.802752, 0.137615)
 script = ExtResource("1_dpkl1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 2
+z_as_relative = false
 material = SubResource("ShaderMaterial_w6bxl")
 sprite_frames = SubResource("SpriteFrames_p2w78")
 

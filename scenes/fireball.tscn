@@ -48,7 +48,7 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.821101, 0.16055)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vkh0m"]
-radius = 11.0
+radius = 8.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_pjc2t"]
 blend_mode = 1
@@ -115,7 +115,7 @@ texture = SubResource("GradientTexture2D_u4q3o")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 16
-collision_mask = 82
+collision_mask = 66
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_vkh0m")

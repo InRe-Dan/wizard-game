@@ -1,6 +1,6 @@
 class_name IceBoltItem extends Item
 
-@export var projectile : PackedScene = preload("res://scenes/icebolt.tscn")
+@export var projectile : PackedScene = preload("res://scenes/ice_wave.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

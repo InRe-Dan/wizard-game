@@ -94,8 +94,8 @@ collision_layer = 4
 collision_mask = 2
 motion_mode = 1
 script = ExtResource("1_75qiq")
-max_speed = 50.0
-ice_acceleration = 299.995
+max_speed = 69.5
+ice_acceleration = 57.72
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 position = Vector2(9, -4)
