@@ -4,7 +4,6 @@ var items : Array[Item]
 var selected : int
 var capacity : int
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	items.append(IceBoltItem.new())

@@ -14,6 +14,7 @@ class_name Player extends CharacterBody2D
 var last_aim_dir : Vector2
 var move : Vector2
 var iceAreasIntersected : int = 0
+var dialogue_scene : PackedScene = preload("res://scenes/dialogue.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -71,5 +72,12 @@ func _physics_process(delta: float) -> void:
 	
 func shoot(projectile : PackedScene) -> void:
 	var proj : Projectile = projectile.instantiate() as Projectile
+	say("Eat this!")
 	proj.set_attributes(last_aim_dir, position)
 	root.add_child(proj)
+
+func say(text : String) -> void:
+	var dialogue : Dialogue = dialogue_scene.instantiate() as Dialogue
+	add_child(dialogue)
+	dialogue.position = $DialoguePoint.position
+	dialogue.set_parameters(text)

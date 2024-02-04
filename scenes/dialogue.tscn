@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://c27d84tw4j6un"]
+
+[ext_resource type="Script" path="res://scenes/dialogue.gd" id="1_ixbm5"]
+[ext_resource type="FontFile" uid="uid://b4ilxdx62ewkh" path="res://assets/fonts/3x3-Mono.ttf" id="1_ji4ep"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ki6av"]
+font = ExtResource("1_ji4ep")
+font_size = 4
+
+[node name="Dialogue" type="Node2D"]
+script = ExtResource("1_ixbm5")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -40.0
+offset_top = -19.0
+offset_right = 39.0
+offset_bottom = 21.0
+scale = Vector2(1.007, 1)
+text = "Default text!"
+label_settings = SubResource("LabelSettings_ki6av")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3

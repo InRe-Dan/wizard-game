@@ -132,5 +132,8 @@ collision_mask = 128
 position = Vector2(-1.5, -2)
 shape = SubResource("RectangleShape2D_5h2hg")
 
+[node name="DialoguePoint" type="Node2D" parent="."]
+position = Vector2(13, -13)
+
 [connection signal="area_entered" from="BoundingBox" to="." method="_on_bounding_box_area_entered"]
 [connection signal="area_exited" from="BoundingBox" to="." method="_on_bounding_box_area_exited"]
