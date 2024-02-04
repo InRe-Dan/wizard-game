@@ -136,7 +136,7 @@ click={
 2d_physics/layer_5="Projectiles"
 2d_physics/layer_6="Items"
 2d_physics/layer_7="Hitboxes"
-2d_physics/layer_8="Icy Floor"
+2d_physics/layer_8="FloorEffect"
 
 [physics]
 

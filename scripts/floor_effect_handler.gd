@@ -14,5 +14,6 @@ func _process(delta: float) -> void:
 		if (effect as FloorEffect).tick_down(delta):
 			floor_effects_container.remove_child(effect)
 
+
 func add_effect(effect : FloorEffect) -> void:
 	floor_effects_container.add_child(effect)

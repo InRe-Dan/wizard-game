@@ -33,4 +33,15 @@ func tick_down(delta : float) -> bool:
 	if duration < 0.0:
 		return true
 	return false
+	
+func apply_fire() -> void:
+	if type == FloorEffectType.Ice:
+		queue_free()
 
+func apply_water() -> void:
+	if type == FloorEffectType.Fire:
+		queue_free()
+
+func apply_ice() -> void:
+	if type == FloorEffectType.Water:
+		queue_free()

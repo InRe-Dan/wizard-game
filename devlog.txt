@@ -151,3 +151,10 @@ I realised while working on the ice wave that it might be desirable for a card t
 I also added a "say" method to the player that I plan on adding to most entities that gives them a little dialogue label for a short time - this doesn't really feel right at the moment, since I would probably want the position of the labels to be totally independent of the player (so that they stay where they were created). I also probably want a handler node for them, since I don't want players to say too much and too often, or for text to overlap. This system was inspired by Crypt of the Necrodancer's dialogue.
 
 I've decided that a fixed "max velocity" doesn't really apply to a physical system so I've decided to rely strictly on acceleration and damping to determine the player's neutral speed. There is still a maximum speed so that the player does not accelerate infinitely on ice, but it never changes (like when they would come off the ice). I had to decrease the damping of the player because I wanted them to slide more when coming down from a speed boost, but as a consequence I also had to reduce their acceleration so that they would not go too fast in a neutral state. I may have to reconsider this later, as the player is now less responsive, however sliding off ice feels "right".
+
+Fire can now "melt" the ice on the floor by making it disasppear now, but I realise that I need to rethink the floor interactions that I wanted. Previously I wanted:
+    Fire melts ice on the floor, turning it to water
+    Water puts out fire on the floor, turning it to hot damaging steam
+    Ice freezes water on the floor, turning it to ice
+But I also wanted floor effects to have defensive properties, like water putting out fire projectiles. I may need to restrict these properties to real entities on the map (doesn't make much sense that floor water would put out flying projectiles anyways!)
+It's also worth noting that while it is possible to create steam by putting out fires, it is unintuitively impossible to create steam by throwing fire at water. Suppose you can justify it as the fact that water beats fire, therefore fire should not have advantages in water.

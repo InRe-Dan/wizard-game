@@ -23,9 +23,10 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	print("Hit area")
 	if (area.collision_layer & 64):
-		print(area.get_parent())
 		(area.get_parent() as Enemy).hit(self)
-	collide()
+		collide()
+	elif (area.collision_layer & 128):
+		(area.get_parent() as FloorEffect).apply_fire()
 
 func collide() -> void:
 	sprite.hide()
