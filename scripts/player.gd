@@ -1,10 +1,10 @@
 class_name Player extends CharacterBody2D
 
-@export var max_speed : float = 100
+@export var low_damping_speed : float = 100
+@export var max_speed : float = 1000
 @export var acceleration : float = 1000
 @export var damping : float = 5
 @export var ice_acceleration : float = 300
-@export var ice_speed_mult : float = 1.5
 
 @onready var inventory : Inventory = $Inventory
 @onready var animation : AnimatedSprite2D = $Animation
@@ -55,20 +55,17 @@ func _process(delta : float) -> void:
 		inventory.prev()
 		
 func _physics_process(delta: float) -> void:
-		if not bounding_box.get_overlapping_areas().filter(func isIcy(area : Area2D) -> bool:
-			return area.collision_layer & 128
+		if not bounding_box.get_overlapping_areas().filter(func isIcy(area : Area2D) -> bool: return area.collision_layer & 128
 		):
 			velocity += acceleration * delta * move
-			velocity = velocity.limit_length(max_speed)
-			velocity *= 1. / (1. + damping * delta)
+			# scale damping by how far above the speed limit we are
+			velocity *= 1. / (1. + max(damping, damping * (velocity.length() / low_damping_speed)) * delta)
 		else:
 			velocity += ice_acceleration * delta * move
-			velocity = velocity.limit_length(max_speed * ice_speed_mult)
-		print("Before: ", velocity)
+		velocity = velocity.limit_length(max_speed)
 		var collision : KinematicCollision2D = move_and_collide(velocity * delta)
 		if collision:
 			velocity = velocity.slide(collision.get_normal())
-		print("After: ", velocity)
 	
 func shoot(projectile : PackedScene) -> void:
 	var proj : Projectile = projectile.instantiate() as Projectile
