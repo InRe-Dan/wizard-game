@@ -158,3 +158,5 @@ Fire can now "melt" the ice on the floor by making it disasppear now, but I real
     Ice freezes water on the floor, turning it to ice
 But I also wanted floor effects to have defensive properties, like water putting out fire projectiles. I may need to restrict these properties to real entities on the map (doesn't make much sense that floor water would put out flying projectiles anyways!)
 It's also worth noting that while it is possible to create steam by putting out fires, it is unintuitively impossible to create steam by throwing fire at water. Suppose you can justify it as the fact that water beats fire, therefore fire should not have advantages in water.
+
+I now realise that I need to think about what happens to the player when they die... For the prototype, I will likely reset the whole scene?

@@ -1,15 +1,18 @@
 class_name Player extends CharacterBody2D
 
-@export var low_damping_speed : float = 100
+@export var low_damping_speed : float = 5000
 @export var max_speed : float = 1000
 @export var acceleration : float = 1000
 @export var damping : float = 5
-@export var ice_acceleration : float = 300
+@export var ice_acceleration : float = 50
+@export var dash_speed : float = 200
 
 @onready var inventory : Inventory = $Inventory
 @onready var animation : AnimatedSprite2D = $Animation
 @onready var root : Node2D = get_tree().get_first_node_in_group("main")
 @onready var bounding_box : Area2D = $BoundingBox
+@onready var dash_cooldown : Timer = $DashCooldown
+@onready var dash_cooldown_bar : EntityBar = $DashBar
 
 var last_aim_dir : Vector2
 var move : Vector2
@@ -23,6 +26,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta : float) -> void:
+	dash_cooldown_bar.update_bar(1 - dash_cooldown.time_left / dash_cooldown.wait_time)
 	move = Input.get_vector("left", "right", "up", "down");
 	last_aim_dir = Input.get_vector("aimleft", "aimright", "aimup", "aimdown");
 	if last_aim_dir.length() < 0.1:
@@ -48,6 +52,9 @@ func _process(delta : float) -> void:
 		inventory.use_selected(self)
 	if Input.is_action_just_pressed("shoot"):
 		inventory.use_selected(self)
+	if Input.is_action_just_pressed("ability"):
+		dash()
+	
 	
 	if Input.is_action_just_pressed("cycleforward"):
 		inventory.next()
@@ -78,3 +85,9 @@ func say(text : String) -> void:
 	add_child(dialogue)
 	dialogue.position = $DialoguePoint.position
 	dialogue.set_parameters(text)
+	
+func dash() -> void:
+	if dash_cooldown.is_stopped():
+		velocity += move.normalized() * dash_speed
+		dash_cooldown.start()
+	

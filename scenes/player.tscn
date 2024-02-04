@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b3amtwq1uxqrl"]
+[gd_scene load_steps=23 format=3 uid="uid://b3amtwq1uxqrl"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_75qiq"]
 [ext_resource type="Shader" path="res://shaders/testparticle.gdshader" id="3_f8exp"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://scripts/inventory.gd" id="12_86i6t"]
 [ext_resource type="PackedScene" uid="uid://dkfutwmsr2tli" path="res://scenes/camera.tscn" id="13_ewtw6"]
 [ext_resource type="Texture2D" uid="uid://yrrq6u303ik4" path="res://assets/dungeon/wizzard_f_run_anim_f3.png" id="13_hi226"]
+[ext_resource type="PackedScene" uid="uid://b6r1vluri8tel" path="res://scenes/entity_bar.tscn" id="14_67dxl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_65m33"]
 shader = ExtResource("3_f8exp")
@@ -94,10 +95,8 @@ collision_layer = 4
 collision_mask = 2
 motion_mode = 1
 script = ExtResource("1_75qiq")
-max_speed = 200.0
-acceleration = 483.155
-damping = 6.73
-ice_acceleration = 57.72
+acceleration = 500.0
+dash_speed = 1e+06
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 position = Vector2(9, -4)
@@ -136,6 +135,14 @@ shape = SubResource("RectangleShape2D_5h2hg")
 
 [node name="DialoguePoint" type="Node2D" parent="."]
 position = Vector2(13, -13)
+
+[node name="DashCooldown" type="Timer" parent="."]
+one_shot = true
+
+[node name="DashBar" parent="." instance=ExtResource("14_67dxl")]
+position = Vector2(-1, -17)
+type = 1
+show_rule = 1
 
 [connection signal="area_entered" from="BoundingBox" to="." method="_on_bounding_box_area_entered"]
 [connection signal="area_exited" from="BoundingBox" to="." method="_on_bounding_box_area_exited"]

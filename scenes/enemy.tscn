@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://c0iysm7wcx3ew" path="res://assets/dungeon/big_demon_run_anim_f1.png" id="7_tae0n"]
 [ext_resource type="Texture2D" uid="uid://2tdjreypo1u1" path="res://assets/dungeon/big_demon_run_anim_f2.png" id="8_7lwxa"]
 [ext_resource type="Texture2D" uid="uid://dpsl68vxn1iij" path="res://assets/dungeon/big_demon_run_anim_f3.png" id="9_xlc27"]
-[ext_resource type="PackedScene" uid="uid://b6r1vluri8tel" path="res://scenes/health_bar.tscn" id="10_5vybk"]
+[ext_resource type="PackedScene" uid="uid://b6r1vluri8tel" path="res://scenes/entity_bar.tscn" id="10_5vybk"]
 [ext_resource type="Script" path="res://scripts/avoidance_vision.gd" id="11_mcvqm"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_geswq"]
@@ -118,5 +118,3 @@ collision_mask = 2
 [node name="Right" type="RayCast2D" parent="AvoidanceVision"]
 target_position = Vector2(-27, -28)
 collision_mask = 2
-
-[connection signal="taken_damage" from="." to="EntityBar" method="update_bar"]

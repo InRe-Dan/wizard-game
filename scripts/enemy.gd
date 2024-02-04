@@ -8,8 +8,8 @@ class_name Enemy extends CharacterBody2D
 
 @onready var player : Player = get_node("/root/Globals").player
 @onready var avoidance_vision : AvoidanceVision = $AvoidanceVision
+@onready var health_bar : EntityBar = $EntityBar
 
-signal taken_damage(h : int, max_h : int, damage : int)
 var targetDirection : Vector2
 
 var next_frame_knockback : Vector2
@@ -45,8 +45,8 @@ func _process(delta: float) -> void:
 
 func hit(proj : Projectile) -> void:
 	print("Ouch!!")
-	next_frame_knockback = proj.knockback * proj.direction.normalized() 
+	next_frame_knockback = proj.knockback * proj.direction.normalized()
 	health -= proj.damage
-	taken_damage.emit(health, max_health, proj.damage)
+	health_bar.update_bar(float(health) / float(max_health))
 	if health <= 0:
 		queue_free()

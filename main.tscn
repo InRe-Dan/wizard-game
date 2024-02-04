@@ -12,6 +12,8 @@ script = ExtResource("1_jl44l")
 [node name="room1" parent="." instance=ExtResource("1_pf5qg")]
 
 [node name="Player" parent="room1" instance=ExtResource("2_bqysa")]
+low_damping_speed = 5000.0
+dash_speed = 200.0
 
 [node name="Enemy" parent="room1" instance=ExtResource("5_06yge")]
 position = Vector2(-72, 59)
