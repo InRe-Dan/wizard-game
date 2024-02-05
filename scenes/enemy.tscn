@@ -101,5 +101,7 @@ position = Vector2(0, -20)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionRadius"]
 shape = SubResource("CircleShape2D_v5xci")
+debug_color = Color(0, 0.6, 0.701961, 0.0470588)
 
 [node name="AvoidanceVision" parent="." instance=ExtResource("11_sbcg1")]
+size = 30.0

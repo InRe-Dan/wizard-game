@@ -10,7 +10,7 @@ class_name Enemy extends CharacterBody2D
 @onready var avoidance_vision : AvoidanceVision = $AvoidanceVision
 @onready var health_bar : EntityBar = $EntityBar
 
-var targetDirection : Vector2
+var target_direction : Vector2
 
 var next_frame_knockback : Vector2
 var max_health : int;
@@ -23,8 +23,10 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	# tell the avoidance system where we are trying to go
 	# weigh our previous target destination (which was influenced by the helper) with the suggestion
-	targetDirection = 0.7 * (player.global_position - global_position).normalized() + 0.3 * avoidance_vision.sum
-	velocity += targetDirection.normalized() * acceleration * delta
+	target_direction = 0.5 * (player.global_position - global_position).normalized()\
+					+ 0.5 * avoidance_vision.sum\
+					+ 0.0 * target_direction.normalized()
+	velocity += target_direction.normalized() * acceleration * delta
 	velocity += next_frame_knockback
 	velocity = velocity / (1 + damping * delta)
 	next_frame_knockback = Vector2(0, 0)

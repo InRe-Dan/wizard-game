@@ -6,9 +6,11 @@ var sum : Vector2
 
 func get_weight(ray : RayCast2D) -> Vector2:
 	if ray.is_colliding():
-		return ray.target_position * (to_local(ray.get_collision_point()) - ray.target_position).length() / ray.target_position.length()
+		return ray.target_position.normalized() * \
+		to_local(ray.get_collision_point() - ray.target_position).length() \
+		/ ray.target_position.length()
 	else:
-		return ray.target_position
+		return ray.target_position.normalized()
 		
 func add_vec(a: Vector2, b : Vector2) -> Vector2:
 	return a + b
@@ -23,6 +25,4 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	sum = get_children()\
 		.map(get_weight)\
-		.reduce(add_vec, Vector2())\
-		.normalized()
-	print(sum)
+		.reduce(add_vec, Vector2())

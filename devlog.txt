@@ -201,3 +201,14 @@ There could be a separate score maintaned, the "equipment" score. This could be 
 It may also be worth using the player's level clear speed to scale difficulty, to provide an experience which rewards players for playing well and fast - embracing the chaos.
 A higher score may reward the player with more gear to provide a real incentive to play well - I could reframe score as "magic power" or something like that, to indicate that it shouldn't be disregarded like any other score. If the player gets to the final boss quickly, they will be a fair bit more powerful and have more destructive abilities, but I have to take care to not scale the final boss encounter too much, or all this effort will be wasted.
 A system which scales difficulty with speed may end up doing the opposite of what is intended, causing players to play slow so that they get a more manageable final boss, if that is the win condition. Very tricky, requires more thought, but I wanted to get ideas down now.
+
+Back to the raycasting for enemy AI, I think this system needs a rework. The avoidance node reports which direction is clearest, but enemies will weight it all the same even if they aren't really in an enclosed space - I'm going to rework it so that the output direction is not strictly 1 long - it can be anywhere from length 0 to 1 depending on how much influence it should have. To do this I need to normalize less aggressively.
+
+This still does not solve the problem that I sought to solve, which is that enemies would refuse to bend around perpendicular walls to get to the player. I think some notion of state of a line of sight, or perhaps an "exploring" state might help to solve this problem. Either way I think its time to rework the enemy class to be more component-oriented.
+So what can enemies do?
+    They can have certain movement AIs, so they should have an AI component
+    They can have different attack patterns, so they should have different attack controllers
+    They can have different attacks, so they should have different Weapon Components
+So an enemy should then have a movement controller, an attack controller and a weapon.
+The enemy's movement controller determines where the enemy goes, and the attack controller should dictate when it attacks. Weapons are used for those attacks, which will spawn various effects on the stage and deal damage to the player. The enemy scene should mediate all of this.
+But on second thought, weapons are critical to attack behaviour due to their range, so they should instead be components of attack controller - which will read information from them and act on it. It can be further argued that movement is critical to attacking too, but I will just keep it to this structure for now and see how it goes.

@@ -140,7 +140,8 @@ position = Vector2(13, -13)
 one_shot = true
 
 [node name="DashBar" parent="." instance=ExtResource("14_67dxl")]
-position = Vector2(-1, -17)
+position = Vector2(11, -2)
+rotation = -1.57079
 type = 1
 show_rule = 1
 
