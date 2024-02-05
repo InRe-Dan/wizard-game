@@ -160,3 +160,27 @@ But I also wanted floor effects to have defensive properties, like water putting
 It's also worth noting that while it is possible to create steam by putting out fires, it is unintuitively impossible to create steam by throwing fire at water. Suppose you can justify it as the fact that water beats fire, therefore fire should not have advantages in water.
 
 I now realise that I need to think about what happens to the player when they die... For the prototype, I will likely reset the whole scene?
+
+5/2/24
+
+I had a good conversation on the Godot discord earlier about composition and inheritance - I asked how I could use the former to solve problems that I can already solve with the latter, since it seems that every game dev tutorial advises against over-using inheritance. If I want two enemies to have different attack patterns but be the same data type, typically I would have them both inherit from an Enemy class and implement their own behaviours - but I can instead have just the one enemy class with various controllers that the enemy class expects:
+Enemy
+    - MeleeAttackingController
+    - MeleeAI
+    - Sprite2D
+Enemy
+    - ProjectileAttackingController 
+    - RangedAI
+    - Sprite2D
+
+Enemy could even be generalised to Entity, and Players could be entities with PlayerControllers instead of AI components. Certainly don't want to make a system this flexible for the prototype deadline, but it may be a good idea later down the run, to handle various elemental effects - and multiplayer, and giving enemies player abilities to scale difficulty!
+
+I can have one primary enemy scene which contains almost exactly the same code every time, and build up enemies from their core "components". I think this is the conclusion to the resource systems that I was trying to work out a couple of weeks ago. Time to rewrite the enemy class!
+
+First of all I want to refine the avoidance system since it just didn't work very well last time - the rules weren't exhaustive or sensible and there was a very if; else if; else if ... approach to the problem. I want to have a node which casts rays all around and can tell its parent which way is most likely to be clear so that enemies using this system.
+How do I do this? Firstly, my Avoidance Vision node will contain raycasts of length 10 in each direction (length 10 instead of 1 so that I can see them better in the editor). I can then get these raycasts in an array by getting the children of the node, and then I want to do a weighted sum of their vectors in some way. I want this result to represent which direction is open, so weights should be higher for directions that have no obstacles in them: my first idea is then to sum across direction * ray_cast_collision_distance / ray_cast_length. I can scale ray cast length by some amount using an export variable, and use it to control how sensitive the enemy is to its surroundings.
+
+First result: Combining this sum with the enemy's preferred direction (towards the player), they do a reasonably good job of getting to the player while avoiding walls - there are some issues though:
+    Enemies tend to crowd around eachother since they all want to stay central to the rooms. This can be fixed by making the raycasts collide with enemies too, though
+    If the enemy is in a horizontal hallway above the player, the sum directs them upwards but not to the sides, so in some cases they won't pick a direction to go in. Not a huge deal, since this seems unlikely, but I will have to keep an eye on this.
+    The enemy is still dumb and will not circle walls perpendicular to where it wants to go. I may have to reimplement the old system of carrying over some of the last turn's movement into the next one.

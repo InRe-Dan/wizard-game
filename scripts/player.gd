@@ -62,7 +62,7 @@ func _process(delta : float) -> void:
 		inventory.prev()
 		
 func _physics_process(delta: float) -> void:
-		if not bounding_box.get_overlapping_areas().filter(func isIcy(area : Area2D) -> bool: return area.collision_layer & 128
+		if not bounding_box.get_overlapping_areas().any(func isIcy(area : Area2D) -> bool: return area.collision_layer & 128
 		):
 			velocity += acceleration * delta * move
 			# scale damping by how far above the speed limit we are

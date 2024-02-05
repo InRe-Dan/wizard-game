@@ -42,6 +42,18 @@ window/stretch/mode="viewport"
 
 movie_writer/movie_file="C:/Users/Danie/Documents/Prototype/movies/movie.avi"
 
+[file_customization]
+
+folder_colors={
+"res://assets/": "gray",
+"res://out/": "gray",
+"res://resources/": "red",
+"res://scenes/": "orange",
+"res://scripts/": "yellow",
+"res://shaders/": "green",
+"res://tilesets/": "teal"
+}
+
 [input]
 
 up={

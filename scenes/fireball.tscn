@@ -132,7 +132,6 @@ z_index = 4
 texture_filter = 1
 material = SubResource("CanvasItemMaterial_pjc2t")
 emitting = false
-amount = 100
 process_material = SubResource("ParticleProcessMaterial_mjbhj")
 texture = SubResource("GradientTexture2D_hdbut")
 one_shot = true

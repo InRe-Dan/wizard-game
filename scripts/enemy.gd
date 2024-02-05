@@ -17,17 +17,14 @@ var max_health : int;
 
 func _ready() -> void:
 	# tell the avoidance helper that we want to get to the player
-	avoidance_vision.targetDirection = (player.position - position)
 	max_health = health
 	# set our target direction to be towards the player at first
-	targetDirection = (player.global_position - global_position)
 
 func _process(delta: float) -> void:
 	# tell the avoidance system where we are trying to go
-	avoidance_vision.targetDirection = targetDirection
 	# weigh our previous target destination (which was influenced by the helper) with the suggestion
-	targetDirection = (0.6 * targetDirection.normalized() + 0.35 * avoidance_vision.getSuggestion().normalized() + 0.05 * (player.global_position - global_position).normalized())
-	velocity += targetDirection * acceleration * delta
+	targetDirection = 0.7 * (player.global_position - global_position).normalized() + 0.3 * avoidance_vision.sum
+	velocity += targetDirection.normalized() * acceleration * delta
 	velocity += next_frame_knockback
 	velocity = velocity / (1 + damping * delta)
 	next_frame_knockback = Vector2(0, 0)
