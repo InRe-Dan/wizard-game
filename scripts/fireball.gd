@@ -29,6 +29,8 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 		(area.get_parent() as FloorEffect).apply_fire()
 
 func collide() -> void:
+	$PointLight2D.energy = 1.5
+	get_tree().create_tween().tween_property($PointLight2D, "energy", 0.0, 0.5)
 	sprite.hide()
 	$GPUParticles2D.emitting = true
 	$Area2D.queue_free()
