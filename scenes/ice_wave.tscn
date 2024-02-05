@@ -19,7 +19,7 @@ radius = 4.0
 z_index = 2
 z_as_relative = false
 script = ExtResource("1_5lec6")
-velocity = 100.0
+velocity = 300.0
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 color = Color(0, 0.647059, 0.74902, 1)
@@ -38,12 +38,11 @@ collision_mask = 2
 collide_with_areas = true
 
 [node name="IceDropTimer" type="Timer" parent="."]
-wait_time = 0.05
+wait_time = 0.02
 autostart = true
 
 [node name="Lifetime" type="Timer" parent="."]
-wait_time = 0.8
-one_shot = true
+wait_time = 0.5
 autostart = true
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

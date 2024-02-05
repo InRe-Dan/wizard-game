@@ -18,8 +18,8 @@ noise = SubResource("FastNoiseLite_py0t1")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n0wmh"]
 shader = ExtResource("1_p3gnc")
-shader_parameter/quantizationSteps = 18.505
-shader_parameter/vignetteExponent = 2.78
+shader_parameter/quantizationSteps = 24.81
+shader_parameter/vignetteExponent = 3.685
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_qgabh")
 
 [sub_resource type="LabelSettings" id="LabelSettings_pb07d"]
@@ -46,16 +46,17 @@ layer = 2
 
 [node name="VersionNumber" type="Label" parent="UI"]
 offset_left = 2.0
-offset_top = 210.0
+offset_top = 257.0
 offset_right = 137.0
-offset_bottom = 223.0
+offset_bottom = 270.0
 text = "ver 0.0.1"
 label_settings = SubResource("LabelSettings_pb07d")
 
 [node name="FrameCounter" type="Label" parent="UI"]
-offset_top = -3.0
-offset_right = 135.0
-offset_bottom = 10.0
+offset_left = 2.0
+offset_top = -4.0
+offset_right = 137.0
+offset_bottom = 9.0
 text = "fps: err"
 label_settings = SubResource("LabelSettings_pb07d")
 script = ExtResource("3_gcyxb")
