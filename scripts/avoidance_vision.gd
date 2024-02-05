@@ -10,6 +10,9 @@ func get_weight(ray : RayCast2D) -> Vector2:
 	else:
 		return ray.target_position
 		
+func add_vec(a: Vector2, b : Vector2) -> Vector2:
+	return a + b
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	for ray : RayCast2D in get_children():
@@ -18,6 +21,8 @@ func _ready() -> void:
 	
 	
 func _physics_process(delta: float) -> void:
-	sum = get_children().map(get_weight).reduce(func add(accum : Vector2, a : Vector2) -> Vector2: return accum + a, Vector2()).normalized()
+	sum = get_children()\
+		.map(get_weight)\
+		.reduce(add_vec, Vector2())\
+		.normalized()
 	print(sum)
-	

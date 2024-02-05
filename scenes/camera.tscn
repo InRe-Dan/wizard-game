@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dkfutwmsr2tli"]
+[gd_scene load_steps=9 format=3 uid="uid://dkfutwmsr2tli"]
 
 [ext_resource type="Shader" path="res://shaders/screen.gdshader" id="1_p3gnc"]
 [ext_resource type="FontFile" uid="uid://byo6fct4u77e6" path="res://assets/fonts/m3x6.ttf" id="2_efxpv"]
+[ext_resource type="Script" path="res://scripts/frame_counter.gd" id="3_gcyxb"]
 
 [sub_resource type="Gradient" id="Gradient_uhjsu"]
 interpolation_mode = 1
@@ -23,7 +24,7 @@ shader_parameter/noise_texture = SubResource("NoiseTexture2D_qgabh")
 
 [sub_resource type="LabelSettings" id="LabelSettings_pb07d"]
 font = ExtResource("2_efxpv")
-font_color = Color(0.980392, 0.980392, 0.980392, 0.207843)
+font_color = Color(0.980392, 0.980392, 0.980392, 0.196078)
 
 [node name="Camera" type="Camera2D"]
 
@@ -43,10 +44,18 @@ grow_vertical = 2
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 2
 
-[node name="Label" type="Label" parent="UI"]
+[node name="VersionNumber" type="Label" parent="UI"]
 offset_left = 2.0
 offset_top = 210.0
 offset_right = 137.0
 offset_bottom = 223.0
 text = "ver 0.0.1"
 label_settings = SubResource("LabelSettings_pb07d")
+
+[node name="FrameCounter" type="Label" parent="UI"]
+offset_top = -3.0
+offset_right = 135.0
+offset_bottom = 10.0
+text = "fps: err"
+label_settings = SubResource("LabelSettings_pb07d")
+script = ExtResource("3_gcyxb")

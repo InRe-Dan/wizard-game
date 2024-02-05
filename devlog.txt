@@ -184,3 +184,20 @@ First result: Combining this sum with the enemy's preferred direction (towards t
     Enemies tend to crowd around eachother since they all want to stay central to the rooms. This can be fixed by making the raycasts collide with enemies too, though
     If the enemy is in a horizontal hallway above the player, the sum directs them upwards but not to the sides, so in some cases they won't pick a direction to go in. Not a huge deal, since this seems unlikely, but I will have to keep an eye on this.
     The enemy is still dumb and will not circle walls perpendicular to where it wants to go. I may have to reimplement the old system of carrying over some of the last turn's movement into the next one.
+
+https://youtu.be/8uE6-vIi1rQ
+I watched a GDC talk on "Cursed Problems" in game design and it reminded me that I need to evaluate my own game's "player promises" and how I can both make sure they are met and that they don't conflict too heavily. Here is what I am seeking to provide the player: 
+    An experience with lots of things to keep track of at any given time and some randomness is involved
+    An experience where the player constantly feels at their limit - you MUST use everything in your arsenal and more to progress\
+    An experience which gets the player feeling accomplished via skillful play
+    An experience that is persistently fair - at no point will the game present a challenge that you can't realistically manage
+    A goal of building a powerful character that is distinct in each run. Their power is measured by their score and/or stages cleared
+    The ability to build characters in certain ways - there is some player choice involved
+There don't seem to be any immediate outright conflicts, but it is very hard to balance difficulty to meet all of these points at all times, so some may have to be relaxed, as suggested by the framework in the talk. Skillful play and chaos will be difficult to balance. Although I am targeting this game at people that have played similar games before, it is no reason to not cater to a wide range of skill levels - players which are not competent initially may grow to enjoy the game much more later. 
+
+I have some ideas about how to scale the game around the player, but its not clear if any of these will even apply to my game after the prototyping stage:
+The player's score can be used directly by the level generator to assess how many enemies to spawn. Therefore, the score should scale linearly with the player's power level. Maybe this can be accomplished by having score be dictated by the number of cards picked up, but this is unintuitively as some cards will increase the player's power multiplicatively (or worse!).
+There could be a separate score maintaned, the "equipment" score. This could be an estimate of the player's damage per second, or other offensive/defensive attributes, and could be used to ensure that every room will take approximately the same amount of time/casts/gear to clear. Each item picked up could contribute directly to the equipment score.
+It may also be worth using the player's level clear speed to scale difficulty, to provide an experience which rewards players for playing well and fast - embracing the chaos.
+A higher score may reward the player with more gear to provide a real incentive to play well - I could reframe score as "magic power" or something like that, to indicate that it shouldn't be disregarded like any other score. If the player gets to the final boss quickly, they will be a fair bit more powerful and have more destructive abilities, but I have to take care to not scale the final boss encounter too much, or all this effort will be wasted.
+A system which scales difficulty with speed may end up doing the opposite of what is intended, causing players to play slow so that they get a more manageable final boss, if that is the win condition. Very tricky, requires more thought, but I wanted to get ideas down now.
