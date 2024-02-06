@@ -212,3 +212,23 @@ So what can enemies do?
 So an enemy should then have a movement controller, an attack controller and a weapon.
 The enemy's movement controller determines where the enemy goes, and the attack controller should dictate when it attacks. Weapons are used for those attacks, which will spawn various effects on the stage and deal damage to the player. The enemy scene should mediate all of this.
 But on second thought, weapons are critical to attack behaviour due to their range, so they should instead be components of attack controller - which will read information from them and act on it. It can be further argued that movement is critical to attacking too, but I will just keep it to this structure for now and see how it goes.
+
+After  a little bit of writing, I realise that I can actually simplify the pattern a little bit. If a component knows what its parent is, then it can access an API of the parent's quite easily, without the parent needing to provide specific information to the component. This breaks Godot's soft rule of parents being responsible for children, but it will result in much faster prototyping when I don't know exactly what information a component is going to need. Later on, I can do it the "proper" loosely coupled way, where I connect signals between the component and parent. 
+
+I am going to make AI controllers the brain of the enemy, meaning that they make all decisions and use an API to tell the enemy what to do. 
+Attack controllers will check in on the enemy's state and attack accordingly whenever they want. AI controllers can ask their parents for data from attack controllers and adjust their goals accordingly.
+
+Here's the current layout of enemy after these tweaks:
+Enemy
+    AI Controller
+    Attack Controller
+    Health Bar
+    Sprite 
+    Collision Shape 
+    Light
+    Hitbox
+    Detection circle
+
+To make actually compelling AI controllers, I am going to start using the state chart extension. Time to learn...
+
+At the moment I'm toying with the idle state for the enemies, and I want them to wait a random amount of time and then go to a position near them on the map. I think I might need to have a go_to(pos) method as part of my enemy API though, since this avoidance stuff is getting very cumbersome. An AI component will simply tell its enemy where to go and the enemy will find its way there efficiently. Time to learn...

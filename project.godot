@@ -41,7 +41,11 @@ window/stretch/mode="viewport"
 
 [editor]
 
-movie_writer/movie_file="C:/Users/Danie/Documents/Prototype/movies/movie.avi"
+movie_writer/movie_file="C:/Users/Danie/Documents/Prototype/out/movie.avi"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot_state_charts/plugin.cfg")
 
 [file_customization]
 
