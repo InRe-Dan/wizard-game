@@ -140,10 +140,14 @@ position = Vector2(13, -13)
 one_shot = true
 
 [node name="DashBar" parent="." instance=ExtResource("14_67dxl")]
-position = Vector2(11, -2)
+position = Vector2(12, -2)
 rotation = -1.57079
 type = 1
 show_rule = 1
+
+[node name="HealthBar" parent="." instance=ExtResource("14_67dxl")]
+position = Vector2(18, -2)
+rotation = -1.57079
 
 [connection signal="area_entered" from="BoundingBox" to="." method="_on_bounding_box_area_entered"]
 [connection signal="area_exited" from="BoundingBox" to="." method="_on_bounding_box_area_exited"]

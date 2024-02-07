@@ -6,6 +6,8 @@ class_name Player extends CharacterBody2D
 @export var damping : float = 5
 @export var ice_acceleration : float = 50
 @export var dash_speed : float = 200
+@export var health : int = 20
+@export var max_health : int = 20
 
 @onready var inventory : Inventory = $Inventory
 @onready var animation : AnimatedSprite2D = $Animation
@@ -13,11 +15,15 @@ class_name Player extends CharacterBody2D
 @onready var bounding_box : Area2D = $BoundingBox
 @onready var dash_cooldown : Timer = $DashCooldown
 @onready var dash_cooldown_bar : EntityBar = $DashBar
+@onready var health_bar : EntityBar = $HealthBar
 
 var last_aim_dir : Vector2
 var move : Vector2
 var iceAreasIntersected : int = 0
 var dialogue_scene : PackedScene = preload("res://scenes/dialogue.tscn")
+var dead : bool = false
+
+signal died()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -26,6 +32,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta : float) -> void:
+	if dead:
+		return
 	dash_cooldown_bar.update_bar(1 - dash_cooldown.time_left / dash_cooldown.wait_time)
 	move = Input.get_vector("left", "right", "up", "down");
 	last_aim_dir = Input.get_vector("aimleft", "aimright", "aimup", "aimdown");
@@ -81,6 +89,8 @@ func shoot(projectile : PackedScene) -> void:
 	root.add_child(proj)
 
 func say(text : String) -> void:
+	if dead:
+		return
 	var dialogue : Dialogue = dialogue_scene.instantiate() as Dialogue
 	add_child(dialogue)
 	dialogue.position = $DialoguePoint.position
@@ -92,5 +102,16 @@ func dash() -> void:
 		dash_cooldown.start()
 	
 func hit(proj : Projectile) -> void:
+	if dead:
+		return
 	say("Ouch")
+	health -= proj.damage
+	health_bar.update_bar(float(health) / max_health)
+	if health <= 0:
+		$Camera.top_level = true
+		$Camera.global_position = global_position
+		global_position = Vector2(20000, 20000)
+		died.emit()
+		dead = true
+		animation.hide()
 	
