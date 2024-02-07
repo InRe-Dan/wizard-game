@@ -268,3 +268,8 @@ I've decided to structure things such that weapons are most of the code involved
 At this point I'm not entirely sure what purpose the attack controllers would serve, but I am going to keep them in regardless since they are a lightweight wrapper and I may come up with other things later.
 
 Funniest bug I've ever seen. Forgot to add projectile allegiance.
+
+While I was doing work around the house I watched
+Custom Resources by Pefeper
+https://youtu.be/vzRZjM9MTGw?si=do8BCwlL-wffOClB
+And it made resources and data-driven development click a little bit more. Specifically, there was a part of the video that showed him creating a list of various death effect functions that were run by actors in a 3d game whenever they died - this is potentially a pattern I can apply to on-hit and on-death effects, and maybe even passive cards and the like. Definetely need to look into data-driven game development properly.
