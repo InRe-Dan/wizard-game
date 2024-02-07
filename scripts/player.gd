@@ -77,7 +77,7 @@ func _physics_process(delta: float) -> void:
 func shoot(projectile : PackedScene) -> void:
 	var proj : Projectile = projectile.instantiate() as Projectile
 	say("Eat this!")
-	proj.set_attributes(last_aim_dir, position)
+	proj.set_attributes(last_aim_dir, position, Projectile.Team.Player)
 	root.add_child(proj)
 
 func say(text : String) -> void:
@@ -90,4 +90,7 @@ func dash() -> void:
 	if dash_cooldown.is_stopped():
 		velocity += move.normalized() * dash_speed
 		dash_cooldown.start()
+	
+func hit(proj : Projectile) -> void:
+	say("Ouch")
 	

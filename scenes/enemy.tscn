@@ -83,6 +83,7 @@ detection_radius = 128.0
 
 [node name="FireBreath" parent="AttackController" instance=ExtResource("5_a115q")]
 projectile = ExtResource("6_s7anx")
+shot_delay = 0.07
 effective_range = 50000.0
 
 [node name="EntityBar" parent="." instance=ExtResource("10_5vybk")]

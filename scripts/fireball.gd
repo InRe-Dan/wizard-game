@@ -14,18 +14,27 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	super(delta)
 
-# Hitting a body like a tilemap
+# Hitting a body like a tilemap or a CharacterBody
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	print("Hit body")
-	collide()
+	if (body as CharacterBody2D):
+		if ((body as CharacterBody2D).collision_layer & 4) and not team == Team.Player:
+			print("Hit player")
+			(body as Player).hit(self)
+			collide()
+	elif (body as TileMap):
+		collide()
 
-# Probably hitting a hitbox here
+# Probably hitting a hurtbox here
 func _on_area_2d_area_entered(area: Area2D) -> void:
-	print("Hit area")
-	if (area.collision_layer & 64):
+	if (area.collision_layer & 64) and team == Team.Player:
 		(area.get_parent() as Enemy).hit(self)
 		collide()
-	elif (area.collision_layer & 128):
+		print("Hit enemy")
+	elif (area.collision_layer & 4) and not team == Team.Player:
+		print("Hit player")
+		(area.get_parent() as Player).hit(self)
+		collide()
+	elif (area.collision_layer == 128):
 		(area.get_parent() as FloorEffect).apply_fire()
 
 func collide() -> void:

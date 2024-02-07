@@ -29,15 +29,16 @@ func _process(delta: float) -> void:
 		time_since_fired += delta
 		var projectiles_to_fire : int = max(0, floor(time_since_fired / shot_delay) - shots_fired)
 		for i : int in range(projectiles_to_fire):
+			shots_fired += 1
 			var proj : Projectile = projectile.instantiate() as Projectile
-			proj.set_attributes(weapon_user.global_position.direction_to(targeting), weapon_user.global_position)
+			var direction : Vector2 = weapon_user.global_position.direction_to(targeting).rotated(deg_to_rad(spread * randf()))
+			proj.set_attributes(direction, weapon_user.global_position, Projectile.Team.Enemies)
 			(get_tree().get_first_node_in_group("main") as Main).add_child(proj)
 	
 func use(user : Enemy, target : Vector2) -> void:
 	if cooldown.is_stopped():
 		weapon_user = user
 		targeting = target
-		print("Use fire breath")
 		time_since_fired = 0.0
 		firing = true
 		shots_fired = 0
