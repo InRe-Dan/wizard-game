@@ -12,22 +12,23 @@ script = ExtResource("1_jl44l")
 [node name="room1" parent="." instance=ExtResource("1_pf5qg")]
 
 [node name="Player" parent="room1" instance=ExtResource("2_bqysa")]
+position = Vector2(0, 53)
 dash_speed = 200.0
 
 [node name="Enemy" parent="room1" instance=ExtResource("5_06yge")]
-position = Vector2(-72, 59)
+position = Vector2(-173, 64)
 
 [node name="Enemy2" parent="room1" instance=ExtResource("5_06yge")]
-position = Vector2(158, 39)
+position = Vector2(317, 44)
 
 [node name="Enemy3" parent="room1" instance=ExtResource("5_06yge")]
-position = Vector2(-147, 8)
+position = Vector2(-331, 104)
 
 [node name="Enemy4" parent="room1" instance=ExtResource("5_06yge")]
-position = Vector2(185, 9)
+position = Vector2(317, 150)
 
 [node name="Enemy5" parent="room1" instance=ExtResource("5_06yge")]
-position = Vector2(-33, -164)
+position = Vector2(-299, -150)
 
 [node name="FloorEffects" type="Node2D" parent="."]
 visibility_layer = 2

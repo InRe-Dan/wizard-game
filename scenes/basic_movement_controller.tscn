@@ -10,14 +10,22 @@
 [node name="ExplorerAI" type="Node2D"]
 script = ExtResource("1_u3lr5")
 
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 24.0
+target_desired_distance = 48.0
+avoidance_enabled = true
+avoidance_layers = 0
+avoidance_mask = 0
+
 [node name="AvoidanceVision" parent="." instance=ExtResource("2_yxhrl")]
+size = 20.0
 
 [node name="StateChart" type="Node" parent="."]
 script = ExtResource("3_pix50")
 
 [node name="Root" type="Node" parent="StateChart"]
 script = ExtResource("4_d3to5")
-initial_state = NodePath("Idle")
+initial_state = NodePath("Pursuit")
 
 [node name="Idle" type="Node" parent="StateChart/Root"]
 script = ExtResource("4_d3to5")
