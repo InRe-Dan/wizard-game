@@ -2,46 +2,75 @@ class_name ExplorerAI extends EnemyAI
 
 @onready var parent : Enemy = get_parent() as Enemy
 @onready var player : Player = get_node("/root/Globals").player
-@onready var avoidance_vision : AvoidanceVision = $AvoidanceVision
 @onready var state_chart : StateChart = $StateChart
-@onready var state_label : Label = $StateInformation
-@onready var navigation_agent : NavigationAgent2D = $NavigationAgent2D
+@onready var state_label : Label = $Label
 
+
+var stand_time : float
+var walk_time : float
 var walk_destination : Vector2
+var player_last_seen : Vector2
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
+	
+func _process(delta : float) -> void:
+	var states : Array[String] = []
+	var states_to_explore : Array[State] = []
+	states_to_explore.append_array(state_chart._state.get_children() as Variant)
+	while true:
+		var state : State = states_to_explore.front() as State
+		if state:
+			states_to_explore.append_array(states_to_explore.front().get_children())
+			if (states_to_explore.front() as State)._state_active:
+				states.append(state.name)
+			states_to_explore.remove_at(0)
+		else:
+			break
+	var label_text : String = ""
+	for state_name : String in states:
+		label_text += state_name + "\n"
+	state_label.text = label_text
 
 func _on_following_state_physics_processing(delta: float) -> void:
 	if not parent.has_los_to(player.global_position):
-		pass # state_chart.send_event("lost sight")
-
-	# Navigation code
-	navigation_agent.target_position = get_node("/root/Globals").player.global_position
-	if navigation_agent.is_navigation_finished():
+		state_chart.send_event("lost sight")
 		return
-
-	var current_agent_position: Vector2 = parent.global_position
-	var next_path_position: Vector2 = navigation_agent.get_next_path_position()
-
-	var navigation_direction : Vector2 = current_agent_position.direction_to(next_path_position)
-	
-	# Working out where to actually go
-	parent.target_direction = 0.5 * navigation_direction\
-					+ 0.5 * avoidance_vision.sum
-	parent.velocity += parent.target_direction.normalized() * parent.acceleration * delta
+	player_last_seen = player.global_position
+	# Navigation code
+	parent.go_to(player.global_position)
 	
 
 func _on_standing_state_physics_processing(delta: float) -> void:
-	pass
-
-func _on_on_walk_start_taken() -> void:
-	walk_destination = parent.global_position + Vector2.RIGHT.rotated(randf() * TAU) * 1000
+	parent.go_to(parent.global_position)
+	walk_time -= delta
+	if walk_time < 0:
+		state_chart.send_event("done standing")
 
 func _on_walking_state_physics_processing(delta: float) -> void:
-	parent.velocity += (parent.global_position - walk_destination).normalized() * parent.acceleration * delta
+	stand_time -= delta
+	if stand_time < 0:
+		state_chart.send_event("done walking")
+	parent.go_to(walk_destination)
 
 func _on_searching_state_physics_processing(delta: float) -> void:
-	pass
+	if parent.go_to(player_last_seen):
+		print("we out here")
+		state_chart.send_event("reached position")
+
+
+func _on_walking_state_entered() -> void:
+	walk_destination = parent.global_position + Vector2.RIGHT.rotated(randf() * TAU) * 1000
+	walk_time = 2 + randf() * 3.0
+
+
+
+func _on_standing_state_entered() -> void:
+	stand_time = 0.5 + randf() * 5.0
+
+
+func _on_root_state_processing(delta: float) -> void:
+	if parent.has_los_to(player.global_position):
+		state_chart.send_event("seen player")

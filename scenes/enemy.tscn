@@ -1,7 +1,9 @@
 [gd_scene load_steps=18 format=3 uid="uid://bxl0u3toe2fdk"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_l4ala"]
+[ext_resource type="PackedScene" uid="uid://df5vc0tuapp46" path="res://scenes/enemy_components/basic_movement_controller.tscn" id="2_muun6"]
 [ext_resource type="Texture2D" uid="uid://dvn1pu78pfw75" path="res://assets/dungeon/big_demon_idle_anim_f0.png" id="2_odyi2"]
+[ext_resource type="PackedScene" uid="uid://drl0mwoaoalrq" path="res://scenes/enemy_components/BasicNavigationModule.tscn" id="3_jfkke"]
 [ext_resource type="Texture2D" uid="uid://ggtyg7w8y6l5" path="res://assets/dungeon/big_demon_idle_anim_f1.png" id="3_o73i4"]
 [ext_resource type="Texture2D" uid="uid://duhb2gt5cdg2s" path="res://assets/dungeon/big_demon_idle_anim_f2.png" id="4_sequv"]
 [ext_resource type="Texture2D" uid="uid://cw4irdk6682hl" path="res://assets/dungeon/big_demon_idle_anim_f3.png" id="5_rtirk"]
@@ -10,7 +12,6 @@
 [ext_resource type="Texture2D" uid="uid://2tdjreypo1u1" path="res://assets/dungeon/big_demon_run_anim_f2.png" id="8_7lwxa"]
 [ext_resource type="Texture2D" uid="uid://dpsl68vxn1iij" path="res://assets/dungeon/big_demon_run_anim_f3.png" id="9_xlc27"]
 [ext_resource type="PackedScene" uid="uid://b6r1vluri8tel" path="res://scenes/entity_bar.tscn" id="10_5vybk"]
-[ext_resource type="PackedScene" uid="uid://df5vc0tuapp46" path="res://scenes/basic_movement_controller.tscn" id="12_hk1o4"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_geswq"]
 animations = [{
@@ -63,17 +64,17 @@ fill_to = Vector2(0.756881, 0.275229)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_efa8n"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_v5xci"]
-radius = 120.0
-
 [node name="Enemy" type="CharacterBody2D"]
 z_index = 2
 collision_layer = 8
 collision_mask = 14
 motion_mode = 1
 script = ExtResource("1_l4ala")
+detection_radius = 128.0
 
-[node name="BasicAI" parent="." instance=ExtResource("12_hk1o4")]
+[node name="BasicAI" parent="." instance=ExtResource("2_muun6")]
+
+[node name="BasicNavigationModule" parent="." instance=ExtResource("3_jfkke")]
 
 [node name="EntityBar" parent="." instance=ExtResource("10_5vybk")]
 position = Vector2(0, -20)
@@ -97,12 +98,6 @@ collision_mask = 16
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_efa8n")
-
-[node name="Vision" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Vision"]
-shape = SubResource("CircleShape2D_v5xci")
-debug_color = Color(0, 0.6, 0.701961, 0.0470588)
 
 [node name="LosCheck" type="RayCast2D" parent="."]
 target_position = Vector2(78, 0)

@@ -246,3 +246,9 @@ For now I will change my walls to be whole blocks instead, and simply not place 
 
 Aaaaand the enemies have proper pathfinding. This ended up working incredibly well with the avoidance system that I made, fixing most of its problems, as long as I use a detection radius only barely larger than the entity, since I'm not sure the scaling with distance works as intended.
 I am going to have to go back and rework the navigation meshes later, or generate them as I make my levels (which is much more likely), but the system should still work exactly the same.
+
+Now to write enemy behaviour: since I want enemies to have a go_to method, I need to detach navigation and avoidance from the AI controller and encapsulate it in a component for the enemy instead, which the enemy parent class can use when asked to go somewhere.
+
+Now that I am writing an API with which the controllers can interact with the enemy, I'd really like to start refactoring things to have a base entity class, so I can have type-safe processing of hitboxes and fields of view and things like that. I have to abstain myself and make things just work.
+
+With simple enemy states and pathfinding done, its time to work on attack controllers and finally implement a fail-state for the game. Going to have to rework my projectiles to have allegiance and have collision with eachother.

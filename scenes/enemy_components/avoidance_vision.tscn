@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://batjptmmditm3"]
 
-[ext_resource type="Script" path="res://scripts/avoidance_vision.gd" id="1_a57c0"]
+[ext_resource type="Script" path="res://scripts/avoidance_vision.gd" id="1_rk0js"]
 
 [node name="AvoidanceVision" type="Node2D"]
-script = ExtResource("1_a57c0")
+script = ExtResource("1_rk0js")
 
 [node name="Down" type="RayCast2D" parent="."]
 target_position = Vector2(0, 10)

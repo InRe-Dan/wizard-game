@@ -5,6 +5,7 @@ class_name Enemy extends CharacterBody2D
 @export var health : int = 10
 @export var acceleration : float = 400.0
 @export var damping : float = 10.0
+@export var detection_radius : float = 50.0
 
 @onready var avoidance_vision : AvoidanceVision = $AvoidanceVision
 @onready var health_bar : EntityBar = $EntityBar
@@ -13,9 +14,11 @@ class_name Enemy extends CharacterBody2D
 @onready var line_of_sight : Area2D = $Vision
 @onready var hitbox : Area2D = $Hitbox
 @onready var los_check : RayCast2D = $LosCheck
+@onready var navigation_module : BasicNavigationModule = $BasicNavigationModule
 
 
 var target_direction : Vector2
+var target_point : Vector2
 
 var next_frame_knockback : Vector2
 var max_health : int;
@@ -35,20 +38,31 @@ func _physics_process(delta: float) -> void:
 		$AnimatedSprite2D.scale.x = 1.
 	else:
 		$AnimatedSprite2D.scale.x = -1.
+
+	velocity += target_direction * delta * acceleration
 	velocity += next_frame_knockback
 	velocity = velocity / (1 + damping * delta)
 	next_frame_knockback = Vector2(0, 0)
 	move_and_slide()
 
 func hit(proj : Projectile) -> void:
-	print("Ouch!!")
 	next_frame_knockback = proj.knockback * proj.direction.normalized()
 	health -= proj.damage
 	health_bar.update_bar(float(health) / float(max_health))
 	if health <= 0:
 		queue_free()
 
-func has_los_to(position : Vector2) -> bool:
-	los_check.target_position = position
+func has_los_to(global_pos : Vector2) -> bool:
+	if global_position.distance_to(global_pos) > detection_radius:
+		return false
+	los_check.target_position = to_local(global_pos)
 	los_check.force_raycast_update()
 	return not los_check.is_colliding()
+	
+func go_to(global_pos : Vector2) -> bool:
+	target_point = global_pos
+	target_direction = navigation_module.find_direction_towards(global_pos).normalized()
+	if (global_pos - global_position).length() < 30:
+		target_direction -= target_direction
+		return true
+	return false
