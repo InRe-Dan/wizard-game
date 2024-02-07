@@ -251,4 +251,20 @@ Now to write enemy behaviour: since I want enemies to have a go_to method, I nee
 
 Now that I am writing an API with which the controllers can interact with the enemy, I'd really like to start refactoring things to have a base entity class, so I can have type-safe processing of hitboxes and fields of view and things like that. I have to abstain myself and make things just work.
 
-With simple enemy states and pathfinding done, its time to work on attack controllers and finally implement a fail-state for the game. Going to have to rework my projectiles to have allegiance and have collision with eachother.
+With simple enemy states and pathfinding done, its time to work on attack controllers and finally implement a fail-state for the game. Going to have to rework my projectiles to have allegiance and have collision with eachother, but first I want to assess my systems at the moment.
+Enemy AI components currently decide where the enemy should go based on the AI state, but the state is only really affected by whether or not the enemy has completed its go_to task. I'd like for the AI to be responsive to enemies being hit, or dealing damage, or slipping on ice or anything of the sort. To do this I am likely going to have to use signals emitted by enemies when their standard implementation functions are called (such as hit or move)
+
+Onto attacks: I am only going to be implementing projectile style attacks for now, so I will want to give these enemies their own projectile-inheriting scene to shoot within their weapons.
+A weapon should encapsulate shooting behaviour: how many projectiles, at what intervals, in which directions, as well as a cooldown. They should also report a weapon range, which can be extrapolated from the underlying projectile's velocity and lifetime. 
+
+Attack controller
+    has Weapon
+        has and instantiates Projectile
+
+I want to design this system in such a way that attack controllers can lead their shots for ranged weapons: so the controllers would to get detailed projectile information from weapons - or, perhaps for better encapsulation, weapons report whether or not they could hit a target at the velocity they're currently moving.
+
+I've decided to structure things such that weapons are most of the code involved in making weapons work, handling projectile instantiation and leading shots and aiming and things like that. Weapons have a use function which takes user and target position, and the weapon handles the rest. The only parameter for the weapon base class would the projectile they fire.Different weapons can therefore vary in fire pattern, shot leading, cooldowns, secondary effects, etc.
+
+At this point I'm not entirely sure what purpose the attack controllers would serve, but I am going to keep them in regardless since they are a lightweight wrapper and I may come up with other things later.
+
+Funniest bug I've ever seen. Forgot to add projectile allegiance.

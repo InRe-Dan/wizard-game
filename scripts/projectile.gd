@@ -16,7 +16,7 @@ func _process(delta: float) -> void:
 	
 func set_attributes(dir : Vector2, pos : Vector2) -> void:
 	direction = dir
-	position = pos
+	global_position = pos
 	
 func despawn() -> void:
 	queue_free()

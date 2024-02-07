@@ -41,6 +41,7 @@ func _on_following_state_physics_processing(delta: float) -> void:
 	player_last_seen = player.global_position
 	# Navigation code
 	parent.go_to(player.global_position)
+	parent.try_attack(player)
 	
 
 func _on_standing_state_physics_processing(delta: float) -> void:

@@ -14,7 +14,8 @@ class_name Enemy extends CharacterBody2D
 @onready var line_of_sight : Area2D = $Vision
 @onready var hitbox : Area2D = $Hitbox
 @onready var los_check : RayCast2D = $LosCheck
-@onready var navigation_module : BasicNavigationModule = $BasicNavigationModule
+@onready var navigation_module : NavigationModule = $BasicNavigationModule
+@onready var fire_attack_controller : EnemyAttackController = $FireAttackController
 
 
 var target_direction : Vector2
@@ -66,3 +67,6 @@ func go_to(global_pos : Vector2) -> bool:
 		target_direction -= target_direction
 		return true
 	return false
+
+func try_attack(entity : Player) -> void:
+	attack_controller.try_attack(entity)
