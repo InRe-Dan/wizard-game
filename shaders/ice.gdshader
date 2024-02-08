@@ -13,7 +13,7 @@ void vertex() {
 void fragment() {
 	// Blue channel of the noise actually denotes probability of omission
 	vec4 noise_sample = texture(noise, mod(world_pos * 0.12381251, 1.0));
-	float dist = pow(1. - (length(UV - 0.5) * 2.), 1. - lifetime_percentage);
+	float dist = 1. - pow(1. - (length(UV - 0.5) * 2.), (1. - lifetime_percentage) * 5.);
 	if (dist - 0.4 > texture(noise, mod(world_pos * 0.723412, 1.0)).r && dist < 1.0) {
 		COLOR = vec4(noise_sample.xyz, 1.0);
 	} else {
