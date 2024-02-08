@@ -98,6 +98,7 @@ func say(text : String) -> void:
 	
 func dash() -> void:
 	if dash_cooldown.is_stopped():
+		velocity -= velocity
 		velocity += move.normalized() * dash_speed
 		dash_cooldown.start()
 	
