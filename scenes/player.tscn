@@ -120,6 +120,8 @@ frame_progress = 0.690103
 script = ExtResource("12_86i6t")
 
 [node name="Camera" parent="." instance=ExtResource("13_ewtw6")]
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 scale = Vector2(1.2, 1.11111)
@@ -138,6 +140,7 @@ shape = SubResource("RectangleShape2D_5h2hg")
 position = Vector2(13, -13)
 
 [node name="DashCooldown" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true
 
 [node name="DashBar" parent="." instance=ExtResource("14_67dxl")]

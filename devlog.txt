@@ -273,3 +273,18 @@ While I was doing work around the house I watched
 Custom Resources by Pefeper
 https://youtu.be/vzRZjM9MTGw?si=do8BCwlL-wffOClB
 And it made resources and data-driven development click a little bit more. Specifically, there was a part of the video that showed him creating a list of various death effect functions that were run by actors in a 3d game whenever they died - this is potentially a pattern I can apply to on-hit and on-death effects, and maybe even passive cards and the like. Definetely need to look into data-driven game development properly.
+
+8/2/24
+
+https://youtu.be/U03XXzcThGU
+This talk by the co-creator of Caves of Qud had some pretty scary but quite ground breaking programming patterns in it, and it also happens to reference quite a few resources with more details on data driven patterns like it.
+It's honestly quite a scary watch for how different the programming is to make an effective scaleable roguelike, but I will turn to my prototype for now and worry about making it data driven after a few more iterations! There is much more research and exprimentation to do, but the end goal is data-driven for sure.
+
+https://gameprogrammingpatterns.com/
+This website has also come to my attention today, and I will absolutely be using it as a resource from now - it's pretty much exactly what I needed.
+    Command: Could be generally useful for movement controllers, but I don't know what sort of structure I'd want those commands to have...
+    Flyweight: Would already be in use if I would implement projectiles with resources again! Very useful, very good to remember.
+    Observer: This is just signals! Very critical. One comment made in the book is that generally the parameters that would go along signals are the emitting object as well as a generic multi-purpose data object, potentially an enum or a child class of an Event.
+    Prototype: A class which generates clones of an underlying prototypical object, copying all state using a provided cloning method. Potentially useful for things such as spawners of different things. To avoid having to write cloning functions though, we can also just give spawners constructors for what we want to spawn.
+    Singleton: This whole section just demostrated that I really don't need a floor_effect_handler, I was just not wanting to add floor effects to the main screen tree, for some reason? Lol.
+    State: Already pretty familliar with FSMs. Good to remember that they can be useful whenever you have lots of complex branching based on mutable state. Without using heavyweight FSM structures, you can already simplify code by having your states be in and enum and switching them.
