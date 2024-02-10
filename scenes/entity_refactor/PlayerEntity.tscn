@@ -1,0 +1,21 @@
+[gd_scene load_steps=6 format=3 uid="uid://cu4jaf5f1nlxo"]
+
+[ext_resource type="PackedScene" uid="uid://c03pfmwpgtofc" path="res://scenes/entity_refactor/components/simple_graphics_component.tscn" id="1_pie61"]
+[ext_resource type="Script" path="res://scenes/entity_refactor/entity.gd" id="1_qygno"]
+[ext_resource type="Texture2D" uid="uid://bgg25jogme2ah" path="res://assets/dungeon/wizzard_f_idle_anim_f3.png" id="2_7n76d"]
+[ext_resource type="PackedScene" uid="uid://dfdt5bke0tcu6" path="res://scenes/entity_refactor/components/player_input_component.tscn" id="4_i7dta"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qptjs"]
+
+[node name="PlayerEntity" type="CharacterBody2D" groups=["players"]]
+collision_layer = 4
+collision_mask = 6
+script = ExtResource("1_qygno")
+
+[node name="Sprite" parent="." instance=ExtResource("1_pie61")]
+texture = ExtResource("2_7n76d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_qptjs")
+
+[node name="PlayerInputComponent" parent="." instance=ExtResource("4_i7dta")]

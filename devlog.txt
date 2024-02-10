@@ -288,3 +288,82 @@ This website has also come to my attention today, and I will absolutely be using
     Prototype: A class which generates clones of an underlying prototypical object, copying all state using a provided cloning method. Potentially useful for things such as spawners of different things. To avoid having to write cloning functions though, we can also just give spawners constructors for what we want to spawn.
     Singleton: This whole section just demostrated that I really don't need a floor_effect_handler, I was just not wanting to add floor effects to the main screen tree, for some reason? Lol.
     State: Already pretty familliar with FSMs. Good to remember that they can be useful whenever you have lots of complex branching based on mutable state. Without using heavyweight FSM structures, you can already simplify code by having your states be in and enum and switching them.
+
+
+9/2/24
+
+Refactor time!!! Yipee!!!
+It's clear to me that I should at least *experiment* with the principles I've learned, even if I don't want too and even if it doesn't accelerate development towards the prototype. I don't have enough time to develop systems that aren't even close to what I'll need in the future, and if progress today is promising I may even end up in a better position than I was before. Fingers crossed.
+
+Let's then talk about entities. First of all, I need to choose what node they will inherit from - since I don't want to make projectiles entities too, since it would make my job of refactoring a lot harder, I am going to make them inherit from CharacterBody2Ds.
+
+Now, entities might have a few different ways of interacting with the world:
+    They can have active hitboxes
+    They can have hurtboxes and be hittable by other entities or projectiles
+    They can have different collision properties
+    They can have different physics parameters
+    They can have different movement patterns, controlled by either AI or input
+    They can be visually distinct
+
+If I wanted to turn any of these into components, the data that these components would need are both the self and sometimes the entity which is interacting with them. 
+To help thinking of an implementation and how to connect all of these separate components, I am going to think about a concrete example: the player.
+The player entity by itself will do almost nothing. First I'll define a graphics component which will handle the player's sprite. I'm already not sure what sort of interactions I would even want this component to have with the entity and other componenets, so I'm going to look into data-driven games dev a little more.
+
+Sources for research spree:
+
+https://www.computer.org/csdl/magazine/co/2022/05/09771161/1DeEYnefsoU
+The Data-Oriented Design Process for Game Development
+
+
+https://www.youtube.com/watch?v=JxI3Eu5DPwE
+by the author of
+https://gameprogrammingpatterns.com/
+Cool AI Concepts: Fear, fleeing, flow by scent
+Inheritance works better for shallow but broad inheritance trees
+Using components to represent capabilities instead of domains
+Domains being physics, ai, sound, graphics etc.
+Every Goblin monster has a breed as its component - there is only one instance of their breed (Type Object pattern / Godot Resources)
+    Each instance of a class is basically a separate type here
+Abusing the command pattern (in this talk referred to as Actions)
+    When in doubt, try turning an operation into an object that you can run. Take some verb and make it a noun.
+
+
+
+https://docs.godotengine.org/en/stable/about/faq.html#why-does-godot-not-force-users-to-implement-dod-data-oriented-design
+
+https://www.gdquest.com/tutorial/godot/design-patterns/entity-component-system/
+
+https://www.youtube.com/watch?v=jV-DZqdKlnE
+
+https://github.com/mxgmn/WaveFunctionCollapse
+
+https://www.youtube.com/watch?v=4uxN5GqXcaA
+
+https://godotengine.org/article/why-isnt-godot-ecs-based-game-engine/
+This article, as well as GDQuest, recommends https://github.com/GodotECS/godex
+
+https://www.reddit.com/r/roguelikedev/comments/7luzxx/items_in_roguelikes/
+One user suggests coding items as having a list of effects! Very nice.
+
+Back to Game Programming Patterns:
+    Subclass sandbox: Subclasses use parent protected functions to define their own behaviour
+
+10/2/24
+Today I'm going to try implement an adapted version of what I've seen with with Component based systems and Caves of Qud.
+An entity has a distribute_signal method which takes an entity and an event to distribute to its components. It sends this event to each of its nodes in sequence via their recieve_signal method, where they will switch based on the event type given (hit, taken_damage, moved, etc.) Components can completely ignore the event.
+To extend this based on Qud, I will be allowing each child return either the modified event or null, so that children at the top of the node hierarchy can consume or mutate events. I am not totally sure if this is quite as useful as Qud's system, nor do I know what I will use it for, but it is an inexpensive addition to the system.
+
+Components in these systems often describe what Entities can do, so what can they do?
+    Collide - so we need a physics component
+        Physics component is mostly handled by CharacterBody2D, but this is already a problem: I am relying on the children of my entity all being components, while CharacterBodies expect a CollisionShape2D as a child. I've had decision paralysis for a few days now, so I will drop character bodies and attempt to implement my own solution. My solution will take movement signals emitted by the brain of the entity and act on them.
+    Have an appearance and change animation - graphics component
+    Be hit - Have a hurtbox component
+    Deal contact damage, maybe - Have a hitbox component
+    Own items - Have an inventory component
+    See other entities - have a detection field component
+    Move - Have a brain component, which can be AI or input capture
+        This will simply emit movement or interaction commands to the entity.
+
+I will work on collision and movement first, and simply have a barebones graphics component for debugging.
+
+Forget it! I don't need to extend the physics system, surely. I will make my entities inherit from CharacterBody2D and work on those assumptions. Physics components will encapsulate how characterbodies move, if that. I've tried to think of ways to implement my own collision with raycasts and areas but its simply not worth it.

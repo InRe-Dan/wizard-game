@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://qdoydeckgola"]
+
+[sub_resource type="GDScript" id="GDScript_ct6jd"]
+script/source = "class_name SimplePhysicsComponent extends EntityComponent
+
+@export var acceleration : Vector2
+@export var damping : Vector2
+
+@onready var ray : RayCast2D = $RayCast2D
+
+var velocity : Vector2
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+func receive_signal(emitter : Entity, event : Event) -> Event:
+	match event.type:
+		Event.types.inputmove:
+			return event
+		_:
+			return event
+"
+
+[node name="SimplePhysicsComponent" type="Node2D"]
+script = SubResource("GDScript_ct6jd")

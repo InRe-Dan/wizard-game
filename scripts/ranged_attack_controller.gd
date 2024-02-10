@@ -1,12 +1,7 @@
-class_name RangedAttackController extends EnemyAttackController
+class_name RangedAttackController extends EntityComponent
 
 @onready var parent : Enemy = get_parent()
 @onready var weapon : EnemyWeapon = $FireBreath as EnemyWeapon
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 	
 func try_attack(entity : Player) -> bool:
 	if (parent.global_position - entity.global_position).length() < weapon.effective_range:

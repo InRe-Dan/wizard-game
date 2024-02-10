@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://c3ymrarugklpb"]
+[gd_scene load_steps=6 format=3 uid="uid://c3ymrarugklpb"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_jl44l"]
 [ext_resource type="PackedScene" uid="uid://b85ijfyowcx7n" path="res://scenes/room_1.tscn" id="1_pf5qg"]
-[ext_resource type="PackedScene" uid="uid://b3amtwq1uxqrl" path="res://scenes/player.tscn" id="2_bqysa"]
-[ext_resource type="PackedScene" uid="uid://bxl0u3toe2fdk" path="res://scenes/enemy.tscn" id="5_06yge"]
+[ext_resource type="PackedScene" uid="uid://dkfutwmsr2tli" path="res://scenes/camera.tscn" id="3_5shnw"]
+[ext_resource type="PackedScene" uid="uid://cu4jaf5f1nlxo" path="res://scenes/entity_refactor/PlayerEntity.tscn" id="4_urxv3"]
+[ext_resource type="PackedScene" uid="uid://bbwrd3v7gvwa7" path="res://scenes/entity_refactor/demon_entity.tscn" id="5_iw5le"]
 
 [node name="main" type="Node2D" groups=["main"]]
 texture_filter = 1
@@ -11,26 +12,14 @@ script = ExtResource("1_jl44l")
 
 [node name="room1" parent="." instance=ExtResource("1_pf5qg")]
 
-[node name="Player" parent="room1" instance=ExtResource("2_bqysa")]
-position = Vector2(0, 53)
-dash_speed = 300.0
-
-[node name="Enemy" parent="room1" instance=ExtResource("5_06yge")]
-position = Vector2(-173, 64)
-
-[node name="Enemy2" parent="room1" instance=ExtResource("5_06yge")]
-position = Vector2(317, 44)
-
-[node name="Enemy3" parent="room1" instance=ExtResource("5_06yge")]
-position = Vector2(-331, 104)
-
-[node name="Enemy4" parent="room1" instance=ExtResource("5_06yge")]
-position = Vector2(317, 150)
-
-[node name="Enemy5" parent="room1" instance=ExtResource("5_06yge")]
-position = Vector2(-299, -150)
-
 [node name="FloorEffects" type="Node2D" parent="."]
 visibility_layer = 2
 z_index = 1
 z_as_relative = false
+
+[node name="Camera" parent="." instance=ExtResource("3_5shnw")]
+
+[node name="PlayerEntity" parent="." instance=ExtResource("4_urxv3")]
+
+[node name="DemonEntity" parent="." instance=ExtResource("5_iw5le")]
+position = Vector2(-70, 40)
