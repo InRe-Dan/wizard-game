@@ -9,17 +9,15 @@ var move : Vector2
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 	
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
 	velocity += move * acceleration * delta
 	velocity = velocity / (1 + damping * delta)
 	move -= move
-	move_and_slide()
+	velocity = velocity.limit_length(1000)
+	var collision : KinematicCollision2D = move_and_collide(velocity * delta)
+	if collision:
+		velocity = velocity.slide(collision.get_normal())
 
 func distribute_signal(emitter : Entity, event : Event) -> void:
 	match event.type:

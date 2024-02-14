@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://batjptmmditm3"]
+[gd_scene load_steps=2 format=3 uid="uid://c74pb21neekot"]
 
 [ext_resource type="Script" path="res://scripts/avoidance_vision.gd" id="1_rk0js"]
 

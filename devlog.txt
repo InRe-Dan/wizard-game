@@ -367,3 +367,19 @@ Components in these systems often describe what Entities can do, so what can the
 I will work on collision and movement first, and simply have a barebones graphics component for debugging.
 
 Forget it! I don't need to extend the physics system, surely. I will make my entities inherit from CharacterBody2D and work on those assumptions. Physics components will encapsulate how characterbodies move, if that. I've tried to think of ways to implement my own collision with raycasts and areas but its simply not worth it.
+
+12/2/24
+
+Haven't been able to do anything for the last couple of days due to circumstances, so back on development now.
+
+First thing to do was to work out why the characters are suddenly jittering, but I went to older versions of the project and decoupled the camera and ran into the same issues - apparently Godot 4 does not play well with pixel perfect scaling, but there are workarounds. I will have to investigate them later, though.
+
+Putting all this aside, I'd like to work on hitboxes and hurtboxes next.
+I can make EntityComponents which contain and manage an Area2D.
+Or rather, I can assume that all children of these components will be Area2Ds and act on them accordingly, so that I can define hurtboxes in the scene editor per-entity, but I have to give some thought into how attacking will work first.
+I have the option of making everything an "entity" or "actor" so that projectiles can have hitboxes that act on hurtboxes, and although this complicates things in the short term it will be good to have the flexibility later on.
+
+Suppose we have a fireball projectile that can damage opponents and is destructible - it has a hitbox and a hurtbox.
+If we want to make use of Godot's collision system, we must use Area2Ds and the signals which they emit - the "area entered signal" is most useful. Hurtbox or hitbox areas could theoretically both be looking for collisions with eachother. Since entities can have various resistances to damage, I would like to have the hit-ee be aware of the collision rather than the hit-er. This way it can query the attributes of the projectile's hitbox component and apply defense calculations, and if need be report to the projectile that it has hit something. 
+
+With all this considered, a hitbox must know how much damage to do and a hurtbox must know how much damage to take.

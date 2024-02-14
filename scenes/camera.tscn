@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://dkfutwmsr2tli"]
+[gd_scene load_steps=10 format=3 uid="uid://dkfutwmsr2tli"]
 
+[ext_resource type="Script" path="res://scripts/camera.gd" id="1_3xw7b"]
 [ext_resource type="Shader" path="res://shaders/screen.gdshader" id="1_p3gnc"]
 [ext_resource type="FontFile" uid="uid://byo6fct4u77e6" path="res://assets/fonts/m3x6.ttf" id="2_efxpv"]
 [ext_resource type="Script" path="res://scripts/frame_counter.gd" id="3_gcyxb"]
@@ -26,7 +27,8 @@ shader_parameter/noise_texture = SubResource("NoiseTexture2D_qgabh")
 font = ExtResource("2_efxpv")
 font_color = Color(0.980392, 0.980392, 0.980392, 0.196078)
 
-[node name="Camera" type="Camera2D"]
+[node name="Camera" type="Camera2D" groups=["camera"]]
+script = ExtResource("1_3xw7b")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.321569, 0.321569, 0.321569, 1)

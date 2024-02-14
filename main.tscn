@@ -1,10 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://c3ymrarugklpb"]
+[gd_scene load_steps=8 format=3 uid="uid://c3ymrarugklpb"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_jl44l"]
 [ext_resource type="PackedScene" uid="uid://b85ijfyowcx7n" path="res://scenes/room_1.tscn" id="1_pf5qg"]
 [ext_resource type="PackedScene" uid="uid://dkfutwmsr2tli" path="res://scenes/camera.tscn" id="3_5shnw"]
 [ext_resource type="PackedScene" uid="uid://cu4jaf5f1nlxo" path="res://scenes/entity_refactor/PlayerEntity.tscn" id="4_urxv3"]
 [ext_resource type="PackedScene" uid="uid://bbwrd3v7gvwa7" path="res://scenes/entity_refactor/demon_entity.tscn" id="5_iw5le"]
+
+[sub_resource type="Gradient" id="Gradient_umlen"]
+offsets = PackedFloat32Array(0, 0.688312)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0rflr"]
+gradient = SubResource("Gradient_umlen")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [node name="main" type="Node2D" groups=["main"]]
 texture_filter = 1
@@ -17,9 +28,30 @@ visibility_layer = 2
 z_index = 1
 z_as_relative = false
 
-[node name="Camera" parent="." instance=ExtResource("3_5shnw")]
-
 [node name="PlayerEntity" parent="." instance=ExtResource("4_urxv3")]
+
+[node name="Camera" parent="PlayerEntity" instance=ExtResource("3_5shnw")]
+texture_filter = 1
 
 [node name="DemonEntity" parent="." instance=ExtResource("5_iw5le")]
 position = Vector2(-70, 40)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-103, -58)
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_0rflr")
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+position = Vector2(229, 72)
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_0rflr")
+
+[node name="PointLight2D3" type="PointLight2D" parent="."]
+position = Vector2(219, -84)
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_0rflr")
+
+[node name="PointLight2D4" type="PointLight2D" parent="."]
+position = Vector2(-140, 119)
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_0rflr")
