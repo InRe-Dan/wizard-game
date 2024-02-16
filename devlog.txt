@@ -405,3 +405,14 @@ Continuing with creating entity components to regain previous features:
     Handle player death
     Have inventory infrastructure
     Have various bars and things
+
+I've made things animated now, and I've decided to work on inventories next since I do want to see how most of the other parts will slot around then and whether or not I'd have to redesign some things. I am going to make inventories a critical component of entities, making them necessary for entities to attack at all. I will model the system such that an AI controller can send an "attack" event and the inventory will use whatever item it has it in that can count as an attack.
+
+Inventories will contain nodes which serve as items and items will contain nodes which serve as actions.
+Actions can include things such as:
+    Inflict stat changes or status effects on the user (by sending them events)
+    Create projectiles (or, as a consequence of the entity system, any entity)
+
+I am wondering which types of events an inventory might need to know about. The main thing I want inventories to respond to is "use" commands, which require context about the direction in which to use, in case the item to be used is a projectile weapon. This kind of complicates things.
+I want spells to have many different aiming styles, and I want to support mouse and keyboard and controller equally well. Some spells will simply shoot a projectile in a direction, which is simple enough, but some spells may lock on to a target and "spawn" on them, or steer towards them. 
+I am going to make it the item, action or projectile's responsibility to define these behaviours - to keep things super simple on the input end, the only parameter to the use command will be a direciton, which translates well to both input methods and lets the item act on further logic. If an item knows which direction it is to be used in, it can find a target in that direction with a shape or ray cast. 

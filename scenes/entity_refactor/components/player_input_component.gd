@@ -11,6 +11,8 @@ func _physics_process(delta: float) -> void:
 	var aim_dir : Vector2 = Input.get_vector("aimleft", "aimright", "aimup", "aimdown");
 	if move.length() > 0.1:
 		parent.distribute_signal(parent, InputMoveEvent.new(move))
+	if Input.is_action_just_pressed("click"):
+		parent.distribute_signal(parent, InputCommand.new(InputCommand.Commands.use, aim_dir))
 		
 func receive_signal(emitter : Entity, event : Event) -> Event:
 	return event

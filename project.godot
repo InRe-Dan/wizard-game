@@ -56,6 +56,7 @@ folder_colors={
 "res://out/": "gray",
 "res://resources/": "red",
 "res://scenes/": "orange",
+"res://scenes/entity_refactor/": "pink",
 "res://scripts/": "yellow",
 "res://shaders/": "green",
 "res://tilesets/": "teal"

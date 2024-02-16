@@ -1,9 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://cu4jaf5f1nlxo"]
+[gd_scene load_steps=9 format=3 uid="uid://cu4jaf5f1nlxo"]
 
 [ext_resource type="PackedScene" uid="uid://c03pfmwpgtofc" path="res://scenes/entity_refactor/components/simple_graphics_component.tscn" id="1_pie61"]
 [ext_resource type="Script" path="res://scenes/entity_refactor/entity.gd" id="1_qygno"]
 [ext_resource type="SpriteFrames" uid="uid://xdt74tl0fgn7" path="res://resources/player_sprite_frames.tres" id="4_3oo4o"]
 [ext_resource type="PackedScene" uid="uid://dfdt5bke0tcu6" path="res://scenes/entity_refactor/components/player_input_component.tscn" id="4_i7dta"]
+[ext_resource type="PackedScene" uid="uid://uajwl8rwegui" path="res://scenes/entity_refactor/inventory.tscn" id="5_pvf5x"]
+[ext_resource type="PackedScene" uid="uid://h58rl4uc7ew5" path="res://scenes/entity_refactor/inventory_item.tscn" id="6_h4eic"]
+[ext_resource type="PackedScene" uid="uid://rbmos20jyp6e" path="res://scenes/entity_refactor/spawn_angel_action.tscn" id="7_3prgq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qptjs"]
 radius = 9.0
@@ -25,3 +28,9 @@ position = Vector2(0, -6)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SimpleGraphics"]
 sprite_frames = ExtResource("4_3oo4o")
 animation = &"move"
+
+[node name="Inventory" parent="." instance=ExtResource("5_pvf5x")]
+
+[node name="InventoryItem" parent="Inventory" instance=ExtResource("6_h4eic")]
+
+[node name="SpawnAngelAction" parent="Inventory/InventoryItem" instance=ExtResource("7_3prgq")]
