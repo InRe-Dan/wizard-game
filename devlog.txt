@@ -393,3 +393,15 @@ At the moment the big question is how I can decouple animations from everything 
 It looks like these nodes are more appropriate for complicated state systems, but realistically most of my entites will have three animations - idle, move and attack - perhaps even a hurt animation. All of this can be handled by a component reading events and wrapping around an AnimatedSprite2D. For bosses, which might have more complex behaviour, I can create generic events so that a custom AI and custom animation controller can communicate with eachother without affecting the functionality of other entities.
 
 All of this sort of makes me feel like I am neglecting Godot's signal system, but I'm not entirely sure how to achieve this sort of thing using signals.
+
+16/2/24
+
+Continuing with creating entity components to regain previous features:
+    Make things animated
+    Make player shoot
+    Make player dash
+    Make enemies shoot (differently)
+    Make entities die
+    Handle player death
+    Have inventory infrastructure
+    Have various bars and things

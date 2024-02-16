@@ -1,6 +1,6 @@
 class_name Event extends Node
 
-enum types {inputmove, collision}
+enum types {inputmove, inputattack, collision}
 var type : types
 
 # Called when the node enters the scene tree for the first time.
