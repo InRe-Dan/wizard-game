@@ -11,6 +11,8 @@
 collision_layer = 4
 collision_mask = 6
 script = ExtResource("1_qygno")
+acceleration = null
+damping = null
 
 [node name="Sprite" parent="." instance=ExtResource("1_pie61")]
 texture = ExtResource("2_7n76d")

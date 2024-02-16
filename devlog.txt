@@ -383,3 +383,13 @@ Suppose we have a fireball projectile that can damage opponents and is destructi
 If we want to make use of Godot's collision system, we must use Area2Ds and the signals which they emit - the "area entered signal" is most useful. Hurtbox or hitbox areas could theoretically both be looking for collisions with eachother. Since entities can have various resistances to damage, I would like to have the hit-ee be aware of the collision rather than the hit-er. This way it can query the attributes of the projectile's hitbox component and apply defense calculations, and if need be report to the projectile that it has hit something. 
 
 With all this considered, a hitbox must know how much damage to do and a hurtbox must know how much damage to take.
+
+14/2/24
+
+Naturally after all this messing around with pixel perfect camera settings, the problem seems to be completely nonexistent on linux. ??????
+I am going to steer slightly off course from the hitbox/hurtbox development and work on generic components for my entities, today, which don't need to consider projectiles as well - although I think it would be a good idea to make my projectiles entities as well, and potentially my chests too - it will be easiest to add various effects for. I can for example have a linear projectile "AI", or one which allows for bounces on collision.
+
+At the moment the big question is how I can decouple animations from everything - I need an animation system which can rely solely on my events to decide which animation should play and when. I'm going to have a study of the more complicated animation nodes in Godot, like AnimationPlayer and AnimationTree.
+It looks like these nodes are more appropriate for complicated state systems, but realistically most of my entites will have three animations - idle, move and attack - perhaps even a hurt animation. All of this can be handled by a component reading events and wrapping around an AnimatedSprite2D. For bosses, which might have more complex behaviour, I can create generic events so that a custom AI and custom animation controller can communicate with eachother without affecting the functionality of other entities.
+
+All of this sort of makes me feel like I am neglecting Godot's signal system, but I'm not entirely sure how to achieve this sort of thing using signals.

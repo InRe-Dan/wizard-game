@@ -10,7 +10,7 @@ var move : Vector2
 func _ready() -> void:
 	pass # Replace with function body.
 	
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	velocity += move * acceleration * delta
 	velocity = velocity / (1 + damping * delta)
 	move -= move
@@ -18,6 +18,7 @@ func _process(delta: float) -> void:
 	var collision : KinematicCollision2D = move_and_collide(velocity * delta)
 	if collision:
 		velocity = velocity.slide(collision.get_normal())
+		distribute_signal(self, CollisionEvent.new(collision))
 
 func distribute_signal(emitter : Entity, event : Event) -> void:
 	match event.type:

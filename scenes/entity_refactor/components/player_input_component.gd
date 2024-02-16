@@ -14,3 +14,4 @@ func _physics_process(delta: float) -> void:
 		
 func receive_signal(emitter : Entity, event : Event) -> Event:
 	return event
+

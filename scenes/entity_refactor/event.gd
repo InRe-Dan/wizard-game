@@ -1,6 +1,7 @@
 class_name Event extends Node
 
-enum types {inputmove}
+enum types {inputmove, collision}
+var type : types
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
