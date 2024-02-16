@@ -9,11 +9,11 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	var move : Vector2 = Input.get_vector("left", "right", "up", "down");
 	var aim_dir : Vector2 = Input.get_vector("aimleft", "aimright", "aimup", "aimdown");
+	aim_dir = (get_global_mouse_position() - global_position).normalized()
 	if move.length() > 0.1:
 		parent.distribute_signal(parent, InputMoveEvent.new(move))
-	if Input.is_action_just_pressed("click"):
+	if Input.is_action_just_pressed("shoot"):
 		parent.distribute_signal(parent, InputCommand.new(InputCommand.Commands.use, aim_dir))
-		
 func receive_signal(emitter : Entity, event : Event) -> Event:
 	return event
 
