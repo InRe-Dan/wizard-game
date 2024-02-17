@@ -1,4 +1,4 @@
-class_name SpawnAction extends ItemAction
+extends ItemAction
 
 @export var entity : PackedScene
 

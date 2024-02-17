@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cu4jaf5f1nlxo"]
+[gd_scene load_steps=15 format=3 uid="uid://cu4jaf5f1nlxo"]
 
 [ext_resource type="PackedScene" uid="uid://c03pfmwpgtofc" path="res://scenes/entity_refactor/components/simple_graphics_component.tscn" id="1_pie61"]
 [ext_resource type="Script" path="res://scenes/entity_refactor/entity.gd" id="1_qygno"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://uajwl8rwegui" path="res://scenes/entity_refactor/inventory.tscn" id="5_pvf5x"]
 [ext_resource type="PackedScene" uid="uid://h58rl4uc7ew5" path="res://scenes/entity_refactor/inventory_item.tscn" id="6_h4eic"]
 [ext_resource type="PackedScene" uid="uid://rbmos20jyp6e" path="res://scenes/entity_refactor/spawn_action.tscn" id="7_8wm4x"]
+[ext_resource type="PackedScene" uid="uid://duc75ycwlo2g7" path="res://scenes/entity_refactor/shoot_projectile_action.tscn" id="7_wqdxu"]
+[ext_resource type="PackedScene" uid="uid://bn06fjm6xnu4i" path="res://scenes/entity_refactor/fireball_entity.tscn" id="8_6f2md"]
 [ext_resource type="PackedScene" uid="uid://bbwrd3v7gvwa7" path="res://scenes/entity_refactor/angel_entity.tscn" id="8_m3jwc"]
 [ext_resource type="PackedScene" uid="uid://c867pju6atw7e" path="res://scenes/entity_refactor/components/hurtbox_component.tscn" id="9_0rj06"]
 
@@ -15,6 +17,8 @@ radius = 9.0
 height = 20.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4s2ka"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ji6m1"]
 
 [node name="PlayerEntity" type="CharacterBody2D" groups=["players"]]
 collision_layer = 4
@@ -35,6 +39,11 @@ animation = &"move"
 
 [node name="Inventory" parent="." instance=ExtResource("5_pvf5x")]
 
+[node name="InventoryItem2" parent="Inventory" instance=ExtResource("6_h4eic")]
+
+[node name="ShootProjectileAction" parent="Inventory/InventoryItem2" instance=ExtResource("7_wqdxu")]
+projectile = ExtResource("8_6f2md")
+
 [node name="InventoryItem" parent="Inventory" instance=ExtResource("6_h4eic")]
 
 [node name="SpawnAngelAction" parent="Inventory/InventoryItem" instance=ExtResource("7_8wm4x")]
@@ -48,3 +57,12 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent/Area2D"]
 shape = SubResource("CircleShape2D_4s2ka")
+
+[node name="HurtboxComponent2" parent="." instance=ExtResource("9_0rj06")]
+
+[node name="Area2D" type="Area2D" parent="HurtboxComponent2"]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent2/Area2D"]
+shape = SubResource("CircleShape2D_ji6m1")

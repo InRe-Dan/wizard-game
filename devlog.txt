@@ -428,3 +428,16 @@ A separate inventory of cards which denote passive effects might then make sense
 
 I realised that I forgot to account for something - projectiles created by the player may have different on-hit or on-death effects based on the player's passive cards, and may inflict different types of damage as well.
 When the inventory instantiates a projectile, it will fire an event to say that it has created a projectile that should be fired. This event contains the projectile to be created, so that it can be altered as it passes through components that will affect its stats.
+
+17/2/24
+
+Hurtboxes and hitboxes need to have some concept of a "team", and this concept needs to change as they move, as I want spells to be able to deal damage to their caster, but not in all cases and not as soon as the spell is cast. The components of the entity should be able to change its team as the lifetime of the entity progresses - so that a fireball that is cast will be able to change its team to "any" when it progresses far enough away from the player. Although this seems like a sound fix, I am still worried that an enemy casting a spell into another enemy that is very close to them will not be affected by the spell, and this could be quite noticeable.
+Instead, when a spell entity is created, it should only ignore its creator for a short period of time, rather than any entity on that team. This should cover most cases. The concept of creationship will not apply to every entity.
+
+Here's a new concern: I now have three different collision areas on my entities - one for world collisions, one for hitting things, and one for getting hit. Some entities need to disappear when colliding with a surface, and those surfaces might be other entities. How do I make it so that they don't get deleted before they have a chance to touch whatever they hit with their hitbox?
+    I could make projectiles not collide with other entities - after all, I only need this functionality so that entities don't step over eachother.
+    I could make projectiles use their hitbox for their destruction instead of their collision box - but there is no assurance that the thing they hit even has a hurtbox, so interactions with things like the tilemap might need special considerations. Hitboxes should only interact with hurtboxes. 
+First option doesn't immediately seem to have big drawbacks, and any I can think of seem to have workarounds.
+
+So far I am pretty happy with the way the component is coming together, as I can think of a few different ways to implement projectile-specific components that slot in with my system. For now, I can have graphics be handled by a sprite2d, but later on I could have shader-driven components that can respond to movement and hit events to change their appearance. Using characterbodies for my entities also enables more sophisticated behaviours on collision, like sliding along surfaces and detecting collision locations.
+

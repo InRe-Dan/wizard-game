@@ -1,14 +1,18 @@
 class_name Entity extends CharacterBody2D
 
 @export var acceleration : float = 500
+@export var spawn_velocity : float = 500
 @export var damping : float = 5
 
+enum Team {player, enemy, any}
 
 var move : Vector2
+var creator : Entity = null
+var team : Team = Team.any
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	pass
 	
 func _physics_process(delta: float) -> void:
 	velocity += move * acceleration * delta
