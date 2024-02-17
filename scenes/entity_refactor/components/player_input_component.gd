@@ -14,6 +14,10 @@ func _physics_process(delta: float) -> void:
 		parent.distribute_signal(parent, InputMoveEvent.new(move))
 	if Input.is_action_just_pressed("shoot"):
 		parent.distribute_signal(parent, InputCommand.new(InputCommand.Commands.use, aim_dir))
+	if Input.is_action_just_pressed("cycleforward"):
+		parent.distribute_signal(parent, InputCommand.new(InputCommand.Commands.cyclef, aim_dir))
+	if Input.is_action_just_pressed("cyclebackward"):
+		parent.distribute_signal(parent, InputCommand.new(InputCommand.Commands.cycleb, aim_dir))
 func receive_signal(emitter : Entity, event : Event) -> Event:
 	return event
 

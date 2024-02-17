@@ -20,6 +20,13 @@ func use_any_attack() -> void:
 func use_any_heal() -> void:
 	pass
 
+func cycleItems(amount : int) -> void:
+	selected += amount
+	if selected < 0:
+		selected = get_children().size() - 1
+	elif selected >= get_children().size():
+		selected = 0
+
 func receive_signal(emitter : Entity, event : Event) -> Event:
 	match event.type:
 		Event.types.inputcommand:
@@ -31,4 +38,8 @@ func receive_signal(emitter : Entity, event : Event) -> Event:
 					use_any_heal()
 				commandevent.Commands.use:
 					use(commandevent.direction)
+				commandevent.Commands.cyclef:
+					cycleItems(1)
+				commandevent.Commands.cycleb:
+					cycleItems(-1)
 	return event
