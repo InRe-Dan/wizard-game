@@ -62,6 +62,7 @@ collision_mask = 6
 script = ExtResource("1_5vdek")
 acceleration = 200.0
 damping = 3.0
+health = 10
 
 [node name="Sprite" parent="." instance=ExtResource("2_xc2ya")]
 

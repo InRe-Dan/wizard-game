@@ -441,3 +441,10 @@ First option doesn't immediately seem to have big drawbacks, and any I can think
 
 So far I am pretty happy with the way the component is coming together, as I can think of a few different ways to implement projectile-specific components that slot in with my system. For now, I can have graphics be handled by a sprite2d, but later on I could have shader-driven components that can respond to movement and hit events to change their appearance. Using characterbodies for my entities also enables more sophisticated behaviours on collision, like sliding along surfaces and detecting collision locations.
 
+18/2/24
+
+I believe I finally have a working system for taking and dealing damage: it comprises of two components, four events and one DamageData type.
+    The two components, hitboxes and hurtboxes, expect area2Ds as children for collision detection. Hurtboxes do nothing (for now), and hitboxes have a DamageData parameter and will send an event with the data attached when they detect a hurtbox.
+    The first event to be sent is a HasHitEvent. The event passes through entity components so that the damage data can be modified for damage buffs and effects, and once it makes it through the entity, the entity will let the target know that it has been hit with a BeenHit event. This event makes it through the target entity to have resistances applied to it, and finally the target distributes two events:
+        TakeDamage is distrbuted on itself so that stats, behaviour and graphics can be updated.
+        DealtDamage is distributed back to the aggressor so that it can now how much damage was actually dealt and gain on-hit effects, for example.

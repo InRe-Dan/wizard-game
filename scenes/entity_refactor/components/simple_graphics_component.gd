@@ -12,7 +12,7 @@ func _process(delta: float) -> void:
 	if not sprite.is_playing():
 		sprite.play("idle")
 
-func receive_signal(emitter : Entity, event : Event) -> Event:
+func receive_signal(event : Event) -> Event:
 	match event.type:
 		Event.types.inputmove:
 			sprite.play("move")

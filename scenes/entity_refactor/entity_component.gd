@@ -10,5 +10,5 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func receive_signal(emitter : Entity, event : Event) -> Event:
+func receive_signal(event : Event) -> Event:
 	return event

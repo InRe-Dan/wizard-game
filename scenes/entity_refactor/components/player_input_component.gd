@@ -11,13 +11,14 @@ func _physics_process(delta: float) -> void:
 	var aim_dir : Vector2 = Input.get_vector("aimleft", "aimright", "aimup", "aimdown");
 	aim_dir = (get_global_mouse_position() - global_position).normalized()
 	if move.length() > 0.1:
-		parent.distribute_signal(parent, InputMoveEvent.new(move))
+		parent.distribute_signal(InputMoveEvent.new(move))
 	if Input.is_action_just_pressed("shoot"):
-		parent.distribute_signal(parent, InputCommand.new(InputCommand.Commands.use, aim_dir))
+		parent.distribute_signal(InputCommand.new(InputCommand.Commands.use, aim_dir))
 	if Input.is_action_just_pressed("cycleforward"):
-		parent.distribute_signal(parent, InputCommand.new(InputCommand.Commands.cyclef, aim_dir))
+		parent.distribute_signal(InputCommand.new(InputCommand.Commands.cyclef, aim_dir))
 	if Input.is_action_just_pressed("cyclebackward"):
-		parent.distribute_signal(parent, InputCommand.new(InputCommand.Commands.cycleb, aim_dir))
-func receive_signal(emitter : Entity, event : Event) -> Event:
+		parent.distribute_signal(InputCommand.new(InputCommand.Commands.cycleb, aim_dir))
+
+func receive_signal(event : Event) -> Event:
 	return event
 

@@ -27,7 +27,7 @@ func cycleItems(amount : int) -> void:
 	elif selected >= get_children().size():
 		selected = 0
 
-func receive_signal(emitter : Entity, event : Event) -> Event:
+func receive_signal(event : Event) -> Event:
 	match event.type:
 		Event.types.inputcommand:
 			var commandevent : InputCommand = event as InputCommand

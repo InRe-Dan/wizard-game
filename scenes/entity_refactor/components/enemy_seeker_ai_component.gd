@@ -16,7 +16,7 @@ func _physics_process(delta: float) -> void:
 	var target : Entity = get_tree().get_first_node_in_group("players") as Entity
 	if target:
 		var dir : Vector2 = find_direction_to(target.global_position).normalized()
-		parent.distribute_signal(parent, InputMoveEvent.new(dir))
+		parent.distribute_signal(InputMoveEvent.new(dir))
 
 func find_direction_to(global_pos : Vector2) -> Vector2:
 	navigation_agent.target_position = global_pos
