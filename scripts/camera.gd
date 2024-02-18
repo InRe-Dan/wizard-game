@@ -13,11 +13,11 @@ var destination_position: Vector2
 func _ready() -> void:
 	current_position = global_position
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	var target: Node2D = get_tree().get_first_node_in_group("players") as Node2D
 	if target:
 		destination_position = target.global_position
 	current_position += Vector2(destination_position.x - current_position.x, destination_position.y - current_position.y) / SMOOTHING_DURATION * delta
 	
-	# global_position = current_position.round()
-	# force_update_scroll()
+	global_position = current_position.round()
+	force_update_scroll()
