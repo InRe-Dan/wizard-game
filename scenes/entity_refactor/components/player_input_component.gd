@@ -7,8 +7,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	var move : Vector2 = Input.get_vector("left", "right", "up", "down");
-	var aim_dir : Vector2 = Input.get_vector("aimleft", "aimright", "aimup", "aimdown");
+	var move : Vector2 = Input.get_vector("left", "right", "up", "down").normalized();
+	var aim_dir : Vector2 = Input.get_vector("aimleft", "aimright", "aimup", "aimdown").normalized();
 	aim_dir = (get_global_mouse_position() - global_position).normalized()
 	if move.length() > 0.1:
 		parent.distribute_signal(InputMoveEvent.new(move))

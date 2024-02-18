@@ -18,10 +18,12 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	velocity += move * acceleration * delta
 	velocity = velocity / (1 + damping * delta)
-	move -= move
+	move = Vector2()
+	print(velocity.length())
 	# velocity = velocity.limit_length(1000)
 	var collision : KinematicCollision2D = move_and_collide(velocity * delta)
 	if collision:
+		print("Collision!")
 		velocity = velocity.slide(collision.get_normal())
 		distribute_signal(CollisionEvent.new(collision))
 

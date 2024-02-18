@@ -64,16 +64,16 @@ acceleration = 200.0
 damping = 3.0
 health = 1
 
-[node name="Sprite" parent="." instance=ExtResource("2_xc2ya")]
+[node name="SimpleGraphics" parent="." instance=ExtResource("2_xc2ya")]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SimpleGraphics"]
 sprite_frames = SubResource("SpriteFrames_4d50n")
 animation = &"move"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_sunu4")
 
-[node name="EnemySeekerAiComponent" parent="." instance=ExtResource("11_cjyc4")]
+[node name="AIComponent" parent="." instance=ExtResource("11_cjyc4")]
 
 [node name="HurtboxComponent" parent="." instance=ExtResource("12_b8lrm")]
 
