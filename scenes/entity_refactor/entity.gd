@@ -19,11 +19,9 @@ func _physics_process(delta: float) -> void:
 	velocity += move * acceleration * delta
 	velocity = velocity / (1 + damping * delta)
 	move = Vector2()
-	print(velocity.length())
 	# velocity = velocity.limit_length(1000)
 	var collision : KinematicCollision2D = move_and_collide(velocity * delta)
 	if collision:
-		print("Collision!")
 		velocity = velocity.slide(collision.get_normal())
 		distribute_signal(CollisionEvent.new(collision))
 
@@ -43,6 +41,7 @@ func distribute_signal(event : Event) -> void:
 		Event.types.has_hit:
 			var hit : HasHitEvent = event as HasHitEvent 
 			hit.target.distribute_signal(BeenHitEvent.new(self, hit.damage))
+			print_orphan_nodes()
 		Event.types.been_hit:
 			var hit : BeenHitEvent = event as BeenHitEvent
 			distribute_signal(TakeDamageEvent.new(hit.dealer, hit.damage))
@@ -55,3 +54,5 @@ func distribute_signal(event : Event) -> void:
 				queue_free()
 		_:
 			pass
+	# stops memory leak
+	event.queue_free()

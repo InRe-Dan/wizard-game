@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dm7txjk84pxhw"]
 
 [ext_resource type="Script" path="res://scenes/entity_refactor/components/enemy_seeker_ai_component.gd" id="1_24yym"]
-[ext_resource type="PackedScene" uid="uid://batjptmmditm3" path="res://scenes/entity_refactor/enemy_components/avoidance_vision.tscn" id="1_qsobg"]
+[ext_resource type="PackedScene" uid="uid://c74pb21neekot" path="res://scenes/entity_refactor/enemy_components/avoidance_vision.tscn" id="1_qsobg"]
 
 [node name="EnemySeekerAiComponent" type="Node2D"]
 script = ExtResource("1_24yym")

@@ -4,7 +4,7 @@ extends Camera2D
 # r/godot, u/forbjok
 
 # Smoothing duration in seconds
-var SMOOTHING_DURATION : float = 0.5
+var SMOOTHING_DURATION : float = 0.1
 # Current position of the camera
 var current_position: Vector2
 # Position the camera is moving towards

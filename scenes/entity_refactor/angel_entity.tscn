@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bbwrd3v7gvwa7"]
+[gd_scene load_steps=18 format=3 uid="uid://bbwrd3v7gvwa7"]
 
 [ext_resource type="Script" path="res://scenes/entity_refactor/entity.gd" id="1_5vdek"]
 [ext_resource type="PackedScene" uid="uid://c03pfmwpgtofc" path="res://scenes/entity_refactor/components/simple_graphics_component.tscn" id="2_xc2ya"]
@@ -56,6 +56,17 @@ height = 18.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bemnm"]
 
+[sub_resource type="Gradient" id="Gradient_feut0"]
+offsets = PackedFloat32Array(0, 0.318182, 0.603896, 0.785714)
+colors = PackedColorArray(1, 1, 1, 0.733333, 1, 1, 1, 0.584146, 1, 1, 1, 0.239216, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qpxde"]
+gradient = SubResource("Gradient_feut0")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
 [node name="AngelEntity" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 6
@@ -83,3 +94,6 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent/Area2D"]
 shape = SubResource("CircleShape2D_bemnm")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+texture = SubResource("GradientTexture2D_qpxde")
