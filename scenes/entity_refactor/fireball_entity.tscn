@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://bn06fjm6xnu4i"]
+[gd_scene load_steps=10 format=3 uid="uid://bn06fjm6xnu4i"]
 
 [ext_resource type="Script" path="res://scenes/entity_refactor/entity.gd" id="1_gsob8"]
 [ext_resource type="Script" path="res://scenes/entity_refactor/components/hitbox_component.gd" id="2_vpgp7"]
 [ext_resource type="Script" path="res://scenes/entity_refactor/damage_data.gd" id="3_vtbdh"]
+[ext_resource type="PackedScene" uid="uid://bueaitn7te0q1" path="res://scenes/entity_refactor/components/projectile_despawner_component.tscn" id="4_n16x0"]
 
 [sub_resource type="Gradient" id="Gradient_b1x1k"]
 interpolation_mode = 2
@@ -49,3 +50,5 @@ shape = SubResource("CircleShape2D_6cg1l")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_08qk3")
+
+[node name="ProjectileDespawnerComponent" parent="." instance=ExtResource("4_n16x0")]

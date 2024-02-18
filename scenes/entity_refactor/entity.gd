@@ -36,7 +36,7 @@ func distribute_signal(event : Event) -> void:
 	for child : Node2D in get_children():
 		if child as EntityComponent:
 			event = (child as EntityComponent).receive_signal(event)
-	
+
 	match event.type:
 		Event.types.has_hit:
 			var hit : HasHitEvent = event as HasHitEvent 
@@ -49,5 +49,7 @@ func distribute_signal(event : Event) -> void:
 			var hit : TakeDamageEvent = event as TakeDamageEvent
 			health -= hit.damage.damage
 			print(self, " ", health)
+			if health <= 0:
+				queue_free()
 		_:
 			pass
