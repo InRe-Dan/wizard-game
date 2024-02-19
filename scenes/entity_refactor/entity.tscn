@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://b4m0ep0hhg407"]
-
-[ext_resource type="Script" path="res://scenes/entity_refactor/entity.gd" id="1_2mbqm"]
-
-[node name="Entity" type="CharacterBody2D"]
-script = ExtResource("1_2mbqm")

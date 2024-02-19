@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://h58rl4uc7ew5"]
-
-[ext_resource type="Script" path="res://scenes/entity_refactor/inventory_item.gd" id="1_n4kup"]
-
-[node name="InventoryItem" type="Node2D"]
-script = ExtResource("1_n4kup")

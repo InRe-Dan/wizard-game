@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://c3ymrarugklpb"]
 
-[ext_resource type="Script" path="res://scripts/main.gd" id="1_jl44l"]
-[ext_resource type="PackedScene" uid="uid://b85ijfyowcx7n" path="res://scenes/room_1.tscn" id="1_pf5qg"]
-[ext_resource type="PackedScene" uid="uid://dkfutwmsr2tli" path="res://scenes/camera.tscn" id="3_5shnw"]
-[ext_resource type="PackedScene" uid="uid://cu4jaf5f1nlxo" path="res://scenes/entity_refactor/player_entity.tscn" id="4_urxv3"]
-[ext_resource type="PackedScene" uid="uid://bbwrd3v7gvwa7" path="res://scenes/entity_refactor/angel_entity.tscn" id="5_x8mtg"]
+[ext_resource type="Script" path="res://main.gd" id="1_jl44l"]
+[ext_resource type="PackedScene" uid="uid://b85ijfyowcx7n" path="res://misc_scenes/room_1.tscn" id="1_pf5qg"]
+[ext_resource type="PackedScene" uid="uid://dkfutwmsr2tli" path="res://misc_scenes/camera.tscn" id="3_5shnw"]
+[ext_resource type="PackedScene" uid="uid://cu4jaf5f1nlxo" path="res://entities/player_entity.tscn" id="4_urxv3"]
+[ext_resource type="PackedScene" uid="uid://bbwrd3v7gvwa7" path="res://entities/angel_entity.tscn" id="5_x8mtg"]
 
 [node name="main" type="Node2D" groups=["main"]]
 texture_filter = 1

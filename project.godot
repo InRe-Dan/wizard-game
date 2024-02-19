@@ -16,11 +16,6 @@ config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 config/icon="res://assets/icon.svg"
 
-[autoload]
-
-FloorEffectHandler="*res://scripts/floor_effect_handler.gd"
-Globals="*res://scripts/globals.gd"
-
 [debug]
 
 gdscript/warnings/untyped_declaration=2
@@ -51,15 +46,19 @@ enabled=PackedStringArray("res://addons/godot_state_charts/plugin.cfg")
 [file_customization]
 
 folder_colors={
+"res://-out/": "gray",
 "res://addons/": "gray",
 "res://assets/": "gray",
-"res://out/": "gray",
+"res://base_classes/": "red",
+"res://components/": "orange",
+"res://entities/": "yellow",
+"res://events/": "green",
+"res://item_actions/": "blue",
+"res://items/": "teal",
+"res://misc_scenes/": "purple",
+"res://misc_scripts/": "pink",
 "res://resources/": "red",
-"res://scenes/": "orange",
-"res://scenes/entity_refactor/": "pink",
-"res://scripts/": "yellow",
-"res://shaders/": "green",
-"res://tilesets/": "teal"
+"res://shaders/": "orange"
 }
 
 [input]

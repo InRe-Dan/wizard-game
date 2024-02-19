@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://duc75ycwlo2g7"]
+
+[ext_resource type="Script" path="res://item_actions/shoot_projectile_action.gd" id="1_532d3"]
+
+[node name="ShootProjectileAction" type="Node"]
+script = ExtResource("1_532d3")

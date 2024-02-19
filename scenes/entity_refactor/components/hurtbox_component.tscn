@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://c867pju6atw7e"]
-
-[ext_resource type="Script" path="res://scenes/entity_refactor/components/hurtbox_component.gd" id="1_86vqf"]
-
-[node name="HurtboxComponent" type="Node2D"]
-script = ExtResource("1_86vqf")
