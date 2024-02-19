@@ -450,3 +450,17 @@ I believe I finally have a working system for taking and dealing damage: it comp
         DealtDamage is distributed back to the aggressor so that it can now how much damage was actually dealt and gain on-hit effects, for example.
 
 Absolutely perplexing issue with what I thought to be pixel-related jittering - entities alternate between two different positions when in motion, UNLESS there are multiple angels in the game. Then they behave fine. What in the world???
+
+19/2/24
+
+Today I have another supervisor meeting, so I've started with cleaning up all my files after the big refactor of the last few days. Not sure what meaningful features I can implement before the meeting, especially since I also need to have another look at the ethics information. 
+
+Things to discuss:
+    Digital signing of ethics forms
+    Anonymisation - when is it approriate to redact names
+    Linking participants together between separate beta tests
+    Information on the consent form
+    Previous build of the game
+    New build of the game
+    Pixel perfection and the "fix"
+    New structure of the game
