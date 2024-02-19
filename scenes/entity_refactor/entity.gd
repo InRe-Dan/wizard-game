@@ -54,5 +54,5 @@ func distribute_signal(event : Event) -> void:
 				queue_free()
 		_:
 			pass
-	# stops memory leak
+	# HACK stops memory leak?
 	event.queue_free()

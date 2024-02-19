@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cu4jaf5f1nlxo"]
+[gd_scene load_steps=16 format=3 uid="uid://cu4jaf5f1nlxo"]
 
 [ext_resource type="PackedScene" uid="uid://c03pfmwpgtofc" path="res://scenes/entity_refactor/components/simple_graphics_component.tscn" id="1_pie61"]
 [ext_resource type="Script" path="res://scenes/entity_refactor/entity.gd" id="1_qygno"]
@@ -17,6 +17,15 @@ radius = 9.0
 height = 20.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4s2ka"]
+
+[sub_resource type="Gradient" id="Gradient_x6o5b"]
+offsets = PackedFloat32Array(0, 0.558442)
+colors = PackedColorArray(1, 1, 1, 0.596078, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mfdbb"]
+gradient = SubResource("Gradient_x6o5b")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [node name="PlayerEntity" type="CharacterBody2D" groups=["players"]]
 collision_layer = 4
@@ -56,3 +65,6 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent/Area2D"]
 shape = SubResource("CircleShape2D_4s2ka")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+texture = SubResource("GradientTexture2D_mfdbb")

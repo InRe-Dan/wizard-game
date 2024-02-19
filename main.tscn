@@ -24,30 +24,23 @@ z_as_relative = false
 
 [node name="AngelEntity" parent="." instance=ExtResource("5_x8mtg")]
 position = Vector2(-36, 64)
-spawn_velocity = 500.0
 
 [node name="_BugFix_" type="Node2D" parent="."]
 
 [node name="AngelEntity7" parent="_BugFix_" instance=ExtResource("5_x8mtg")]
 position = Vector2(-911, -52)
-spawn_velocity = 500.0
 
 [node name="AngelEntity2" parent="_BugFix_" instance=ExtResource("5_x8mtg")]
 position = Vector2(-935, -8)
-spawn_velocity = 500.0
 
 [node name="AngelEntity3" parent="_BugFix_" instance=ExtResource("5_x8mtg")]
 position = Vector2(-919, 40)
-spawn_velocity = 500.0
 
 [node name="AngelEntity4" parent="_BugFix_" instance=ExtResource("5_x8mtg")]
 position = Vector2(-973, -44)
-spawn_velocity = 500.0
 
 [node name="AngelEntity5" parent="_BugFix_" instance=ExtResource("5_x8mtg")]
 position = Vector2(-935, -119)
-spawn_velocity = 500.0
 
 [node name="AngelEntity6" parent="_BugFix_" instance=ExtResource("5_x8mtg")]
 position = Vector2(-965, 32)
-spawn_velocity = 500.0
