@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cno6ign2pv07"]
+
+[ext_resource type="Script" path="res://death_effects/entity_spawn_death_effect.gd" id="1_s8ppl"]
+
+[node name="EntitySpawnDeathEffect" type="Node2D"]
+script = ExtResource("1_s8ppl")

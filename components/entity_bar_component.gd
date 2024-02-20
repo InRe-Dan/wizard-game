@@ -1,4 +1,4 @@
-class_name EntityBar extends Node2D
+class_name EntityBar extends EntityComponent
 
 enum bar_types {red, yellow}
 enum bar_show_rules {always, when_not_full, on_hit}

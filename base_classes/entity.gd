@@ -51,6 +51,7 @@ func distribute_signal(event : Event) -> void:
 			health -= hit.damage.damage
 			print(self, " ", health)
 			if health <= 0:
+				distribute_signal(DeathEvent.new(hit.dealer))
 				queue_free()
 		_:
 			pass

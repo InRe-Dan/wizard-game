@@ -1,0 +1,78 @@
+[gd_scene load_steps=13 format=3 uid="uid://cpidswdj0owvh"]
+
+[ext_resource type="Script" path="res://base_classes/entity.gd" id="1_sxe2s"]
+[ext_resource type="PackedScene" uid="uid://7neyiej0xx17" path="res://components/hitbox_component.tscn" id="2_qlgqq"]
+[ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="3_053v4"]
+[ext_resource type="Script" path="res://misc_scripts/particle_autostart.gd" id="3_61w6g"]
+
+[sub_resource type="Resource" id="Resource_x0s8p"]
+script = ExtResource("3_053v4")
+damage = 1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u5xm2"]
+radius = 48.07
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_8v2rw"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="Curve" id="Curve_7v2mj"]
+max_value = 3.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.331081, 2.14286), 3.62449, 3.62449, 0, 0, Vector2(0.77027, 2.86813), 1.70769, 1.70769, 0, 0, Vector2(1, 3), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_56vco"]
+curve = SubResource("Curve_7v2mj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ax6ob"]
+particle_flag_disable_z = true
+angle_min = -720.0
+angle_max = 720.0
+spread = 180.0
+initial_velocity_max = 579.55
+gravity = Vector3(0, 30, 0)
+damping_min = 3000.0
+damping_max = 3000.0
+scale_over_velocity_max = 1000.0
+scale_over_velocity_curve = SubResource("CurveTexture_56vco")
+color = Color(1, 0.439216, 0, 1)
+hue_variation_max = 0.09
+turbulence_noise_strength = 0.57
+collision_mode = 2
+
+[sub_resource type="Gradient" id="Gradient_7dn8p"]
+colors = PackedColorArray(0.988235, 0.486275, 0, 1, 1, 1, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_06f6s"]
+gradient = SubResource("Gradient_7dn8p")
+width = 8
+height = 8
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.782407, 0.203704)
+
+[node name="ExplosionEntity" type="CharacterBody2D"]
+script = ExtResource("1_sxe2s")
+
+[node name="HitboxComponent" parent="." instance=ExtResource("2_qlgqq")]
+damage = SubResource("Resource_x0s8p")
+
+[node name="Area2D" type="Area2D" parent="HitboxComponent"]
+collision_layer = 16
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent/Area2D"]
+shape = SubResource("CircleShape2D_u5xm2")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_8v2rw")
+emitting = false
+amount = 2000
+process_material = SubResource("ParticleProcessMaterial_ax6ob")
+texture = SubResource("GradientTexture2D_06f6s")
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+script = ExtResource("3_61w6g")
+
+[connection signal="finished" from="GPUParticles2D" to="." method="queue_free"]
