@@ -464,3 +464,15 @@ Things to discuss:
     New build of the game
     Pixel perfection and the "fix"
     New structure of the game
+
+Meeting notes:
+    Agents may be calling a redraw during the game only every once in a while?
+    Focus testing and or focus groups
+    Screenshake + additional juice
+    Polygons added to existing floor effect meshes'
+    Distance functions for polygons might exist?
+        PackedVectorArrays and Geometry2D
+        Or just passing vector arrays for polygons staright to the shader for finding SDFs!!
+    Convex hulls for joining shapes
+
+20/2/24
