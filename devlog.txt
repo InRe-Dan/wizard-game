@@ -476,3 +476,27 @@ Meeting notes:
     Convex hulls for joining shapes
 
 20/2/24
+
+Following yesteday's meeting, I have a few new short term objectives:
+    Now that my refactor is complete, I can start to implement the absolute core mechanics that will make up my game:
+        Elemental damage and projectiles for three elements. Water for high knockback.
+        Ice for slowing/freezing. 
+        Fire for explosives and damage over time. 
+        Basic ranged and melee-ish enemies
+    To help get more useful data from my first round of testing, I was encouraged to add some more juice to the project, as it would make people less likely to dismiss the game on the grounds of it not being visually or aurally uniteresting
+    I am also going to prepare materials to conduct the first study, which will serve more as an opportunity to guage interest and get feedback on ideas for future developments.
+
+I am going to spend the next 3-4 days implementing core features for the game, and then spend a couple of days on SFX and VFX. Between the 27th and 1st, I will be conducting surveys on 3-5 friends.
+
+First things first, I want to iterate on my damage and physics handling code.
+Damage Data will have attached to it elemental type and status effects to be inflicted, which will be processed by a damage proccessing component that can determine which debuffs to apply to the to the entity. 
+Status effects, in Caves of Qud fashion, will be event-altering code that is attached to a component on the entity - the damage processing component will consume the damagedata and distrbute damagetaken events and statuseffectgained events for the status effect component to take in. Since I want status effects to act on physics and movement, I will also want to create components to handle them instead of handling them directly on the entity class.
+
+So what should status effects be able to change?
+    A fire status effect should continuously emit damage events to the parent, to signify fire damage 
+    Frozen status effects should consume movement events
+    Water status effects may affect the damage taken from hit events, and when enemies are blasted by water they should have their movement locked for a short while so they can take kinetic damage.
+    Confusion effects might be reverse movement commands or randomize firing directions.
+    Speed buffs and debuffs may increase or decrease acceleration and/or damping.
+    
+The biggest thing to think about is how input events result in movement, and how I can make the events involved easy to alter. Input components will only tell the entity in which direction we wish to move, so these input events could come with a multiplier attached to them to determine acceleration, and perhaps a flag to lock movement completely. These move events pass through the entity and get turned to a kinematic event that is handled by the physics component to actually move the character. 
