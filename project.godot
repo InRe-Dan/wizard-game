@@ -148,8 +148,9 @@ cyclebackward={
 2d_physics/layer_4="Entity Hurtboxes"
 2d_physics/layer_5="Entity Hitboxes"
 2d_physics/layer_6="Items"
-2d_physics/layer_7="FloorEffects"
-2d_physics/layer_8="Layer 8"
+2d_physics/layer_7="FloorFire"
+2d_physics/layer_8="FloorIce"
+2d_physics/layer_9="FloorWater"
 
 [physics]
 

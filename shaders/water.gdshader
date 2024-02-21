@@ -1,7 +1,11 @@
 shader_type canvas_item;
 
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
 void fragment() {
-	COLOR = vec4(0.6, 0.6, 1.0, 0.5);
+	COLOR = vec4(UV.x, UV.x, 1.0, 0.5);
 }
 
 //void light() {

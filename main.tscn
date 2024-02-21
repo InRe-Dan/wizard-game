@@ -1,10 +1,24 @@
-[gd_scene load_steps=6 format=3 uid="uid://c3ymrarugklpb"]
+[gd_scene load_steps=13 format=3 uid="uid://c3ymrarugklpb"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_jl44l"]
 [ext_resource type="PackedScene" uid="uid://b85ijfyowcx7n" path="res://misc_scenes/room_1.tscn" id="1_pf5qg"]
 [ext_resource type="PackedScene" uid="uid://dkfutwmsr2tli" path="res://misc_scenes/camera.tscn" id="3_5shnw"]
+[ext_resource type="Script" path="res://misc_scripts/FloorEffects.gd" id="4_bfq08"]
 [ext_resource type="PackedScene" uid="uid://cu4jaf5f1nlxo" path="res://entities/player_entity.tscn" id="4_urxv3"]
+[ext_resource type="Shader" path="res://shaders/fire.gdshader" id="5_vvhrr"]
 [ext_resource type="PackedScene" uid="uid://bbwrd3v7gvwa7" path="res://entities/angel_entity.tscn" id="5_x8mtg"]
+[ext_resource type="Shader" path="res://shaders/ice.gdshader" id="6_mjd5h"]
+[ext_resource type="Shader" path="res://shaders/water.gdshader" id="7_cteiq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fgpo6"]
+shader = ExtResource("5_vvhrr")
+shader_parameter/polygon = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5vpvw"]
+shader = ExtResource("6_mjd5h")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6e0xj"]
+shader = ExtResource("7_cteiq")
 
 [node name="main" type="Node2D" groups=["main"]]
 texture_filter = 1
@@ -19,6 +33,40 @@ texture_filter = 1
 visibility_layer = 2
 z_index = 1
 z_as_relative = false
+script = ExtResource("4_bfq08")
+
+[node name="FireGraphic" type="Polygon2D" parent="FloorEffects"]
+z_index = 1
+z_as_relative = false
+material = SubResource("ShaderMaterial_fgpo6")
+
+[node name="IceGraphic" type="Polygon2D" parent="FloorEffects"]
+z_index = 1
+z_as_relative = false
+material = SubResource("ShaderMaterial_5vpvw")
+
+[node name="WaterGraphic" type="Polygon2D" parent="FloorEffects"]
+z_index = 1
+z_as_relative = false
+material = SubResource("ShaderMaterial_6e0xj")
+
+[node name="Fire" type="Area2D" parent="FloorEffects"]
+collision_layer = 64
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FloorEffects/Fire"]
+
+[node name="Ice" type="Area2D" parent="FloorEffects"]
+collision_layer = 129
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FloorEffects/Ice"]
+
+[node name="Water" type="Area2D" parent="FloorEffects"]
+collision_layer = 256
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FloorEffects/Water"]
 
 [node name="PlayerEntity" parent="." instance=ExtResource("4_urxv3")]
 

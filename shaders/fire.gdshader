@@ -1,7 +1,13 @@
 shader_type canvas_item;
 
+uniform vec2 polygon[100];
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
 void fragment() {
-	COLOR = vec4(0.6, 0.6, 1.0, 0.5);
+	COLOR = vec4(1.0, UV.x * 0.5 + 0.5, UV.y, 0.5);
 }
 
 //void light() {

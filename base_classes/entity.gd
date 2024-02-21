@@ -13,7 +13,8 @@ var team : Team = Team.any
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	z_as_relative = false
+	z_index = 2
 	
 func _physics_process(delta: float) -> void:
 	velocity += move * acceleration * delta
