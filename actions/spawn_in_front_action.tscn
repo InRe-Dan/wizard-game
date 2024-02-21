@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://rbmos20jyp6e"]
+
+[ext_resource type="Script" path="res://actions/spawn_in_front_action.gd" id="1_oupdj"]
+
+[node name="SpawnAngelAction" type="Node"]
+script = ExtResource("1_oupdj")

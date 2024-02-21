@@ -502,3 +502,16 @@ So what should status effects be able to change?
 The biggest thing to think about is how input events result in movement, and how I can make the events involved easy to alter. Input components will only tell the entity in which direction we wish to move, so these input events could come with a multiplier attached to them to determine acceleration, and perhaps a flag to lock movement completely. These move events pass through the entity and get turned to a kinematic event that is handled by the physics component to actually move the character. 
 
 I am currently working on having fireballs explode when the despawn, by spawning a new explosion entity. I made a DeathEffectComponent to perform DeathEffects when it recieves a death signal, but I feel as if this new DeathEffect class is incredibly similar to ItemAction, and the yet-to-be-implemented on-hit and on-kill effects. May be worth attemting to unify or subclass them! I will have to work out what data all of these effects require as parameters and how else they may be able to get them. Death, kill, hit and item effects all require a relevant entity or two, so that might be a good start.
+
+21/2/24
+
+Onto improving actions: what can they do and what do they need?
+    On-hit actions: Who was hit, and who hit them? Entities created by another entity should generally inherit all of the on-hit actions of their parent. Tied to damage dealt events
+    On get hit actions: Who got hit, and who was the hitter? These actions may want to know the hitter for revenge mechanics. Tied to damage taken events.
+    On-death actions: Who killed them, and who was killed? Again, these actions may involve revenge mechanics or buffs to the killer as a reward for the kill. Tied to death events.
+    On-kill actions: Kinda the same as on-death actions, but they affect the killer instead of the victim.
+    Inventory item actions: Who used the item, and in which direction? This is the only outlier for all of these, as it doesn't really have a target, but one can be inferred by the item. Direction can be inferred from caster and target for all the other events, too. 
+    
+The parent contexts of these actions (e.g. inventories or effect containers) can inject data into them on "do", so actions can all be the same type in all these contexts. 
+
+So all actions will take one entity as a mandatory parameter, which is the caster, a secondary entity and direction as optionals - actions are responsible for checking for default values, and they are allowed to infer them - for example an item use may not have an explicit target, but it can try to find one based on direction, or it might need none of this information. 

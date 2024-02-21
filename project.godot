@@ -53,7 +53,6 @@ folder_colors={
 "res://components/": "orange",
 "res://entities/": "yellow",
 "res://events/": "green",
-"res://item_actions/": "blue",
 "res://items/": "teal",
 "res://misc_scenes/": "purple",
 "res://misc_scripts/": "pink",

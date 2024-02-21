@@ -6,11 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://dfdt5bke0tcu6" path="res://components/player_input_component.tscn" id="4_i7dta"]
 [ext_resource type="PackedScene" uid="uid://uajwl8rwegui" path="res://misc_scenes/inventory.tscn" id="5_pvf5x"]
 [ext_resource type="PackedScene" uid="uid://h58rl4uc7ew5" path="res://misc_scenes/inventory_item.tscn" id="6_h4eic"]
-[ext_resource type="PackedScene" uid="uid://rbmos20jyp6e" path="res://item_actions/spawn_action.tscn" id="7_8wm4x"]
-[ext_resource type="PackedScene" uid="uid://duc75ycwlo2g7" path="res://item_actions/shoot_projectile_action.tscn" id="7_wqdxu"]
+[ext_resource type="PackedScene" uid="uid://duc75ycwlo2g7" path="res://actions/shoot_projectile_action.tscn" id="7_uqqob"]
 [ext_resource type="PackedScene" uid="uid://bn06fjm6xnu4i" path="res://entities/fireball_entity.tscn" id="8_6f2md"]
 [ext_resource type="PackedScene" uid="uid://bbwrd3v7gvwa7" path="res://entities/angel_entity.tscn" id="8_m3jwc"]
 [ext_resource type="PackedScene" uid="uid://c867pju6atw7e" path="res://components/hurtbox_component.tscn" id="9_0rj06"]
+[ext_resource type="PackedScene" uid="uid://rbmos20jyp6e" path="res://actions/spawn_in_front_action.tscn" id="9_bdbjh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qptjs"]
 radius = 9.0
@@ -49,12 +49,12 @@ animation = &"move"
 
 [node name="InventoryItem2" parent="Inventory" instance=ExtResource("6_h4eic")]
 
-[node name="ShootProjectileAction" parent="Inventory/InventoryItem2" instance=ExtResource("7_wqdxu")]
+[node name="ShootProjectileAction" parent="Inventory/InventoryItem2" instance=ExtResource("7_uqqob")]
 projectile = ExtResource("8_6f2md")
 
 [node name="InventoryItem" parent="Inventory" instance=ExtResource("6_h4eic")]
 
-[node name="SpawnAngelAction" parent="Inventory/InventoryItem" instance=ExtResource("7_8wm4x")]
+[node name="SpawnAngelAction" parent="Inventory/InventoryItem" instance=ExtResource("9_bdbjh")]
 entity = ExtResource("8_m3jwc")
 
 [node name="HurtboxComponent" parent="." instance=ExtResource("9_0rj06")]

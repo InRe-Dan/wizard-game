@@ -10,5 +10,5 @@ func _process(delta: float) -> void:
 	pass
 
 func use(owner : Entity, direction : Vector2) -> void:
-	for action : ItemAction in get_children():
-		action.do(owner, direction)
+	for action : Action in get_children():
+		action.do(owner, null, direction)

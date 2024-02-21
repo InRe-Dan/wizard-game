@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cno6ign2pv07"]
+
+[ext_resource type="Script" path="res://actions/spawn_action.gd" id="1_ytlet"]
+
+[node name="EntitySpawnDeathEffect" type="Node"]
+script = ExtResource("1_ytlet")
