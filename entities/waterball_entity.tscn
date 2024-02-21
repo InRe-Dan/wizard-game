@@ -1,17 +1,14 @@
-[gd_scene load_steps=15 format=3 uid="uid://bn06fjm6xnu4i"]
+[gd_scene load_steps=12 format=3 uid="uid://b2qsrxijygjq"]
 
-[ext_resource type="Script" path="res://base_classes/entity.gd" id="1_n4ph4"]
-[ext_resource type="Script" path="res://components/hitbox_component.gd" id="2_6qmrl"]
-[ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="3_8tb8x"]
-[ext_resource type="PackedScene" uid="uid://bueaitn7te0q1" path="res://components/projectile_despawner_component.tscn" id="4_pb6vt"]
-[ext_resource type="PackedScene" uid="uid://xqw72ne1en7r" path="res://components/death_effect_component.tscn" id="5_khqhi"]
-[ext_resource type="PackedScene" uid="uid://cno6ign2pv07" path="res://actions/spawn_action.tscn" id="6_e4jy4"]
-[ext_resource type="PackedScene" uid="uid://cpidswdj0owvh" path="res://entities/explosion_entity.tscn" id="7_xcnvc"]
+[ext_resource type="Script" path="res://base_classes/entity.gd" id="1_s7ud0"]
+[ext_resource type="Script" path="res://components/hitbox_component.gd" id="2_abtyd"]
+[ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="3_jo8t6"]
+[ext_resource type="PackedScene" uid="uid://bueaitn7te0q1" path="res://components/projectile_despawner_component.tscn" id="4_lukr3"]
 
 [sub_resource type="Gradient" id="Gradient_b1x1k"]
 interpolation_mode = 2
 offsets = PackedFloat32Array(0, 0.636364, 0.733766, 0.844156)
-colors = PackedColorArray(1, 0.152941, 0, 1, 1, 0.464063, -0.0703125, 1, 1, 1.01556, 1.03108, 0.960296, 1, 1, 1, 0)
+colors = PackedColorArray(0, 1, 1, 1, 0, 0, 1, 1, 1, 1.01556, 1.03108, 0.960296, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ku6a4"]
 gradient = SubResource("Gradient_b1x1k")
@@ -21,11 +18,11 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="Resource" id="Resource_qwe1d"]
-script = ExtResource("3_8tb8x")
+script = ExtResource("3_jo8t6")
 damage = 1
-damage_type = 1
+damage_type = 2
 knockback_type = 1
-knockback_velocity = 0.0
+knockback_velocity = 1000.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6cg1l"]
 radius = 6.08276
@@ -39,15 +36,13 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.461039, 1, 1, 1, 0.289126, 1, 1
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_agrek"]
 gradient = SubResource("Gradient_sr7xp")
-width = 128
-height = 128
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
-[node name="FireballEntity" type="CharacterBody2D"]
+[node name="WaterballEntity" type="CharacterBody2D"]
 collision_layer = 0
 collision_mask = 2
-script = ExtResource("1_n4ph4")
+script = ExtResource("1_s7ud0")
 spawn_velocity = 200.0
 damping = 0.0
 
@@ -55,7 +50,7 @@ damping = 0.0
 texture = SubResource("GradientTexture2D_ku6a4")
 
 [node name="HitboxComponent" type="Node2D" parent="."]
-script = ExtResource("2_6qmrl")
+script = ExtResource("2_abtyd")
 damage = SubResource("Resource_qwe1d")
 
 [node name="Area2D" type="Area2D" parent="HitboxComponent"]
@@ -68,14 +63,10 @@ shape = SubResource("CircleShape2D_6cg1l")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_08qk3")
 
-[node name="ProjectileDespawner" parent="." instance=ExtResource("4_pb6vt")]
+[node name="ProjectileDespawner" parent="." instance=ExtResource("4_lukr3")]
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-color = Color(1, 0.454902, 0, 1)
+color = Color(0.486275, 0.85098, 1, 1)
+energy = 0.5
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_agrek")
-
-[node name="DeathEffectComponent" parent="." instance=ExtResource("5_khqhi")]
-
-[node name="EntitySpawnDeathEffect" parent="DeathEffectComponent" instance=ExtResource("6_e4jy4")]
-entity = ExtResource("7_xcnvc")

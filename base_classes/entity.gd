@@ -51,6 +51,11 @@ func distribute_signal(event : Event) -> void:
 			var hit : TakeDamageEvent = event as TakeDamageEvent
 			health -= hit.damage.damage
 			print(self, " ", health)
+			match hit.damage.knockback_type:
+				DamageData.KnockbackTypes.origin:
+					velocity += (global_position - hit.dealer.global_position).normalized() * hit.damage.knockback_velocity
+				DamageData.KnockbackTypes.velocity:
+					velocity += hit.dealer.velocity.normalized() * hit.damage.knockback_velocity
 			if health <= 0:
 				distribute_signal(DeathEvent.new(hit.dealer))
 				queue_free()

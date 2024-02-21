@@ -8,6 +8,9 @@
 [sub_resource type="Resource" id="Resource_x0s8p"]
 script = ExtResource("3_053v4")
 damage = 1
+damage_type = 1
+knockback_type = 0
+knockback_velocity = 500.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u5xm2"]
 radius = 48.07
