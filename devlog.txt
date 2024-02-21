@@ -515,3 +515,10 @@ Onto improving actions: what can they do and what do they need?
 The parent contexts of these actions (e.g. inventories or effect containers) can inject data into them on "do", so actions can all be the same type in all these contexts. 
 
 So all actions will take one entity as a mandatory parameter, which is the caster, a secondary entity and direction as optionals - actions are responsible for checking for default values, and they are allowed to infer them - for example an item use may not have an explicit target, but it can try to find one based on direction, or it might need none of this information. 
+
+I've now unified actions and have added knockback to damage types, which the entity scripts handles for now, but I would like to extend this in two ways:
+    Knockback should be a modifiable event such that inventory items can prevent it - this is already pretty much implemented as the damagedata passes through components and the knockback value is mutable, so on second thought I won't bother.
+    High velocity collisions into walls should inflict splat damage. This damage needs to be tied to the correct entity so that on kill and on hit effects can be computed. 
+
+Since knowing who is responsible for a knock into a wall is not viable, I will make the entities remember who knocked them back last and when. If knockback was recent enough, events are distributed.
+

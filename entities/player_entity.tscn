@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cu4jaf5f1nlxo"]
+[gd_scene load_steps=18 format=3 uid="uid://cu4jaf5f1nlxo"]
 
 [ext_resource type="PackedScene" uid="uid://c03pfmwpgtofc" path="res://components/simple_graphics_component.tscn" id="1_pie61"]
 [ext_resource type="Script" path="res://base_classes/entity.gd" id="1_qygno"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://c867pju6atw7e" path="res://components/hurtbox_component.tscn" id="9_0rj06"]
 [ext_resource type="PackedScene" uid="uid://rbmos20jyp6e" path="res://actions/spawn_in_front_action.tscn" id="9_bdbjh"]
 [ext_resource type="PackedScene" uid="uid://b2qsrxijygjq" path="res://entities/waterball_entity.tscn" id="9_h4x3d"]
+[ext_resource type="PackedScene" uid="uid://uag18b8s0jg4" path="res://components/dialogue_component.tscn" id="13_3b1pc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qptjs"]
 radius = 9.0
@@ -48,19 +49,19 @@ animation = &"move"
 
 [node name="Inventory" parent="." instance=ExtResource("5_pvf5x")]
 
-[node name="InventoryItem2" parent="Inventory" instance=ExtResource("6_h4eic")]
+[node name="Fireball" parent="Inventory" instance=ExtResource("6_h4eic")]
 
-[node name="ShootProjectileAction" parent="Inventory/InventoryItem2" instance=ExtResource("7_uqqob")]
+[node name="ShootProjectileAction" parent="Inventory/Fireball" instance=ExtResource("7_uqqob")]
 projectile = ExtResource("8_6f2md")
 
-[node name="InventoryItem3" parent="Inventory" instance=ExtResource("6_h4eic")]
+[node name="Waterball" parent="Inventory" instance=ExtResource("6_h4eic")]
 
-[node name="ShootProjectileAction" parent="Inventory/InventoryItem3" instance=ExtResource("7_uqqob")]
+[node name="ShootProjectileAction" parent="Inventory/Waterball" instance=ExtResource("7_uqqob")]
 projectile = ExtResource("9_h4x3d")
 
-[node name="InventoryItem" parent="Inventory" instance=ExtResource("6_h4eic")]
+[node name="AngelSpawner" parent="Inventory" instance=ExtResource("6_h4eic")]
 
-[node name="SpawnAngelAction" parent="Inventory/InventoryItem" instance=ExtResource("9_bdbjh")]
+[node name="SpawnAngelAction" parent="Inventory/AngelSpawner" instance=ExtResource("9_bdbjh")]
 entity = ExtResource("8_m3jwc")
 
 [node name="HurtboxComponent" parent="." instance=ExtResource("9_0rj06")]
@@ -74,3 +75,7 @@ shape = SubResource("CircleShape2D_4s2ka")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 texture = SubResource("GradientTexture2D_mfdbb")
+
+[node name="DialogueComponent" parent="." instance=ExtResource("13_3b1pc")]
+lifetime = 1.0
+speed = 2.0
