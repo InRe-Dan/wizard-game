@@ -75,6 +75,7 @@ script = ExtResource("1_fc41v")
 acceleration = 200.0
 damping = 3.0
 health = 10
+team = 1
 
 [node name="SimpleGraphics" parent="." instance=ExtResource("2_o3d52")]
 

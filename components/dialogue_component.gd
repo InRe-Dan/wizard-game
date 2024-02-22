@@ -15,7 +15,7 @@ func _process(delta: float) -> void:
 
 func say(text : String) -> void:
 	var new_label : DialogueLabel = label_scene.instantiate() as DialogueLabel
-	new_label.global_position = global_position + Vector2.RIGHT.rotated(randf() * TAU) * (min_range + randf() * (max_range - min_range))
+	new_label.global_position = global_position + Vector2.from_angle(TAU * randf()) * (min_range + randf() * (max_range - min_range))
 	new_label.text = text
 	new_label.top_level = true
 	new_label.lifetime = lifetime

@@ -533,3 +533,9 @@ And yet another issue: suppose the player has a "projectiles explode on hit" car
 
 At this point it makes more sense to attach all the required information to the projectile when it is created - although this may be wasteful, it is simple and structurally sound. A projectile, when created, has its behaviours defined by its owner and then stops caring about whether or not the owner is alive. 
 This still has an issue, which is effects such as "heal on hit", but they can be hopefully solved with a check for null. A "heal-on-hit" action would also need to either only ever try to heal an owner or the parent entity.
+
+I will introduce a "created projectile" event to help in fixing this problem, so that projectile behaviours can be injected by the inventory of the player after the projectile is fired. This way, projectiles do not need owners at all - their owner can be defined by injected behaviour.
+
+I need to make two compromises: TakeDamageEvents are no longer tied to a dealer, since they may be despawned and are not too relevant anyways, and I can no longer have projectiles not hit their creator specifically - I will simply start using the team enum declared on entities, and have components that change this enum when needed, like after a certain period or on explosion.
+
+And of course now I realise that the immunity frame system I built relies on hurtboxes knowing who hit them. I am going to have to make it the hitboxes responsibility instead, to track which entities to not hit again, which is honestly easier anyways.

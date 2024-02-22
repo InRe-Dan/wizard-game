@@ -1,9 +1,9 @@
 class_name TakeDamageEvent extends Event
 
 var damage : DamageData
-var dealer : Entity
+var direction : Vector2
 
-func _init(dealer : Entity, damage : DamageData) -> void:
+func _init(damage : DamageData, direction : Vector2) -> void:
 	type = types.take_damage
 	self.damage = damage
-	self.dealer = dealer
+	self.direction = direction

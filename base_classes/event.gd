@@ -4,6 +4,6 @@ enum types {
 inputmove, inputcommand, collision, 
 has_hit, been_hit, take_damage, 
 dealt_damage, damage_nullified, 
-death, speech}
+death, speech, created_projectile}
 
 var type : types

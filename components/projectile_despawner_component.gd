@@ -13,9 +13,9 @@ func _process(delta: float) -> void:
 func receive_signal(event : Event) -> Event:
 	match event.type:
 		Event.types.collision:
-			parent.distribute_signal(DeathEvent.new(null))
+			parent.distribute_signal(DeathEvent.new())
 			parent.queue_free()
 		Event.types.dealt_damage:
-			parent.distribute_signal(DeathEvent.new(null))
+			parent.distribute_signal(DeathEvent.new())
 			parent.queue_free()
 	return event
