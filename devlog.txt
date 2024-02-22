@@ -522,3 +522,14 @@ I've now unified actions and have added knockback to damage types, which the ent
 
 Since knowing who is responsible for a knock into a wall is not viable, I will make the entities remember who knocked them back last and when. If knockback was recent enough, events are distributed.
 
+22/2/24
+
+I've been trying to fix the scuffed knockback system, and it brought out some questions about my approach to entity ownership and entities attached to events. Since knockback damage will often happen after a projectile despawns, the knocked back entity has no idea which entity last knocked it back - it needs to know this for the sake of on-hit, on-death, on-kill events and the like, as well as potentially for general kill atrribution for stats.
+At the moment, entities that are owned by another entity are still responsible for dealing their own damage, so despawning them leads to a use-after-free or null error.
+It would probably make sense for all owned entities to report damage back to their owner, as the owner is much less likely to despawn, and if they're dead, it doesn't really matter if they have on-hit or on-kill effects. 
+However, if an owned projectile outlives its parent, we still end up with a problem - it can't send damage dealing events to its owner. 
+
+And yet another issue: suppose the player has a "projectiles explode on hit" card and fire a projectile which they obviously own. This projectile hits something, and because of the card it will spawn a new entity that is owned by the player and should therefore also explode on hit, cascading and killing an enemy instantly.
+
+At this point it makes more sense to attach all the required information to the projectile when it is created - although this may be wasteful, it is simple and structurally sound. A projectile, when created, has its behaviours defined by its owner and then stops caring about whether or not the owner is alive. 
+This still has an issue, which is effects such as "heal on hit", but they can be hopefully solved with a check for null. A "heal-on-hit" action would also need to either only ever try to heal an owner or the parent entity.

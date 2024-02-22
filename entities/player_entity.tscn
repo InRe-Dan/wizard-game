@@ -77,5 +77,5 @@ shape = SubResource("CircleShape2D_4s2ka")
 texture = SubResource("GradientTexture2D_mfdbb")
 
 [node name="DialogueComponent" parent="." instance=ExtResource("13_3b1pc")]
-lifetime = 1.0
+lifetime = 3.0
 speed = 2.0

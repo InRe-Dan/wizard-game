@@ -72,23 +72,30 @@ collision_mask = 0
 
 [node name="AngelEntity" parent="." instance=ExtResource("5_x8mtg")]
 position = Vector2(-36, 64)
+health = 5
 
 [node name="_BugFix_" type="Node2D" parent="."]
 
 [node name="AngelEntity7" parent="_BugFix_" instance=ExtResource("5_x8mtg")]
 position = Vector2(-911, -52)
+health = 5
 
 [node name="AngelEntity2" parent="_BugFix_" instance=ExtResource("5_x8mtg")]
 position = Vector2(-935, -8)
+health = 5
 
 [node name="AngelEntity3" parent="_BugFix_" instance=ExtResource("5_x8mtg")]
 position = Vector2(-919, 40)
+health = 5
 
 [node name="AngelEntity4" parent="_BugFix_" instance=ExtResource("5_x8mtg")]
 position = Vector2(-973, -44)
+health = 5
 
 [node name="AngelEntity5" parent="_BugFix_" instance=ExtResource("5_x8mtg")]
 position = Vector2(-935, -119)
+health = 5
 
 [node name="AngelEntity6" parent="_BugFix_" instance=ExtResource("5_x8mtg")]
 position = Vector2(-965, 32)
+health = 5

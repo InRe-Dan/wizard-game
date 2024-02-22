@@ -14,4 +14,4 @@ func _process(delta: float) -> void:
 	time += delta
 	if time > lifetime:
 		queue_free()
-	position.x += speed * delta
+	position.y -= speed * delta

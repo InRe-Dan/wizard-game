@@ -26,6 +26,7 @@ func cycleItems(amount : int) -> void:
 		selected = get_children().size() - 1
 	elif selected >= get_children().size():
 		selected = 0
+	parent.say(get_children()[selected].name)
 
 func receive_signal(event : Event) -> Event:
 	match event.type:
