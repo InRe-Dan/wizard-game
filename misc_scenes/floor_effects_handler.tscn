@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3 uid="uid://d2gefhko3sbry"]
+
+[ext_resource type="Script" path="res://misc_scenes/floor_effects_handler.gd" id="1_o44qe"]
+[ext_resource type="Shader" path="res://shaders/fire.gdshader" id="2_e0enu"]
+[ext_resource type="Shader" path="res://shaders/ice.gdshader" id="3_rx1tf"]
+[ext_resource type="Shader" path="res://shaders/water.gdshader" id="4_t8jm0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fgpo6"]
+shader = ExtResource("2_e0enu")
+shader_parameter/polygon = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5vpvw"]
+shader = ExtResource("3_rx1tf")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6e0xj"]
+shader = ExtResource("4_t8jm0")
+
+[node name="FloorEffectsHandler" type="Node2D" groups=["floor_effects_handler"]]
+visibility_layer = 2
+z_index = 1
+z_as_relative = false
+script = ExtResource("1_o44qe")
+
+[node name="FireGraphic" type="Polygon2D" parent="."]
+z_index = 1
+z_as_relative = false
+material = SubResource("ShaderMaterial_fgpo6")
+
+[node name="IceGraphic" type="Polygon2D" parent="."]
+z_index = 1
+z_as_relative = false
+material = SubResource("ShaderMaterial_5vpvw")
+
+[node name="WaterGraphic" type="Polygon2D" parent="."]
+z_index = 1
+z_as_relative = false
+material = SubResource("ShaderMaterial_6e0xj")
+
+[node name="Fire" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Fire"]
+
+[node name="Ice" type="Area2D" parent="."]
+collision_layer = 129
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Ice"]
+polygon = PackedVector2Array(109, -16, 170, -35, 201, -48, 203, -63, 204, -85, 234, -86, 299, -79, 307, -47, 282, -12, 267, -2, 240, -8, 236, -4, 226, 16, 237, 38, 227, 50, 221, 63, 201, 65, 176, 68, 130, 69, 130, 57, 113, 42, 105, 35, 105, 26, 106, 16, 101, 7, 100, -2, 104, -7)
+
+[node name="Water" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Water"]

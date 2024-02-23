@@ -3,16 +3,23 @@ extends EntityComponent
 @export var base_acceleration : float = 500
 @export var base_damping : float = 5
 @export var knockback_damage_min_speed : float = 150
+@export var ice_acceleration_multiplier : float = 0.1
+@export var ice_damping_multipler : float = 0.01
 
 var last_move_processed : bool = true
 var last_move_direction : Vector2
 var last_move_acceleration_mult : float
 
 func _physics_process(delta : float) -> void:
+	var damp_factor : float = base_damping * delta
+	var acceleration_factor : float = base_acceleration * last_move_acceleration_mult * delta
+	if FloorHandler.is_point_in_ice(global_position):
+		damp_factor *= ice_damping_multipler
+		acceleration_factor *= ice_acceleration_multiplier
 	if not last_move_processed:
 		last_move_processed = true
-		parent.velocity += last_move_direction * base_acceleration * last_move_acceleration_mult * delta
-	parent.velocity = parent.velocity / (1 + base_damping * delta)
+		parent.velocity += last_move_direction * acceleration_factor
+	parent.velocity = parent.velocity / (1 + damp_factor)
 	var collision : KinematicCollision2D = parent.move_and_collide(parent.velocity * delta)
 	
 	if collision:
@@ -38,4 +45,3 @@ func receive_signal(event : Event) -> Event:
 			last_move_direction = cast_event.direction
 			last_move_processed = false
 	return event
-

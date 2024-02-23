@@ -549,3 +549,7 @@ The question remains of how I would like to handle ice changing movement attribu
 A component which processes whether or not the player is on ice and mutates a move event will only check for ice when that event is fired, but movement is continuous regardless. 
 
 All this considered, it may be better to have the entity class or a physics handling component do all of the computation and checks required - it could eventually send events through the entity to poll what movement parameters are affecting the entity. This component will simply move its parent and distribute collision events.
+
+I am beginning to work on detection of whether or not we are in ice fields, and I wanted to save a link in case it would be useful for shading later:
+https://www.reddit.com/r/godot/comments/ctz3rk/comment/exvfx6f/
+"Shader language - Applying a shader based on if a pixel is in a polygon2D. "

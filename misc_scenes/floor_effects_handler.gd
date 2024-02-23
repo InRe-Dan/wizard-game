@@ -1,4 +1,4 @@
-extends Node2D
+class_name FloorEffectsHandler extends Node2D
 
 @onready var fire_collision : CollisionPolygon2D = $Fire/CollisionPolygon2D
 @onready var fire_graphic : Polygon2D = $FireGraphic
@@ -19,3 +19,6 @@ func _process(delta: float) -> void:
 	fire_graphic.polygon = fire_collision.polygon
 	ice_graphic.polygon = ice_collision.polygon
 	water_graphic.polygon = water_collision.polygon
+	
+func is_point_in_ice(point : Vector2) -> bool:
+	return Geometry2D.is_point_in_polygon(point, ice_collision.polygon)
