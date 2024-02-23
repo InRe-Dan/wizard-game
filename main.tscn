@@ -61,6 +61,7 @@ collision_layer = 129
 collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FloorEffects/Ice"]
+polygon = PackedVector2Array(109, -16, 170, -35, 201, -48, 203, -63, 204, -85, 234, -86, 299, -79, 307, -47, 282, -12, 267, -2, 240, -8, 236, -4, 226, 16, 237, 38, 227, 50, 221, 63, 201, 65, 176, 68, 130, 69, 130, 57, 113, 42, 105, 35, 105, 26, 106, 16, 101, 7, 100, -2, 104, -7)
 
 [node name="Water" type="Area2D" parent="FloorEffects"]
 collision_layer = 256

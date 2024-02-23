@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://b2qsrxijygjq"]
+[gd_scene load_steps=13 format=3 uid="uid://b2qsrxijygjq"]
 
 [ext_resource type="Script" path="res://base_classes/entity.gd" id="1_s7ud0"]
 [ext_resource type="Script" path="res://components/hitbox_component.gd" id="2_abtyd"]
 [ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="3_jo8t6"]
 [ext_resource type="PackedScene" uid="uid://bueaitn7te0q1" path="res://components/projectile_despawner_component.tscn" id="4_lukr3"]
+[ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="5_cel0w"]
 
 [sub_resource type="Gradient" id="Gradient_b1x1k"]
 interpolation_mode = 2
@@ -44,7 +45,6 @@ collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_s7ud0")
 spawn_velocity = 200.0
-damping = 0.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("GradientTexture2D_ku6a4")
@@ -70,3 +70,7 @@ color = Color(0.486275, 0.85098, 1, 1)
 energy = 0.5
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_agrek")
+
+[node name="PhysicsHandlerComponent" parent="." instance=ExtResource("5_cel0w")]
+base_acceleration = 0.0
+base_damping = 0.0

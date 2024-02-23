@@ -539,3 +539,13 @@ I will introduce a "created projectile" event to help in fixing this problem, so
 I need to make two compromises: TakeDamageEvents are no longer tied to a dealer, since they may be despawned and are not too relevant anyways, and I can no longer have projectiles not hit their creator specifically - I will simply start using the team enum declared on entities, and have components that change this enum when needed, like after a certain period or on explosion.
 
 And of course now I realise that the immunity frame system I built relies on hurtboxes knowing who hit them. I am going to have to make it the hitboxes responsibility instead, to track which entities to not hit again, which is honestly easier anyways.
+
+23/2/24
+
+Having done all that, it's back to adding first release features. I want to add an Ice projectile which either inflicts freeze, or creates ice patches, both of which would require new mechanics. Additionally, both mechanics would want to modify movement events inbetween input and addition to velocity, so I should decouple physics from the entity component.
+
+Controllers will emit input events which will pass through components and then be redistributed as "attempt move" events, after which they will finally be processed and a true move event will carry this data to inform components.
+The question remains of how I would like to handle ice changing movement attributes. If components signify what an entity can do, then a component for handling grounded movement can alter the damping and acceleration tied to an attempted move event, but damping needs to be handled per-frame, not just when there are input. 
+A component which processes whether or not the player is on ice and mutates a move event will only check for ice when that event is fired, but movement is continuous regardless. 
+
+All this considered, it may be better to have the entity class or a physics handling component do all of the computation and checks required - it could eventually send events through the entity to poll what movement parameters are affecting the entity. This component will simply move its parent and distribute collision events.

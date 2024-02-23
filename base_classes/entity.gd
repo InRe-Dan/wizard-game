@@ -2,18 +2,13 @@ class_name Entity extends CharacterBody2D
 
 enum Team {player, enemy, any}
 
-@export var acceleration : float = 500
 @export var spawn_velocity : float = 500
-@export var damping : float = 5
 @export var health : int = 5
 @export_enum("Player", "Enemy", "Any") var team : int = Team.any
 
 var knocked_back_by : Entity = null
 var knockback_time : float
 const knockback_valid_timer : float = 0.1
-const knockback_damage_min_speed : float = 150
-
-var move : Vector2
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -22,38 +17,18 @@ func _ready() -> void:
 	say("Spawned in!")
 	
 func _physics_process(delta: float) -> void:
-	velocity += move * acceleration * delta
-	velocity = velocity / (1 + damping * delta)
-	move = Vector2()
-	# velocity = velocity.limit_length(1000)
-	var collision : KinematicCollision2D = move_and_collide(velocity * delta)
-	
-	if collision:
-		if knockback_time - Time.get_ticks_msec() < knockback_valid_timer * 1000:
-			if knockback_damage_min_speed < velocity.length():
-				var damage : DamageData = DamageData.new()
-				damage.damage = floor(velocity.length() / knockback_damage_min_speed)
-				damage.damage_type = damage.DamageTypes.kinetic
-				damage.knockback_velocity = velocity.length() * 0.5
-				say("THUD!")
-				distribute_signal(TakeDamageEvent.new(damage, collision.get_normal()))
-
-		velocity = velocity.slide(collision.get_normal())
-		distribute_signal(CollisionEvent.new(collision))
+	pass
 
 func distribute_signal(event : Event) -> void:
-
-	match event.type:
-		Event.types.inputmove:
-			move = (event as InputMoveEvent).direction
-		_:
-			pass
 	
 	for child : Node in get_children():
 		if child as EntityComponent:
 			event = (child as EntityComponent).receive_signal(event)
 
 	match event.type:
+		Event.types.inputmove:
+			var move : InputMoveEvent = event as InputMoveEvent
+			distribute_signal(AttemptMoveEvent.new(move.direction))
 		Event.types.has_hit:
 			var hit : HasHitEvent = event as HasHitEvent 
 			hit.target.distribute_signal(BeenHitEvent.new(self, hit.damage))
@@ -77,6 +52,7 @@ func distribute_signal(event : Event) -> void:
 				queue_free()
 		_:
 			pass
+
 	# HACK stops memory leak?
 	event.queue_free()
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bbwrd3v7gvwa7"]
+[gd_scene load_steps=20 format=3 uid="uid://bbwrd3v7gvwa7"]
 
 [ext_resource type="Script" path="res://base_classes/entity.gd" id="1_fc41v"]
 [ext_resource type="PackedScene" uid="uid://c03pfmwpgtofc" path="res://components/simple_graphics_component.tscn" id="2_o3d52"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://dm7txjk84pxhw" path="res://components/enemy_seeker_ai_component.tscn" id="11_eul5q"]
 [ext_resource type="PackedScene" uid="uid://c867pju6atw7e" path="res://components/hurtbox_component.tscn" id="12_g60xh"]
 [ext_resource type="PackedScene" uid="uid://uag18b8s0jg4" path="res://components/dialogue_component.tscn" id="13_ox5l0"]
+[ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="14_nd8ux"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4d50n"]
 animations = [{
@@ -72,8 +73,6 @@ fill_from = Vector2(0.5, 0.5)
 collision_layer = 4
 collision_mask = 6
 script = ExtResource("1_fc41v")
-acceleration = 200.0
-damping = 3.0
 health = 10
 team = 1
 
@@ -102,3 +101,5 @@ texture = SubResource("GradientTexture2D_qpxde")
 
 [node name="DialogueComponent" parent="." instance=ExtResource("13_ox5l0")]
 lifetime = 3.0
+
+[node name="PhysicsHandlerComponent" parent="." instance=ExtResource("14_nd8ux")]
