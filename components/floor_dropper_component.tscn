@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://h6thrp5ptkgc"]
+
+[ext_resource type="Script" path="res://components/floor_dropper_component.gd" id="1_3xbp8"]
+
+[node name="FloorDropperComponent" type="Node2D"]
+script = ExtResource("1_3xbp8")

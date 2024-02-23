@@ -552,4 +552,17 @@ All this considered, it may be better to have the entity class or a physics hand
 
 I am beginning to work on detection of whether or not we are in ice fields, and I wanted to save a link in case it would be useful for shading later:
 https://www.reddit.com/r/godot/comments/ctz3rk/comment/exvfx6f/
-"Shader language - Applying a shader based on if a pixel is in a polygon2D. "
+"Shader language - Applying a shader based on if a pixel is in a polygon2D."
+
+Now that ice effects are affecting physics correctly, I need to make them appear and disappear from the floor.
+I am opting to have a global autoload singleton which will expose functions for entity components to interact with. Components can add floor effects for a specified duration, or remove them from a specified area.
+
+A lot of different issues can arise from being able to remove specific areas of floor effects, since different parts of surrounding areas may have totally different lifetimes. Although it is possible to maintain an array of original polygons that make up our new polygons, operations on the floor areas may become too expensive and complicated - plus, it doesn't really make sense that floor effects should have this lifetime memory for multiple areas.
+
+Instead of this system, I am going to try make it so that floor effects decay in radius over time. This is more physically accurate and easy to understand from just looking at the floor, rather than remembering which projectiles with which attributes were fired. Additionally, this makes it so that removing parts of floor effects is trivial and does not regard how the effect was created.
+
+I was thinking that a custom erosion mechanism might be needed, but Geometry2D.offset_polygon magically seems to do what I want - requires testing.
+
+After testing, its clear that offset_polygon is no good - even being done only once every second, it causes noticeable stutters, and this is ignoring the performance cost of instantiating collision shapes for split polygons. I considered threading this, but it would complicate the polygon addition process - by the time the work is done, the polygon may have needed to change shape.
+
+I tried to optimize this using convex hulls and merges, but it is not behaving as expected. Will return to it another time.

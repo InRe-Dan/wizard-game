@@ -6,13 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://bueaitn7te0q1" path="res://components/projectile_despawner_component.tscn" id="4_lukr3"]
 [ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="5_cel0w"]
 
-[sub_resource type="Gradient" id="Gradient_b1x1k"]
+[sub_resource type="Gradient" id="Gradient_omwxy"]
 interpolation_mode = 2
 offsets = PackedFloat32Array(0, 0.636364, 0.733766, 0.844156)
 colors = PackedColorArray(0, 1, 1, 1, 0, 0, 1, 1, 1, 1.01556, 1.03108, 0.960296, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ku6a4"]
-gradient = SubResource("Gradient_b1x1k")
+gradient = SubResource("Gradient_omwxy")
 width = 8
 height = 8
 fill = 1
@@ -31,12 +31,12 @@ radius = 6.08276
 [sub_resource type="CircleShape2D" id="CircleShape2D_08qk3"]
 radius = 5.0
 
-[sub_resource type="Gradient" id="Gradient_sr7xp"]
+[sub_resource type="Gradient" id="Gradient_cwyho"]
 offsets = PackedFloat32Array(0, 0.233766, 0.441558, 0.636364, 0.772727)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.461039, 1, 1, 1, 0.289126, 1, 1, 1, 0.156284, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_agrek"]
-gradient = SubResource("Gradient_sr7xp")
+gradient = SubResource("Gradient_cwyho")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
