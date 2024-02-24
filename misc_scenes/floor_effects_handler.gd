@@ -10,41 +10,50 @@ class_name FloorEffectsHandler extends Node2D
 @onready var water_graphic : Polygon2D = $WaterGraphic
 
 enum Elements {ICE, WATER, FIRE}
-var erosion_rate : float = 0.25
-var erosion : float = -2.5
-var erosion_timer : float = 0.0
+
+var ice_array : Array[Array]
+var ice_image : Image
+var ice_texture : ImageTexture
+@export var decay_rate : int = 30
+@export var resolution_factor : int = 2
+@export var add_ice_chance : float = 0.05
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if erosion_rate < erosion_timer:
-		var time1 : float = Time.get_ticks_msec()
-		erosion_timer = 0
-		var polygons : Array[PackedVector2Array]
-		for collision_polygon : CollisionPolygon2D in ice_collision.get_children():
-			polygons.append_array(Geometry2D.offset_polygon(collision_polygon.polygon, erosion))
-			var convex_hulls : Array[PackedVector2Array]
-			for crap_polygon : PackedVector2Array in polygons:
-				convex_hulls.append_array(Geometry2D.decompose_polygon_in_convex(crap_polygon))
-			var poly : PackedVector2Array = convex_hulls[0]
-			for i : int in convex_hulls.size() - 1:
-				Geometry2D.merge_polygons(poly, convex_hulls[i + 1])
-			collision_polygon.polygon = poly
-		
-		var time2 : float = Time.get_ticks_msec()
-		# print((time2 - time1) / 1000)
-	else:
-		erosion_timer += delta
-	# ice_graphic.polygon = ice_collision.polygon
+	if randf() < add_ice_chance:
+		FloorHandler.add_ice(Vector2(randf() * ice_array[0].size() / resolution_factor, randf() * ice_array.size() / resolution_factor), randf() * 5 + 2)
+	for i : int in range(decay_rate):
+		var decay_x : int = randf() * ice_array[0].size()
+		var decay_y : int = randf() * ice_array.size()
+		ice_array[decay_y][decay_x] = max(0, ice_array[decay_y][decay_x] - 0.33)
+		ice_image.set_pixel(decay_x, decay_y, Color.WHITE * ice_array[decay_y][decay_x])
+	ice_texture.update(ice_image)
+	($Sprite2D as Sprite2D).texture = ice_texture
+	
 	
 func is_point_in_ice(point : Vector2) -> bool:
 	return false
 	# return Geometry2D.is_point_in_polygon(point, ice_collision.polygon)
 	
-func add_polygon(polygon : PackedVector2Array, type : Elements) -> void:
-	pass
+func add_ice(point : Vector2, radius : int) -> void:
+	for i : int in range(max(0, floor(point.y * resolution_factor - radius * resolution_factor)), min(ice_array.size() - 1, ceil(point.y * resolution_factor + radius * resolution_factor))):
+		for j : int in range(max(0, floor(point.x * resolution_factor - radius * resolution_factor)), min(ice_array[0].size() - 1, ceil(point.x * resolution_factor + radius * resolution_factor))):
+			if Vector2(point.x * resolution_factor - j , point.y * resolution_factor -i).length() <= radius * resolution_factor:
+				ice_array[i][j] = 1.0
+				ice_image.set_pixel(j, i, Color.WHITE)
+
+func init_for_room() -> void:
+	var level_node : Node2D = get_tree().get_first_node_in_group("level")
+	var floor : TileMap = level_node.get_node("Floor") as TileMap
+	var rect : Rect2i = floor.get_used_rect()
+	ice_image = Image.create(rect.size.x * resolution_factor, rect.size.y * resolution_factor, false, Image.FORMAT_L8)
+	ice_texture = ImageTexture.create_from_image(ice_image)
+	for i : int in range(rect.size.y * resolution_factor):
+		ice_array.append([])
+		for j : int in range(rect.size.x * resolution_factor):
+			(ice_array[i] as Array).append(0)
 	

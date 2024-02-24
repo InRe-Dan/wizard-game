@@ -566,3 +566,13 @@ I was thinking that a custom erosion mechanism might be needed, but Geometry2D.o
 After testing, its clear that offset_polygon is no good - even being done only once every second, it causes noticeable stutters, and this is ignoring the performance cost of instantiating collision shapes for split polygons. I considered threading this, but it would complicate the polygon addition process - by the time the work is done, the polygon may have needed to change shape.
 
 I tried to optimize this using convex hulls and merges, but it is not behaving as expected. Will return to it another time.
+
+24/2/24
+
+Ideas for floor effects:
+    Grid-based custom solution, maybe using cellular automatically
+    Passing in polygon data using a texture
+    Falling back to storing individual collision and handling them manually in the floor effect handler.
+    Enlisting C# to provide performant geometry at a low cost
+
+I tried to experiment with using a 2D array to represent a higher resolution version of the tilemap floor. A naive implementation of adding icy areas to this array, as well as an equivalent Image and ImageTexture, only takes 40ms for a 10-radius area being added! Performance is quite promising, even without C#, and the best part is that my array can be of floats and my textures can use an entire channel to denote lifetime - passing important data to the GPU should be quite easy! Best part is that for decay, I can make it as expensive as I want - I can choose to decay only x number of pixels each frame.

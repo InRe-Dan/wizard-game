@@ -13,7 +13,7 @@ script = ExtResource("1_jl44l")
 [node name="Camera" parent="." instance=ExtResource("3_5shnw")]
 texture_filter = 1
 
-[node name="room1" parent="." instance=ExtResource("1_pf5qg")]
+[node name="room1" parent="." groups=["level"] instance=ExtResource("1_pf5qg")]
 
 [node name="PlayerEntity" parent="." instance=ExtResource("4_urxv3")]
 
