@@ -22,7 +22,6 @@ z_as_relative = false
 script = ExtResource("1_o44qe")
 decay_rate = 500
 resolution_factor = 4
-add_ice_chance = -0.14
 
 [node name="FireGraphic" type="Polygon2D" parent="."]
 z_index = 1
@@ -52,3 +51,4 @@ collision_layer = 256
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(4, 4)
