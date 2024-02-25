@@ -576,3 +576,5 @@ Ideas for floor effects:
     Enlisting C# to provide performant geometry at a low cost
 
 I tried to experiment with using a 2D array to represent a higher resolution version of the tilemap floor. A naive implementation of adding icy areas to this array, as well as an equivalent Image and ImageTexture, only takes 40ms for a 10-radius area being added! Performance is quite promising, even without C#, and the best part is that my array can be of floats and my textures can use an entire channel to denote lifetime - passing important data to the GPU should be quite easy! Best part is that for decay, I can make it as expensive as I want - I can choose to decay only x number of pixels each frame.
+
+25/2/24
