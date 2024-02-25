@@ -19,8 +19,8 @@ noise = SubResource("FastNoiseLite_py0t1")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n0wmh"]
 shader = ExtResource("2_gcgr3")
-shader_parameter/quantizationSteps = 13.295
-shader_parameter/vignetteExponent = 0.95
+shader_parameter/quantizationSteps = 13.18
+shader_parameter/vignetteExponent = 0.005
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_qgabh")
 
 [sub_resource type="LabelSettings" id="LabelSettings_pb07d"]

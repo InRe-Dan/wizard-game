@@ -578,3 +578,42 @@ Ideas for floor effects:
 I tried to experiment with using a 2D array to represent a higher resolution version of the tilemap floor. A naive implementation of adding icy areas to this array, as well as an equivalent Image and ImageTexture, only takes 40ms for a 10-radius area being added! Performance is quite promising, even without C#, and the best part is that my array can be of floats and my textures can use an entire channel to denote lifetime - passing important data to the GPU should be quite easy! Best part is that for decay, I can make it as expensive as I want - I can choose to decay only x number of pixels each frame.
 
 25/2/24
+
+Now with floor effects somewhat done, I need to focus on enemy behaviour and juicing. 
+I did get some good ideas about game mechanics with this system though, to implement later: since icy floors make it much easier to deal knockback damage, it might also be fun if frozen targets had increased kinetic damage taken, so that ice and water synergise very well.
+
+Options for juicing:
+    Camera shake 
+    Dash and dash effects
+    Bloom?
+    Sound effects 
+    Particle effects for footsteps 
+    Particle effects for casting
+    Cooldowns and visualisations for them
+
+Changelog for the day:
+    Reworked iceballs - no more lights or sprites, and damping is enabled
+    Fixed animations and added footstep particle effects
+    Basic audio + reverb for distant sounds
+    Fixed poor angel performance through less frequent target updates
+    Added the previous enemy state machine - needs a bugfix or two
+
+To discuss for tomorrow's meeting: possible focus group format:
+    Ask questions about the player's previous experience with roguelikes, deckbuilders and top-down action games
+    Ask the player what they look for in games of this genre
+    Let the player run and play with the game a little bit
+    After a minute or two of letting them tell me initial thoughts, I will start conversations of the following format:
+        Ask the player to try a mechanic for demonstration
+        Ask the player about the current implementation of the mechanic
+        Explain to the player how I plan to expand that mechanic
+        Ask if they have any comments on planned expansions
+    Broadly ask the player what they would like to see from this game
+
+    Interviews are only expected to last 10-15 minutes at most.
+
+Maybe to still add before getting players to test the game:
+    Camera shake
+    More projectile particle effects
+    Enemy attack behaviour
+    Fire and water floors
+    

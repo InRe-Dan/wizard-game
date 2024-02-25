@@ -2,10 +2,12 @@ extends EntityComponent
 
 @export var base_acceleration : float = 500
 @export var base_damping : float = 5
+@export var take_collision_damage : bool = true
 @export var knockback_damage_min_speed : float = 150
 @export var ice_acceleration_multiplier : float = 0.1
 @export var ice_damping_multipler : float = 0.01
 
+var sound : AudioStream = preload("res://assets/sounds/thud.wav")
 var last_move_processed : bool = true
 var last_move_direction : Vector2
 var last_move_acceleration_mult : float
@@ -24,12 +26,13 @@ func _physics_process(delta : float) -> void:
 	
 	if collision:
 		if parent.knockback_time - Time.get_ticks_msec() < parent.knockback_valid_timer * 1000:
-			if knockback_damage_min_speed < parent.velocity.length():
+			if knockback_damage_min_speed < parent.velocity.length() and take_collision_damage:
 				var damage : DamageData = DamageData.new()
 				damage.damage = floor(parent.velocity.length() / knockback_damage_min_speed)
 				damage.damage_type = damage.DamageTypes.kinetic
 				damage.knockback_velocity = parent.velocity.length() * 0.5
 				parent.say("THUD!")
+				AudioHandler.play_sound(sound, global_position)
 				parent.distribute_signal(TakeDamageEvent.new(damage, collision.get_normal()))
 
 		parent.velocity = parent.velocity.slide(collision.get_normal())

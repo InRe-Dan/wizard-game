@@ -22,9 +22,11 @@ colors = PackedColorArray(1, 1, 1, 1, 0.466667, 1, 1, 1, 1, 1, 1, 1, 0, 0.827451
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_8pg2d"]
 noise_type = 2
-frequency = 0.1585
+frequency = 0.4997
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vnhae"]
+width = 1024
+height = 1024
 color_ramp = SubResource("Gradient_xjhhb")
 noise = SubResource("FastNoiseLite_8pg2d")
 
@@ -37,8 +39,8 @@ visibility_layer = 2
 z_index = 1
 z_as_relative = false
 script = ExtResource("1_o44qe")
-decay_rate = 4000
-resolution_factor = 8
+decay_rate = 3000
+resolution_factor = 4
 decay_amount = 0.2
 zero_threshold = 0.5
 

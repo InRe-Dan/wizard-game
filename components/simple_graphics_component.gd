@@ -1,18 +1,28 @@
 class_name SimpleGraphics extends EntityComponent
 # Supports 3 different animations: idle, move and attack
 
-@onready var sprite : AnimatedSprite2D = get_children().front() as AnimatedSprite2D
+@export var has_footstep_particles : bool = false
+
+@onready var sprite : AnimatedSprite2D = get_children().filter(func x(x : Variant) -> bool: return x is AnimatedSprite2D).front()
+@onready var footstep : GPUParticles2D = get_children().filter(func x(x : Variant) -> bool: return x is GPUParticles2D).front()
 
 var flash_tween : Tween
+var moved : bool = false
+
+func emit_footsteps() -> void:
+	if sprite.animation == "move" and has_footstep_particles:
+		footstep.emitting = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	sprite.play("idle")
+	sprite.connect("animation_looped", emit_footsteps)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	if not sprite.is_playing():
+func _physics_process(delta: float) -> void:
+	if not moved:
 		sprite.play("idle")
+	moved = false
 
 func flash() -> void:
 	if flash_tween:
@@ -27,7 +37,9 @@ func flash() -> void:
 func receive_signal(event : Event) -> Event:
 	match event.type:
 		Event.types.inputmove:
-			sprite.play("move")
+			if not sprite.animation == "move":
+				sprite.play("move")
+			moved = true
 			if (event as InputMoveEvent).direction.x < 0.0:
 				sprite.flip_h = true
 			elif (event as InputMoveEvent).direction.x > 0.0:

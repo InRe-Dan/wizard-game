@@ -14,7 +14,6 @@ const knockback_valid_timer : float = 0.1
 func _ready() -> void:
 	z_as_relative = false
 	z_index = 2
-	say("Spawned in!")
 	
 func _physics_process(delta: float) -> void:
 	pass

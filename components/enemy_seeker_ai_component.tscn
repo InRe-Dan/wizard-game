@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://dm7txjk84pxhw"]
+[gd_scene load_steps=7 format=3 uid="uid://dm7txjk84pxhw"]
 
 [ext_resource type="Script" path="res://components/enemy_seeker_ai_component.gd" id="1_24yym"]
 [ext_resource type="PackedScene" uid="uid://c74pb21neekot" path="res://misc_scenes/avoidance_vision.tscn" id="2_af5oi"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="3_yvkm0"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="4_hnmil"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="5_8d8u7"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_oeadc"]
 
 [node name="EnemySeekerAiComponent" type="Node2D"]
 script = ExtResource("1_24yym")
@@ -14,3 +18,73 @@ path_desired_distance = 24.0
 target_desired_distance = 48.0
 avoidance_layers = 0
 avoidance_mask = 0
+
+[node name="LineOfSight" type="RayCast2D" parent="."]
+collision_mask = 2
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("3_yvkm0")
+
+[node name="Main" type="Node" parent="StateChart"]
+script = ExtResource("4_hnmil")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateChart/Main"]
+script = ExtResource("4_hnmil")
+initial_state = NodePath("Standing")
+
+[node name="Walking" type="Node" parent="StateChart/Main/Idle"]
+script = ExtResource("5_8d8u7")
+
+[node name="Bored" type="Node" parent="StateChart/Main/Idle/Walking"]
+script = ExtResource("6_oeadc")
+to = NodePath("../../Standing")
+event = &"bored"
+
+[node name="Standing" type="Node" parent="StateChart/Main/Idle"]
+script = ExtResource("5_8d8u7")
+
+[node name="Bored" type="Node" parent="StateChart/Main/Idle/Standing"]
+script = ExtResource("6_oeadc")
+to = NodePath("../../Walking")
+event = &"bored"
+
+[node name="Player Seen" type="Node" parent="StateChart/Main/Idle"]
+script = ExtResource("6_oeadc")
+to = NodePath("../../Seeking")
+event = &"player_seen"
+
+[node name="Seeking" type="Node" parent="StateChart/Main"]
+script = ExtResource("4_hnmil")
+initial_state = NodePath("Following")
+
+[node name="Searching" type="Node" parent="StateChart/Main/Seeking"]
+script = ExtResource("5_8d8u7")
+
+[node name="Player Seen" type="Node" parent="StateChart/Main/Seeking/Searching"]
+script = ExtResource("6_oeadc")
+to = NodePath("../../Following")
+event = &"player_seen"
+
+[node name="Reached Target" type="Node" parent="StateChart/Main/Seeking/Searching"]
+script = ExtResource("6_oeadc")
+to = NodePath("../../../Idle/Standing")
+event = &"reached_target"
+
+[node name="Following" type="Node" parent="StateChart/Main/Seeking"]
+script = ExtResource("5_8d8u7")
+
+[node name="Lost Sight" type="Node" parent="StateChart/Main/Seeking/Following"]
+script = ExtResource("6_oeadc")
+to = NodePath("../../Searching")
+event = &"lost_sight"
+
+[connection signal="state_physics_processing" from="StateChart/Main/Idle" to="." method="_on_idle_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/Main/Idle/Walking" to="." method="_on_walking_state_entered"]
+[connection signal="state_physics_processing" from="StateChart/Main/Idle/Walking" to="." method="_on_walking_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/Main/Idle/Standing" to="." method="_on_standing_state_entered"]
+[connection signal="state_physics_processing" from="StateChart/Main/Idle/Standing" to="." method="_on_standing_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/Main/Seeking" to="." method="_on_seeking_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/Main/Seeking/Searching" to="." method="_on_searching_state_entered"]
+[connection signal="state_physics_processing" from="StateChart/Main/Seeking/Searching" to="." method="_on_searching_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/Main/Seeking/Following" to="." method="_on_following_state_physics_processing"]

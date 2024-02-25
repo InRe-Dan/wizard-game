@@ -18,6 +18,5 @@ func _physics_process(delta: float) -> void:
 	if target:
 		destination_position = target.global_position
 	current_position += Vector2(destination_position.x - current_position.x, destination_position.y - current_position.y) / SMOOTHING_DURATION * delta
-
 	global_position = current_position.round()
 	force_update_scroll()

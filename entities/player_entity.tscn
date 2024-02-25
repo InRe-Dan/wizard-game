@@ -1,7 +1,7 @@
-[gd_scene load_steps=20 format=3 uid="uid://cu4jaf5f1nlxo"]
+[gd_scene load_steps=21 format=3 uid="uid://cu4jaf5f1nlxo"]
 
+[ext_resource type="Script" path="res://entities/player_entity.gd" id="1_htmbl"]
 [ext_resource type="PackedScene" uid="uid://c03pfmwpgtofc" path="res://components/simple_graphics_component.tscn" id="1_pie61"]
-[ext_resource type="Script" path="res://base_classes/entity.gd" id="1_qygno"]
 [ext_resource type="SpriteFrames" uid="uid://xdt74tl0fgn7" path="res://resources/player_sprite_frames.tres" id="4_3oo4o"]
 [ext_resource type="PackedScene" uid="uid://dfdt5bke0tcu6" path="res://components/player_input_component.tscn" id="4_i7dta"]
 [ext_resource type="PackedScene" uid="uid://uajwl8rwegui" path="res://misc_scenes/inventory.tscn" id="5_pvf5x"]
@@ -20,6 +20,20 @@
 radius = 9.0
 height = 20.0
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vhqd5"]
+lifetime_randomness = 0.18
+particle_flag_disable_z = true
+particle_flag_damping_as_friction = true
+inherit_velocity_ratio = 0.2
+direction = Vector3(0, -1, 0)
+spread = 65.455
+initial_velocity_min = 125.0
+initial_velocity_max = 125.0
+gravity = Vector3(0, 0, 0)
+damping_min = 2.273
+damping_max = 6.818
+turbulence_enabled = true
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_4s2ka"]
 
 [sub_resource type="Gradient" id="Gradient_x6o5b"]
@@ -34,7 +48,7 @@ fill_from = Vector2(0.5, 0.5)
 [node name="PlayerEntity" type="CharacterBody2D" groups=["players"]]
 collision_layer = 4
 collision_mask = 6
-script = ExtResource("1_qygno")
+script = ExtResource("1_htmbl")
 health = 10
 team = 0
 
@@ -45,10 +59,23 @@ shape = SubResource("CapsuleShape2D_qptjs")
 
 [node name="SimpleGraphics" parent="." instance=ExtResource("1_pie61")]
 position = Vector2(0, -6)
+has_footstep_particles = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SimpleGraphics"]
 sprite_frames = ExtResource("4_3oo4o")
-animation = &"move"
+animation = &"idle"
+autoplay = "idle"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="SimpleGraphics"]
+modulate = Color(0.721569, 0.721569, 0.721569, 1)
+z_index = -1
+position = Vector2(0, 13)
+emitting = false
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_vhqd5")
+lifetime = 0.16
+one_shot = true
+explosiveness = 0.83
 
 [node name="Inventory" parent="." instance=ExtResource("5_pvf5x")]
 
@@ -89,4 +116,3 @@ lifetime = 3.0
 speed = 2.0
 
 [node name="PhysicsHandler" parent="." instance=ExtResource("14_vbpdx")]
-base_acceleration = 1000.0

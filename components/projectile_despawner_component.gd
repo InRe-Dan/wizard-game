@@ -1,5 +1,8 @@
 extends EntityComponent
 
+@export var despawn_on_standstill : bool = false
+@export var despawn_after_interval : bool = false
+@export var lifetime : float = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -8,7 +11,15 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if despawn_on_standstill:
+		if parent.velocity.length() < 20:
+			parent.distribute_signal(DeathEvent.new())
+			parent.queue_free()
+	if despawn_after_interval:
+		lifetime -= delta
+		if lifetime < 0:
+			parent.distribute_signal(DeathEvent.new())
+			parent.queue_free()
 
 func receive_signal(event : Event) -> Event:
 	match event.type:

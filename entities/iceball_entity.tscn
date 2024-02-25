@@ -1,51 +1,19 @@
-[gd_scene load_steps=14 format=3 uid="uid://dstqfwhd2e66a"]
+[gd_scene load_steps=6 format=3 uid="uid://dstqfwhd2e66a"]
 
-[ext_resource type="Script" path="res://base_classes/entity.gd" id="1_nf7jd"]
+[ext_resource type="Script" path="res://entities/iceball_entity.gd" id="1_0rnjb"]
 [ext_resource type="PackedScene" uid="uid://h6thrp5ptkgc" path="res://components/floor_dropper_component.tscn" id="2_6osi3"]
-[ext_resource type="Script" path="res://components/hitbox_component.gd" id="2_ccgsd"]
-[ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="3_wqyf1"]
 [ext_resource type="PackedScene" uid="uid://bueaitn7te0q1" path="res://components/projectile_despawner_component.tscn" id="4_ymwct"]
 [ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="5_8qhqd"]
-
-[sub_resource type="Gradient" id="Gradient_b1x1k"]
-interpolation_mode = 2
-offsets = PackedFloat32Array(0, 0.415584, 0.727273, 0.792208)
-colors = PackedColorArray(0, 1, 1, 1, 1, 1.01556, 1.03108, 0.960296, 0, 1.00784, 1.01569, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_77up4"]
-gradient = SubResource("Gradient_b1x1k")
-width = 8
-height = 8
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-
-[sub_resource type="Resource" id="Resource_1g41f"]
-script = ExtResource("3_wqyf1")
-damage = 0
-damage_type = 3
-knockback_type = 1
-knockback_velocity = 0.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_8lk4x"]
-radius = 6.08276
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5dvvf"]
 radius = 5.0
 
-[sub_resource type="Gradient" id="Gradient_sr7xp"]
-offsets = PackedFloat32Array(0, 0.233766, 0.441558, 0.636364, 0.772727)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.461039, 1, 1, 1, 0.289126, 1, 1, 1, 0.156284, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_gi1js"]
-gradient = SubResource("Gradient_sr7xp")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-
 [node name="IceballEntity" type="CharacterBody2D"]
 collision_layer = 0
 collision_mask = 2
-script = ExtResource("1_nf7jd")
-spawn_velocity = 100.0
+motion_mode = 1
+script = ExtResource("1_0rnjb")
+spawn_velocity = 800.0
 
 [node name="FloorDropperComponent" parent="." instance=ExtResource("2_6osi3")]
 radius = 16.0
@@ -54,31 +22,13 @@ radius = 16.0
 color = Color(1, 1, 1, 0)
 polygon = PackedVector2Array(0, -23, -19, -10, -19, 13, 0, 24, 19, 14, 19, -10)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("GradientTexture2D_77up4")
-
-[node name="HitboxComponent" type="Node2D" parent="."]
-script = ExtResource("2_ccgsd")
-damage = SubResource("Resource_1g41f")
-
-[node name="Area2D" type="Area2D" parent="HitboxComponent"]
-collision_layer = 16
-collision_mask = 8
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent/Area2D"]
-shape = SubResource("CircleShape2D_8lk4x")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_5dvvf")
 
 [node name="ProjectileDespawner" parent="." instance=ExtResource("4_ymwct")]
-
-[node name="PointLight2D" type="PointLight2D" parent="."]
-color = Color(0.886275, 1, 1, 1)
-energy = 0.5
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_gi1js")
+despawn_on_standstill = true
 
 [node name="PhysicsHandlerComponent" parent="." instance=ExtResource("5_8qhqd")]
 base_acceleration = 0.0
-base_damping = 0.0
+take_collision_damage = false
+ice_damping_multipler = 1.0

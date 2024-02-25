@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://cpidswdj0owvh"]
 
-[ext_resource type="Script" path="res://base_classes/entity.gd" id="1_sxe2s"]
+[ext_resource type="Script" path="res://entities/explosion_entity.gd" id="1_2d4i0"]
 [ext_resource type="PackedScene" uid="uid://7neyiej0xx17" path="res://components/hitbox_component.tscn" id="2_qlgqq"]
 [ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="3_053v4"]
 [ext_resource type="Script" path="res://misc_scripts/particle_autostart.gd" id="3_61w6g"]
@@ -55,7 +55,7 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.782407, 0.203704)
 
 [node name="ExplosionEntity" type="CharacterBody2D"]
-script = ExtResource("1_sxe2s")
+script = ExtResource("1_2d4i0")
 
 [node name="HitboxComponent" parent="." instance=ExtResource("2_qlgqq")]
 damage = SubResource("Resource_x0s8p")

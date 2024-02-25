@@ -82,3 +82,4 @@ entity = ExtResource("7_xcnvc")
 
 [node name="PhysicsHandler" parent="." instance=ExtResource("8_bppoq")]
 base_damping = 0.0
+take_collision_damage = false

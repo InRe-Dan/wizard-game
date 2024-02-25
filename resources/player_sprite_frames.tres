@@ -41,7 +41,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("8_wtl7k")
 }],
-"loop": false,
+"loop": true,
 "name": &"move",
-"speed": 5.0
+"speed": 7.0
 }]

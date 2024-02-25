@@ -19,6 +19,7 @@ config/icon="res://assets/icon.svg"
 [autoload]
 
 FloorHandler="*res://misc_scenes/floor_effects_handler.tscn"
+AudioHandler="*res://misc_scenes/audio_handler.tscn"
 
 [debug]
 

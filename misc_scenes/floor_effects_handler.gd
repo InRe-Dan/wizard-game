@@ -39,8 +39,8 @@ func try_decay(i : int, j : int, grid : Array[Array]) -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	for i : int in range(decay_rate):
-		var decay_x : int = round(randf() * ice_array[0].size() - 1)
-		var decay_y : int = round(randf() * ice_array.size() - 1)
+		var decay_x : int = round(randf() * (ice_array[0].size() - 1))
+		var decay_y : int = round(randf() * (ice_array.size() - 1))
 		try_decay(decay_y, decay_x, ice_array)
 		# may be redundant
 		ice_image.set_pixel(decay_x, decay_y, Color.WHITE * ice_array[decay_y][decay_x])
