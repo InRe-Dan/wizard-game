@@ -8,6 +8,7 @@ font = ExtResource("1_kllhr")
 font_color = Color(1, 1, 1, 0.686275)
 
 [node name="DialogueText" type="Label"]
+z_index = 5
 offset_left = -28.0
 offset_top = -12.0
 offset_right = 29.0

@@ -48,6 +48,7 @@ script = ExtResource("1_nf7jd")
 spawn_velocity = 100.0
 
 [node name="FloorDropperComponent" parent="." instance=ExtResource("2_6osi3")]
+radius = 16.0
 
 [node name="Polygon2D" type="Polygon2D" parent="FloorDropperComponent"]
 color = Color(1, 1, 1, 0)

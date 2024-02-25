@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://d2gefhko3sbry"]
+[gd_scene load_steps=13 format=3 uid="uid://d2gefhko3sbry"]
 
 [ext_resource type="Script" path="res://misc_scenes/floor_effects_handler.gd" id="1_o44qe"]
 [ext_resource type="Shader" path="res://shaders/fire.gdshader" id="2_e0enu"]
 [ext_resource type="Shader" path="res://shaders/ice.gdshader" id="3_rx1tf"]
 [ext_resource type="Shader" path="res://shaders/water.gdshader" id="4_t8jm0"]
+[ext_resource type="Shader" path="res://shaders/ice_temp.gdshader" id="5_ldijd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fgpo6"]
 shader = ExtResource("2_e0enu")
@@ -15,13 +16,31 @@ shader = ExtResource("3_rx1tf")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6e0xj"]
 shader = ExtResource("4_t8jm0")
 
+[sub_resource type="Gradient" id="Gradient_xjhhb"]
+offsets = PackedFloat32Array(0, 0.191667, 0.5, 0.716667, 0.925)
+colors = PackedColorArray(1, 1, 1, 1, 0.466667, 1, 1, 1, 1, 1, 1, 1, 0, 0.827451, 1, 1, 0.32549, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8pg2d"]
+noise_type = 2
+frequency = 0.1585
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vnhae"]
+color_ramp = SubResource("Gradient_xjhhb")
+noise = SubResource("FastNoiseLite_8pg2d")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wca6e"]
+shader = ExtResource("5_ldijd")
+shader_parameter/noise = SubResource("NoiseTexture2D_vnhae")
+
 [node name="FloorEffectsHandler" type="Node2D" groups=["floor_effects_handler"]]
 visibility_layer = 2
 z_index = 1
 z_as_relative = false
 script = ExtResource("1_o44qe")
-decay_rate = 500
-resolution_factor = 4
+decay_rate = 4000
+resolution_factor = 8
+decay_amount = 0.2
+zero_threshold = 0.5
 
 [node name="FireGraphic" type="Polygon2D" parent="."]
 z_index = 1
@@ -51,4 +70,6 @@ collision_layer = 256
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_wca6e")
 scale = Vector2(4, 4)
+centered = false

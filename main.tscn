@@ -17,10 +17,6 @@ texture_filter = 1
 
 [node name="PlayerEntity" parent="." instance=ExtResource("4_urxv3")]
 
-[node name="AngelEntity" parent="." instance=ExtResource("5_x8mtg")]
-position = Vector2(-36, 64)
-health = 5
-
 [node name="_BugFix_" type="Node2D" parent="."]
 
 [node name="AngelEntity7" parent="_BugFix_" instance=ExtResource("5_x8mtg")]
