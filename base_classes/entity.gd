@@ -6,6 +6,7 @@ enum Team {player, enemy, any}
 @export var health : int = 5
 @export_enum("Player", "Enemy", "Any") var team : int = Team.any
 
+var last_move_input : Vector2
 var knocked_back_by : Entity = null
 var knockback_time : float
 const knockback_valid_timer : float = 0.1
@@ -27,6 +28,7 @@ func distribute_signal(event : Event) -> void:
 	match event.type:
 		Event.types.inputmove:
 			var move : InputMoveEvent = event as InputMoveEvent
+			last_move_input = move.direction
 			distribute_signal(AttemptMoveEvent.new(move.direction))
 		Event.types.has_hit:
 			var hit : HasHitEvent = event as HasHitEvent 
@@ -39,10 +41,18 @@ func distribute_signal(event : Event) -> void:
 				distribute_signal(TakeDamageEvent.new(hit.damage, hit.dealer.velocity))
 			hit.dealer.distribute_signal(DealtDamageEvent.new(self, hit.damage))
 		Event.types.take_damage:
-			say("Ouch!")
 			var hit : TakeDamageEvent = event as TakeDamageEvent
 			health -= hit.damage.damage
-			say("-" + str(hit.damage.damage) + "HP")
+			if hit.damage.damage > 0:
+				match hit.damage.damage_type:
+					DamageData.DamageTypes.fire:
+						say("-" + str(hit.damage.damage) + "HP", Color.ORANGE_RED * 0.5 + Color.WHITE * 0.5)
+					DamageData.DamageTypes.ice:
+						say("-" + str(hit.damage.damage) + "HP", Color.CYAN * 0.5 + Color.WHITE * 0.5)
+					DamageData.DamageTypes.water:
+						say("-" + str(hit.damage.damage) + "HP", Color.SKY_BLUE * 0.5 + Color.WHITE * 0.5)
+					DamageData.DamageTypes.kinetic:
+						say("-" + str(hit.damage.damage) + "HP", Color.LIGHT_STEEL_BLUE)
 			if hit.damage.knockback_velocity > 0.0:
 				knockback_time = Time.get_ticks_msec()
 				velocity += hit.direction.normalized() * hit.damage.knockback_velocity
@@ -55,6 +65,6 @@ func distribute_signal(event : Event) -> void:
 	# HACK stops memory leak?
 	event.queue_free()
 	
-func say(text : String) -> void:
-	distribute_signal(SpeechEvent.new(text))
+func say(text : String, color : Color = Color.WHITE) -> void:
+	distribute_signal(SpeechEvent.new(text, color))
 

@@ -1,6 +1,7 @@
 extends EntityComponent
 
 @export var detection_radius : float = 96
+@export var show_states : bool = false
 
 @onready var navigation_agent : NavigationAgent2D = $NavigationAgent2D
 @onready var avoidance_vision : AvoidanceVision = $AvoidanceVision
@@ -20,21 +21,21 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	var states : Array = []
-	var states_to_explore : Array = []
-	states_to_explore.append_array(state_chart._state.get_children())
-	while not states_to_explore.is_empty():
-		var state : State = states_to_explore.front() as State
-		if state:
-			states_to_explore.append_array(state.get_children())
-			if (states_to_explore.front())._state_active:
-				states.append(state.name)
-		states_to_explore.remove_at(0)
-	var label_text : String = ""
-	for state_name : String in states:
-		label_text += state_name + "\n"
-	state_label.text = label_text
-	print(label_text)
+	if show_states:
+		var states : Array = []
+		var states_to_explore : Array = []
+		states_to_explore.append_array(state_chart._state.get_children())
+		while not states_to_explore.is_empty():
+			var state : State = states_to_explore.front() as State
+			if state:
+				states_to_explore.append_array(state.get_children())
+				if (states_to_explore.front())._state_active:
+					states.append(state.name)
+			states_to_explore.remove_at(0)
+		var label_text : String = ""
+		for state_name : String in states:
+			label_text += state_name + "\n"
+		state_label.text = label_text
 	
 
 func find_direction_to(global_pos : Vector2) -> Vector2:

@@ -9,6 +9,7 @@ font_color = Color(1, 1, 1, 0.686275)
 
 [node name="DialogueText" type="Label"]
 z_index = 5
+z_as_relative = false
 offset_left = -28.0
 offset_top = -12.0
 offset_right = 29.0

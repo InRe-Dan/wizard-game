@@ -31,7 +31,6 @@ func _physics_process(delta : float) -> void:
 				damage.damage = floor(parent.velocity.length() / knockback_damage_min_speed)
 				damage.damage_type = damage.DamageTypes.kinetic
 				damage.knockback_velocity = parent.velocity.length() * 0.5
-				parent.say("THUD!")
 				AudioHandler.play_sound(sound, global_position)
 				parent.distribute_signal(TakeDamageEvent.new(damage, collision.get_normal()))
 

@@ -60,7 +60,8 @@ func is_point_in_ice(point : Vector2) -> bool:
 func convert_global_to_map(point : Vector2) -> Vector2i:
 
 	var in_tilemap_space : Vector2 = floor_map.to_local(point)
-	var map_top_left : Vector2 = floor_map.map_to_local(floor_map.get_used_rect().position) - Vector2(floor_map.tile_set.tile_size) / 2
+	var map_top_left : Vector2 = floor_map.map_to_local(floor_map.get_used_rect().position)\
+								 - Vector2(floor_map.tile_set.tile_size) / 2
 	var map_size_pixels : Vector2 = floor_map.get_used_rect().size * floor_map.tile_set.tile_size
 	var UV : Vector2 = (in_tilemap_space - map_top_left) / (map_size_pixels)
 	var translated : Vector2i = UV * Vector2(ice_array[0].size() - 1, ice_array.size() - 1)

@@ -88,7 +88,6 @@ offset_left = 25.0
 offset_top = -11.0
 offset_right = 65.0
 offset_bottom = 33.0
-text = "states err"
 label_settings = SubResource("LabelSettings_moqs6")
 
 [connection signal="state_physics_processing" from="StateChart/Main/Idle" to="." method="_on_idle_state_physics_processing"]

@@ -84,16 +84,16 @@ explosiveness = 0.83
 [node name="ShootProjectileAction" parent="Inventory/Fireball" instance=ExtResource("7_uqqob")]
 projectile = ExtResource("8_6f2md")
 
-[node name="Iceball" parent="Inventory" instance=ExtResource("6_h4eic")]
+[node name="IceBlast" parent="Inventory" instance=ExtResource("6_h4eic")]
 
-[node name="ShootProjectileAction" parent="Inventory/Iceball" instance=ExtResource("7_uqqob")]
+[node name="ShootProjectileAction" parent="Inventory/IceBlast" instance=ExtResource("7_uqqob")]
 projectile = ExtResource("9_x80o8")
 side_projectiles = 3
 spread = 20.0
 
-[node name="Waterball" parent="Inventory" instance=ExtResource("6_h4eic")]
+[node name="WaterWave" parent="Inventory" instance=ExtResource("6_h4eic")]
 
-[node name="ShootProjectileAction" parent="Inventory/Waterball" instance=ExtResource("7_uqqob")]
+[node name="ShootProjectileAction" parent="Inventory/WaterWave" instance=ExtResource("7_uqqob")]
 projectile = ExtResource("9_h4x3d")
 
 [node name="AngelSpawner" parent="Inventory" instance=ExtResource("6_h4eic")]
@@ -114,7 +114,7 @@ shape = SubResource("CircleShape2D_4s2ka")
 texture = SubResource("GradientTexture2D_mfdbb")
 
 [node name="DialogueComponent" parent="." instance=ExtResource("13_3b1pc")]
-lifetime = 3.0
+lifetime = 1.0
 speed = 2.0
 
 [node name="PhysicsHandler" parent="." instance=ExtResource("14_vbpdx")]

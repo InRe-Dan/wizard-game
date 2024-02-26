@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://dkfutwmsr2tli"]
+[gd_scene load_steps=22 format=3 uid="uid://dkfutwmsr2tli"]
 
 [ext_resource type="Script" path="res://misc_scenes/camera.gd" id="1_67e48"]
 [ext_resource type="Shader" path="res://shaders/screen.gdshader" id="2_gcgr3"]
 [ext_resource type="FontFile" uid="uid://byo6fct4u77e6" path="res://assets/fonts/m3x6.ttf" id="3_cgkpt"]
 [ext_resource type="Script" path="res://misc_scripts/frame_counter.gd" id="4_dqccr"]
+[ext_resource type="Texture2D" uid="uid://du436jkuxg0ah" path="res://assets/ui/keyboard_keys.png" id="5_nlf4r"]
+[ext_resource type="Texture2D" uid="uid://0yo7q0qi576d" path="res://assets/ui/keyboard_extras.png" id="6_l88bi"]
 
 [sub_resource type="Gradient" id="Gradient_uhjsu"]
 interpolation_mode = 1
@@ -23,9 +25,48 @@ shader_parameter/quantizationSteps = 13.18
 shader_parameter/vignetteExponent = 0.005
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_qgabh")
 
-[sub_resource type="LabelSettings" id="LabelSettings_pb07d"]
+[sub_resource type="LabelSettings" id="LabelSettings_emds3"]
 font = ExtResource("3_cgkpt")
 font_color = Color(0.980392, 0.980392, 0.980392, 0.196078)
+
+[sub_resource type="LabelSettings" id="LabelSettings_pb07d"]
+font = ExtResource("3_cgkpt")
+font_color = Color(1, 1, 1, 0.545098)
+
+[sub_resource type="LabelSettings" id="LabelSettings_1xakj"]
+font = ExtResource("3_cgkpt")
+font_color = Color(0.980392, 0.980392, 0.980392, 0.196078)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rbcjx"]
+font = ExtResource("3_cgkpt")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ldjyt"]
+atlas = ExtResource("5_nlf4r")
+region = Rect2(97, 66, 13, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a48a1"]
+atlas = ExtResource("5_nlf4r")
+region = Rect2(1, 34, 13, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rlmrg"]
+atlas = ExtResource("5_nlf4r")
+region = Rect2(33, 66, 13, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vaxvn"]
+atlas = ExtResource("5_nlf4r")
+region = Rect2(49, 34, 13, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_51utt"]
+atlas = ExtResource("5_nlf4r")
+region = Rect2(1, 66, 13, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6376t"]
+atlas = ExtResource("5_nlf4r")
+region = Rect2(65, 34, 13, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v6fyo"]
+atlas = ExtResource("6_l88bi")
+region = Rect2(2, 18, 28, 13)
 
 [node name="Camera" type="Camera2D" groups=["camera"]]
 script = ExtResource("1_67e48")
@@ -47,11 +88,28 @@ grow_vertical = 2
 layer = 2
 
 [node name="VersionNumber" type="Label" parent="UI"]
-offset_left = 2.0
-offset_top = 257.0
-offset_right = 137.0
-offset_bottom = 270.0
-text = "ver 0.0.1"
+offset_left = 453.0
+offset_top = -4.0
+offset_right = 588.0
+offset_bottom = 9.0
+text = "ver 0.1"
+label_settings = SubResource("LabelSettings_emds3")
+
+[node name="Health" type="Label" parent="UI"]
+offset_left = 176.0
+offset_top = 149.0
+offset_right = 311.0
+offset_bottom = 162.0
+text = "HP: "
+label_settings = SubResource("LabelSettings_pb07d")
+
+[node name="Item" type="Label" parent="UI"]
+offset_left = 176.0
+offset_top = 157.0
+offset_right = 311.0
+offset_bottom = 170.0
+text = "Item: 
+"
 label_settings = SubResource("LabelSettings_pb07d")
 
 [node name="FrameCounter" type="Label" parent="UI"]
@@ -60,5 +118,49 @@ offset_top = -4.0
 offset_right = 137.0
 offset_bottom = 9.0
 text = "fps: err"
-label_settings = SubResource("LabelSettings_pb07d")
+label_settings = SubResource("LabelSettings_1xakj")
 script = ExtResource("4_dqccr")
+
+[node name="Controls" type="Label" parent="UI"]
+modulate = Color(0.996078, 1, 1, 0.545098)
+offset_left = 187.0
+offset_top = 252.5
+offset_right = 360.0
+offset_bottom = 265.5
+text = "Move         Switch items         Dash"
+label_settings = SubResource("LabelSettings_rbcjx")
+
+[node name="W" type="Sprite2D" parent="UI"]
+modulate = Color(0.996078, 1, 1, 0.545098)
+position = Vector2(126.5, 259.5)
+texture = SubResource("AtlasTexture_ldjyt")
+
+[node name="A" type="Sprite2D" parent="UI"]
+modulate = Color(0.996078, 1, 1, 0.545098)
+position = Vector2(143.5, 259.5)
+texture = SubResource("AtlasTexture_a48a1")
+
+[node name="S" type="Sprite2D" parent="UI"]
+modulate = Color(0.996078, 1, 1, 0.545098)
+position = Vector2(160.5, 259.5)
+texture = SubResource("AtlasTexture_rlmrg")
+
+[node name="D" type="Sprite2D" parent="UI"]
+modulate = Color(0.996078, 1, 1, 0.545098)
+position = Vector2(177.5, 259.5)
+texture = SubResource("AtlasTexture_vaxvn")
+
+[node name="Q" type="Sprite2D" parent="UI"]
+modulate = Color(0.996078, 1, 1, 0.545098)
+position = Vector2(225.5, 259.5)
+texture = SubResource("AtlasTexture_51utt")
+
+[node name="E" type="Sprite2D" parent="UI"]
+modulate = Color(0.996078, 1, 1, 0.545098)
+position = Vector2(241.5, 259.5)
+texture = SubResource("AtlasTexture_6376t")
+
+[node name="Shift" type="Sprite2D" parent="UI"]
+modulate = Color(0.996078, 1, 1, 0.545098)
+position = Vector2(328, 259.5)
+texture = SubResource("AtlasTexture_v6fyo")

@@ -16,6 +16,7 @@ texture_filter = 1
 [node name="room1" parent="." groups=["level"] instance=ExtResource("1_pf5qg")]
 
 [node name="PlayerEntity" parent="." instance=ExtResource("4_urxv3")]
+spawn_velocity = 500.0
 
 [node name="_BugFix_" type="Node2D" parent="."]
 

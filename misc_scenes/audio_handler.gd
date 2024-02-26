@@ -17,10 +17,8 @@ func _process(delta: float) -> void:
 
 func play_sound(audio : AudioStream, pos : Vector2) -> void:
 	var distance : float = (pos - camera.global_position).length()
-	print(distance)
 	var screen_lengths : float = 1 + (2 * distance / camera.get_viewport_rect().size.x)
 	var player : AudioStreamPlayer = AudioStreamPlayer.new()
-	print(screen_lengths)
 	if screen_lengths > 3:
 		player.bus = &"Distant"
 	player.volume_db = linear_to_db(0.05 / screen_lengths)

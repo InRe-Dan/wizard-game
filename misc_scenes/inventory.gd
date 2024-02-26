@@ -6,6 +6,8 @@ var selected : int = 0
 func _ready() -> void:
 	pass # Replace with function body.
 
+func camel_to_spaced(string : String) -> String:
+	return string.to_snake_case().replace("_",  " ").capitalize()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -26,7 +28,7 @@ func cycleItems(amount : int) -> void:
 		selected = get_children().size() - 1
 	elif selected >= get_children().size():
 		selected = 0
-	parent.say(get_children()[selected].name)
+	# parent.say(camel_to_spaced(get_children()[selected].name))
 
 func receive_signal(event : Event) -> Event:
 	match event.type:

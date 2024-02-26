@@ -3,15 +3,15 @@ extends Camera2D
 # More potential solutions https://github.com/godotengine/godot/issues/35606
 # r/godot, u/forbjok
 
-# Smoothing duration in seconds
 @export var SMOOTHING_DURATION : float = 0.1
 # https://gamedev.stackexchange.com/questions/1828/realistic-camera-screen-shake-from-explosion
 @export var shake_radius : float = 2
-# Current position of the camera
-var current_position: Vector2
-# Position the camera is moving towards
-var destination_position: Vector2
 
+@onready var health_label : Label = $UI/Health
+@onready var item_label : Label = $UI/Item
+
+var current_position: Vector2
+var destination_position: Vector2
 var is_shaking : bool = false
 var shake_duration  : float = 0.0
 var shake_time_elapsed : float = 0.0
@@ -19,6 +19,18 @@ var shake_time_elapsed : float = 0.0
 func _ready() -> void:
 	current_position = global_position
 
+func _process(delta: float) -> void:
+	var player : Entity = get_tree().get_first_node_in_group("players") as Entity
+	if player:
+		health_label.text = "HP: " + str(player.health)
+		var inventory : InventoryComponent = player.get_children().filter(func f(x : Node) -> bool: return x is InventoryComponent).front()
+		if inventory:
+			item_label.text = inventory.camel_to_spaced(inventory.get_children()[inventory.selected].name)
+		else:
+			item_label.text = "Item: None!"
+	else:
+		health_label.text = "HP: Dead!"
+		item_label.text = "Item: None!"
 func _physics_process(delta: float) -> void:
 	var target: Node2D = get_tree().get_first_node_in_group("players") as Node2D
 	if target:
