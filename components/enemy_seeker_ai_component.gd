@@ -6,6 +6,7 @@ extends EntityComponent
 @onready var avoidance_vision : AvoidanceVision = $AvoidanceVision
 @onready var los : RayCast2D = $LineOfSight
 @onready var state_chart : StateChart = $StateChart
+@onready var state_label : Label = $Label
 
 var last_target_position : Vector2 = Vector2.ZERO
 
@@ -18,18 +19,30 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	var states : Array = []
+	var states_to_explore : Array = []
+	states_to_explore.append_array(state_chart._state.get_children())
+	while true:
+		var state : State = states_to_explore.front() as State
+		if state:
+			states_to_explore.append_array(state.get_children())
+			if (states_to_explore.front())._state_active:
+				states.append(state.name)
+		elif states_to_explore.is_empty():
+			break
+		states_to_explore.remove_at(0)
+	var label_text : String = ""
+	for state_name : String in states:
+		label_text += state_name + "\n"
+	state_label.text = label_text
+	print(label_text)
 	
 
 func find_direction_to(global_pos : Vector2) -> Vector2:
-	if (global_pos - last_target_position).length() < 100:	
+	if (global_pos - last_target_position).length() < 16:	
 		navigation_agent.target_position = global_pos
 		last_target_position = global_pos
-
-	if navigation_agent.is_navigation_finished():
-		return Vector2()
 
 	var next_path_position: Vector2 = navigation_agent.get_next_path_position()
 	var navigation_direction : Vector2 = parent.global_position.direction_to(next_path_position)
@@ -64,7 +77,7 @@ func _on_standing_state_entered() -> void:
 
 
 func _on_following_state_physics_processing(delta: float) -> void:
-	var dir : Vector2 = find_direction_to(target.global_position).normalized()
+	var dir : Vector2 = global_position.direction_to(target.global_position)# find_direction_to(target.global_position).normalized()
 	parent.distribute_signal(InputMoveEvent.new(dir))
 
 

@@ -74,6 +74,16 @@ func add_ice(point : Vector2, radius : float) -> void:
 			if Vector2(converted_point.x - j , converted_point.y  - i).length() <= radius:
 				ice_array[i][j] = 1.0
 				ice_image.set_pixel(j, i, Color.WHITE)
+				
+func melt_ice(point : Vector2, radius : float) -> void:
+	var converted_point : Vector2i = convert_global_to_map(point)
+	radius = (radius / floor_map.tile_set.tile_size.x) * resolution_factor
+	for i : int in range(max(0, floor(converted_point.y - radius)), min(ice_array.size(), ceil(converted_point.y + radius))):
+		for j : int in range(max(0, floor(converted_point.x - radius)), min(ice_array[0].size(), ceil(converted_point.x + radius))):
+			var distance : float = Vector2(converted_point.x - j, converted_point.y - i).length()
+			if distance <= radius:
+				ice_array[i][j] -= pow(1 - (distance / radius), 2)
+				ice_image.set_pixel(j, i, Color.WHITE * ice_array[i][j])
 
 func init_for_room() -> void:
 	var level_node : Node2D = get_tree().get_first_node_in_group("level")

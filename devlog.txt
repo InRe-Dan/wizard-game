@@ -617,3 +617,9 @@ Maybe to still add before getting players to test the game:
     Enemy attack behaviour
     Fire and water floors
     
+
+26/2/24
+
+Just working on some polish before the meeting: found some real gnarly effects by accidentally forgetting a -1 on the melt_ice subtraction and wrongly setting pixels to distance / radius. May be worth exploring for future effects.
+Since I want fire to melt ice based on how far away it is from an ice tile, it may be interesting (but not necessarily sensible) to explore a temperature system to blend from ice to water and to steam for AOE damage. Just an idea.
+

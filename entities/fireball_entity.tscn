@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://bn06fjm6xnu4i"]
 
-[ext_resource type="Script" path="res://base_classes/entity.gd" id="1_n4ph4"]
+[ext_resource type="Script" path="res://entities/fireball_entity.gd" id="1_lpp2g"]
 [ext_resource type="Script" path="res://components/hitbox_component.gd" id="2_6qmrl"]
 [ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="3_8tb8x"]
 [ext_resource type="PackedScene" uid="uid://bueaitn7te0q1" path="res://components/projectile_despawner_component.tscn" id="4_pb6vt"]
@@ -48,7 +48,7 @@ fill_from = Vector2(0.5, 0.5)
 [node name="FireballEntity" type="CharacterBody2D"]
 collision_layer = 0
 collision_mask = 2
-script = ExtResource("1_n4ph4")
+script = ExtResource("1_lpp2g")
 spawn_velocity = 200.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

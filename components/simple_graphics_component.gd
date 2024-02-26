@@ -4,7 +4,7 @@ class_name SimpleGraphics extends EntityComponent
 @export var has_footstep_particles : bool = false
 
 @onready var sprite : AnimatedSprite2D = get_children().filter(func x(x : Variant) -> bool: return x is AnimatedSprite2D).front()
-@onready var footstep : GPUParticles2D = get_children().filter(func x(x : Variant) -> bool: return x is GPUParticles2D).front()
+@onready var footstep : GPUParticles2D
 
 var flash_tween : Tween
 var moved : bool = false
@@ -15,6 +15,8 @@ func emit_footsteps() -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if has_footstep_particles:
+		footstep = get_children().filter(func x(x : Variant) -> bool: return x is GPUParticles2D).front()
 	sprite.play("idle")
 	sprite.connect("animation_looped", emit_footsteps)
 
