@@ -88,6 +88,8 @@ projectile = ExtResource("8_6f2md")
 
 [node name="ShootProjectileAction" parent="Inventory/Iceball" instance=ExtResource("7_uqqob")]
 projectile = ExtResource("9_x80o8")
+side_projectiles = 2
+spread = 360.0
 
 [node name="Waterball" parent="Inventory" instance=ExtResource("6_h4eic")]
 

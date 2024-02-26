@@ -80,10 +80,11 @@ func _on_following_state_physics_processing(delta: float) -> void:
 
 
 func _on_seeking_state_physics_processing(delta: float) -> void:
+	if not is_instance_valid(target):
+		state_chart.send_event("lost_sight")
+		return
 	if not has_los_to(target.global_position):
 		state_chart.send_event("lost_sight")
-
-func _on_searching_state_entered() -> void:
 	last_target_position = target.global_position
 
 func _on_searching_state_physics_processing(delta: float) -> void:
