@@ -629,3 +629,8 @@ For the survey, I am thinking of having a lot of questions that take the form of
 While we go through questions, I will encourage the testers to try to play with the mechanics and/or crash the game.
 
 While I have people test the game over the next week, I will focus on addressing warnings, janky implementations of existing mechanics and adding documentation to all of my code.
+
+Notes:
+    Collisions should let the other entity know theyve collided - one entity might need to take ownership of the interaction based on their ID or reference
+    OR entities have pointyness and mass and handle their own collisions
+    Try conservation of momentum (maybe functionality exists)
