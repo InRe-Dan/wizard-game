@@ -4,11 +4,17 @@ extends Camera2D
 # r/godot, u/forbjok
 
 # Smoothing duration in seconds
-var SMOOTHING_DURATION : float = 0.1
+@export var SMOOTHING_DURATION : float = 0.1
+# https://gamedev.stackexchange.com/questions/1828/realistic-camera-screen-shake-from-explosion
+@export var shake_radius : float = 2
 # Current position of the camera
 var current_position: Vector2
 # Position the camera is moving towards
 var destination_position: Vector2
+
+var is_shaking : bool = false
+var shake_duration  : float = 0.0
+var shake_time_elapsed : float = 0.0
 
 func _ready() -> void:
 	current_position = global_position
@@ -19,4 +25,14 @@ func _physics_process(delta: float) -> void:
 		destination_position = target.global_position
 	current_position += Vector2(destination_position.x - current_position.x, destination_position.y - current_position.y) / SMOOTHING_DURATION * delta
 	global_position = current_position.round()
+	if is_shaking:
+		global_position += (shake_time_elapsed / shake_duration) * shake_radius * Vector2.RIGHT.rotated(randf() * TAU)
+		shake_time_elapsed += delta
+		if shake_time_elapsed > shake_duration:
+			is_shaking = false
 	force_update_scroll()
+	
+func shake(duration : float) -> void:
+	is_shaking = true
+	shake_duration = duration
+	shake_time_elapsed = 0.0

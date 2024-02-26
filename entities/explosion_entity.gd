@@ -6,6 +6,7 @@ var sound : AudioStream = preload("res://assets/sounds/explosion.wav")
 func _ready() -> void:
 	AudioHandler.play_sound(sound, global_position)
 	FloorHandler.melt_ice(global_position, 96)
+	get_tree().get_first_node_in_group("camera").shake(0.3)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
