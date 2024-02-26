@@ -634,3 +634,5 @@ Notes:
     Collisions should let the other entity know theyve collided - one entity might need to take ownership of the interaction based on their ID or reference
     OR entities have pointyness and mass and handle their own collisions
     Try conservation of momentum (maybe functionality exists)
+
+I tried tweaking the dash a little bit for this test build, as I'm not happy with it not instantly changing momentum on ice - if I dash left once on ice, I need to dash right twice to go right. I wonder if there is a solution for this, or if there even needs to be a solution - after all, a realisitic kinematic change in speed might be more intuitive and fun, albeit a little clunkier.

@@ -45,7 +45,6 @@ func find_direction_to(global_pos : Vector2) -> Vector2:
 
 	var next_path_position: Vector2 = navigation_agent.get_next_path_position()
 	var navigation_direction : Vector2 = parent.global_position.direction_to(next_path_position)
-	
 	# Working out where to actually go
 	return (0.5 * navigation_direction + 0.5 * avoidance_vision.sum)
 
@@ -76,7 +75,7 @@ func _on_standing_state_entered() -> void:
 
 
 func _on_following_state_physics_processing(delta: float) -> void:
-	var dir : Vector2 = global_position.direction_to(target.global_position)# find_direction_to(target.global_position).normalized()
+	var dir : Vector2 = find_direction_to(target.global_position).normalized()
 	parent.distribute_signal(InputMoveEvent.new(dir))
 
 
@@ -86,10 +85,11 @@ func _on_seeking_state_physics_processing(delta: float) -> void:
 		return
 	if not has_los_to(target.global_position):
 		state_chart.send_event("lost_sight")
-	last_target_position = target.global_position
+	else:
+		last_target_position = target.global_position
 
 func _on_searching_state_physics_processing(delta: float) -> void:
-	parent.distribute_signal(InputMoveEvent.new(global_position.direction_to(last_target_position)))
+	parent.distribute_signal(InputMoveEvent.new(find_direction_to(last_target_position)))
 	if global_position.distance_to(last_target_position) < 16:
 		state_chart.send_event("reached_target")
 

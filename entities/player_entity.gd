@@ -12,5 +12,5 @@ func distribute_signal(event : Event) -> void:
 	elif event.type == event.types.inputcommand:
 		var input : InputCommand = event as InputCommand
 		if input.command == input.Commands.dash:
-			velocity += last_move_input * 300
+			velocity += last_move_input * 200
 	super(event)
