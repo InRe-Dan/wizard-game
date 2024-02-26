@@ -118,3 +118,4 @@ lifetime = 1.0
 speed = 2.0
 
 [node name="PhysicsHandler" parent="." instance=ExtResource("14_vbpdx")]
+take_collision_damage = false
