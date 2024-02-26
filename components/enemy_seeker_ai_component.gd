@@ -23,14 +23,12 @@ func _process(delta: float) -> void:
 	var states : Array = []
 	var states_to_explore : Array = []
 	states_to_explore.append_array(state_chart._state.get_children())
-	while true:
+	while not states_to_explore.is_empty():
 		var state : State = states_to_explore.front() as State
 		if state:
 			states_to_explore.append_array(state.get_children())
 			if (states_to_explore.front())._state_active:
 				states.append(state.name)
-		elif states_to_explore.is_empty():
-			break
 		states_to_explore.remove_at(0)
 	var label_text : String = ""
 	for state_name : String in states:
