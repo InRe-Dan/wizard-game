@@ -1,12 +1,22 @@
 class_name PlayerInputComponent extends EntityComponent
 
+var focus : bool = true
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
 
+func _notification(what : Variant) -> void:
+	match what:
+		NOTIFICATION_WM_WINDOW_FOCUS_IN:
+			focus = true
+		NOTIFICATION_WM_WINDOW_FOCUS_OUT:
+			focus = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
+	if not focus:
+		return
 	var move : Vector2 = Input.get_vector("left", "right", "up", "down").normalized();
 	var aim_dir : Vector2 = Input.get_vector("aimleft", "aimright", "aimup", "aimdown").normalized();
 	aim_dir = (get_global_mouse_position() - global_position).normalized()
