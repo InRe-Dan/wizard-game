@@ -7,6 +7,7 @@ func _ready() -> void:
 	AudioHandler.play_sound(sound, global_position)
 	FloorHandler.melt_ice(global_position, 96)
 	get_tree().get_first_node_in_group("camera").shake(0.3)
+	FloorHandler.add_fire(global_position, 64)
 	super()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

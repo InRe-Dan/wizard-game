@@ -636,3 +636,24 @@ Notes:
     Try conservation of momentum (maybe functionality exists)
 
 I tried tweaking the dash a little bit for this test build, as I'm not happy with it not instantly changing momentum on ice - if I dash left once on ice, I need to dash right twice to go right. I wonder if there is a solution for this, or if there even needs to be a solution - after all, a realisitic kinematic change in speed might be more intuitive and fun, albeit a little clunkier.
+
+29/2/24
+
+Following my first study interview, I am going to be making a few tweaks to my interview questions. The interview lasted much longer than expected, about 75 minutes while skipping over some questions, so I want to trim the number of questions and place greater emphasis on the ones that seemed to be the best conversation starters. Many questions simply could not be answered effectively with the amount of gameplay that I was presenting the the interviewee - they had nothing to go off of.
+The beginning of the interview needs to have a looser structure, since I ended up doing a lot of the talking points out of order - also, some time was wasted distributing the game and the paperwork for the interview, so as part of my introduction I will get people to download a full ZIP from a hosting website and test-run the game before we start discussing it - instead of distirbuting the files one-by-one over discord and getting them to run the game before they were supposed to. I wanted to have people answer some questions before playing the game so that they could give me their opinions without context for the game, but it makes more sense to focus the conversation on my project immediately - and would probably save time.
+I also need to rework the 1-9 question segment, as we decided very quickly during the first interview to drop the numbers and just discuss interest in features - it was much easier for conversation.
+I am also going to be dropping the recording for the gameplay, as it adds unnecessary friction in the interview process and I realised that it could quickly lead to situations where I end up with footage of sensitive information. I will be deleting the screen recording taken in the first interview. Gameplay simply is not as useful a data point as it would've been if I had a gameplay demo.
+The entirety of the "question segment" turned out to be incredibly long, with a lot of questions and answers lacking in focus - more game context is needed to share meaningful views on mechanics. I will be cutting the list of questions down to incorporate only the self-explanatory game mechanics.
+A lot of the questions after this segment were also quite meaningless, since they would be based on the greater context of the game as well.
+
+I already got some feedback on some features and issues, but I don't really want to make big changes to the game during this testing phase - the only change I will make for now is to make the game act proper - not to always stay on top and to receive inputs even when the window is not in focus - issues shown during the first interview.
+
+3/3/24
+
+Because I have some time to work but have not completed my interviews, I am going to work on implementing fire and water floors as well, and potentially work on refactoring the fire/ice/water shader system to support better graphics effects.
+I've reworked the floor handler to store an array for each element and to encode them as RGB channels in an image and texture to pass to a shader. The values of these arrays and these shaders will represent different things and be handled quite differently - it might be quite sensible to split up these functionalities but they are simple enough to have in one place for now. 
+Fire and water do not "decay" - it doesn't make sense to have them be handled the same way as ice. I would love for them to linger for a while and suddenly fade out from the edges. C# may be very useful for this later down the line, enabling easy data-driven programming by having each array store structs of state information, but for now a simple value as a timer will be enough. Structs might make life even easier since certain mixtures of elements really shouldn't exist.
+
+4/3/24
+
+Attempting to give fire and water different decay behaviours, I realise that I fundamentally want them to work the same way as ice, decaying from the outside in rather than randomly. I made the mistake of associating the values in my array with the visuals because of the current shader that I have, but in reality I can shade each cell however I want - so I'm going to give all three elements the same decay behaviour and make a simple shader that samples nearby areas of the texture.

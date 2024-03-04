@@ -12,13 +12,17 @@ class_name FloorEffectsHandler extends Node2D
 enum Elements {ICE, WATER, FIRE}
 
 var ice_array : Array[Array]
-var ice_image : Image
-var ice_texture : ImageTexture
+var fire_array : Array[Array]
+var water_array : Array[Array]
+var image : Image
+var texture : ImageTexture
+var array_size : Vector2i
+
 var floor_map : TileMap
 @export var decay_rate : int = 30
 @export var resolution_factor : int = 2
 @export var decay_amount : float = 0.33
-@export var zero_threshold : float = 0.10
+@export var zero_threshold : float = 0.1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -39,14 +43,16 @@ func try_decay(i : int, j : int, grid : Array[Array]) -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	for i : int in range(decay_rate):
-		var decay_x : int = round(randf() * (ice_array[0].size() - 1))
-		var decay_y : int = round(randf() * (ice_array.size() - 1))
+		var decay_x : int = round(randf() * (array_size.x - 1))
+		var decay_y : int = round(randf() * (array_size.y - 1))
 		try_decay(decay_y, decay_x, ice_array)
-		# may be redundant
-		ice_image.set_pixel(decay_x, decay_y, Color.WHITE * ice_array[decay_y][decay_x])
-
-	ice_texture.update(ice_image)
-	($Sprite2D as Sprite2D).texture = ice_texture
+		try_decay(decay_y, decay_x, fire_array)
+		try_decay(decay_y, decay_x, water_array)
+		var new_col : Color = Color(fire_array[decay_y][decay_x], ice_array[decay_y][decay_x], water_array[decay_y][decay_x])
+		image.set_pixel(decay_x, decay_y, new_col)
+	
+	texture.update(image)
+	($Sprite2D as Sprite2D).texture = texture
 	
 	
 func is_point_in_ice(point : Vector2) -> bool:
@@ -67,35 +73,68 @@ func convert_global_to_map(point : Vector2) -> Vector2i:
 	var translated : Vector2i = UV * Vector2(ice_array[0].size() - 1, ice_array.size() - 1)
 	return translated
 
-func add_ice(point : Vector2, radius : float) -> void:
+func add_fire(point : Vector2, radius : float) -> void:
+	var converted_point : Vector2i = convert_global_to_map(point)
+	radius = (radius / floor_map.tile_set.tile_size.x) * resolution_factor
+	for i : int in range(max(0, floor(converted_point.y - radius)), min(array_size.y, ceil(converted_point.y + radius))):
+		for j : int in range(max(0, floor(converted_point.x - radius)), min(array_size.x, ceil(converted_point.x + radius))):
+			var distance : float = Vector2(converted_point.x - j , converted_point.y  - i).length()
+			if distance <= radius:
+				water_array[i][j] = max(0.0, water_array[i][j] - pow((1 - distance / radius), 0.3))
+				if water_array[i][j] < 0.001:
+					fire_array[i][j] = max(pow(1 - distance / radius, 0.3), fire_array[i][j])
+					ice_array[i][j] = max(0.0, ice_array[i][j] - fire_array[i][j])
+				image.set_pixel(j, i, Color(fire_array[i][j], ice_array[i][j], water_array[i][j]))
+
+func add_water(point : Vector2, radius : float) -> void:
 	var converted_point : Vector2i = convert_global_to_map(point)
 	radius = (radius / floor_map.tile_set.tile_size.x) * resolution_factor
 	for i : int in range(max(0, floor(converted_point.y - radius)), min(ice_array.size(), ceil(converted_point.y + radius))):
 		for j : int in range(max(0, floor(converted_point.x - radius)), min(ice_array[0].size(), ceil(converted_point.x + radius))):
-			if Vector2(converted_point.x - j , converted_point.y  - i).length() <= radius:
-				ice_array[i][j] = 1.0
-				ice_image.set_pixel(j, i, Color.WHITE)
+			var distance : float = Vector2(converted_point.x - j , converted_point.y  - i).length()
+			if distance <= radius:
+				if ice_array[i][j] < 0.001:
+					water_array[i][j] = max(pow(1 - distance / radius, 0.3), water_array[i][j])
+					fire_array[i][j] = 0.0
+				image.set_pixel(j, i, Color(fire_array[i][j], ice_array[i][j], water_array[i][j]))
+
+func add_ice(point : Vector2, radius : float) -> void:
+	var converted_point : Vector2i = convert_global_to_map(point)
+	radius = (radius / floor_map.tile_set.tile_size.x) * resolution_factor
+	for i : int in range(max(0, floor(converted_point.y - radius)), min(array_size.y, ceil(converted_point.y + radius))):
+		for j : int in range(max(0, floor(converted_point.x - radius)), min(array_size.x, ceil(converted_point.x + radius))):
+			var distance : float = Vector2(converted_point.x - j , converted_point.y  - i).length()
+			if distance <= radius:
+				ice_array[i][j] = max(pow(1 - distance / radius, 0.3), ice_array[i][j])
+				water_array[i][j] = 0.0
+				fire_array[i][j] = 0.0
+				image.set_pixel(j, i, Color(fire_array[i][j], ice_array[i][j], water_array[i][j]))
 				
 func melt_ice(point : Vector2, radius : float) -> void:
 	var converted_point : Vector2i = convert_global_to_map(point)
 	radius = (radius / floor_map.tile_set.tile_size.x) * resolution_factor
-	for i : int in range(max(0, floor(converted_point.y - radius)), min(ice_array.size(), ceil(converted_point.y + radius))):
-		for j : int in range(max(0, floor(converted_point.x - radius)), min(ice_array[0].size(), ceil(converted_point.x + radius))):
+	for i : int in range(max(0, floor(converted_point.y - radius)), min(array_size.y, ceil(converted_point.y + radius))):
+		for j : int in range(max(0, floor(converted_point.x - radius)), min(array_size.x, ceil(converted_point.x + radius))):
 			var distance : float = Vector2(converted_point.x - j, converted_point.y - i).length()
 			if distance <= radius:
 				ice_array[i][j] -= pow(1 - (distance / radius), 2)
-				ice_image.set_pixel(j, i, Color.WHITE * ice_array[i][j])
+				image.set_pixel(j, i, Color(fire_array[i][j], ice_array[i][j], water_array[i][j]))
 
 func init_for_room() -> void:
 	var level_node : Node2D = get_tree().get_first_node_in_group("level")
 	floor_map = level_node.get_node("Floor") as TileMap
 	var rect : Rect2i = floor_map.get_used_rect()
-	ice_image = Image.create(rect.size.x * resolution_factor, rect.size.y * resolution_factor, false, Image.FORMAT_L8)
-	ice_texture = ImageTexture.create_from_image(ice_image)
-	for i : int in range(rect.size.y * resolution_factor):
+	array_size = rect.size * resolution_factor
+	image = Image.create(array_size.x, array_size.y, false, Image.FORMAT_RGB8)
+	texture = ImageTexture.create_from_image(image)
+	for i : int in range(array_size.y):
 		ice_array.append([])
-		for j : int in range(rect.size.x * resolution_factor):
+		fire_array.append([])
+		water_array.append([])
+		for j : int in range(array_size.x):
 			(ice_array[i] as Array).append(0)
+			(fire_array[i] as Array).append(0)
+			(water_array[i] as Array).append(0)
 	$Sprite2D.scale = floor_map.tile_set.tile_size / resolution_factor
 	$Sprite2D.global_position = floor_map.get_used_rect().position * floor_map.tile_set.tile_size
 	

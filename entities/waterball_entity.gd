@@ -22,4 +22,5 @@ func distribute_signal(event : Event) -> void:
 		var material : ParticleProcessMaterial = particles.process_material
 		get_tree().get_first_node_in_group("main").add_child(particles)
 		particles.global_position = global_position
+		FloorHandler.add_water(global_position, 64)
 	super(event)
