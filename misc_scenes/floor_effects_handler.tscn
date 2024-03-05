@@ -1,32 +1,40 @@
-[gd_scene load_steps=9 format=3 uid="uid://d2gefhko3sbry"]
+[gd_scene load_steps=10 format=3 uid="uid://d2gefhko3sbry"]
 
 [ext_resource type="Script" path="res://misc_scenes/floor_effects_handler.gd" id="1_o44qe"]
 [ext_resource type="Shader" path="res://shaders/elements.gdshader" id="2_licdc"]
-[ext_resource type="Gradient" uid="uid://cbfyfhnyv6mby" path="res://resources/water_colours.tres" id="3_r1nnc"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_k8bta"]
-noise_type = 5
+[sub_resource type="Gradient" id="Gradient_q4cht"]
+interpolation_mode = 2
+colors = PackedColorArray(0, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_lixtq"]
+noise_type = 4
 seed = 420
-frequency = 0.0689
+frequency = 1.0
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lccac"]
 seamless = true
-color_ramp = ExtResource("3_r1nnc")
-noise = SubResource("FastNoiseLite_k8bta")
+color_ramp = SubResource("Gradient_q4cht")
+noise = SubResource("FastNoiseLite_lixtq")
 
 [sub_resource type="Gradient" id="Gradient_jnjmv"]
 interpolation_mode = 2
 offsets = PackedFloat32Array(0, 0.467213, 0.557377, 1)
 colors = PackedColorArray(0, 0, 0, 1, 0.0737104, 0.0737104, 0.0737104, 1, 0.949489, 0.949489, 0.949489, 1, 1, 1, 1, 1)
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_cs0ak"]
+noise_type = 4
+seed = 420
+frequency = 0.1414
+
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_g3eac"]
 seamless = true
 color_ramp = SubResource("Gradient_jnjmv")
-noise = SubResource("FastNoiseLite_k8bta")
+noise = SubResource("FastNoiseLite_cs0ak")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wca6e"]
 shader = ExtResource("2_licdc")
-shader_parameter/wave_low_threshold = 0.4
+shader_parameter/wave_low_threshold = 0.3
 shader_parameter/wave_high_threshold = 0.5
 shader_parameter/snow_noise = SubResource("NoiseTexture2D_lccac")
 shader_parameter/water_noise = SubResource("NoiseTexture2D_g3eac")

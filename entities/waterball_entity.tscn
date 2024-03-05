@@ -77,6 +77,7 @@ collision_mask = 2
 script = ExtResource("1_7kq6c")
 particle_material = SubResource("ParticleProcessMaterial_pqbc7")
 particle_texture = SubResource("GradientTexture2D_2bswa")
+entity_name = "Waterbolt"
 spawn_velocity = 200.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

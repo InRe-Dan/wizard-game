@@ -4,6 +4,12 @@ extends Action
 @export var side_projectiles : int = 0
 @export var spread : float = 30
 
+func _ready() -> void:
+	if side_projectiles == 0:
+		description = "Shoot " + (projectile.instantiate() as Entity).entity_name
+	else:
+		description = "Shoot a spread of " + str(side_projectiles * 2 + 1) + " " + (projectile.instantiate() as Entity).entity_name + "s"
+
 func do(target : Entity, secondary : Entity = null, direction : Vector2 = Vector2.ZERO) -> void:
 	var entity_instance : Entity = projectile.instantiate() as Entity
 	entity_instance.velocity = entity_instance.spawn_velocity * direction

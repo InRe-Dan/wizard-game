@@ -14,7 +14,8 @@ func _process(delta: float) -> void:
 	pass
 
 func use(direction : Vector2) -> void:
-	(get_children()[selected] as InventoryItem).use(parent, direction)
+	var item : InventoryItem = (get_children()[selected] as InventoryItem)
+	item.use(parent, direction)
 
 func use_any_attack() -> void:
 	pass

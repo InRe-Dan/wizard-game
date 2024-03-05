@@ -657,3 +657,8 @@ Fire and water do not "decay" - it doesn't make sense to have them be handled th
 4/3/24
 
 Attempting to give fire and water different decay behaviours, I realise that I fundamentally want them to work the same way as ice, decaying from the outside in rather than randomly. I made the mistake of associating the values in my array with the visuals because of the current shader that I have, but in reality I can shade each cell however I want - so I'm going to give all three elements the same decay behaviour and make a simple shader that samples nearby areas of the texture.
+
+
+MEETING Notes
+    Make the data available to myself up to the viva and maybe to be in the appendix
+    

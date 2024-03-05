@@ -2,6 +2,7 @@ class_name Entity extends CharacterBody2D
 
 enum Team {player, enemy, any}
 
+@export var entity_name : String = "Unnamed Entity"
 @export var spawn_velocity : float = 500
 @export var health : int = 5
 @export_enum("Player", "Enemy", "Any") var team : int = Team.any

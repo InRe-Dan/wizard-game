@@ -49,6 +49,7 @@ fill_from = Vector2(0.5, 0.5)
 collision_layer = 4
 collision_mask = 6
 script = ExtResource("1_htmbl")
+entity_name = "Player"
 health = 10
 team = 0
 
@@ -95,6 +96,7 @@ spread = 20.0
 
 [node name="ShootProjectileAction" parent="Inventory/WaterWave" instance=ExtResource("7_uqqob")]
 projectile = ExtResource("9_h4x3d")
+side_projectiles = 3
 
 [node name="AngelSpawner" parent="Inventory" instance=ExtResource("6_h4eic")]
 

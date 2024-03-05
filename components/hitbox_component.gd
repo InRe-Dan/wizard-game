@@ -35,4 +35,3 @@ func _on_area_entered(area : Area2D) -> void:
 	if entity_hit.team == (get_parent() as Entity).team:
 		return
 	parent.distribute_signal(HasHitEvent.new(entity_hit, damage))
-	print(parent.name, " hit ", area.get_parent().get_parent().name)

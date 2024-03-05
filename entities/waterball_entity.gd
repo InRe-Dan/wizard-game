@@ -19,8 +19,9 @@ func distribute_signal(event : Event) -> void:
 		particles.texture = particle_texture
 		particles.material = CanvasItemMaterial.new()
 		particles.material.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+		particles.z_index = 3
 		var material : ParticleProcessMaterial = particles.process_material
 		get_tree().get_first_node_in_group("main").add_child(particles)
 		particles.global_position = global_position
-		FloorHandler.add_water(global_position, 64)
+		FloorHandler.add_water(global_position, 32)
 	super(event)
