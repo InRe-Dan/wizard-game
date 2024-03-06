@@ -662,3 +662,7 @@ Attempting to give fire and water different decay behaviours, I realise that I f
 MEETING Notes
     Make the data available to myself up to the viva and maybe to be in the appendix
     
+
+6/3/24
+
+Today I added some very basic level gen, refactoring the old "room-1" and made some tweaks to the floor handler to fix bugs and behaviours. I am probably going to want to make different level generators with many parameters, and I'll need to expand generation code to support placing items and enemies based on parameters as well.

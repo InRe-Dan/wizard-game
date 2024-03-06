@@ -1,14 +1,5 @@
 class_name FloorEffectsHandler extends Node2D
 
-@onready var fire_collision : Area2D = $Fire
-@onready var fire_graphic : Polygon2D = $FireGraphic
-
-@onready var ice_collision : Area2D = $Ice
-@onready var ice_graphic : Polygon2D = $IceGraphic
-
-@onready var water_collision : Area2D = $Water
-@onready var water_graphic : Polygon2D = $WaterGraphic
-
 enum Elements {ICE, WATER, FIRE}
 
 var ice_array : Array[Array]
@@ -24,10 +15,6 @@ var floor_map : TileMap
 @export var decay_amount : float = 0.33
 @export var zero_threshold : float = 0.1
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass
-
 func try_decay(i : int, j : int, grid : Array[Array]) -> void:
 	var neighbours : int = 0
 	neighbours += 1 if grid[max(i - 1, 0)][j] else 0
@@ -37,7 +24,7 @@ func try_decay(i : int, j : int, grid : Array[Array]) -> void:
 	if neighbours < 4:
 		grid[i][j] = max(0, grid[i][j] - decay_amount)
 	if neighbours == 0 or grid[i][j] <= zero_threshold:
-		# todo remove neighbours if they have no remaining neighbours
+		# TODO remove neighbours if they have no remaining neighbours, even if they havent been rolled
 		grid[i][j] = 0
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -57,6 +44,8 @@ func _process(delta: float) -> void:
 	
 func is_point_in_ice(point : Vector2) -> bool:
 	var converted_point : Vector2i = convert_global_to_map(point)
+	if converted_point.clamp(Vector2(0, 0), array_size):
+		return false
 	if 0 > converted_point.x or converted_point.x >= ice_array[0].size():
 		return false
 	if 0 > converted_point.y or converted_point.y >= ice_array.size():
@@ -64,13 +53,12 @@ func is_point_in_ice(point : Vector2) -> bool:
 	return true if ice_array[converted_point.y][converted_point.x] else false
 	
 func convert_global_to_map(point : Vector2) -> Vector2i:
-
 	var in_tilemap_space : Vector2 = floor_map.to_local(point)
 	var map_top_left : Vector2 = floor_map.map_to_local(floor_map.get_used_rect().position)\
 								 - Vector2(floor_map.tile_set.tile_size) / 2
 	var map_size_pixels : Vector2 = floor_map.get_used_rect().size * floor_map.tile_set.tile_size
 	var UV : Vector2 = (in_tilemap_space - map_top_left) / (map_size_pixels)
-	var translated : Vector2i = UV * Vector2(ice_array[0].size() - 1, ice_array.size() - 1)
+	var translated : Vector2i = UV * Vector2(array_size.x - 1, array_size.y - 1)
 	return translated
 
 func add_fire(point : Vector2, radius : float) -> void:
@@ -127,6 +115,9 @@ func init_for_room() -> void:
 	array_size = rect.size * resolution_factor
 	image = Image.create(array_size.x, array_size.y, false, Image.FORMAT_RGB8)
 	texture = ImageTexture.create_from_image(image)
+	ice_array.clear()
+	fire_array.clear()
+	water_array.clear()
 	for i : int in range(array_size.y):
 		ice_array.append([])
 		fire_array.append([])
@@ -136,5 +127,5 @@ func init_for_room() -> void:
 			(fire_array[i] as Array).append(0)
 			(water_array[i] as Array).append(0)
 	$Sprite2D.scale = floor_map.tile_set.tile_size / resolution_factor
-	$Sprite2D.global_position = floor_map.get_used_rect().position * floor_map.tile_set.tile_size
+	$Sprite2D.global_position = floor_map.to_global(floor_map.map_to_local(floor_map.get_used_rect().position)) - Vector2(floor_map.tile_set.tile_size / 2)
 	

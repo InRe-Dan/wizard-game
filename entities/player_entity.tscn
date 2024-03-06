@@ -113,6 +113,7 @@ collision_mask = 0
 shape = SubResource("CircleShape2D_4s2ka")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+z_index = 1
 texture = SubResource("GradientTexture2D_mfdbb")
 
 [node name="DialogueComponent" parent="." instance=ExtResource("13_3b1pc")]
