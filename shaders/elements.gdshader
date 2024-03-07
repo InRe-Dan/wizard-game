@@ -7,8 +7,8 @@ uniform float wave_low_threshold;
 uniform float wave_high_threshold;
 
 // Random noise
-uniform sampler2D snow_noise;
-uniform sampler2D water_noise;
+uniform sampler2D snow_noise : filter_nearest;
+uniform sampler2D water_noise : filter_nearest;
 
 // Set by floor handler
 uniform sampler2D elements;
