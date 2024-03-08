@@ -3,7 +3,7 @@ extends Camera2D
 # More potential solutions https://github.com/godotengine/godot/issues/35606
 # r/godot, u/forbjok
 
-@export var SMOOTHING_DURATION : float = 0.1
+@export var SMOOTHING_DURATION : float = 0.2
 # https://gamedev.stackexchange.com/questions/1828/realistic-camera-screen-shake-from-explosion
 @export var shake_radius : float = 2
 

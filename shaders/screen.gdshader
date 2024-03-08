@@ -6,7 +6,11 @@ uniform float vignetteExponent = 0.5;
 // use `filter_nearest_mipmap` instead. This shader doesn't require it.
 uniform sampler2D noise_texture : repeat_enable, filter_nearest;
 uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest, source_color;
+varying vec2 world_pos;
 
+void vertex() {
+	world_pos = (MODEL_MATRIX * vec4(VERTEX, 0.0, 1.0)).xy + (UV / TEXTURE_PIXEL_SIZE).xy;
+}
 
 void fragment() {
 	// apply vignette
@@ -20,7 +24,7 @@ void fragment() {
 	vec3 quantizedCol = floor(COLOR.xyz / stepSize) * stepSize;
 	vec3 remainder = mod(COLOR.xyz, stepSize);
 	vec3 ditherProb = remainder / stepSize;
-	float rand = texture(noise_texture, SCREEN_UV).r;
+	float rand = texture(noise_texture, world_pos).r;
 	vec3 dither_colour = vec3(bvec3(ditherProb.x > rand, ditherProb.y > rand, ditherProb.z > rand));
 	COLOR = vec4(quantizedCol.xyz + stepSize * dither_colour, COLOR.w);
 }

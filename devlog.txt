@@ -666,3 +666,9 @@ MEETING Notes
 6/3/24
 
 Today I added some very basic level gen, refactoring the old "room-1" and made some tweaks to the floor handler to fix bugs and behaviours. I am probably going to want to make different level generators with many parameters, and I'll need to expand generation code to support placing items and enemies based on parameters as well.
+
+8/3/24
+
+I worked on iterating over the shaders for the graphics and floor effects because I hated looking at them. I realised that the screen-wide dithering shader was actually broken for the testing build, which is really something that I should have spotted earlier.
+I figured out an easy way of getting fragment world-space coordinates in my shaders, which fixed a lot of issues that I encountered trying to write shaders before. Using these coordinates, I came up with a decent way of getting water using scrolling noise textures - I even tried overriding the light function to make the peaks of the waves reflect light better. The water is three-tone, putting aside any dithering effects.
+I still have no idea how I am going to make the fire glow, considering light functions and pointlights, but I at least have some idea of how I'm going to create it graphically. Ice is probably going to be easiest of them all, but I do want to write an edge distance function analog soon. After writing a fire shader, I am going to go straight to developing items and enemies, and having them get generated within the level.

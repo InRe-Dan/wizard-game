@@ -35,8 +35,8 @@ radius = 6.08276
 radius = 5.0
 
 [sub_resource type="Gradient" id="Gradient_sr7xp"]
-offsets = PackedFloat32Array(0, 0.233766, 0.441558, 0.636364, 0.772727)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.461039, 1, 1, 1, 0.289126, 1, 1, 1, 0.156284, 1, 1, 1, 0)
+offsets = PackedFloat32Array(0, 0.116883, 0.655844)
+colors = PackedColorArray(1, 0.34902, 0, 1, 1, 0.34902, 0, 1, 1, 0.34902, 0, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_agrek"]
 gradient = SubResource("Gradient_sr7xp")
@@ -71,11 +71,6 @@ shape = SubResource("CircleShape2D_08qk3")
 
 [node name="ProjectileDespawner" parent="." instance=ExtResource("4_pb6vt")]
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
-color = Color(1, 0.454902, 0, 1)
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_agrek")
-
 [node name="DeathEffectComponent" parent="." instance=ExtResource("5_khqhi")]
 
 [node name="EntitySpawnDeathEffect" parent="DeathEffectComponent" instance=ExtResource("6_e4jy4")]
@@ -84,3 +79,8 @@ entity = ExtResource("7_xcnvc")
 [node name="PhysicsHandler" parent="." instance=ExtResource("8_bppoq")]
 base_damping = 0.0
 take_collision_damage = false
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 0.454902, 0, 1)
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_agrek")

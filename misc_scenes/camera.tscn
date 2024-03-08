@@ -8,8 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://0yo7q0qi576d" path="res://assets/ui/keyboard_extras.png" id="6_l88bi"]
 
 [sub_resource type="Gradient" id="Gradient_uhjsu"]
-interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.52459)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_py0t1"]
 noise_type = 0
@@ -21,8 +19,8 @@ noise = SubResource("FastNoiseLite_py0t1")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n0wmh"]
 shader = ExtResource("2_gcgr3")
-shader_parameter/quantizationSteps = 16.0
-shader_parameter/vignetteExponent = 0.015
+shader_parameter/quantizationSteps = 8.24
+shader_parameter/vignetteExponent = 0.78
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_qgabh")
 
 [sub_resource type="LabelSettings" id="LabelSettings_emds3"]
