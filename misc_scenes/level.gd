@@ -18,7 +18,7 @@ class Room extends RefCounted:
 	var west : Room
 
 func _ready() -> void:
-	generate(20)
+	generate(1)
 	pass
 
 func set_floor(v : Vector2i) -> void:

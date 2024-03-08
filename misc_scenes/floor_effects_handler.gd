@@ -1,7 +1,5 @@
 class_name FloorEffectsHandler extends Node2D
 
-enum Elements {ICE, WATER, FIRE}
-
 var ice_array : Array[Array]
 var fire_array : Array[Array]
 var water_array : Array[Array]
@@ -10,7 +8,7 @@ var texture : ImageTexture
 var array_size : Vector2i
 
 var floor_map : TileMap
-@export var decay_rate : int = 30
+@export var decay_rate : float = 0.05
 @export var resolution_factor : int = 2
 @export var decay_amount : float = 0.33
 @export var zero_threshold : float = 0.1
@@ -29,7 +27,7 @@ func try_decay(i : int, j : int, grid : Array[Array]) -> void:
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	for i : int in range(decay_rate):
+	for i : int in range(decay_rate * array_size.x * array_size.y):
 		var decay_x : int = round(randf() * (array_size.x - 1))
 		var decay_y : int = round(randf() * (array_size.y - 1))
 		try_decay(decay_y, decay_x, ice_array)

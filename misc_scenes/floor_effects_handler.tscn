@@ -1,87 +1,41 @@
-[gd_scene load_steps=14 format=3 uid="uid://d2gefhko3sbry"]
+[gd_scene load_steps=22 format=3 uid="uid://d2gefhko3sbry"]
 
 [ext_resource type="Script" path="res://misc_scenes/floor_effects_handler.gd" id="1_o44qe"]
-
-[sub_resource type="Shader" id="Shader_53tf8"]
-code = "shader_type canvas_item;
-// This might come in handy!
-render_mode world_vertex_coords;
-
-// Parameters
-uniform float wave_low_threshold;
-uniform float wave_high_threshold;
-uniform vec4 water_colour : source_color;
-uniform vec4 wave_colour : source_color;
-uniform vec4 water_transition_colour : source_color;
-uniform float wave_speed;
-uniform float transition_length;
-
-
-// Random noise
-uniform sampler2D snow_noise : filter_nearest, repeat_enable;
-uniform sampler2D water_noise : filter_nearest, repeat_enable;
-uniform sampler2D water_noise_2 : filter_nearest, repeat_enable;
-
-// Set by floor handler
-uniform sampler2D elements;
-
-varying vec2 world_pos;
-varying vec4 pixel_color;
-
-void vertex() {
-	world_pos = (MODEL_MATRIX * vec4(VERTEX, 0.0, 1.0)).xy + (UV / TEXTURE_PIXEL_SIZE).xy;
-}
-
-vec4 water(vec2 pos) {
-	vec2 uv = pos / vec2(textureSize(water_noise, 0));
-	vec4 wave = texture(water_noise, uv + TIME * vec2(0.7, 0.7) * wave_speed) * 1.0;
-	wave -= texture(water_noise_2, uv + TIME * vec2(0.7, -0.7) * wave_speed) * 0.2;
-	if (wave_low_threshold < wave.r && wave_high_threshold > wave.r) {
-		return wave_colour;
-	} else if (wave.r > wave_low_threshold - transition_length  && wave.r < wave_low_threshold) {
-		return water_transition_colour;
-		
-	} else if (wave.r < wave_high_threshold + transition_length  && wave.r > wave_high_threshold) {
-		return water_transition_colour;
-	}
-	return water_colour;
-}
-
-vec4 ice(vec2 pos) {
-	return vec4(texture(snow_noise, pos / vec2(textureSize(snow_noise, 0).xy)).xyz, 0.6);
-}
-
-vec4 fire(vec2 pos) {
-	vec2 uv = pos / vec2(textureSize(water_noise, 0));
-	return vec4(0.8, 0.5, 0.0, 0.6);
-}
-
-void fragment() {
-	if (COLOR.r > 0.01) {
-		COLOR = fire(world_pos);
-	} else if (COLOR.g > 0.01) {
-		COLOR = ice(world_pos);
-	} else if (COLOR.b > 0.01) {
-		COLOR = water(world_pos);
-	} else {
-		COLOR = vec4(0.);
-	}
-}
-
-void light() {
-	if (texture(elements, UV).b > 0.01 && COLOR.r > 0.9) {
-		LIGHT = vec4(LIGHT_COLOR.rgb * COLOR.rgb * LIGHT_ENERGY * 3., LIGHT_COLOR.a);
-	} else {
-		LIGHT = vec4(LIGHT_COLOR.rgb * COLOR.rgb * LIGHT_ENERGY, LIGHT_COLOR.a);
-	}
-}
-"
+[ext_resource type="Shader" path="res://shaders/elements.gdshader" id="2_a5i2d"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_owj2b"]
 
+[sub_resource type="Gradient" id="Gradient_l77eg"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.114754, 0.196721, 0.295082, 0.360656, 0.483607)
+colors = PackedColorArray(1, 1, 0, 1, 1, 0.909804, 0, 1, 1, 0.729412, 0, 1, 1, 0.392157, 0, 1, 1, 0.392157, 0, 1, 1, 1, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0d851"]
+gradient = SubResource("Gradient_l77eg")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_u87m8"]
+noise_type = 0
+frequency = 0.0141
+fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4sl6w"]
+generate_mipmaps = false
+seamless = true
+noise = SubResource("FastNoiseLite_u87m8")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_toium"]
+frequency = 0.0174
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8hned"]
+generate_mipmaps = false
+seamless = true
+seamless_blend_skirt = 0.2
+noise = SubResource("FastNoiseLite_toium")
+
 [sub_resource type="Gradient" id="Gradient_gdc4d"]
-interpolation_mode = 2
-colors = PackedColorArray(0, 1, 1, 1, 1, 1, 1, 1)
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.336066, 0.663934)
+colors = PackedColorArray(0, 1, 1, 1, 0.459016, 1, 1, 1, 0.603922, 1, 1, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_kjuiy"]
 seed = 420
@@ -96,11 +50,13 @@ noise = SubResource("FastNoiseLite_kjuiy")
 interpolation_mode = 2
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_718a5"]
-noise_type = 2
+noise_type = 3
 seed = 35
 frequency = 0.0053
+fractal_type = 3
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lnfkd"]
+generate_mipmaps = false
 seamless = true
 color_ramp = SubResource("Gradient_k7bq3")
 noise = SubResource("FastNoiseLite_718a5")
@@ -114,30 +70,47 @@ seed = 40
 frequency = 0.0063
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2t27o"]
+generate_mipmaps = false
 seamless = true
 color_ramp = SubResource("Gradient_viqn3")
 noise = SubResource("FastNoiseLite_58wi2")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ds1fh"]
-shader = SubResource("Shader_53tf8")
+shader = ExtResource("2_a5i2d")
 shader_parameter/wave_low_threshold = 0.45
 shader_parameter/wave_high_threshold = 0.55
 shader_parameter/water_colour = Color(0, 0.478431, 0.945098, 0.67451)
 shader_parameter/wave_colour = Color(0.996078, 0.92549, 0.996078, 0.776471)
 shader_parameter/water_transition_colour = Color(0.141176, 0.643137, 1, 0.8)
-shader_parameter/wave_speed = 0.1
-shader_parameter/transition_length = 0.2
+shader_parameter/wave_speed = 0.01
+shader_parameter/wave_subtract_speed = 0.36
+shader_parameter/transition_length = 0.245
+shader_parameter/fire_speed = 0.0
+shader_parameter/fire_subtract_speed = 0.065
+shader_parameter/fire_gradient = SubResource("GradientTexture1D_0d851")
 shader_parameter/snow_noise = SubResource("NoiseTexture2D_rtgwr")
 shader_parameter/water_noise = SubResource("NoiseTexture2D_lnfkd")
 shader_parameter/water_noise_2 = SubResource("NoiseTexture2D_2t27o")
+shader_parameter/fire_noise = SubResource("NoiseTexture2D_4sl6w")
+shader_parameter/fire_noise_2 = SubResource("NoiseTexture2D_8hned")
 shader_parameter/elements = SubResource("NoiseTexture2D_owj2b")
+
+[sub_resource type="Gradient" id="Gradient_seels"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.37013, 0.675325)
+colors = PackedColorArray(1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qvylg"]
+gradient = SubResource("Gradient_seels")
+fill_from = Vector2(0, 0.5)
+fill_to = Vector2(1, 0.5)
 
 [node name="FloorEffectsHandler" type="Node2D" groups=["floor_effects_handler"]]
 visibility_layer = 2
 z_index = 1
 z_as_relative = false
 script = ExtResource("1_o44qe")
-decay_rate = 1000
+decay_rate = 0.01
 resolution_factor = 4
 decay_amount = 0.2
 zero_threshold = 0.5
@@ -146,4 +119,5 @@ zero_threshold = 0.5
 y_sort_enabled = true
 material = SubResource("ShaderMaterial_ds1fh")
 scale = Vector2(4, 4)
+texture = SubResource("GradientTexture2D_qvylg")
 centered = false
