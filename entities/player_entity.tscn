@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cu4jaf5f1nlxo"]
+[gd_scene load_steps=23 format=3 uid="uid://cu4jaf5f1nlxo"]
 
 [ext_resource type="Script" path="res://entities/player_entity.gd" id="1_htmbl"]
 [ext_resource type="PackedScene" uid="uid://c03pfmwpgtofc" path="res://components/simple_graphics_component.tscn" id="1_pie61"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://dstqfwhd2e66a" path="res://entities/iceball_entity.tscn" id="9_x80o8"]
 [ext_resource type="PackedScene" uid="uid://uag18b8s0jg4" path="res://components/dialogue_component.tscn" id="13_3b1pc"]
 [ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="14_vbpdx"]
+[ext_resource type="PackedScene" uid="uid://b6byd7ixvxc8n" path="res://components/can_interact_component.tscn" id="15_vx138"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qptjs"]
 radius = 9.0
@@ -47,13 +48,13 @@ height = 256
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_b1i4r"]
+radius = 33.0
+
 [node name="PlayerEntity" type="CharacterBody2D" groups=["players"]]
 collision_layer = 4
 collision_mask = 6
 script = ExtResource("1_htmbl")
-entity_name = "Player"
-health = 10
-team = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_qptjs")
@@ -123,6 +124,14 @@ texture = SubResource("GradientTexture2D_mfdbb")
 [node name="DialogueComponent" parent="." instance=ExtResource("13_3b1pc")]
 lifetime = 1.0
 speed = 2.0
+
+[node name="CanInteractComponent" parent="." node_paths=PackedStringArray("detection_area") instance=ExtResource("15_vx138")]
+detection_area = NodePath("Area2D")
+
+[node name="Area2D" type="Area2D" parent="CanInteractComponent"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanInteractComponent/Area2D"]
+shape = SubResource("CircleShape2D_b1i4r")
 
 [node name="PhysicsHandler" parent="." instance=ExtResource("14_vbpdx")]
 take_collision_damage = false

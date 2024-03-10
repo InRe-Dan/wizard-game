@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cpr0fc00qielw"]
+
+[ext_resource type="Script" path="res://base_classes/entity.gd" id="1_yqi6n"]
+
+[node name="ItemPickupEntity" type="CharacterBody2D"]
+script = ExtResource("1_yqi6n")

@@ -1,6 +1,6 @@
 class_name InputCommand extends Event
 
-enum Commands {invalid, attack, heal, dash, use, cyclef, cycleb}
+enum Commands {invalid, attack, heal, dash, use, cyclef, cycleb, interact}
 var command : Commands
 var direction : Vector2
 
