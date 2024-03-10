@@ -1,17 +1,20 @@
 class_name FloorEffectsHandler extends Node2D
 
+@export var decay_rate : float = 0.05
+@export var resolution_factor : int = 2
+@export var decay_amount : float = 0.33
+@export var zero_threshold : float = 0.1
+
+@onready var effects : Sprite2D = $Effects
+@onready var lighting : Sprite2D = $Lighting
+
 var ice_array : Array[Array]
 var fire_array : Array[Array]
 var water_array : Array[Array]
 var image : Image
 var texture : ImageTexture
 var array_size : Vector2i
-
 var floor_map : TileMap
-@export var decay_rate : float = 0.05
-@export var resolution_factor : int = 2
-@export var decay_amount : float = 0.33
-@export var zero_threshold : float = 0.1
 
 func try_decay(i : int, j : int, grid : Array[Array]) -> void:
 	var neighbours : int = 0
@@ -37,7 +40,8 @@ func _process(delta: float) -> void:
 		image.set_pixel(decay_x, decay_y, new_col)
 	
 	texture.update(image)
-	($Sprite2D as Sprite2D).texture = texture
+	effects.texture = texture
+	lighting.texture = texture
 	
 	
 func is_point_in_ice(point : Vector2) -> bool:
@@ -124,6 +128,8 @@ func init_for_room() -> void:
 			(ice_array[i] as Array).append(0)
 			(fire_array[i] as Array).append(0)
 			(water_array[i] as Array).append(0)
-	$Sprite2D.scale = floor_map.tile_set.tile_size / resolution_factor
-	$Sprite2D.global_position = floor_map.to_global(floor_map.map_to_local(floor_map.get_used_rect().position)) - Vector2(floor_map.tile_set.tile_size / 2)
+	effects.scale = floor_map.tile_set.tile_size / resolution_factor
+	effects.global_position = floor_map.to_global(floor_map.map_to_local(floor_map.get_used_rect().position)) - Vector2(floor_map.tile_set.tile_size / 2)
+	lighting.scale = floor_map.tile_set.tile_size / resolution_factor
+	lighting.global_position = floor_map.to_global(floor_map.map_to_local(floor_map.get_used_rect().position)) - Vector2(floor_map.tile_set.tile_size / 2)
 	
