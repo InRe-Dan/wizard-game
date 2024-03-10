@@ -43,17 +43,21 @@ func _process(delta: float) -> void:
 	effects.texture = texture
 	lighting.texture = texture
 	
+func is_point_in_map(point : Vector2, map : Array[Array]) -> bool:
+	var converted_point : Vector2i = convert_global_to_map(point)
+	if 0 > converted_point.x or converted_point.x >= map[0].size():
+		return false
+	if 0 > converted_point.y or converted_point.y >= map.size():
+		return false
+	return true if map[converted_point.y][converted_point.x] > 0.01 else false
 	
 func is_point_in_ice(point : Vector2) -> bool:
-	var converted_point : Vector2i = convert_global_to_map(point)
-	if converted_point.clamp(Vector2(0, 0), array_size):
-		return false
-	if 0 > converted_point.x or converted_point.x >= ice_array[0].size():
-		return false
-	if 0 > converted_point.y or converted_point.y >= ice_array.size():
-		return false
-	return true if ice_array[converted_point.y][converted_point.x] else false
-	
+	return is_point_in_map(point, ice_array)
+func is_point_in_fire(point : Vector2) -> bool:
+	return is_point_in_map(point, fire_array)
+func is_point_in_water(point : Vector2) -> bool:
+	return is_point_in_map(point, water_array)
+
 func convert_global_to_map(point : Vector2) -> Vector2i:
 	var in_tilemap_space : Vector2 = floor_map.to_local(point)
 	var map_top_left : Vector2 = floor_map.map_to_local(floor_map.get_used_rect().position)\

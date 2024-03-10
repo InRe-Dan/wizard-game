@@ -25,7 +25,7 @@ void fragment() {
 	if (col.x > 0.01) {
 		 new_col += vec3(1.0, 0.3, 0.05 ) * col.r;
 	} if (col.g > 0.01) {
-		new_col += vec3(0.05, 1., 1.) * col.g * 0.3;
+		new_col += vec3(0.05, 1., 1.) * col.g * 0.2;
 	} if (length(new_col) < 0.001) {
 		COLOR = vec4(0.0);
 	} else {

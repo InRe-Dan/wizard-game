@@ -49,7 +49,7 @@ vec4 water(vec2 pos) {
 }
 
 vec4 ice(vec2 pos) {
-	return vec4(texture(snow_noise, pos / vec2(textureSize(snow_noise, 0).xy)).xyz, 0.6);
+	return vec4(texture(snow_noise, pos / vec2(textureSize(snow_noise, 0).xy)).xyz, 0.3);
 }
 
 vec4 fire(vec2 pos) {
