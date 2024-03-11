@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://misc_scenes/inventory_item.gd" id="1_01ofy"]
 [ext_resource type="Script" path="res://actions/shoot_projectile.gd" id="2_yqwyu"]
-[ext_resource type="PackedScene" uid="uid://bn06fjm6xnu4i" path="res://entities/fireball_entity.tscn" id="3_u1yq1"]
+[ext_resource type="PackedScene" uid="uid://bn06fjm6xnu4i" path="res://entities/fireball.tscn" id="3_u1yq1"]
 
 [node name="DeathBlast" type="Node"]
 script = ExtResource("1_01ofy")

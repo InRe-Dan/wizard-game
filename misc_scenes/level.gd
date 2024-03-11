@@ -89,9 +89,14 @@ func generate(room_count : int) -> void:
 	var floor_rect : Rect2i = floor.get_used_rect()
 	var walls_corner : Vector2i = Vector2i(floor_rect.position - wall_padding * Vector2i.ONE)
 	var walls_size : Vector2i = Vector2i(floor_rect.size + wall_padding * 2 * Vector2i.ONE)
+	var offsets : Array[Vector2i] = [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(1, 1), Vector2i(1, -1), Vector2i(0, -1), Vector2i(0, 1), Vector2i(-1, -1), Vector2i(-1, 1)]
 	for x : int in range(walls_size.x):
 		for y : int in range(walls_size.y):
 			if not floor.get_cell_tile_data(0, walls_corner + Vector2i(x, y)):
-				set_wall(walls_corner + Vector2i(x, y))
+				var place : bool = false
+				for offset : Vector2i in offsets:
+					place = place or floor.get_cell_tile_data(0, walls_corner + Vector2i(x, y) + offset)
+				if place:
+					set_wall(walls_corner + Vector2i(x, y))
 	
 	FloorHandler.init_for_room()

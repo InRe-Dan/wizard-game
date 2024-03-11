@@ -690,3 +690,12 @@ First thing I need to do is give entities a container for these effects - a Pass
 Some of these effects will be timed - these would be status effects. Other effects will be persistent, and won't tick down each frame. Both types of effects can free themselves when they are no longer needed, and they all will have associated "cards" in the UI, even if temporary.
 
 I might want to talk about how tempermental Godot is when it comes to static analysis, compilation and the type system. I had to deal with a bug where I wasn't able to cast to a type because the definition of that type had an error in it, regarding undefined variables. No error was reported though, and everything seemed okay! There have been other times where I had to reload the project to allow Godot to compile because it hadn't registered a type name change or some definition.
+
+I am trying to design a more complicated action to test my system - one which fires projectiles slowly in a circle around the player. Initially I thought this would be difficult as items use actions in one call, but being part of the scene tree, actions can use the process loop. This does have the "limitation" that an action needs to decide what it should do if called again during its operation. 
+Options:
+    Maintain multiple operations internally - quite clunky but straightforward
+    Report a cooldown to the item - kinda situational, not very intuitive as items can have multiple actions
+    Create an entity (though maybe a plainer object) to handle its operation separately - probably the best, and can be used as an alternative to the first option depending on the item.
+
+For example the radial fire might want to restart when recast, or emit multiple jets up to a limit, or create an actor to do it all for it.
+

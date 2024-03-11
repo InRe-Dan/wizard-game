@@ -1,11 +1,11 @@
 [gd_scene load_steps=18 format=3 uid="uid://b2qsrxijygjq"]
 
-[ext_resource type="Script" path="res://entities/waterball_entity.gd" id="1_7kq6c"]
-[ext_resource type="Script" path="res://components/hitbox_component.gd" id="2_abtyd"]
-[ext_resource type="Gradient" uid="uid://cbfyfhnyv6mby" path="res://resources/water_colours.tres" id="2_llqbq"]
-[ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="3_jo8t6"]
-[ext_resource type="PackedScene" uid="uid://bueaitn7te0q1" path="res://components/projectile_despawner_component.tscn" id="4_lukr3"]
-[ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="5_cel0w"]
+[ext_resource type="Script" path="res://entities/waterball.gd" id="1_riigk"]
+[ext_resource type="Gradient" uid="uid://cbfyfhnyv6mby" path="res://resources/water_colours.tres" id="2_so62x"]
+[ext_resource type="Script" path="res://components/hitbox_component.gd" id="3_0t2jv"]
+[ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="4_c51vm"]
+[ext_resource type="PackedScene" uid="uid://bueaitn7te0q1" path="res://components/projectile_despawner_component.tscn" id="5_spwsm"]
+[ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="6_de6j4"]
 
 [sub_resource type="Curve" id="Curve_tq44c"]
 max_value = 3.0
@@ -43,14 +43,14 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ku6a4"]
-gradient = ExtResource("2_llqbq")
+gradient = ExtResource("2_so62x")
 width = 16
 height = 16
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="Resource" id="Resource_qwe1d"]
-script = ExtResource("3_jo8t6")
+script = ExtResource("4_c51vm")
 damage = 1
 damage_type = 2
 knockback_type = 1
@@ -74,7 +74,7 @@ fill_from = Vector2(0.5, 0.5)
 [node name="WaterballEntity" type="CharacterBody2D"]
 collision_layer = 0
 collision_mask = 2
-script = ExtResource("1_7kq6c")
+script = ExtResource("1_riigk")
 particle_material = SubResource("ParticleProcessMaterial_pqbc7")
 particle_texture = SubResource("GradientTexture2D_2bswa")
 entity_name = "Waterbolt"
@@ -85,7 +85,7 @@ texture = SubResource("GradientTexture2D_ku6a4")
 
 [node name="HitboxComponent" type="Node2D" parent="."]
 scale = Vector2(-1.7852, 1.87583)
-script = ExtResource("2_abtyd")
+script = ExtResource("3_0t2jv")
 damage = SubResource("Resource_qwe1d")
 
 [node name="Area2D" type="Area2D" parent="HitboxComponent"]
@@ -98,7 +98,7 @@ shape = SubResource("CircleShape2D_6cg1l")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_08qk3")
 
-[node name="ProjectileDespawner" parent="." instance=ExtResource("4_lukr3")]
+[node name="ProjectileDespawner" parent="." instance=ExtResource("5_spwsm")]
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 color = Color(0.486275, 0.85098, 1, 1)
@@ -106,7 +106,7 @@ energy = 0.5
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_agrek")
 
-[node name="PhysicsHandlerComponent" parent="." instance=ExtResource("5_cel0w")]
+[node name="PhysicsHandlerComponent" parent="." instance=ExtResource("6_de6j4")]
 base_acceleration = 0.0
 base_damping = 0.0
 take_collision_damage = false

@@ -1,6 +1,6 @@
 class_name Main extends Node2D
 
-var player_scene : PackedScene = preload("res://entities/player_entity.tscn")
+var player_scene : PackedScene = preload("res://entities/player.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

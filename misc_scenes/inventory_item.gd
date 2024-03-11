@@ -3,16 +3,14 @@ class_name InventoryItem extends Node
 
 var description : String
 
-@export var item_name : String
-@export var uses : int
-@export var max_uses : int
+@export var item_name : String = "Unknown"
+@export var uses : int = 3
+@export var max_uses : int = 3
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	for action : Action in get_children():
 		description += action.description + ". "
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 

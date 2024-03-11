@@ -6,7 +6,10 @@ var buildup : float = 0
 @export var tick_damage : DamageData
 
 func _init() -> void:
-	pass
+	if not tick_damage:
+		tick_damage = DamageData.new()
+		tick_damage.damage = 1
+		tick_damage.damage_type = tick_damage.DamageTypes.fire
 
 func _process(delta : float) -> void:
 	var entity : Entity = (get_parent() as EntityComponent).parent

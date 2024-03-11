@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://dstqfwhd2e66a"]
+
+[ext_resource type="Script" path="res://base_classes/entity.gd" id="1_hlwpr"]
+[ext_resource type="PackedScene" uid="uid://h6thrp5ptkgc" path="res://components/floor_dropper_component.tscn" id="2_opanp"]
+[ext_resource type="PackedScene" uid="uid://bueaitn7te0q1" path="res://components/projectile_despawner_component.tscn" id="3_gfnjy"]
+[ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="4_0hl4x"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5dvvf"]
+radius = 5.0
+
+[node name="IceWave" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 2
+motion_mode = 1
+script = ExtResource("1_hlwpr")
+entity_name = "Ice Wave"
+spawn_velocity = 600.0
+
+[node name="FloorDropperComponent" parent="." instance=ExtResource("2_opanp")]
+radius = 16.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_5dvvf")
+
+[node name="ProjectileDespawner" parent="." instance=ExtResource("3_gfnjy")]
+despawn_on_standstill = true
+
+[node name="PhysicsHandlerComponent" parent="." instance=ExtResource("4_0hl4x")]
+base_acceleration = 0.0
+base_damping = 7.0
+take_collision_damage = false
+ice_acceleration_multiplier = 1.0
+ice_damping_multiplier = 1.0
+water_damping_multiplier = 1.0

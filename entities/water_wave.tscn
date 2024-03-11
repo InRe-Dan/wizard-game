@@ -14,7 +14,7 @@ collision_mask = 2
 motion_mode = 1
 script = ExtResource("1_k44o4")
 entity_name = "Water Wave"
-spawn_velocity = 1000.0
+spawn_velocity = 600.0
 
 [node name="FloorDropperComponent" parent="." instance=ExtResource("2_4ed7f")]
 radius = 16.0

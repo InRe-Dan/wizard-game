@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://main.gd" id="1_jl44l"]
 [ext_resource type="PackedScene" uid="uid://b85ijfyowcx7n" path="res://misc_scenes/level.tscn" id="1_pf5qg"]
 [ext_resource type="PackedScene" uid="uid://dkfutwmsr2tli" path="res://misc_scenes/camera.tscn" id="3_5shnw"]
-[ext_resource type="PackedScene" uid="uid://cu4jaf5f1nlxo" path="res://entities/player_entity.tscn" id="4_urxv3"]
-[ext_resource type="PackedScene" uid="uid://cpr0fc00qielw" path="res://entities/item_pickup_entity.tscn" id="5_4gpnh"]
+[ext_resource type="PackedScene" uid="uid://cu4jaf5f1nlxo" path="res://entities/player.tscn" id="4_urxv3"]
+[ext_resource type="PackedScene" uid="uid://cpr0fc00qielw" path="res://entities/item_pickup.tscn" id="5_4gpnh"]
 [ext_resource type="Texture2D" uid="uid://derg3kptuadmm" path="res://assets/dungeon/wall_mid.png" id="6_ybf1x"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_62fnj"]

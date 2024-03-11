@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://bx3pxaj88kom"]
+
+[ext_resource type="Script" path="res://misc_scenes/inventory_item.gd" id="1_vip5b"]
+[ext_resource type="Script" path="res://actions/radial_shoot.gd" id="2_8010o"]
+[ext_resource type="PackedScene" uid="uid://baqfdpdkjx0ut" path="res://entities/fire_wave.tscn" id="3_sluq5"]
+
+[node name="FireCircle" type="Node"]
+script = ExtResource("1_vip5b")
+item_name = "Fire Circle"
+
+[node name="RadialCast" type="Node" parent="."]
+script = ExtResource("2_8010o")
+projectile = ExtResource("3_sluq5")
