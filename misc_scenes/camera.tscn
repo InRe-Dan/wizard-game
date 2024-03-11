@@ -101,6 +101,15 @@ offset_bottom = 162.0
 text = "HP: "
 label_settings = SubResource("LabelSettings_pb07d")
 
+[node name="Prompt" type="Label" parent="UI"]
+offset_left = 176.0
+offset_top = 165.0
+offset_right = 253.0
+offset_bottom = 178.0
+text = "Press F to interact
+"
+label_settings = SubResource("LabelSettings_pb07d")
+
 [node name="Item" type="Label" parent="UI"]
 offset_left = 176.0
 offset_top = 157.0

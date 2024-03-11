@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cu4jaf5f1nlxo"]
+[gd_scene load_steps=25 format=3 uid="uid://cu4jaf5f1nlxo"]
 
 [ext_resource type="Script" path="res://entities/player_entity.gd" id="1_htmbl"]
 [ext_resource type="PackedScene" uid="uid://c03pfmwpgtofc" path="res://components/simple_graphics_component.tscn" id="1_pie61"]
@@ -13,7 +13,10 @@
 [ext_resource type="PackedScene" uid="uid://bx4g4qr1x100s" path="res://items/water_ball.tscn" id="10_f3l1d"]
 [ext_resource type="PackedScene" uid="uid://uag18b8s0jg4" path="res://components/dialogue_component.tscn" id="13_3b1pc"]
 [ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="14_vbpdx"]
+[ext_resource type="PackedScene" uid="uid://b3c3vg8q6e5k7" path="res://components/effect_container.tscn" id="15_ft7qr"]
 [ext_resource type="PackedScene" uid="uid://b6byd7ixvxc8n" path="res://components/can_interact_component.tscn" id="15_vx138"]
+[ext_resource type="Script" path="res://effects/on_fire.gd" id="16_7j3ya"]
+[ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="17_44e74"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qptjs"]
 radius = 9.0
@@ -48,6 +51,13 @@ fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b1i4r"]
 radius = 33.0
+
+[sub_resource type="Resource" id="Resource_2bf1k"]
+script = ExtResource("17_44e74")
+damage = 1
+damage_type = 1
+knockback_type = 1
+knockback_velocity = 0.0
 
 [node name="PlayerEntity" type="CharacterBody2D" groups=["players"]]
 collision_layer = 4
@@ -128,3 +138,10 @@ shape = SubResource("CircleShape2D_b1i4r")
 
 [node name="PhysicsHandler" parent="." instance=ExtResource("14_vbpdx")]
 take_collision_damage = false
+
+[node name="EffectContainer" parent="." instance=ExtResource("15_ft7qr")]
+
+[node name="FireVulnerability" type="Node" parent="EffectContainer"]
+script = ExtResource("16_7j3ya")
+immunity = 1.0
+tick_damage = SubResource("Resource_2bf1k")

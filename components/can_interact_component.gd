@@ -1,4 +1,4 @@
-extends EntityComponent
+class_name CanInteractComponent extends EntityComponent
 
 @export var detection_area : Area2D
 

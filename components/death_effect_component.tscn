@@ -1,6 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://xqw72ne1en7r"]
+[gd_scene load_steps=2 format=3 uid="uid://dndrs7hm16eh2"]
 
-[ext_resource type="Script" path="res://components/death_effect_component.gd" id="1_7klxo"]
+[sub_resource type="GDScript" id="GDScript_gn1xt"]
+script/source = "class_name DeathEffectComponent extends EntityComponent
+
+func receive_signal(event : Event) -> Event:
+	if event.type == event.types.death:
+		for child : Action in get_children():
+			child.do(parent)
+	return event
+"
 
 [node name="DeathEffectComponent" type="Node2D"]
-script = ExtResource("1_7klxo")
+script = SubResource("GDScript_gn1xt")
