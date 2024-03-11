@@ -1,14 +1,33 @@
-[gd_scene load_steps=5 format=3 uid="uid://cpr0fc00qielw"]
+[gd_scene load_steps=8 format=3 uid="uid://cpr0fc00qielw"]
 
 [ext_resource type="Script" path="res://base_classes/entity.gd" id="1_yqi6n"]
+[ext_resource type="PackedScene" uid="uid://c867pju6atw7e" path="res://components/hurtbox_component.tscn" id="2_iolof"]
 [ext_resource type="PackedScene" uid="uid://dwqy3vhl4qyw1" path="res://components/interactable_component.tscn" id="2_sun53"]
 [ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="3_bgrho"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_kkpl2"]
+radius = 8.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_jpqo1"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_wd04y"]
+
 [node name="ItemPickupEntity" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 2
 script = ExtResource("1_yqi6n")
 entity_name = "Item Pickup"
+spawn_velocity = 0.0
+health = 100000
+
+[node name="HurtboxComponent" parent="." instance=ExtResource("2_iolof")]
+
+[node name="Area2D" type="Area2D" parent="HurtboxComponent"]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent/Area2D"]
+shape = SubResource("CircleShape2D_kkpl2")
 
 [node name="InteractableComponent" parent="." instance=ExtResource("2_sun53")]
 
@@ -19,4 +38,9 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent/Area2D"]
 shape = SubResource("CircleShape2D_jpqo1")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_wd04y")
+
 [node name="PhysicsHandlerComponent" parent="." instance=ExtResource("3_bgrho")]
+take_collision_damage = false
+knockback_damage_min_speed = 5000.0

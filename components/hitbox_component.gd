@@ -32,6 +32,6 @@ func _on_area_entered(area : Area2D) -> void:
 	var entity_hit : Entity = area.get_parent().get_parent() as Entity
 	if not entity_hit:
 		push_error("Hitbox hit something weird!")
-	if entity_hit.team == (get_parent() as Entity).team:
+	if entity_hit.team == (get_parent() as Entity).team and parent.team != parent.Team.any:
 		return
 	parent.distribute_signal(HasHitEvent.new(entity_hit, damage))

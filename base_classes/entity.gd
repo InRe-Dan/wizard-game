@@ -56,6 +56,7 @@ func distribute_signal(event : Event) -> void:
 						say("-" + str(hit.damage.damage) + "HP", Color.LIGHT_STEEL_BLUE)
 			if hit.damage.knockback_velocity > 0.0:
 				knockback_time = Time.get_ticks_msec()
+				print(entity_name)
 				velocity += hit.direction.normalized() * hit.damage.knockback_velocity
 			if health <= 0:
 				distribute_signal(DeathEvent.new())
