@@ -1,3 +1,4 @@
+@icon("res://assets/editor_icons/engine/CylinderMesh.svg")
 class_name EntityComponent extends Node2D
 
 @onready var parent : Entity = get_parent() as Entity

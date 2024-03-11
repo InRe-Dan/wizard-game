@@ -5,8 +5,8 @@
 [ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="3_8tb8x"]
 [ext_resource type="PackedScene" uid="uid://bueaitn7te0q1" path="res://components/projectile_despawner_component.tscn" id="4_pb6vt"]
 [ext_resource type="PackedScene" uid="uid://b3c3vg8q6e5k7" path="res://components/effect_container.tscn" id="6_1we0y"]
-[ext_resource type="PackedScene" uid="uid://cno6ign2pv07" path="res://actions/spawn_action.tscn" id="6_e4jy4"]
 [ext_resource type="Script" path="res://effects/death.gd" id="7_i2aty"]
+[ext_resource type="Script" path="res://actions/spawn.gd" id="7_vppvo"]
 [ext_resource type="PackedScene" uid="uid://cpidswdj0owvh" path="res://entities/explosion_entity.tscn" id="7_xcnvc"]
 [ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="8_bppoq"]
 
@@ -77,7 +77,8 @@ shape = SubResource("CircleShape2D_08qk3")
 [node name="Node" type="Node" parent="EffectContainer"]
 script = ExtResource("7_i2aty")
 
-[node name="EntitySpawnDeathEffect" parent="EffectContainer/Node" instance=ExtResource("6_e4jy4")]
+[node name="EntitySpawnDeathEffect" type="Node" parent="EffectContainer/Node"]
+script = ExtResource("7_vppvo")
 entity = ExtResource("7_xcnvc")
 
 [node name="PhysicsHandler" parent="." instance=ExtResource("8_bppoq")]

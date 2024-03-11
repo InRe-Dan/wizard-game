@@ -9,7 +9,6 @@ func _init() -> void:
 	pass
 
 func _process(delta : float) -> void:
-	print(buildup)
 	var entity : Entity = (get_parent() as EntityComponent).parent
 	if FloorHandler.is_point_in_fire(entity.global_position):
 		buildup += delta
@@ -23,4 +22,3 @@ func _process(delta : float) -> void:
 
 func handle_event(event : Event) -> Event:
 	return event
-

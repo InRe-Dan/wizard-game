@@ -48,7 +48,6 @@ func _physics_process(delta: float) -> void:
 		if shake_time_elapsed > shake_duration:
 			is_shaking = false
 	force_update_scroll()
-	
 func shake(duration : float) -> void:
 	is_shaking = true
 	shake_duration = duration

@@ -1,3 +1,4 @@
+@icon("res://assets/editor_icons/engine/CapsuleMesh.svg")
 class_name Entity extends CharacterBody2D
 
 enum Team {player, enemy, any}
@@ -76,5 +77,3 @@ func give(item : InventoryItem) -> void:
 			inventory = child
 	if inventory:
 		inventory.add_item(item)
-		print(inventory.get_children())
-	print(inventory.get_children())

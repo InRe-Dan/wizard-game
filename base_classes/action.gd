@@ -1,3 +1,4 @@
+@icon("res://assets/editor_icons/engine/Forward.svg")
 class_name Action extends Node
 
 var description : String = "Undefined action."

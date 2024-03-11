@@ -47,6 +47,7 @@ window/stretch/scale_mode="integer"
 [editor]
 
 movie_writer/movie_file="C:/Users/Danie/Documents/Prototype/out/movie.avi"
+script/templates_search_path="res://-script_templates"
 
 [editor_plugins]
 
@@ -56,14 +57,16 @@ enabled=PackedStringArray("res://addons/godot_state_charts/plugin.cfg")
 
 folder_colors={
 "res://-out/": "gray",
+"res://-script_templates/": "gray",
 "res://actions/": "pink",
 "res://addons/": "gray",
 "res://assets/": "gray",
 "res://base_classes/": "red",
 "res://components/": "orange",
-"res://entities/": "yellow",
-"res://events/": "green",
-"res://items/": "teal",
+"res://effects/": "yellow",
+"res://entities/": "green",
+"res://events/": "teal",
+"res://items/": "blue",
 "res://misc_scenes/": "purple",
 "res://misc_scripts/": "pink",
 "res://resources/": "red",

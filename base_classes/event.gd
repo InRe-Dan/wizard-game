@@ -1,3 +1,5 @@
+@icon("res://assets/editor_icons/engine/StatusWarning.svg")
+
 class_name Event extends Node
 
 enum types {
