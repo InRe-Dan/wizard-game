@@ -56,7 +56,6 @@ func distribute_signal(event : Event) -> void:
 						say("-" + str(hit.damage.damage) + "HP", Color.LIGHT_STEEL_BLUE)
 			if hit.damage.knockback_velocity > 0.0:
 				knockback_time = Time.get_ticks_msec()
-				print(entity_name)
 				velocity += hit.direction.normalized() * hit.damage.knockback_velocity
 			if health <= 0:
 				distribute_signal(DeathEvent.new())
@@ -70,3 +69,12 @@ func distribute_signal(event : Event) -> void:
 func say(text : String, color : Color = Color.WHITE) -> void:
 	distribute_signal(SpeechEvent.new(text, color))
 
+func give(item : InventoryItem) -> void:
+	var inventory : InventoryComponent = null
+	for child : Node in get_children():
+		if child as InventoryComponent:
+			inventory = child
+	if inventory:
+		inventory.add_item(item)
+		print(inventory.get_children())
+	print(inventory.get_children())

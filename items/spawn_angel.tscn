@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://hvjd5t2ulhhb"]
+
+[ext_resource type="Script" path="res://misc_scenes/inventory_item.gd" id="1_jq42r"]
+[ext_resource type="PackedScene" uid="uid://rbmos20jyp6e" path="res://actions/spawn_in_front_action.tscn" id="2_2rykf"]
+[ext_resource type="PackedScene" uid="uid://bbwrd3v7gvwa7" path="res://entities/angel_entity.tscn" id="3_n5wsi"]
+
+[node name="SpawnAngel" type="Node"]
+script = ExtResource("1_jq42r")
+item_name = "Angel Spawner"
+uses = 3
+max_uses = 3
+
+[node name="SpawnAngelAction" parent="." instance=ExtResource("2_2rykf")]
+entity = ExtResource("3_n5wsi")

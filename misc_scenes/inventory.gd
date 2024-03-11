@@ -23,6 +23,9 @@ func use_any_attack() -> void:
 func use_any_heal() -> void:
 	pass
 
+func add_item(item : InventoryItem) -> void:
+	add_child(item)
+
 func cycleItems(amount : int) -> void:
 	selected += amount
 	if selected < 0:

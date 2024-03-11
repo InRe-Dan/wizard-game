@@ -5,7 +5,8 @@ extends EntityComponent
 @export var take_collision_damage : bool = true
 @export var knockback_damage_min_speed : float = 150
 @export var ice_acceleration_multiplier : float = 0.1
-@export var ice_damping_multipler : float = 0.01
+@export var ice_damping_multiplier : float = 0.01
+@export var water_damping_multiplier : float = 1.5
 
 var sound : AudioStream = preload("res://assets/sounds/thud.wav")
 var last_move_processed : bool = true
@@ -16,8 +17,10 @@ func _physics_process(delta : float) -> void:
 	var damp_factor : float = base_damping * delta
 	var acceleration_factor : float = base_acceleration * last_move_acceleration_mult * delta
 	if FloorHandler.is_point_in_ice(global_position):
-		damp_factor *= ice_damping_multipler
+		damp_factor *= ice_damping_multiplier
 		acceleration_factor *= ice_acceleration_multiplier
+	if FloorHandler.is_point_in_water(global_position):
+		damp_factor *= water_damping_multiplier
 	if not last_move_processed:
 		last_move_processed = true
 		parent.velocity += last_move_direction * acceleration_factor

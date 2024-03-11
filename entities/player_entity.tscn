@@ -1,18 +1,13 @@
-[gd_scene load_steps=23 format=3 uid="uid://cu4jaf5f1nlxo"]
+[gd_scene load_steps=18 format=3 uid="uid://cu4jaf5f1nlxo"]
 
 [ext_resource type="Script" path="res://entities/player_entity.gd" id="1_htmbl"]
 [ext_resource type="PackedScene" uid="uid://c03pfmwpgtofc" path="res://components/simple_graphics_component.tscn" id="1_pie61"]
 [ext_resource type="SpriteFrames" uid="uid://xdt74tl0fgn7" path="res://resources/player_sprite_frames.tres" id="4_3oo4o"]
 [ext_resource type="PackedScene" uid="uid://dfdt5bke0tcu6" path="res://components/player_input_component.tscn" id="4_i7dta"]
 [ext_resource type="PackedScene" uid="uid://uajwl8rwegui" path="res://misc_scenes/inventory.tscn" id="5_pvf5x"]
-[ext_resource type="PackedScene" uid="uid://h58rl4uc7ew5" path="res://misc_scenes/inventory_item.tscn" id="6_h4eic"]
-[ext_resource type="PackedScene" uid="uid://duc75ycwlo2g7" path="res://actions/shoot_projectile_action.tscn" id="7_uqqob"]
-[ext_resource type="PackedScene" uid="uid://bn06fjm6xnu4i" path="res://entities/fireball_entity.tscn" id="8_6f2md"]
-[ext_resource type="PackedScene" uid="uid://bbwrd3v7gvwa7" path="res://entities/angel_entity.tscn" id="8_m3jwc"]
+[ext_resource type="PackedScene" uid="uid://djl7t4qk4315m" path="res://items/fire_ball.tscn" id="6_2un00"]
+[ext_resource type="PackedScene" uid="uid://hvjd5t2ulhhb" path="res://items/spawn_angel.tscn" id="7_4fyrr"]
 [ext_resource type="PackedScene" uid="uid://c867pju6atw7e" path="res://components/hurtbox_component.tscn" id="9_0rj06"]
-[ext_resource type="PackedScene" uid="uid://rbmos20jyp6e" path="res://actions/spawn_in_front_action.tscn" id="9_bdbjh"]
-[ext_resource type="PackedScene" uid="uid://b2qsrxijygjq" path="res://entities/waterball_entity.tscn" id="9_h4x3d"]
-[ext_resource type="PackedScene" uid="uid://dstqfwhd2e66a" path="res://entities/iceball_entity.tscn" id="9_x80o8"]
 [ext_resource type="PackedScene" uid="uid://uag18b8s0jg4" path="res://components/dialogue_component.tscn" id="13_3b1pc"]
 [ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="14_vbpdx"]
 [ext_resource type="PackedScene" uid="uid://b6byd7ixvxc8n" path="res://components/can_interact_component.tscn" id="15_vx138"]
@@ -56,6 +51,7 @@ collision_layer = 4
 collision_mask = 6
 script = ExtResource("1_htmbl")
 entity_name = "Player"
+health = 50
 team = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -85,28 +81,9 @@ explosiveness = 0.83
 
 [node name="Inventory" parent="." instance=ExtResource("5_pvf5x")]
 
-[node name="Fireball" parent="Inventory" instance=ExtResource("6_h4eic")]
+[node name="FireBall" parent="Inventory" instance=ExtResource("6_2un00")]
 
-[node name="ShootProjectileAction" parent="Inventory/Fireball" instance=ExtResource("7_uqqob")]
-projectile = ExtResource("8_6f2md")
-
-[node name="IceBlast" parent="Inventory" instance=ExtResource("6_h4eic")]
-
-[node name="ShootProjectileAction" parent="Inventory/IceBlast" instance=ExtResource("7_uqqob")]
-projectile = ExtResource("9_x80o8")
-side_projectiles = 3
-spread = 20.0
-
-[node name="WaterWave" parent="Inventory" instance=ExtResource("6_h4eic")]
-
-[node name="ShootProjectileAction" parent="Inventory/WaterWave" instance=ExtResource("7_uqqob")]
-projectile = ExtResource("9_h4x3d")
-side_projectiles = 3
-
-[node name="AngelSpawner" parent="Inventory" instance=ExtResource("6_h4eic")]
-
-[node name="SpawnAngelAction" parent="Inventory/AngelSpawner" instance=ExtResource("9_bdbjh")]
-entity = ExtResource("8_m3jwc")
+[node name="SpawnAngel" parent="Inventory" instance=ExtResource("7_4fyrr")]
 
 [node name="HurtboxComponent" parent="." instance=ExtResource("9_0rj06")]
 

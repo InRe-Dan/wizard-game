@@ -13,7 +13,7 @@ wall_padding = 1
 [node name="Floor" type="TileMap" parent="."]
 z_as_relative = false
 tile_set = ExtResource("1_1cp4m")
-rendering_quadrant_size = 4
+rendering_quadrant_size = 2
 collision_visibility_mode = 2
 format = 2
 layer_0/name = "Floor"

@@ -25,7 +25,7 @@ func _process(delta: float) -> void:
 		health_label.text = "HP: " + str(player.health)
 		var inventory : InventoryComponent = player.get_children().filter(func f(x : Node) -> bool: return x is InventoryComponent).front()
 		if inventory:
-			item_label.text = inventory.camel_to_spaced(inventory.get_children()[inventory.selected].name)
+			item_label.text = inventory.get_children()[inventory.selected].item_name
 		else:
 			item_label.text = "Item: None!"
 	else:
