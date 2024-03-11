@@ -30,6 +30,8 @@ func _physics_process(delta: float) -> void:
 		parent.distribute_signal(InputCommand.new(InputCommand.Commands.cycleb, aim_dir))
 	if Input.is_action_just_pressed("ability"):
 		parent.distribute_signal(InputCommand.new(InputCommand.Commands.dash, aim_dir))
+	if Input.is_action_just_pressed("interact"):
+		parent.distribute_signal(InputCommand.new(InputCommand.Commands.interact, aim_dir))
 
 func receive_signal(event : Event) -> Event:
 	return event

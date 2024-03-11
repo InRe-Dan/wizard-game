@@ -1,6 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://cpr0fc00qielw"]
+[gd_scene load_steps=5 format=3 uid="uid://cpr0fc00qielw"]
 
 [ext_resource type="Script" path="res://base_classes/entity.gd" id="1_yqi6n"]
+[ext_resource type="PackedScene" uid="uid://dwqy3vhl4qyw1" path="res://components/interactable_component.tscn" id="2_sun53"]
+[ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="3_bgrho"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jpqo1"]
 
 [node name="ItemPickupEntity" type="CharacterBody2D"]
 script = ExtResource("1_yqi6n")
+entity_name = "Item Pickup"
+
+[node name="InteractableComponent" parent="." instance=ExtResource("2_sun53")]
+
+[node name="Area2D" type="Area2D" parent="InteractableComponent"]
+collision_layer = 64
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent/Area2D"]
+shape = SubResource("CircleShape2D_jpqo1")
+
+[node name="PhysicsHandlerComponent" parent="." instance=ExtResource("3_bgrho")]
