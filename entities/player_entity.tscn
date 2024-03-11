@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cu4jaf5f1nlxo"]
+[gd_scene load_steps=21 format=3 uid="uid://cu4jaf5f1nlxo"]
 
 [ext_resource type="Script" path="res://entities/player_entity.gd" id="1_htmbl"]
 [ext_resource type="PackedScene" uid="uid://c03pfmwpgtofc" path="res://components/simple_graphics_component.tscn" id="1_pie61"]
@@ -7,7 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://uajwl8rwegui" path="res://misc_scenes/inventory.tscn" id="5_pvf5x"]
 [ext_resource type="PackedScene" uid="uid://djl7t4qk4315m" path="res://items/fire_ball.tscn" id="6_2un00"]
 [ext_resource type="PackedScene" uid="uid://hvjd5t2ulhhb" path="res://items/spawn_angel.tscn" id="7_4fyrr"]
+[ext_resource type="PackedScene" uid="uid://bs0yjnt7cccaj" path="res://items/ice_wave.tscn" id="7_id5tg"]
 [ext_resource type="PackedScene" uid="uid://c867pju6atw7e" path="res://components/hurtbox_component.tscn" id="9_0rj06"]
+[ext_resource type="PackedScene" uid="uid://jie2026812kn" path="res://items/water_wave.tscn" id="9_lbmsf"]
+[ext_resource type="PackedScene" uid="uid://bx4g4qr1x100s" path="res://items/water_ball.tscn" id="10_f3l1d"]
 [ext_resource type="PackedScene" uid="uid://uag18b8s0jg4" path="res://components/dialogue_component.tscn" id="13_3b1pc"]
 [ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="14_vbpdx"]
 [ext_resource type="PackedScene" uid="uid://b6byd7ixvxc8n" path="res://components/can_interact_component.tscn" id="15_vx138"]
@@ -83,7 +86,16 @@ explosiveness = 0.83
 
 [node name="FireBall" parent="Inventory" instance=ExtResource("6_2un00")]
 
+[node name="IceWave" parent="Inventory" instance=ExtResource("7_id5tg")]
+
+[node name="WaterWave" parent="Inventory" instance=ExtResource("9_lbmsf")]
+
 [node name="SpawnAngel" parent="Inventory" instance=ExtResource("7_4fyrr")]
+
+[node name="WaterBall" parent="Inventory" instance=ExtResource("10_f3l1d")]
+item_name = "Waterbolt"
+uses = 3
+max_uses = 3
 
 [node name="HurtboxComponent" parent="." instance=ExtResource("9_0rj06")]
 

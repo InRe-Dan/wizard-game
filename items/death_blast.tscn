@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://crj0qfagtt6ed"]
+[gd_scene load_steps=4 format=3 uid="uid://crj0qfagtt6ed"]
 
 [ext_resource type="Script" path="res://misc_scenes/inventory_item.gd" id="1_01ofy"]
 [ext_resource type="PackedScene" uid="uid://duc75ycwlo2g7" path="res://actions/shoot_projectile_action.tscn" id="2_dk1d6"]
 [ext_resource type="PackedScene" uid="uid://bn06fjm6xnu4i" path="res://entities/fireball_entity.tscn" id="3_u1yq1"]
-[ext_resource type="PackedScene" uid="uid://b2qsrxijygjq" path="res://entities/waterball_entity.tscn" id="4_kresg"]
 
 [node name="DeathBlast" type="Node"]
 script = ExtResource("1_01ofy")
@@ -13,9 +12,5 @@ max_uses = 3
 
 [node name="ShootProjectileAction" parent="." instance=ExtResource("2_dk1d6")]
 projectile = ExtResource("3_u1yq1")
-side_projectiles = 1
-spread = 20.0
-
-[node name="ShootProjectileAction2" parent="." instance=ExtResource("2_dk1d6")]
-projectile = ExtResource("4_kresg")
-side_projectiles = 2
+side_projectiles = 5
+spread = 10.0

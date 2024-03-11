@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://jie2026812kn"]
+
+[ext_resource type="Script" path="res://misc_scenes/inventory_item.gd" id="1_s7ahw"]
+[ext_resource type="PackedScene" uid="uid://duc75ycwlo2g7" path="res://actions/shoot_projectile_action.tscn" id="2_0lwi2"]
+[ext_resource type="PackedScene" uid="uid://pt14go12aimq" path="res://entities/water_wave.tscn" id="3_4jmao"]
+
+[node name="WaterWave" type="Node"]
+script = ExtResource("1_s7ahw")
+item_name = "Water Wave"
+uses = 3
+max_uses = 3
+
+[node name="ShootProjectileAction" parent="." instance=ExtResource("2_0lwi2")]
+projectile = ExtResource("3_4jmao")
+side_projectiles = 7

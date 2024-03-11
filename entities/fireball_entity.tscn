@@ -79,6 +79,7 @@ entity = ExtResource("7_xcnvc")
 [node name="PhysicsHandler" parent="." instance=ExtResource("8_bppoq")]
 base_damping = 0.0
 take_collision_damage = false
+water_damping_multiplier = 1.0
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 color = Color(1, 0.454902, 0, 1)

@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://bx4g4qr1x100s"]
+
+[ext_resource type="Script" path="res://misc_scenes/inventory_item.gd" id="1_g0nv5"]
+[ext_resource type="PackedScene" uid="uid://duc75ycwlo2g7" path="res://actions/shoot_projectile_action.tscn" id="2_m3ojv"]
+[ext_resource type="PackedScene" uid="uid://b2qsrxijygjq" path="res://entities/waterball_entity.tscn" id="3_2fdx6"]
+
+[node name="WaterBall" type="Node"]
+script = ExtResource("1_g0nv5")
+
+[node name="ShootProjectileAction" parent="." instance=ExtResource("2_m3ojv")]
+projectile = ExtResource("3_2fdx6")
