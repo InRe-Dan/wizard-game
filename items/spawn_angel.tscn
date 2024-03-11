@@ -2,14 +2,12 @@
 
 [ext_resource type="Script" path="res://misc_scenes/inventory_item.gd" id="1_jq42r"]
 [ext_resource type="Script" path="res://actions/spawn_in_front.gd" id="2_ttwu0"]
-[ext_resource type="PackedScene" uid="uid://bbwrd3v7gvwa7" path="res://entities/angel.tscn" id="3_n5wsi"]
+[ext_resource type="PackedScene" uid="uid://bbwrd3v7gvwa7" path="res://entities/angel.tscn" id="3_xhbw5"]
 
 [node name="SpawnAngel" type="Node"]
 script = ExtResource("1_jq42r")
 item_name = "Angel Spawner"
-uses = 3
-max_uses = 3
 
 [node name="SpawnAngelAction" type="Node" parent="."]
 script = ExtResource("2_ttwu0")
-entity = ExtResource("3_n5wsi")
+entity = ExtResource("3_xhbw5")

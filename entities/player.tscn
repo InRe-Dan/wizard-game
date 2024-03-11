@@ -17,8 +17,8 @@
 [ext_resource type="PackedScene" uid="uid://b6byd7ixvxc8n" path="res://components/can_interact_component.tscn" id="13_lp353"]
 [ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="14_ljjej"]
 [ext_resource type="PackedScene" uid="uid://b3c3vg8q6e5k7" path="res://components/effect_container.tscn" id="15_csrq8"]
-[ext_resource type="Script" path="res://effects/on_fire.gd" id="16_kaq43"]
 [ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="17_dp7c4"]
+[ext_resource type="Script" path="res://effects/fire_vulnerability.gd" id="18_dunkx"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qptjs"]
 radius = 9.0
@@ -65,9 +65,6 @@ knockback_velocity = 0.0
 collision_layer = 4
 collision_mask = 6
 script = ExtResource("1_e1iir")
-entity_name = "Player"
-health = 50
-team = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_qptjs")
@@ -97,20 +94,28 @@ explosiveness = 0.83
 [node name="Inventory" parent="." instance=ExtResource("5_m6tg5")]
 
 [node name="SpawnAngel" parent="Inventory" instance=ExtResource("6_rxnf4")]
+limited_use = false
 
 [node name="FireBall" parent="Inventory" instance=ExtResource("7_bsbvh")]
+limited_use = false
 
 [node name="WaterBall" parent="Inventory" instance=ExtResource("10_n030h")]
 item_name = "Waterbolt"
+limited_use = false
 
 [node name="FireWave" parent="Inventory" instance=ExtResource("11_biobd")]
 item_name = "Fire Wave"
+limited_use = false
 
 [node name="IceWave" parent="Inventory" instance=ExtResource("8_llx5o")]
+limited_use = false
 
 [node name="WaterWave" parent="Inventory" instance=ExtResource("9_dnjcm")]
+limited_use = false
 
 [node name="FireCircle" parent="Inventory" instance=ExtResource("12_du1gk")]
+uses = 5
+max_uses = 5
 
 [node name="HurtboxComponent" parent="." instance=ExtResource("11_hxc8l")]
 
@@ -147,6 +152,6 @@ take_collision_damage = false
 [node name="EffectContainer" parent="." instance=ExtResource("15_csrq8")]
 
 [node name="FireVulnerability" type="Node" parent="EffectContainer"]
-script = ExtResource("16_kaq43")
+script = ExtResource("18_dunkx")
 immunity = 1.0
 tick_damage = SubResource("Resource_2bf1k")

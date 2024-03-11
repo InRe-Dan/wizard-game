@@ -14,6 +14,9 @@ var shots_fired : int
 var caster : Entity
 var start_angle : float
 
+func _ready() -> void:
+	description = "Cast " + (projectile.instantiate() as Entity).entity_name + " all around you"
+
 func _process(delta : float) -> void:
 	if not firing:
 		return

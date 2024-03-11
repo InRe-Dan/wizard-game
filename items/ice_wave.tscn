@@ -11,4 +11,4 @@ item_name = "Ice Wave"
 [node name="ShootProjectileAction" type="Node" parent="."]
 script = ExtResource("2_qjed4")
 projectile = ExtResource("3_820l1")
-side_projectiles = 7
+side_projectiles = 3

@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://uag18b8s0jg4" path="res://components/dialogue_component.tscn" id="13_r2s73"]
 [ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="14_tujdw"]
 [ext_resource type="PackedScene" uid="uid://b3c3vg8q6e5k7" path="res://components/effect_container.tscn" id="15_iycsn"]
-[ext_resource type="Script" path="res://effects/on_fire.gd" id="16_f1h53"]
+[ext_resource type="Script" path="res://effects/fire_vulnerability.gd" id="16_n350d"]
 [ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="17_6wxl6"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4d50n"]
@@ -122,5 +122,7 @@ base_damping = 2.0
 [node name="EffectContainer" parent="." instance=ExtResource("15_iycsn")]
 
 [node name="FireVulnerability" type="Node" parent="EffectContainer"]
-script = ExtResource("16_f1h53")
+script = ExtResource("16_n350d")
+seconds_threshold = 0.2
+immunity = 0.25
 tick_damage = SubResource("Resource_86q0u")

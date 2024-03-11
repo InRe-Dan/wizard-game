@@ -13,14 +13,25 @@ func camel_to_spaced(string : String) -> String:
 func _process(delta: float) -> void:
 	pass
 
+func get_selected() -> InventoryItem:
+	if get_child_count() == 0:
+		return null
+	return get_children()[selected] as InventoryItem
+
 func use(direction : Vector2) -> void:
-	var item : InventoryItem = (get_children()[selected] as InventoryItem)
-	item.use(parent, direction)
+	var item : InventoryItem = get_selected()
+	if item:
+		if item.use(parent, direction):
+			item.queue_free()
+			selected = 0
 
 func use_any_attack() -> void:
 	pass
 
 func use_any_heal() -> void:
+	pass
+	
+func use_random() -> void:
 	pass
 
 func add_item(item : InventoryItem) -> void:

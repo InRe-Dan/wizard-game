@@ -20,6 +20,9 @@ texture_filter = 1
 [node name="level" parent="." groups=["level"] instance=ExtResource("1_pf5qg")]
 
 [node name="PlayerEntity" parent="level" instance=ExtResource("4_urxv3")]
+entity_name = "Player"
+health = 50
+team = 0
 
 [node name="ItemPickupEntity" parent="level" instance=ExtResource("5_4gpnh")]
 position = Vector2(128, -24)
