@@ -7,6 +7,7 @@
 [node name="SpawnAngel" type="Node"]
 script = ExtResource("1_jq42r")
 item_name = "Angel Spawner"
+limited_use = false
 
 [node name="SpawnAngelAction" type="Node" parent="."]
 script = ExtResource("2_ttwu0")

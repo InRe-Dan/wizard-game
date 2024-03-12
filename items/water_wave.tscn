@@ -7,8 +7,6 @@
 [node name="WaterWave" type="Node"]
 script = ExtResource("1_s7ahw")
 item_name = "Water Wave"
-uses = 3
-max_uses = 3
 
 [node name="ShootProjectileAction" type="Node" parent="."]
 script = ExtResource("2_0modi")

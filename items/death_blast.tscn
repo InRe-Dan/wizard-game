@@ -8,7 +8,6 @@
 script = ExtResource("1_01ofy")
 item_name = "Flame Blast"
 pickup_light_color = Color(1, 0.415686, 0, 1)
-limited_use = false
 
 [node name="ShootProjectileAction" type="Node" parent="."]
 script = ExtResource("2_yqwyu")
