@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://d245vil1ujogo"]
+
+[ext_resource type="Script" path="res://misc_scenes/inventory_item.gd" id="1_a6pjo"]
+[ext_resource type="Script" path="res://actions/swing_entity.gd" id="2_4hsox"]
+[ext_resource type="PackedScene" uid="uid://boqhwrbssha6p" path="res://entities/melee_weapons/dagger.tscn" id="3_i14k0"]
+
+[node name="KnifeSlash" type="Node"]
+script = ExtResource("1_a6pjo")
+item_name = "Knife"
+limited_use = false
+
+[node name="Slash" type="Node" parent="."]
+script = ExtResource("2_4hsox")
+entity_scene = ExtResource("3_i14k0")
+swing_angle = 120.0
+swing_distance = 12.0
+swing_angular_speed = 720.0

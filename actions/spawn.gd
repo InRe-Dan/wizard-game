@@ -1,6 +1,10 @@
 extends Action
 
 @export var entity : PackedScene
+@export var distance : float = 0
+
+func _ready() -> void:
+	description = "Spawn an entity. You shouldn't be holding this"
 
 func do(target : Entity, secondary : Entity = null, direction : Vector2 = Vector2.ZERO) -> void:
 	var entity : Entity = entity.instantiate() as Entity

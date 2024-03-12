@@ -8,7 +8,7 @@ extends Action
 var angle_change : float
 var time_elapsed : float
 var duration : float
-var position : Vector2
+var pos : Vector2
 var firing : bool = false
 var shots_fired : int
 var caster : Entity
@@ -28,7 +28,7 @@ func _process(delta : float) -> void:
 			var direction : Vector2 = Vector2.from_angle(PI + (start_angle + j * angle_change * (shots_fired)))
 			var entity_instance : Entity = projectile.instantiate() as Entity
 			entity_instance.velocity = entity_instance.spawn_velocity * direction
-			entity_instance.global_position = position + direction * cast_distance
+			entity_instance.global_position = pos + direction * cast_distance
 			entity_instance.team = caster.team
 			get_tree().get_first_node_in_group("main").add_child(entity_instance)
 			caster.distribute_signal(CreatedProjectileEvent.new(entity_instance))
@@ -40,7 +40,7 @@ func _process(delta : float) -> void:
 func do(target : Entity, secondary : Entity = null, direction : Vector2 = Vector2.ZERO) -> void:
 	if not firing:
 		firing = true
-		position = target.global_position
+		pos = target.global_position
 		time_elapsed = 0
 		angle_change = TAU / shot_count
 		duration = shot_delay * shot_count

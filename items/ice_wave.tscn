@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://misc_scenes/inventory_item.gd" id="1_6oo01"]
 [ext_resource type="Script" path="res://actions/shoot_projectile.gd" id="2_qjed4"]
-[ext_resource type="PackedScene" uid="uid://dstqfwhd2e66a" path="res://entities/ice_wave.tscn" id="3_820l1"]
+[ext_resource type="PackedScene" uid="uid://dstqfwhd2e66a" path="res://entities/projectiles/ice_wave.tscn" id="3_820l1"]
 
 [node name="IceWave" type="Node"]
 script = ExtResource("1_6oo01")

@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://boqhwrbssha6p"]
+
+[ext_resource type="Script" path="res://base_classes/entity.gd" id="1_3fgt5"]
+[ext_resource type="Texture2D" uid="uid://c8ab30em77b1c" path="res://assets/dungeon/weapon_knife.png" id="2_ep7xq"]
+[ext_resource type="Script" path="res://components/hitbox_component.gd" id="3_7u72h"]
+[ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="4_kp0cn"]
+
+[sub_resource type="Resource" id="Resource_6fuaf"]
+script = ExtResource("4_kp0cn")
+damage = 1
+damage_type = 0
+knockback_type = 0
+knockback_velocity = 30.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_op7hv"]
+size = Vector2(4, 8)
+
+[node name="Dagger" type="CharacterBody2D"]
+script = ExtResource("1_3fgt5")
+entity_name = "Knife"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ep7xq")
+
+[node name="HitboxComponent" type="Node2D" parent="."]
+script = ExtResource("3_7u72h")
+damage = SubResource("Resource_6fuaf")
+
+[node name="Area2D" type="Area2D" parent="HitboxComponent"]
+collision_layer = 16
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent/Area2D"]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_op7hv")

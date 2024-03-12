@@ -1,0 +1,43 @@
+[gd_resource type="SpriteFrames" load_steps=5 format=3 uid="uid://cy4si615bx27m"]
+
+[ext_resource type="Texture2D" uid="uid://dfetym4fx5u8u" path="res://assets/dungeon/ice_zombie_anim_f0.png" id="1_vmdjt"]
+[ext_resource type="Texture2D" uid="uid://dym1jaq6d3q5w" path="res://assets/dungeon/ice_zombie_anim_f1.png" id="2_oh6hd"]
+[ext_resource type="Texture2D" uid="uid://b70e2mjm7ax4l" path="res://assets/dungeon/ice_zombie_anim_f2.png" id="3_x6mxp"]
+[ext_resource type="Texture2D" uid="uid://bym4aj187wdvk" path="res://assets/dungeon/ice_zombie_anim_f3.png" id="4_iaec6"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_vmdjt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_oh6hd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_x6mxp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_iaec6")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_vmdjt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_oh6hd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_x6mxp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_iaec6")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}]

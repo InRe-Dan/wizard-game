@@ -7,7 +7,7 @@ extends Action
 
 func _ready() -> void:
 	if side_projectiles == 0:
-		description = "Shoot " + (projectile.instantiate() as Entity).entity_name
+		description = "Shoot " + a_or_an((projectile.instantiate() as Entity).entity_name)
 	else:
 		description = "Shoot a spread of " + (projectile.instantiate() as Entity).entity_name + "s"
 

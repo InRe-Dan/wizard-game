@@ -1,16 +1,8 @@
 extends Action
 
 @export var entity : PackedScene
-var regex : RegEx
-
-func a_or_an(string : String) -> String:
-	if not regex.search_all(string).is_empty():
-		return "an " + string
-	return "a " + string
 
 func _ready() -> void:
-	regex = RegEx.new()
-	regex.compile(r"^[aeiouAEIOU][A-Za-z0-9_]*")
 	description = "Spawn " + a_or_an((entity.instantiate() as Entity).entity_name)
 
 func do(target : Entity, secondary : Entity = null, direction : Vector2 = Vector2.ZERO) -> void:

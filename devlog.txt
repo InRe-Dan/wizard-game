@@ -699,3 +699,6 @@ Options:
 
 For example the radial fire might want to restart when recast, or emit multiple jets up to a limit, or create an actor to do it all for it.
 
+12/3/24
+
+Regarding the issue in the paragraph above, I realised that I might be able to make a good system using handler actions (which do multiple actions at once) and signals from actions to signify that their cooldowns are done. I can also lock the inventory from using items until it recieves a done signal from whichever action was used.

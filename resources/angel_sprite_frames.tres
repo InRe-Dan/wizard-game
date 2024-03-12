@@ -1,0 +1,47 @@
+[gd_resource type="SpriteFrames" load_steps=9 format=3 uid="uid://b75orqrqxkdeu"]
+
+[ext_resource type="Texture2D" uid="uid://bcm7gencc42sq" path="res://assets/dungeon/angel_idle_anim_f0.png" id="1_kxqne"]
+[ext_resource type="Texture2D" uid="uid://wsmr0mphwlrj" path="res://assets/dungeon/angel_idle_anim_f1.png" id="2_1kyuy"]
+[ext_resource type="Texture2D" uid="uid://dsqosyb6rbw3k" path="res://assets/dungeon/angel_idle_anim_f2.png" id="3_i67yg"]
+[ext_resource type="Texture2D" uid="uid://7e366e3io1mc" path="res://assets/dungeon/angel_idle_anim_f3.png" id="4_jlhtt"]
+[ext_resource type="Texture2D" uid="uid://c52o05taanxcx" path="res://assets/dungeon/angel_run_anim_f0.png" id="5_eaja3"]
+[ext_resource type="Texture2D" uid="uid://ch3010wguqewf" path="res://assets/dungeon/angel_run_anim_f1.png" id="6_y0pjn"]
+[ext_resource type="Texture2D" uid="uid://demcl5ibol4sd" path="res://assets/dungeon/angel_run_anim_f2.png" id="7_sb81r"]
+[ext_resource type="Texture2D" uid="uid://dlwi7idg1qyxa" path="res://assets/dungeon/angel_run_anim_f3.png" id="8_esb6g"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_kxqne")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_1kyuy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_i67yg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_jlhtt")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_eaja3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_y0pjn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_sb81r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_esb6g")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}]

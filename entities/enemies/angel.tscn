@@ -1,0 +1,128 @@
+[gd_scene load_steps=24 format=3 uid="uid://bbwrd3v7gvwa7"]
+
+[ext_resource type="Script" path="res://entities/enemies/angel.gd" id="1_avhs3"]
+[ext_resource type="PackedScene" uid="uid://c03pfmwpgtofc" path="res://components/simple_graphics_component.tscn" id="2_2quqi"]
+[ext_resource type="Texture2D" uid="uid://bcm7gencc42sq" path="res://assets/dungeon/angel_idle_anim_f0.png" id="3_30c5g"]
+[ext_resource type="Texture2D" uid="uid://wsmr0mphwlrj" path="res://assets/dungeon/angel_idle_anim_f1.png" id="4_8jybd"]
+[ext_resource type="Texture2D" uid="uid://dsqosyb6rbw3k" path="res://assets/dungeon/angel_idle_anim_f2.png" id="5_52lpc"]
+[ext_resource type="Texture2D" uid="uid://7e366e3io1mc" path="res://assets/dungeon/angel_idle_anim_f3.png" id="6_u3cy5"]
+[ext_resource type="Texture2D" uid="uid://c52o05taanxcx" path="res://assets/dungeon/angel_run_anim_f0.png" id="7_q1746"]
+[ext_resource type="Texture2D" uid="uid://ch3010wguqewf" path="res://assets/dungeon/angel_run_anim_f1.png" id="8_7geh8"]
+[ext_resource type="Texture2D" uid="uid://demcl5ibol4sd" path="res://assets/dungeon/angel_run_anim_f2.png" id="9_7ktpt"]
+[ext_resource type="Texture2D" uid="uid://dlwi7idg1qyxa" path="res://assets/dungeon/angel_run_anim_f3.png" id="10_38a6d"]
+[ext_resource type="PackedScene" uid="uid://dm7txjk84pxhw" path="res://components/enemy_seeker_ai_component.tscn" id="11_76e7k"]
+[ext_resource type="PackedScene" uid="uid://c867pju6atw7e" path="res://components/hurtbox_component.tscn" id="12_scnas"]
+[ext_resource type="PackedScene" uid="uid://uag18b8s0jg4" path="res://components/dialogue_component.tscn" id="13_wylbv"]
+[ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="14_4u08n"]
+[ext_resource type="PackedScene" uid="uid://b3c3vg8q6e5k7" path="res://components/effect_container.tscn" id="15_q8jtu"]
+[ext_resource type="Script" path="res://effects/fire_vulnerability.gd" id="16_22jub"]
+[ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="17_eyouo"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4d50n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_30c5g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_8jybd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_52lpc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_u3cy5")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_q1746")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_7geh8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_7ktpt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_38a6d")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sunu4"]
+radius = 9.0
+height = 18.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bemnm"]
+
+[sub_resource type="Gradient" id="Gradient_feut0"]
+offsets = PackedFloat32Array(0, 0.318182, 0.603896, 0.785714)
+colors = PackedColorArray(1, 1, 1, 0.733333, 1, 1, 1, 0.584146, 1, 1, 1, 0.239216, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qpxde"]
+gradient = SubResource("Gradient_feut0")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Resource" id="Resource_86q0u"]
+script = ExtResource("17_eyouo")
+damage = 1
+damage_type = 1
+knockback_type = 1
+knockback_velocity = 0.0
+
+[node name="AngelEntity" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 6
+script = ExtResource("1_avhs3")
+entity_name = "Angel"
+health = 10
+team = 1
+
+[node name="SimpleGraphics" parent="." instance=ExtResource("2_2quqi")]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SimpleGraphics"]
+sprite_frames = SubResource("SpriteFrames_4d50n")
+animation = &"move"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_sunu4")
+
+[node name="AIComponent" parent="." instance=ExtResource("11_76e7k")]
+
+[node name="HurtboxComponent" parent="." instance=ExtResource("12_scnas")]
+
+[node name="Area2D" type="Area2D" parent="HurtboxComponent"]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent/Area2D"]
+shape = SubResource("CircleShape2D_bemnm")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.5
+texture = SubResource("GradientTexture2D_qpxde")
+
+[node name="DialogueComponent" parent="." instance=ExtResource("13_wylbv")]
+lifetime = 3.0
+
+[node name="PhysicsHandlerComponent" parent="." instance=ExtResource("14_4u08n")]
+base_acceleration = 200.0
+base_damping = 2.0
+
+[node name="EffectContainer" parent="." instance=ExtResource("15_q8jtu")]
+
+[node name="FireVulnerability" type="Node" parent="EffectContainer"]
+script = ExtResource("16_22jub")
+seconds_threshold = 0.2
+immunity = 0.25
+tick_damage = SubResource("Resource_86q0u")

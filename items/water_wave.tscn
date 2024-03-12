@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://misc_scenes/inventory_item.gd" id="1_s7ahw"]
 [ext_resource type="Script" path="res://actions/shoot_projectile.gd" id="2_0modi"]
-[ext_resource type="PackedScene" uid="uid://pt14go12aimq" path="res://entities/water_wave.tscn" id="3_4jmao"]
+[ext_resource type="PackedScene" uid="uid://pt14go12aimq" path="res://entities/projectiles/water_wave.tscn" id="3_4jmao"]
 
 [node name="WaterWave" type="Node"]
 script = ExtResource("1_s7ahw")

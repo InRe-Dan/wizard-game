@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://cpidswdj0owvh"]
 
-[ext_resource type="Script" path="res://entities/explosion.gd" id="1_2d4i0"]
+[ext_resource type="Script" path="res://entities/projectiles/explosion.gd" id="1_2d4i0"]
 [ext_resource type="PackedScene" uid="uid://7neyiej0xx17" path="res://components/hitbox_component.tscn" id="2_qlgqq"]
 [ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="3_053v4"]
 [ext_resource type="Script" path="res://misc_scripts/particle_autostart.gd" id="3_61w6g"]

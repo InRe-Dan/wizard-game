@@ -2,16 +2,14 @@
 
 [ext_resource type="Script" path="res://misc_scenes/inventory_item.gd" id="1_01ofy"]
 [ext_resource type="Script" path="res://actions/shoot_projectile.gd" id="2_yqwyu"]
-[ext_resource type="PackedScene" uid="uid://bn06fjm6xnu4i" path="res://entities/fireball.tscn" id="3_u1yq1"]
+[ext_resource type="PackedScene" uid="uid://bn06fjm6xnu4i" path="res://entities/projectiles/fireball.tscn" id="3_assgh"]
 
 [node name="DeathBlast" type="Node"]
 script = ExtResource("1_01ofy")
 item_name = "Death Blast"
-uses = 3
-max_uses = 3
 
 [node name="ShootProjectileAction" type="Node" parent="."]
 script = ExtResource("2_yqwyu")
-projectile = ExtResource("3_u1yq1")
+projectile = ExtResource("3_assgh")
 side_projectiles = 5
 spread = 10.0

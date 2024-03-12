@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cu4jaf5f1nlxo"]
+[gd_scene load_steps=28 format=3 uid="uid://cu4jaf5f1nlxo"]
 
 [ext_resource type="Script" path="res://entities/player.gd" id="1_e1iir"]
 [ext_resource type="PackedScene" uid="uid://dfdt5bke0tcu6" path="res://components/player_input_component.tscn" id="2_uw8o3"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://uag18b8s0jg4" path="res://components/dialogue_component.tscn" id="12_7vj67"]
 [ext_resource type="PackedScene" uid="uid://bx3pxaj88kom" path="res://items/fire_circle.tscn" id="12_du1gk"]
 [ext_resource type="PackedScene" uid="uid://b6byd7ixvxc8n" path="res://components/can_interact_component.tscn" id="13_lp353"]
+[ext_resource type="PackedScene" uid="uid://d245vil1ujogo" path="res://items/knife_slash.tscn" id="13_yrken"]
 [ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="14_ljjej"]
 [ext_resource type="PackedScene" uid="uid://b3c3vg8q6e5k7" path="res://components/effect_container.tscn" id="15_csrq8"]
 [ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="17_dp7c4"]
@@ -116,6 +117,8 @@ limited_use = false
 [node name="FireCircle" parent="Inventory" instance=ExtResource("12_du1gk")]
 uses = 5
 max_uses = 5
+
+[node name="KnifeSlash" parent="Inventory" instance=ExtResource("13_yrken")]
 
 [node name="HurtboxComponent" parent="." instance=ExtResource("11_hxc8l")]
 
