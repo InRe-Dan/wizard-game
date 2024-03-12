@@ -2,14 +2,17 @@
 
 [ext_resource type="Script" path="res://misc_scenes/inventory_item.gd" id="1_01ofy"]
 [ext_resource type="Script" path="res://actions/shoot_projectile.gd" id="2_yqwyu"]
-[ext_resource type="PackedScene" uid="uid://bn06fjm6xnu4i" path="res://entities/projectiles/fireball.tscn" id="3_assgh"]
+[ext_resource type="PackedScene" uid="uid://cpidswdj0owvh" path="res://entities/projectiles/explosion.tscn" id="3_1456o"]
 
 [node name="DeathBlast" type="Node"]
 script = ExtResource("1_01ofy")
-item_name = "Death Blast"
+item_name = "Flame Blast"
+pickup_light_color = Color(1, 0.415686, 0, 1)
+limited_use = false
 
 [node name="ShootProjectileAction" type="Node" parent="."]
 script = ExtResource("2_yqwyu")
-projectile = ExtResource("3_assgh")
-side_projectiles = 5
-spread = 10.0
+projectile = ExtResource("3_1456o")
+side_projectiles = 2
+spread = 20.0
+cast_distance = 48.0

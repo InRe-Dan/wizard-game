@@ -7,6 +7,7 @@
 [node name="FireBall" type="Node"]
 script = ExtResource("1_36uof")
 item_name = "Fire Ball"
+pickup_light_color = Color(1, 0.521569, 0, 1)
 
 [node name="ShootProjectileAction" type="Node" parent="."]
 script = ExtResource("2_i6agc")

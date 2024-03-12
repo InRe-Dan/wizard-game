@@ -13,6 +13,7 @@ font = ExtResource("7_1x4j7")
 
 [node name="EnemySeekerAiComponent" type="Node2D"]
 script = ExtResource("1_24yym")
+show_states = true
 
 [node name="AvoidanceVision" parent="." instance=ExtResource("2_af5oi")]
 size = 20.0
@@ -24,6 +25,7 @@ avoidance_layers = 0
 avoidance_mask = 0
 
 [node name="LineOfSight" type="RayCast2D" parent="."]
+target_position = Vector2(18, -7)
 collision_mask = 2
 
 [node name="StateChart" type="Node" parent="."]

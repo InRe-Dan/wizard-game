@@ -702,3 +702,6 @@ For example the radial fire might want to restart when recast, or emit multiple 
 12/3/24
 
 Regarding the issue in the paragraph above, I realised that I might be able to make a good system using handler actions (which do multiple actions at once) and signals from actions to signify that their cooldowns are done. I can also lock the inventory from using items until it recieves a done signal from whichever action was used.
+
+While expanding the level generation to include enemies and items, I realised that I might want to define rarities and distributions for how many things should spawn and how much of each. This might be easily achieved using LevelGenSettings resources which can define all of this and give it to the level class.
+

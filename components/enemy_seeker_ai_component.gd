@@ -1,6 +1,8 @@
 extends EntityComponent
 
 @export var detection_radius : float = 96
+@export var attack_range : float = 16
+@export var attack_cooldown : float = 1
 @export var show_states : bool = false
 
 @onready var navigation_agent : NavigationAgent2D = $NavigationAgent2D
@@ -14,13 +16,19 @@ var last_target_position : Vector2 = Vector2.ZERO
 var bored_timer : float
 var walk_direction : Vector2
 var target : Entity
+var time_since_attacked : float
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
 
+func attack(target_global_position : Vector2) -> void:
+	if time_since_attacked > attack_cooldown:
+		time_since_attacked = 0
+		parent.distribute_signal(InputCommand.new(InputCommand.Commands.use, parent.global_position.direction_to(target_global_position)))
 
 func _process(delta: float) -> void:
+	time_since_attacked += delta
 	if show_states:
 		var states : Array = []
 		var states_to_explore : Array = []
@@ -36,7 +44,7 @@ func _process(delta: float) -> void:
 		for state_name : String in states:
 			label_text += state_name + "\n"
 		state_label.text = label_text
-	
+
 
 func find_direction_to(global_pos : Vector2) -> Vector2:
 	if (global_pos - last_target_position).length() < 16:	
@@ -77,6 +85,8 @@ func _on_standing_state_entered() -> void:
 func _on_following_state_physics_processing(delta: float) -> void:
 	var dir : Vector2 = find_direction_to(target.global_position).normalized()
 	parent.distribute_signal(InputMoveEvent.new(dir))
+	if parent.global_position.distance_to(target.global_position) < attack_range:
+		attack(target.global_position)
 
 
 func _on_seeking_state_physics_processing(delta: float) -> void:

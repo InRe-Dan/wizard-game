@@ -1,0 +1,104 @@
+[gd_scene load_steps=17 format=3 uid="uid://dw5mqad2mfl2a"]
+
+[ext_resource type="Script" path="res://base_classes/entity.gd" id="1_4y1gt"]
+[ext_resource type="PackedScene" uid="uid://c03pfmwpgtofc" path="res://components/simple_graphics_component.tscn" id="2_afb3p"]
+[ext_resource type="SpriteFrames" uid="uid://cy4si615bx27m" path="res://resources/ice_zombie_sprite_frames.tres" id="3_plaae"]
+[ext_resource type="PackedScene" uid="uid://dm7txjk84pxhw" path="res://components/enemy_seeker_ai_component.tscn" id="4_nbfvx"]
+[ext_resource type="PackedScene" uid="uid://c867pju6atw7e" path="res://components/hurtbox_component.tscn" id="5_gve5p"]
+[ext_resource type="PackedScene" uid="uid://uag18b8s0jg4" path="res://components/dialogue_component.tscn" id="6_s8xix"]
+[ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="7_03jtt"]
+[ext_resource type="PackedScene" uid="uid://b3c3vg8q6e5k7" path="res://components/effect_container.tscn" id="8_3e7oh"]
+[ext_resource type="Script" path="res://effects/fire_vulnerability.gd" id="9_ec5pk"]
+[ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="10_bdtt6"]
+[ext_resource type="PackedScene" uid="uid://h6thrp5ptkgc" path="res://components/floor_dropper_component.tscn" id="11_45m8e"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_huuuy"]
+radius = 4.0
+height = 18.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rwv17"]
+radius = 5.0
+height = 16.0
+
+[sub_resource type="Gradient" id="Gradient_feut0"]
+offsets = PackedFloat32Array(0, 0.318182, 0.603896, 0.785714)
+colors = PackedColorArray(1, 1, 1, 0.733333, 1, 1, 1, 0.584146, 1, 1, 1, 0.239216, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_536dq"]
+gradient = SubResource("Gradient_feut0")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Resource" id="Resource_8xrkf"]
+script = ExtResource("10_bdtt6")
+damage = 1
+damage_type = 1
+knockback_type = 1
+knockback_velocity = 0.0
+
+[node name="IceZombie" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 6
+motion_mode = 1
+script = ExtResource("1_4y1gt")
+entity_name = "Ice Zombie"
+health = 20
+team = 1
+
+[node name="SimpleGraphics" parent="." instance=ExtResource("2_afb3p")]
+position = Vector2(1, 2)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SimpleGraphics"]
+position = Vector2(-1, -3)
+sprite_frames = ExtResource("3_plaae")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("CapsuleShape2D_huuuy")
+
+[node name="EnemySeekerAiComponent" parent="." instance=ExtResource("4_nbfvx")]
+attack_range = 0.0
+attack_cooldown = 3000.0
+show_states = false
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("area") instance=ExtResource("5_gve5p")]
+position = Vector2(-12, -1)
+area = NodePath("Area2D")
+
+[node name="Area2D" type="Area2D" parent="HurtboxComponent"]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent/Area2D"]
+position = Vector2(12, 0)
+shape = SubResource("CapsuleShape2D_rwv17")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.5
+texture = SubResource("GradientTexture2D_536dq")
+
+[node name="DialogueComponent" parent="." instance=ExtResource("6_s8xix")]
+lifetime = 3.0
+
+[node name="PhysicsHandlerComponent" parent="." instance=ExtResource("7_03jtt")]
+base_acceleration = 200.0
+base_damping = 10.0
+ice_acceleration_multiplier = 1.0
+ice_damping_multiplier = 1.0
+
+[node name="EffectContainer" parent="." instance=ExtResource("8_3e7oh")]
+
+[node name="FireVulnerability" type="Node" parent="EffectContainer"]
+script = ExtResource("9_ec5pk")
+seconds_threshold = 0.001
+immunity = 0.1
+tick_damage = SubResource("Resource_8xrkf")
+
+[node name="FloorDropperComponent" parent="." instance=ExtResource("11_45m8e")]
+position = Vector2(0, 6)
+radius = 24.0

@@ -99,9 +99,9 @@ func add_ice(point : Vector2, radius : float) -> void:
 		for j : int in range(max(0, floor(converted_point.x - radius)), min(array_size.x, ceil(converted_point.x + radius))):
 			var distance : float = Vector2(converted_point.x - j , converted_point.y  - i).length()
 			if distance <= radius:
-				ice_array[i][j] = max(pow(1 - distance / radius, 0.3), ice_array[i][j])
-				water_array[i][j] = 0.0
-				fire_array[i][j] = 0.0
+				if fire_array[i][j] < 0.01:
+					ice_array[i][j] = max(pow(1 - distance / radius, 0.3), ice_array[i][j])
+					water_array[i][j] = 0.0
 				image.set_pixel(j, i, Color(fire_array[i][j], ice_array[i][j], water_array[i][j]))
 				
 func melt_ice(point : Vector2, radius : float) -> void:

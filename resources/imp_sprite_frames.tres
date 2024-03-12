@@ -1,28 +1,28 @@
-[gd_resource type="SpriteFrames" load_steps=9 format=3 uid="uid://dbied1dh1texg"]
+[gd_resource type="SpriteFrames" load_steps=9 format=3 uid="uid://dwogigb6pa4c3"]
 
-[ext_resource type="Texture2D" uid="uid://cingrqs03ijh4" path="res://assets/dungeon/tiny_zombie_idle_anim_f0.png" id="1_wqb2v"]
-[ext_resource type="Texture2D" uid="uid://dcx7sg6lau106" path="res://assets/dungeon/tiny_zombie_idle_anim_f1.png" id="2_w1umt"]
-[ext_resource type="Texture2D" uid="uid://bhhguxcxj33kq" path="res://assets/dungeon/tiny_zombie_idle_anim_f2.png" id="3_bxk8n"]
-[ext_resource type="Texture2D" uid="uid://cuwgxl0v0upce" path="res://assets/dungeon/tiny_zombie_idle_anim_f3.png" id="4_tsx8y"]
-[ext_resource type="Texture2D" uid="uid://cilfdmn2rhlp" path="res://assets/dungeon/tiny_zombie_run_anim_f0.png" id="5_mgqm8"]
-[ext_resource type="Texture2D" uid="uid://crnlaj1bpe847" path="res://assets/dungeon/tiny_zombie_run_anim_f1.png" id="6_xhlbh"]
-[ext_resource type="Texture2D" uid="uid://c75dt0x00t4t5" path="res://assets/dungeon/tiny_zombie_run_anim_f2.png" id="7_7scqu"]
-[ext_resource type="Texture2D" uid="uid://dqv7o4c0u387y" path="res://assets/dungeon/tiny_zombie_run_anim_f3.png" id="8_0jgev"]
+[ext_resource type="Texture2D" uid="uid://dlmh767dbx2py" path="res://assets/dungeon/imp_idle_anim_f0.png" id="1_mrudc"]
+[ext_resource type="Texture2D" uid="uid://dxgyvabldyi3m" path="res://assets/dungeon/imp_idle_anim_f1.png" id="2_cwmin"]
+[ext_resource type="Texture2D" uid="uid://bdp8spqcj8frj" path="res://assets/dungeon/imp_idle_anim_f2.png" id="3_lilll"]
+[ext_resource type="Texture2D" uid="uid://ch1x221ctxbwo" path="res://assets/dungeon/imp_idle_anim_f3.png" id="4_gic2p"]
+[ext_resource type="Texture2D" uid="uid://dfrpsy0shuvdq" path="res://assets/dungeon/imp_run_anim_f0.png" id="5_dmii8"]
+[ext_resource type="Texture2D" uid="uid://bxe7wten4710h" path="res://assets/dungeon/imp_run_anim_f1.png" id="6_d6i65"]
+[ext_resource type="Texture2D" uid="uid://nsdxnx5ewhbl" path="res://assets/dungeon/imp_run_anim_f2.png" id="7_fhisn"]
+[ext_resource type="Texture2D" uid="uid://cb1rlbcyc8d0h" path="res://assets/dungeon/imp_run_anim_f3.png" id="8_vvnbi"]
 
 [resource]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_wqb2v")
+"texture": ExtResource("1_mrudc")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_w1umt")
+"texture": ExtResource("2_cwmin")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_bxk8n")
+"texture": ExtResource("3_lilll")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_tsx8y")
+"texture": ExtResource("4_gic2p")
 }],
 "loop": true,
 "name": &"idle",
@@ -30,16 +30,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_mgqm8")
+"texture": ExtResource("5_dmii8")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_xhlbh")
+"texture": ExtResource("6_d6i65")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_7scqu")
+"texture": ExtResource("7_fhisn")
 }, {
 "duration": 1.0,
-"texture": ExtResource("8_0jgev")
+"texture": ExtResource("8_vvnbi")
 }],
 "loop": true,
 "name": &"move",

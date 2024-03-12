@@ -1,0 +1,47 @@
+[gd_resource type="SpriteFrames" load_steps=9 format=3 uid="uid://cji80pbog0li5"]
+
+[ext_resource type="Texture2D" uid="uid://cx0dqcade7mjn" path="res://assets/dungeon/goblin_idle_anim_f0.png" id="1_nptt1"]
+[ext_resource type="Texture2D" uid="uid://du75tnmsrbfs3" path="res://assets/dungeon/goblin_idle_anim_f1.png" id="2_ijufy"]
+[ext_resource type="Texture2D" uid="uid://buhmkujahk0an" path="res://assets/dungeon/goblin_idle_anim_f2.png" id="3_by6p4"]
+[ext_resource type="Texture2D" uid="uid://bie658a5qfxil" path="res://assets/dungeon/goblin_idle_anim_f3.png" id="4_s0qrj"]
+[ext_resource type="Texture2D" uid="uid://3h2gdpswibw2" path="res://assets/dungeon/goblin_run_anim_f0.png" id="5_rs8br"]
+[ext_resource type="Texture2D" uid="uid://b7cq2t70nsgla" path="res://assets/dungeon/goblin_run_anim_f1.png" id="6_tgdee"]
+[ext_resource type="Texture2D" uid="uid://b0ga7j5xrnbws" path="res://assets/dungeon/goblin_run_anim_f2.png" id="7_py0sa"]
+[ext_resource type="Texture2D" uid="uid://cu8d4vfbbki2v" path="res://assets/dungeon/goblin_run_anim_f3.png" id="8_dr8uj"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_nptt1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ijufy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_by6p4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_s0qrj")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_rs8br")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_tgdee")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_py0sa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_dr8uj")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}]

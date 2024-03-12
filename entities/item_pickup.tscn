@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cpr0fc00qielw"]
+[gd_scene load_steps=11 format=3 uid="uid://cpr0fc00qielw"]
 
 [ext_resource type="Script" path="res://entities/item_pickup.gd" id="1_kyvr7"]
 [ext_resource type="PackedScene" uid="uid://c867pju6atw7e" path="res://components/hurtbox_component.tscn" id="2_iolof"]
@@ -15,19 +15,6 @@ radius = 6.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_wd04y"]
 radius = 6.0
 
-[sub_resource type="Gradient" id="Gradient_tmjpm"]
-interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.565789, 0.75)
-colors = PackedColorArray(0.243137, 0.243137, 0.678431, 0.780392, 0.0432, 0.0432, 0.18, 1, 0.243137, 0.243137, 0.678431, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_5i15t"]
-gradient = SubResource("Gradient_tmjpm")
-width = 16
-height = 16
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.837963, 0.152778)
-
 [sub_resource type="Gradient" id="Gradient_m82ut"]
 offsets = PackedFloat32Array(0, 0.467105)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
@@ -43,7 +30,7 @@ collision_mask = 2
 script = ExtResource("1_kyvr7")
 item = ExtResource("2_ovui0")
 entity_name = "Item Pickup"
-spawn_velocity = 0.0
+spawn_velocity = 50.0
 health = 100000
 
 [node name="HurtboxComponent" parent="." instance=ExtResource("2_iolof")]
@@ -71,8 +58,9 @@ shape = SubResource("CircleShape2D_wd04y")
 take_collision_damage = false
 knockback_damage_min_speed = 5000.0
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-texture = SubResource("GradientTexture2D_5i15t")
+[node name="ItemSprite" type="Sprite2D" parent="."]
+z_index = 2
+z_as_relative = false
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 energy = 0.5

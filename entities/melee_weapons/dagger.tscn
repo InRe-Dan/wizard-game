@@ -10,7 +10,7 @@ script = ExtResource("4_kp0cn")
 damage = 1
 damage_type = 0
 knockback_type = 0
-knockback_velocity = 30.0
+knockback_velocity = 60.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_op7hv"]
 size = Vector2(4, 8)

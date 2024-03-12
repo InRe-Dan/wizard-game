@@ -1,11 +1,21 @@
 extends Node2D
 
+@export_category("Room settings")
 @export var room_size : Vector2i = Vector2i(15, 9)
 @export var door_width : int = 3
 @export var wall_padding : int = 20
+@export_category("Enemy generation")
+@export var enemy_list : Array[PackedScene]
+@export var min_enemies_per_room : int = 0
+@export var max_enemies_per_room : int = 3
+@export_category("Item generation")
+@export var item_list : Array[PackedScene]
+@export var min_items_per_room : int = 0
+@export var max_items_per_room : int = 1
 
 @onready var floor : TileMap = $Floor
 @onready var walls : TileMap = $Walls
+@onready var item_pickup_scene : PackedScene = preload("res://entities/item_pickup.tscn")
 
 class Room extends RefCounted:
 	func _init(rect : Rect2i) -> void:
@@ -20,6 +30,28 @@ class Room extends RefCounted:
 func _ready() -> void:
 	generate(5)
 	pass
+
+func populate_room(room : Room) -> void:
+	var enemies : int = randi_range(min_enemies_per_room, max_enemies_per_room)
+	var items : int = randi_range(min_items_per_room, max_items_per_room)
+	var positions : Array[Vector2i] = []
+	while positions.size() < enemies + items:
+		var x : int = randi_range(room.rect.position.x + 1, room.rect.position.x + room.rect.size.x - 1)
+		var y : int = randi_range(room.rect.position.y + 1, room.rect.position.y + room.rect.size.y - 1)
+		positions.append(Vector2i(x, y))
+	while enemies > 0:
+		var pos : Vector2i = positions.pop_front()
+		var enemy : Entity = enemy_list.pick_random().instantiate()
+		enemy.global_position = floor.to_global(floor.map_to_local(pos))
+		add_child(enemy)
+		enemies -= 1
+	while items > 0:
+		var pos : Vector2i = positions.pop_front()
+		var pickup : ItemPickupEntity = item_pickup_scene.instantiate()
+		pickup.item = item_list.pick_random()
+		pickup.global_position = floor.to_global(floor.map_to_local(pos))
+		add_child(pickup)
+		items -= 1
 
 func set_floor(v : Vector2i) -> void:
 	floor.set_cell(0, v, 58, Vector2i(range(0, 8).pick_random(), 0))
@@ -71,10 +103,15 @@ func generate(room_count : int) -> void:
 					rooms.append(new_room)
 					rooms_made += 1
 	
+	var skip : bool = true
 	for room : Room in rooms:
 		for i : int in range(room.rect.size.y):
 			for j : int in range(room.rect.size.x):
 				set_floor(room.rect.position + Vector2i(j, i))
+		if skip:
+			skip = false
+		else:
+			populate_room(room)
 				
 		for i : int in range(door_width):
 			if room.north:

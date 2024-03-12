@@ -1,28 +1,28 @@
-[gd_resource type="SpriteFrames" load_steps=9 format=3 uid="uid://dwogigb6pa4c3"]
+[gd_resource type="SpriteFrames" load_steps=9 format=3 uid="uid://dbied1dh1texg"]
 
-[ext_resource type="Texture2D" uid="uid://bcm7gencc42sq" path="res://assets/dungeon/angel_idle_anim_f0.png" id="1_umtlj"]
-[ext_resource type="Texture2D" uid="uid://wsmr0mphwlrj" path="res://assets/dungeon/angel_idle_anim_f1.png" id="2_vuvvy"]
-[ext_resource type="Texture2D" uid="uid://dsqosyb6rbw3k" path="res://assets/dungeon/angel_idle_anim_f2.png" id="3_2ywrk"]
-[ext_resource type="Texture2D" uid="uid://7e366e3io1mc" path="res://assets/dungeon/angel_idle_anim_f3.png" id="4_cokc1"]
-[ext_resource type="Texture2D" uid="uid://c52o05taanxcx" path="res://assets/dungeon/angel_run_anim_f0.png" id="5_nw4ah"]
-[ext_resource type="Texture2D" uid="uid://ch3010wguqewf" path="res://assets/dungeon/angel_run_anim_f1.png" id="6_6v36j"]
-[ext_resource type="Texture2D" uid="uid://demcl5ibol4sd" path="res://assets/dungeon/angel_run_anim_f2.png" id="7_e2oik"]
-[ext_resource type="Texture2D" uid="uid://dlwi7idg1qyxa" path="res://assets/dungeon/angel_run_anim_f3.png" id="8_cnq82"]
+[ext_resource type="Texture2D" uid="uid://cingrqs03ijh4" path="res://assets/dungeon/tiny_zombie_idle_anim_f0.png" id="1_wqb2v"]
+[ext_resource type="Texture2D" uid="uid://dcx7sg6lau106" path="res://assets/dungeon/tiny_zombie_idle_anim_f1.png" id="2_w1umt"]
+[ext_resource type="Texture2D" uid="uid://bhhguxcxj33kq" path="res://assets/dungeon/tiny_zombie_idle_anim_f2.png" id="3_bxk8n"]
+[ext_resource type="Texture2D" uid="uid://cuwgxl0v0upce" path="res://assets/dungeon/tiny_zombie_idle_anim_f3.png" id="4_tsx8y"]
+[ext_resource type="Texture2D" uid="uid://cilfdmn2rhlp" path="res://assets/dungeon/tiny_zombie_run_anim_f0.png" id="5_mgqm8"]
+[ext_resource type="Texture2D" uid="uid://crnlaj1bpe847" path="res://assets/dungeon/tiny_zombie_run_anim_f1.png" id="6_xhlbh"]
+[ext_resource type="Texture2D" uid="uid://c75dt0x00t4t5" path="res://assets/dungeon/tiny_zombie_run_anim_f2.png" id="7_7scqu"]
+[ext_resource type="Texture2D" uid="uid://dqv7o4c0u387y" path="res://assets/dungeon/tiny_zombie_run_anim_f3.png" id="8_0jgev"]
 
 [resource]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_umtlj")
+"texture": ExtResource("1_wqb2v")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_vuvvy")
+"texture": ExtResource("2_w1umt")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_2ywrk")
+"texture": ExtResource("3_bxk8n")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_cokc1")
+"texture": ExtResource("4_tsx8y")
 }],
 "loop": true,
 "name": &"idle",
@@ -30,16 +30,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_nw4ah")
+"texture": ExtResource("5_mgqm8")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_6v36j")
+"texture": ExtResource("6_xhlbh")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_e2oik")
+"texture": ExtResource("7_7scqu")
 }, {
 "duration": 1.0,
-"texture": ExtResource("8_cnq82")
+"texture": ExtResource("8_0jgev")
 }],
 "loop": true,
 "name": &"move",

@@ -1,0 +1,94 @@
+[gd_scene load_steps=18 format=3 uid="uid://bent3fo2kwsvd"]
+
+[ext_resource type="Script" path="res://base_classes/entity.gd" id="1_oen2d"]
+[ext_resource type="PackedScene" uid="uid://c03pfmwpgtofc" path="res://components/simple_graphics_component.tscn" id="2_nino7"]
+[ext_resource type="SpriteFrames" uid="uid://cji80pbog0li5" path="res://resources/goblin_sprite_frames.tres" id="3_pb825"]
+[ext_resource type="PackedScene" uid="uid://dm7txjk84pxhw" path="res://components/enemy_seeker_ai_component.tscn" id="4_acww5"]
+[ext_resource type="PackedScene" uid="uid://c867pju6atw7e" path="res://components/hurtbox_component.tscn" id="5_gqail"]
+[ext_resource type="PackedScene" uid="uid://uag18b8s0jg4" path="res://components/dialogue_component.tscn" id="6_topu3"]
+[ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="7_h4u4r"]
+[ext_resource type="PackedScene" uid="uid://b3c3vg8q6e5k7" path="res://components/effect_container.tscn" id="8_t1y8k"]
+[ext_resource type="Script" path="res://effects/fire_vulnerability.gd" id="9_mp856"]
+[ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="10_cbly1"]
+[ext_resource type="PackedScene" uid="uid://uajwl8rwegui" path="res://components/inventory.tscn" id="11_m2wjy"]
+[ext_resource type="PackedScene" uid="uid://d245vil1ujogo" path="res://items/knife_slash.tscn" id="12_jyaw7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_krkv8"]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wl3yr"]
+radius = 7.0
+
+[sub_resource type="Gradient" id="Gradient_feut0"]
+offsets = PackedFloat32Array(0, 0.318182, 0.603896, 0.785714)
+colors = PackedColorArray(1, 1, 1, 0.733333, 1, 1, 1, 0.584146, 1, 1, 1, 0.239216, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_536dq"]
+gradient = SubResource("Gradient_feut0")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Resource" id="Resource_8xrkf"]
+script = ExtResource("10_cbly1")
+damage = 2
+damage_type = 1
+knockback_type = 1
+knockback_velocity = 0.0
+
+[node name="Goblin" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 6
+motion_mode = 1
+script = ExtResource("1_oen2d")
+entity_name = "Goblin"
+health = 3
+team = 1
+
+[node name="SimpleGraphics" parent="." instance=ExtResource("2_nino7")]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SimpleGraphics"]
+position = Vector2(-1, -3)
+sprite_frames = ExtResource("3_pb825")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_krkv8")
+
+[node name="EnemySeekerAiComponent" parent="." instance=ExtResource("4_acww5")]
+attack_range = 36.0
+show_states = false
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("area") instance=ExtResource("5_gqail")]
+area = NodePath("Area2D")
+
+[node name="Area2D" type="Area2D" parent="HurtboxComponent"]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent/Area2D"]
+shape = SubResource("CircleShape2D_wl3yr")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.5
+texture = SubResource("GradientTexture2D_536dq")
+
+[node name="DialogueComponent" parent="." instance=ExtResource("6_topu3")]
+lifetime = 3.0
+
+[node name="PhysicsHandlerComponent" parent="." instance=ExtResource("7_h4u4r")]
+
+[node name="EffectContainer" parent="." instance=ExtResource("8_t1y8k")]
+
+[node name="FireVulnerability" type="Node" parent="EffectContainer"]
+script = ExtResource("9_mp856")
+seconds_threshold = 0.2
+immunity = 0.25
+tick_damage = SubResource("Resource_8xrkf")
+
+[node name="Inventory" parent="." instance=ExtResource("11_m2wjy")]
+
+[node name="KnifeSlash" parent="Inventory" instance=ExtResource("12_jyaw7")]
