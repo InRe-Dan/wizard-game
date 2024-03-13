@@ -28,6 +28,10 @@ shader_parameter/noise_texture = SubResource("NoiseTexture2D_qgabh")
 font = ExtResource("3_cgkpt")
 font_color = Color(0.980392, 0.980392, 0.980392, 0.196078)
 
+[sub_resource type="LabelSettings" id="LabelSettings_1xakj"]
+font = ExtResource("3_cgkpt")
+font_color = Color(0.980392, 0.980392, 0.980392, 0.196078)
+
 [sub_resource type="LabelSettings" id="LabelSettings_pb07d"]
 line_spacing = -4.0
 font = ExtResource("3_cgkpt")
@@ -37,10 +41,6 @@ font_color = Color(1, 1, 1, 0.52549)
 line_spacing = -4.0
 font = ExtResource("3_cgkpt")
 font_color = Color(1, 1, 1, 0.203922)
-
-[sub_resource type="LabelSettings" id="LabelSettings_1xakj"]
-font = ExtResource("3_cgkpt")
-font_color = Color(0.980392, 0.980392, 0.980392, 0.196078)
 
 [sub_resource type="LabelSettings" id="LabelSettings_rbcjx"]
 font = ExtResource("3_cgkpt")
@@ -101,19 +101,28 @@ offset_bottom = 9.0
 text = "ver 0.1"
 label_settings = SubResource("LabelSettings_emds3")
 
+[node name="FrameCounter" type="Label" parent="UI"]
+offset_left = 2.0
+offset_top = -4.0
+offset_right = 137.0
+offset_bottom = 9.0
+text = "fps: err"
+label_settings = SubResource("LabelSettings_1xakj")
+script = ExtResource("4_dqccr")
+
 [node name="Health" type="Label" parent="UI"]
-offset_left = 176.0
-offset_top = 150.0
-offset_right = 311.0
-offset_bottom = 163.0
+offset_left = 157.0
+offset_top = 149.0
+offset_right = 292.0
+offset_bottom = 162.0
 text = "HP: "
 label_settings = SubResource("LabelSettings_pb07d")
 
 [node name="Prompt" type="Label" parent="UI"]
-offset_left = 176.0
-offset_top = 158.0
-offset_right = 253.0
-offset_bottom = 171.0
+offset_left = 157.0
+offset_top = 157.0
+offset_right = 234.0
+offset_bottom = 170.0
 text = "Press F to interact
 "
 label_settings = SubResource("LabelSettings_pb07d")
@@ -124,34 +133,26 @@ anchor_left = -1.261
 anchor_top = 4.107
 anchor_right = -1.261
 anchor_bottom = 4.107
-offset_left = 781.28
-offset_top = -942.89
-offset_right = 906.28
-offset_bottom = -880.89
+offset_left = 762.28
+offset_top = -943.89
+offset_right = 887.28
+offset_bottom = -881.89
 text = "Item: Item Name
 Uses: 3/3
 This is where the description goes, but it hopefully won't use this much space."
 label_settings = SubResource("LabelSettings_aq4ru")
 autowrap_mode = 3
 
-[node name="FrameCounter" type="Label" parent="UI"]
-offset_left = 2.0
-offset_top = -4.0
-offset_right = 137.0
-offset_bottom = 9.0
-text = "fps: err"
-label_settings = SubResource("LabelSettings_1xakj")
-script = ExtResource("4_dqccr")
-
 [node name="DebugMenu" parent="UI" instance=ExtResource("7_a1mme")]
-anchor_left = 0.654
-anchor_top = 0.178
-anchor_right = 0.954
-anchor_bottom = 0.774
-offset_left = 22.08
-offset_top = 60.94
-offset_right = 22.0
-offset_bottom = 61.02
+anchors_preset = -1
+anchor_left = 0.75
+anchor_top = 0.404
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.00003
+offset_top = -2.08
+offset_right = -2.0
+offset_bottom = -2.0
 metadata/_edit_use_anchors_ = true
 
 [node name="Controls" type="Control" parent="UI"]

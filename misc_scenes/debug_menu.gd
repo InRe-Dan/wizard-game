@@ -1,19 +1,20 @@
-extends ScrollContainer
+extends HBoxContainer
 
 @export_dir var item_directory : String
-@onready var item_select : OptionButton = $VBoxContainer/HBoxContainer3/ItemOption
+@onready var item_select : OptionButton = $ScrollContainer/VBoxContainer/HBoxContainer3/ItemOption
 var item_map : Dictionary = Dictionary() # String -> PackedScene
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$ScrollContainer.visible = false
 	var dir : DirAccess = DirAccess.open(item_directory)
 	if dir:
 		var files : PackedStringArray = dir.get_files()
 		var index : int = 0
 		for filename : String in files:
 			if filename.ends_with(".tscn"):
-				item_select.add_item(filename, index)
-				item_map[filename] = load(item_directory + "/" + filename)
+				item_select.add_item(filename.trim_suffix(".tscn"), index)
+				item_map[filename.trim_suffix(".tscn")] = load(item_directory + "/" + filename.trim_suffix(".tscn"))
 				index += 1
 
 
@@ -35,3 +36,20 @@ func _on_kill_button_pressed() -> void:
 
 func _on_give_pressed() -> void:
 	(get_tree().get_first_node_in_group("players") as Entity).give(item_map[item_select.get_item_text(item_select.get_selected_id())].instantiate())
+
+
+func _on_fullscreen_pressed() -> void:
+	var mode : int = get_tree().root.mode
+	if mode == Window.MODE_WINDOWED:
+		mode = Window.MODE_EXCLUSIVE_FULLSCREEN
+	else:
+		mode = Window.MODE_WINDOWED
+	(get_tree() as SceneTree).root.mode = mode
+
+func _on_tab_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		$ScrollContainer.visible = false
+		$Tab.text = "<"
+	else:
+		$ScrollContainer.visible = true
+		$Tab.text = ">"

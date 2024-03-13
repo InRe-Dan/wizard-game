@@ -1,60 +1,86 @@
-[gd_scene load_steps=3 format=3 uid="uid://cnmm04jdtxbiy"]
+[gd_scene load_steps=5 format=3 uid="uid://cnmm04jdtxbiy"]
 
 [ext_resource type="Theme" uid="uid://btn2pknwbkdml" path="res://resources/ui_theme.tres" id="1_y6vbq"]
 [ext_resource type="Script" path="res://misc_scenes/debug_menu.gd" id="2_7yxgm"]
 
-[node name="DebugMenu" type="ScrollContainer"]
-modulate = Color(1, 1, 1, 0.298039)
-anchors_preset = -1
-anchor_left = -0.146
-anchor_top = -0.307
-anchor_right = 0.15
-anchor_bottom = 0.356
-offset_left = 0.0800095
-offset_top = -0.110001
-offset_bottom = -0.120003
-grow_horizontal = 0
-grow_vertical = 2
+[sub_resource type="InputEventKey" id="InputEventKey_82qsu"]
+device = -1
+keycode = 4194326
+
+[sub_resource type="Shortcut" id="Shortcut_8v5f8"]
+events = [SubResource("InputEventKey_82qsu")]
+
+[node name="DebugMenu" type="HBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+offset_right = 24.0
+offset_bottom = 21.0
 theme = ExtResource("1_y6vbq")
-horizontal_scroll_mode = 0
+alignment = 2
 script = ExtResource("2_7yxgm")
 item_directory = "res://items"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="RegenButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="Fullscreen" type="Button" parent="ScrollContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Toggle Fullscreen"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RegenButton" type="Button" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Regenerate Level"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="KillButton" type="Button" parent="VBoxContainer/HBoxContainer2"]
+[node name="KillButton" type="Button" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Kill All"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Give" type="Button" parent="VBoxContainer/HBoxContainer3"]
+[node name="Give" type="Button" parent="ScrollContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 text = "Give"
 
-[node name="ItemOption" type="OptionButton" parent="VBoxContainer/HBoxContainer3"]
+[node name="ItemOption" type="OptionButton" parent="ScrollContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
+allow_reselect = true
 
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/RegenButton" to="." method="_on_regen_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer2/KillButton" to="." method="_on_kill_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer3/Give" to="." method="_on_give_pressed"]
+[node name="Tab" type="Button" parent="."]
+layout_mode = 2
+tooltip_text = "Debug Menu"
+toggle_mode = true
+button_pressed = true
+shortcut = SubResource("Shortcut_8v5f8")
+shortcut_feedback = false
+text = "<"
+
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer4/Fullscreen" to="." method="_on_fullscreen_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer/RegenButton" to="." method="_on_regen_button_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer2/KillButton" to="." method="_on_kill_button_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer3/Give" to="." method="_on_give_pressed"]
+[connection signal="toggled" from="Tab" to="." method="_on_tab_toggled"]
