@@ -14,7 +14,7 @@ func _ready() -> void:
 		for filename : String in files:
 			if filename.ends_with(".tscn"):
 				item_select.add_item(filename.trim_suffix(".tscn"), index)
-				item_map[filename.trim_suffix(".tscn")] = load(item_directory + "/" + filename.trim_suffix(".tscn"))
+				item_map[filename.trim_suffix(".tscn")] = load(item_directory + "/" + filename)
 				index += 1
 
 

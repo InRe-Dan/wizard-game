@@ -1,14 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://jie2026812kn"]
+[gd_scene load_steps=5 format=3 uid="uid://jie2026812kn"]
 
-[ext_resource type="Script" path="res://misc_scenes/inventory_item.gd" id="1_s7ahw"]
+[ext_resource type="Script" path="res://base_classes/inventory_item.gd" id="1_4b3mq"]
 [ext_resource type="Script" path="res://actions/shoot_projectile.gd" id="2_0modi"]
 [ext_resource type="PackedScene" uid="uid://pt14go12aimq" path="res://entities/projectiles/water_wave.tscn" id="3_4jmao"]
+[ext_resource type="Script" path="res://actions/cooldown.gd" id="4_31qji"]
 
 [node name="WaterWave" type="Node"]
-script = ExtResource("1_s7ahw")
+script = ExtResource("1_4b3mq")
 item_name = "Water Wave"
 
 [node name="ShootProjectileAction" type="Node" parent="."]
 script = ExtResource("2_0modi")
 projectile = ExtResource("3_4jmao")
 side_projectiles = 7
+
+[node name="Cooldown" type="Node" parent="."]
+script = ExtResource("4_31qji")
+cooldown_time = 2.0

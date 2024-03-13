@@ -27,6 +27,7 @@ AudioHandler="*res://misc_scenes/audio_handler.tscn"
 
 [debug]
 
+gdscript/warnings/unused_parameter=0
 gdscript/warnings/untyped_declaration=2
 gdscript/warnings/inferred_declaration=2
 gdscript/warnings/unsafe_property_access=1

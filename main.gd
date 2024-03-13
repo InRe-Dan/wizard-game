@@ -5,6 +5,10 @@ var player_scene : PackedScene = preload("res://entities/player.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	FloorHandler.init_for_room()
+	var numbers : Array[int] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+	for i : int in range(1, 10000000):
+		numbers[randi_range(0, 9)] += 1
+	print(numbers)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta : float) -> void:

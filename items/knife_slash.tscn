@@ -1,11 +1,11 @@
 [gd_scene load_steps=4 format=3 uid="uid://d245vil1ujogo"]
 
-[ext_resource type="Script" path="res://misc_scenes/inventory_item.gd" id="1_a6pjo"]
+[ext_resource type="Script" path="res://base_classes/inventory_item.gd" id="1_h8rkq"]
 [ext_resource type="Script" path="res://actions/swing_entity.gd" id="2_4hsox"]
 [ext_resource type="PackedScene" uid="uid://boqhwrbssha6p" path="res://entities/melee_weapons/dagger.tscn" id="3_i14k0"]
 
 [node name="KnifeSlash" type="Node"]
-script = ExtResource("1_a6pjo")
+script = ExtResource("1_h8rkq")
 item_name = "Knife"
 limited_use = false
 

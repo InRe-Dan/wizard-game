@@ -709,3 +709,10 @@ I think it would be good to start looking into UI for the game, and a good way o
 
 13/3/24
 
+With the current item system, the inventory is responsible for queueing items once their durabilities have expired, meaning that items which are still in the process of doing their actions are freed before they can complete them. Instead of doing this, the inventory will call the item to be used and the item will report whether or not it should be removed from the inventory. The item is then responsible for freeing itself.
+The problem now is that items need to be in the scene tree to function! So I will have inventories maintain a "consumed" node that they can place items in. I will also maintain a node for non-consumed items, for ease of management of items.
+
+Now, I need to decide when to free the item, and while I'm at it, how to do cooldowns. I will make actions emit "finished" signals, and items will not listen for as many "finished" signals as there were actions on call. As a benefit to this system, I can easily create item cooldowns by creating "wait" actions, which simply emit finished after a certain duration.
+With this system, I unfortunately have no easy way of defining how long is left of a cooldown, or reducing cooldowns - but I can have each action define an "expected wait time", so that items can visualise how long *might* be left on a cooldown - finished signals may not have actually been emitted yet.
+
+This is also an opportunity to think about buffering inputs on items - this is something that can be handled by the inventory.

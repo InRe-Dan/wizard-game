@@ -10,6 +10,7 @@ extends Camera2D
 @onready var health_label : Label = $UI/Health
 @onready var prompt_label : Label = $UI/Prompt
 @onready var item_info : Label = $UI/ItemInfo
+@onready var cooldown : TextureProgressBar = $UI/ItemCooldown
 
 var current_position: Vector2
 var destination_position: Vector2
@@ -37,6 +38,7 @@ func _process(delta: float) -> void:
 				item_info.text += item.description
 			else:
 				item_info.text = "Item: Nothing!"
+			cooldown.value = inventory.get_item_cooldown_progress()
 		else:
 			item_info.text = "Item: No inventory!"
 		var interact_component : CanInteractComponent = player.get_children().filter(func f(x : Node) -> bool: return x is CanInteractComponent).front()

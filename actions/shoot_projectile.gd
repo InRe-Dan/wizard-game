@@ -32,3 +32,4 @@ func do(target : Entity, secondary : Entity = null, direction : Vector2 = Vector
 		entity_instance.team = target.team
 		get_tree().get_first_node_in_group("main").add_child(entity_instance)
 		target.distribute_signal(CreatedProjectileEvent.new(entity_instance))
+	finished.emit()

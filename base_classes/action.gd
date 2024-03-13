@@ -1,6 +1,9 @@
 @icon("res://assets/editor_icons/engine/Forward.svg")
 class_name Action extends Node
 
+signal finished
+var expected_cooldown : float = 0
+
 static func a_or_an(string : String) -> String:
 	if not "AEIOUaeiou".contains(string.left(1)):
 		return "a " + string

@@ -1,11 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://djl7t4qk4315m"]
+[gd_scene load_steps=5 format=3 uid="uid://djl7t4qk4315m"]
 
-[ext_resource type="Script" path="res://misc_scenes/inventory_item.gd" id="1_36uof"]
+[ext_resource type="Script" path="res://base_classes/inventory_item.gd" id="1_xxgu0"]
 [ext_resource type="Script" path="res://actions/shoot_projectile.gd" id="2_i6agc"]
 [ext_resource type="PackedScene" uid="uid://bn06fjm6xnu4i" path="res://entities/projectiles/fireball.tscn" id="3_du84a"]
+[ext_resource type="Script" path="res://actions/cooldown.gd" id="4_g42ay"]
 
 [node name="FireBall" type="Node"]
-script = ExtResource("1_36uof")
+script = ExtResource("1_xxgu0")
 item_name = "Fire Ball"
 pickup_light_color = Color(1, 0.521569, 0, 1)
 uses = 5
@@ -14,3 +15,6 @@ max_uses = 5
 [node name="ShootProjectileAction" type="Node" parent="."]
 script = ExtResource("2_i6agc")
 projectile = ExtResource("3_du84a")
+
+[node name="Cooldown" type="Node" parent="."]
+script = ExtResource("4_g42ay")

@@ -2,28 +2,28 @@ class_name InventoryComponent extends EntityComponent
 
 var selected : int = 0
 
-# Called when the node enters the scene tree for the first time.
+@onready var active : Node = $Active
+@onready var consumed : Node = $Consumed
+
 func _ready() -> void:
-	pass # Replace with function body.
-
-func camel_to_spaced(string : String) -> String:
-	return string.to_snake_case().replace("_",  " ").capitalize()
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+	for node : Node in get_children():
+		if node is InventoryItem:
+			remove_child(node)
+			active.add_child(node)
 
 func get_selected() -> InventoryItem:
-	if get_child_count() == 0:
+	if active.get_child_count() == 0:
 		return null
-	return get_children()[selected] as InventoryItem
+	return active.get_children()[selected] as InventoryItem
 
 func use(direction : Vector2) -> void:
 	var item : InventoryItem = get_selected()
 	if item:
-		if item.use(parent, direction):
-			item.queue_free()
-			selected = 0
+		if item.is_ready():
+			if item.use(parent, direction):
+				active.remove_child(item)
+				consumed.add_child(item)
+				cycleItems(-1)
 
 func use_any_attack() -> void:
 	pass
@@ -33,15 +33,23 @@ func use_any_heal() -> void:
 	
 func use_random() -> void:
 	pass
+	
+func get_item_cooldown_progress() -> float:
+	var item : InventoryItem = get_selected()
+	if item:
+		if item.expected_cooldown == 0:
+			return 0
+		return min(1, item.time_since_used / item.expected_cooldown)
+	return 0
 
 func add_item(item : InventoryItem) -> void:
-	add_child(item)
+	active.add_child(item)
 
 func cycleItems(amount : int) -> void:
 	selected += amount
 	if selected < 0:
-		selected = get_children().size() - 1
-	elif selected >= get_children().size():
+		selected = active.get_children().size() - 1
+	elif selected >= active.get_children().size():
 		selected = 0
 	# parent.say(camel_to_spaced(get_children()[selected].name))
 

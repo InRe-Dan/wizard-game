@@ -11,3 +11,4 @@ func do(target : Entity, secondary : Entity = null, direction : Vector2 = Vector
 	entity.global_position = target.global_position
 	target.distribute_signal(CreatedProjectileEvent.new(entity))
 	get_tree().get_first_node_in_group("main").add_child(entity)
+	finished.emit()

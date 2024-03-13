@@ -22,6 +22,7 @@ func move_to_orbit_location() -> void:
 func _ready() -> void:
 	entity = entity_scene.instantiate() as Entity
 	description = "Swing " + a_or_an(entity.entity_name) + " in front of you"
+	expected_cooldown = swing_angle / swing_angular_speed
 
 func _process(delta : float) -> void:
 	if swinging:
@@ -30,6 +31,7 @@ func _process(delta : float) -> void:
 		if time_passed > swing_time:
 			swinging = false
 			remove_child(entity)
+			finished.emit()
 
 func do(target : Entity, secondary : Entity = null, direction : Vector2 = Vector2.ZERO) -> void:
 	if not swinging:
@@ -45,4 +47,3 @@ func do(target : Entity, secondary : Entity = null, direction : Vector2 = Vector
 		swing_time = swing_angle / swing_angular_speed
 		add_child(entity)
 		move_to_orbit_location()
-

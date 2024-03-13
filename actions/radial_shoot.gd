@@ -35,6 +35,7 @@ func _process(delta : float) -> void:
 		shots_fired += 1
 	if time_elapsed > duration:
 		firing = false
+		finished.emit()
 
 
 func do(target : Entity, secondary : Entity = null, direction : Vector2 = Vector2.ZERO) -> void:
