@@ -35,7 +35,7 @@ damage_type = 1
 knockback_type = 1
 knockback_velocity = 0.0
 
-[node name="AngelEntity" type="CharacterBody2D"]
+[node name="AngelEntity" type="CharacterBody2D" groups=["enemies", "npcs"]]
 collision_layer = 4
 collision_mask = 6
 script = ExtResource("1_avhs3")

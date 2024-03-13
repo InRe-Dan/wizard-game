@@ -15,7 +15,7 @@ knockback_velocity = 60.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_op7hv"]
 size = Vector2(4, 8)
 
-[node name="Dagger" type="CharacterBody2D"]
+[node name="Dagger" type="CharacterBody2D" groups=["npcs"]]
 script = ExtResource("1_3fgt5")
 entity_name = "Knife"
 

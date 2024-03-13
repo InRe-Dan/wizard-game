@@ -60,7 +60,8 @@ func distribute_signal(event : Event) -> void:
 				velocity += hit.direction.normalized() * hit.damage.knockback_velocity
 			if health <= 0:
 				distribute_signal(DeathEvent.new())
-				queue_free()
+		event.types.death:
+			queue_free()
 		_:
 			pass
 

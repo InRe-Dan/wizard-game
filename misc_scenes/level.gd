@@ -1,4 +1,4 @@
-extends Node2D
+class_name Level extends Node2D
 
 @export_category("Room settings")
 @export var room_size : Vector2i = Vector2i(15, 9)
@@ -28,8 +28,7 @@ class Room extends RefCounted:
 	var west : Room
 
 func _ready() -> void:
-	generate(5)
-	pass
+	generate(10)
 
 func populate_room(room : Room) -> void:
 	var enemies : int = randi_range(min_enemies_per_room, max_enemies_per_room)

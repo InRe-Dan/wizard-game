@@ -7,8 +7,8 @@
 [node name="FireCircle" type="Node"]
 script = ExtResource("1_vip5b")
 item_name = "Fire Circle"
-uses = 1
-max_uses = 1
+uses = 2
+max_uses = 2
 
 [node name="RadialCast" type="Node" parent="."]
 script = ExtResource("2_8010o")

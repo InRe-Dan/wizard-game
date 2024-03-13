@@ -24,7 +24,7 @@ gradient = SubResource("Gradient_m82ut")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
-[node name="ItemPickupEntity" type="CharacterBody2D"]
+[node name="ItemPickupEntity" type="CharacterBody2D" groups=["npcs"]]
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_kyvr7")

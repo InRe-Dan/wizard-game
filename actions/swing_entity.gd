@@ -4,6 +4,7 @@ extends Action
 @export var swing_angle : float = 90
 @export var swing_distance : float = 24
 @export var swing_angular_speed : float = 360
+@export var alternate : bool = true
 
 var entity : Entity
 var orbit_entity : Entity
@@ -12,7 +13,7 @@ var swinging : bool = false
 var start_angle : float
 var swing_time : float
 var time_passed : float
-var modifier : float
+var modifier : float = 1
 
 func move_to_orbit_location() -> void:
 	entity.rotation_degrees = (start_angle + modifier * swing_angle * time_passed / swing_time) + 90
@@ -34,7 +35,10 @@ func do(target : Entity, secondary : Entity = null, direction : Vector2 = Vector
 	if not swinging:
 		orbit_entity = target
 		entity.team = orbit_entity.team
-		modifier = -1 if abs(direction.angle_to(Vector2.LEFT)) < PI/2 else 1
+		if alternate:
+			modifier *= -1
+		else:
+			modifier = -1 if abs(direction.angle_to(Vector2.LEFT)) < PI/2 else 1
 		start_angle = rad_to_deg(direction.angle()) + -1 * modifier * swing_angle / 2
 		swinging = true
 		time_passed = 0

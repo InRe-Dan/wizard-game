@@ -705,3 +705,7 @@ Regarding the issue in the paragraph above, I realised that I might be able to m
 
 While expanding the level generation to include enemies and items, I realised that I might want to define rarities and distributions for how many things should spawn and how much of each. This might be easily achieved using LevelGenSettings resources which can define all of this and give it to the level class.
 
+I think it would be good to start looking into UI for the game, and a good way of doing that might be to start looking at Control nodes to create a debug menu. Being able to do debug operations and view basic info on the game is going to help quite a lot from now, since there are going to be more and more items, effects and enemies.
+
+13/3/24
+

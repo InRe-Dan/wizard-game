@@ -8,7 +8,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_wefqm"]
 radius = 5.0
 
-[node name="FireWave" type="CharacterBody2D"]
+[node name="FireWave" type="CharacterBody2D" groups=["npcs"]]
 collision_layer = 0
 collision_mask = 2
 motion_mode = 1
@@ -17,6 +17,7 @@ entity_name = "Fire Wave"
 
 [node name="FloorDropperComponent" parent="." instance=ExtResource("2_cfugy")]
 radius = 16.0
+despawn_in_opposing_element = true
 type = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

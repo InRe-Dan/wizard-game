@@ -16,10 +16,13 @@ script = ExtResource("1_jl44l")
 [node name="Camera" parent="." instance=ExtResource("3_5shnw")]
 texture_filter = 1
 
-[node name="level" parent="." groups=["level"] instance=ExtResource("1_pf5qg")]
+[node name="level" parent="." instance=ExtResource("1_pf5qg")]
 
 [node name="PlayerEntity" parent="level" instance=ExtResource("4_urxv3")]
 entity_name = "Player"
+
+[node name="Node2D" type="Node2D" parent="level"]
+position = Vector2(-90, -25)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 

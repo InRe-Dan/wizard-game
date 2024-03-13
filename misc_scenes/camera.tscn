@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dkfutwmsr2tli"]
+[gd_scene load_steps=24 format=3 uid="uid://dkfutwmsr2tli"]
 
 [ext_resource type="Script" path="res://misc_scenes/camera.gd" id="1_67e48"]
 [ext_resource type="Shader" path="res://shaders/screen.gdshader" id="2_gcgr3"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://misc_scripts/frame_counter.gd" id="4_dqccr"]
 [ext_resource type="Texture2D" uid="uid://du436jkuxg0ah" path="res://assets/ui/keyboard_keys.png" id="5_nlf4r"]
 [ext_resource type="Texture2D" uid="uid://0yo7q0qi576d" path="res://assets/ui/keyboard_extras.png" id="6_l88bi"]
+[ext_resource type="PackedScene" uid="uid://cnmm04jdtxbiy" path="res://misc_scenes/debug_menu.tscn" id="7_a1mme"]
 
 [sub_resource type="Gradient" id="Gradient_uhjsu"]
 
@@ -87,6 +88,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 2
@@ -141,8 +143,27 @@ text = "fps: err"
 label_settings = SubResource("LabelSettings_1xakj")
 script = ExtResource("4_dqccr")
 
-[node name="Controls" type="Label" parent="UI"]
+[node name="DebugMenu" parent="UI" instance=ExtResource("7_a1mme")]
+anchor_left = 0.654
+anchor_top = 0.178
+anchor_right = 0.954
+anchor_bottom = 0.774
+offset_left = 22.08
+offset_top = 60.94
+offset_right = 22.0
+offset_bottom = 61.02
+metadata/_edit_use_anchors_ = true
+
+[node name="Controls" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Controls" type="Label" parent="UI/Controls"]
 modulate = Color(0.996078, 1, 1, 0.545098)
+layout_mode = 0
 offset_left = 187.0
 offset_top = 252.5
 offset_right = 360.0
@@ -150,37 +171,37 @@ offset_bottom = 265.5
 text = "Move         Switch items         Dash"
 label_settings = SubResource("LabelSettings_rbcjx")
 
-[node name="W" type="Sprite2D" parent="UI"]
+[node name="W" type="Sprite2D" parent="UI/Controls"]
 modulate = Color(0.996078, 1, 1, 0.545098)
 position = Vector2(126.5, 259.5)
 texture = SubResource("AtlasTexture_ldjyt")
 
-[node name="A" type="Sprite2D" parent="UI"]
+[node name="A" type="Sprite2D" parent="UI/Controls"]
 modulate = Color(0.996078, 1, 1, 0.545098)
 position = Vector2(143.5, 259.5)
 texture = SubResource("AtlasTexture_a48a1")
 
-[node name="S" type="Sprite2D" parent="UI"]
+[node name="S" type="Sprite2D" parent="UI/Controls"]
 modulate = Color(0.996078, 1, 1, 0.545098)
 position = Vector2(160.5, 259.5)
 texture = SubResource("AtlasTexture_rlmrg")
 
-[node name="D" type="Sprite2D" parent="UI"]
+[node name="D" type="Sprite2D" parent="UI/Controls"]
 modulate = Color(0.996078, 1, 1, 0.545098)
 position = Vector2(177.5, 259.5)
 texture = SubResource("AtlasTexture_vaxvn")
 
-[node name="Q" type="Sprite2D" parent="UI"]
+[node name="Q" type="Sprite2D" parent="UI/Controls"]
 modulate = Color(0.996078, 1, 1, 0.545098)
 position = Vector2(225.5, 259.5)
 texture = SubResource("AtlasTexture_51utt")
 
-[node name="E" type="Sprite2D" parent="UI"]
+[node name="E" type="Sprite2D" parent="UI/Controls"]
 modulate = Color(0.996078, 1, 1, 0.545098)
 position = Vector2(241.5, 259.5)
 texture = SubResource("AtlasTexture_6376t")
 
-[node name="Shift" type="Sprite2D" parent="UI"]
+[node name="Shift" type="Sprite2D" parent="UI/Controls"]
 modulate = Color(0.996078, 1, 1, 0.545098)
 position = Vector2(328, 259.5)
 texture = SubResource("AtlasTexture_v6fyo")

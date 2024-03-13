@@ -46,7 +46,7 @@ height = 128
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
-[node name="FireballEntity" type="CharacterBody2D"]
+[node name="FireballEntity" type="CharacterBody2D" groups=["npcs"]]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_q01i0")
