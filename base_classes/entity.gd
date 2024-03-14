@@ -13,11 +13,18 @@ var knocked_back_by : Entity = null
 var knockback_time : float
 const knockback_valid_timer : float = 0.1
 
+var last_hit_by : Entity = null
+var dead : bool = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	z_as_relative = false
 	z_index = 2
 	
+func _process(delta : float) -> void:
+	if dead:
+		queue_free()
+
 func _physics_process(delta: float) -> void:
 	pass
 
@@ -37,6 +44,7 @@ func distribute_signal(event : Event) -> void:
 			hit.target.distribute_signal(BeenHitEvent.new(self, hit.damage))
 		Event.types.been_hit:
 			var hit : BeenHitEvent = event as BeenHitEvent
+			last_hit_by = hit.dealer
 			if hit.damage.knockback_type == hit.damage.KnockbackTypes.origin:
 				distribute_signal(TakeDamageEvent.new(hit.damage, (global_position - hit.dealer.global_position)))
 			else:
@@ -61,7 +69,13 @@ func distribute_signal(event : Event) -> void:
 			if health <= 0:
 				distribute_signal(DeathEvent.new())
 		event.types.death:
-			queue_free()
+			if last_hit_by:
+				last_hit_by.distribute_signal(HasKilledEvent.new(self))
+			dead = true
+		event.types.try_heal:
+			var heal_event : TryHealEvent = event as TryHealEvent
+			health += heal_event.amount
+			distribute_signal(HealedEvent.new(heal_event.amount))
 		_:
 			pass
 

@@ -716,3 +716,45 @@ Now, I need to decide when to free the item, and while I'm at it, how to do cool
 With this system, I unfortunately have no easy way of defining how long is left of a cooldown, or reducing cooldowns - but I can have each action define an "expected wait time", so that items can visualise how long *might* be left on a cooldown - finished signals may not have actually been emitted yet.
 
 This is also an opportunity to think about buffering inputs on items - this is something that can be handled by the inventory.
+
+14/3/24
+
+I attended the poster day workshop to get an idea of what to make for the poster day, and I was given a few helpful pointers for my use case:
+    Make the title accessible and very bait-y: you want feedback and attention from as many people as possible
+    Try to avoid too much colour and background to not make the poster too cluttered
+    Be aware that black backgrounds are not backlit on a poster - lighter colour schemes are favoured
+    Include a link to an itch.io release if possible, for easy feedback - QR code as well
+    Keep everything to one or two words. "Questions?" instead of "If you have any questions..."
+I will address all of these ahead of the next project meeting to get even more feedback.
+
+Had a thought about the fact that components and effects have pretty much the same utilities and powers: both respond to events sent by the parent entity, and have a process loop of their own. I am still going to keep these things separate, but perhaps port some components to be effects. The distinction between effects and components will be that effects can be added and removed from an entity at a whim.
+
+First things first though, for today, I want to come up with the passive item system for the game, via the effects inventory. The effects container will relay "Add Effect" events to its effects (to allow for stacking behaviours) and if none of them consume the effect, it will add it.
+
+After writing a bit of code for this, I am realising that the systems I've made might need a bit of tweaking to be easy to implement passive items with.
+Here are some items that I'd like to create, to ensure flexibility:
+    Heal self when killing an enemy (with another entity)
+        Effect on host entity must add an effect to created projectiles
+            Problem: Melee weapons contained in swing actions do not send ProjectileCreated events
+            Problem: Projectiles must know when they have killed something, which is currently not supported.
+    Make enemies explode when killed with fire projectiles
+        Host entity must add an effect on the fire projectiles - identifying fire projectiles might be qute difficult.
+            Problem: See above
+    Slow enemies for duration when struck with ice projectiles
+        Host entity must once again determine if the projectile is of the ice type and add an on_hit effect to the projectile.
+    Make enemies struck by melee attacks bleed
+        At this point I'm thinking of instantiating a new knife knife every time for melee weapons. Makes more sense with my system, and it will almost certainly do nothing for performance.
+    Make water projectiles bounce once
+        This one is pretty easy to do considering collision events, I think, but it might be a little convoluted for what it is.
+    Fire a projectile when dashing
+        More information needs to be added to the dash event, 
+
+Many of these would benefit from knowing whether or not an entity is a projectile, and from knowing what element a projectile is, so adding that data on the entities is a likely first step. I will then try to implement all of these things.
+
+The only thing that needs a unique solution is projectiles knowing when they have killed something. This might be easily achieved by having entites track what entity dealt damage to them last, and giving them a "Killed Entity" event before dying.
+I see some potential issues with the entity technically still being alive when all of this happens, but I will deal with those as I get to them - potentially by running code only when the entity is actually freed?
+
+I feel a big refactor coming on for items, actions and effects, using Godot's resource system. It's been constantly recommended to me by tutorials and forums, but I was able to make to without it. My issue now is cleanly defining enemies, projectiles, attacks and items without having one or two files for each one. Will have to think on it.
+
+The first item - heal on kill - is extremely convoluted.
+The item requires that the projectile has an on-kill effect with a heal-target action. So when a projectile is created by an entity, the relevant heal-on-kill effect needs to add this on-kill effect with the heal action to the projectile.

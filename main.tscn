@@ -21,9 +21,6 @@ texture_filter = 1
 [node name="PlayerEntity" parent="level" instance=ExtResource("4_urxv3")]
 entity_name = "Player"
 
-[node name="Node2D" type="Node2D" parent="level"]
-position = Vector2(-90, -25)
-
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
@@ -36,4 +33,4 @@ texture_repeat = 2
 material = SubResource("CanvasItemMaterial_62fnj")
 texture = ExtResource("6_ybf1x")
 region_enabled = true
-region_rect = Rect2(-2400, -2400, 2400, 2400)
+region_rect = Rect2(-10000, -10000, 20000, 20000)

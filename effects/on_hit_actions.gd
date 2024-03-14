@@ -1,4 +1,4 @@
-extends Effect
+class_name HitActionsEffect extends Effect
 
 func _init(action : Action = null) -> void:
 	if action:
@@ -6,7 +6,16 @@ func _init(action : Action = null) -> void:
 	
 func handle_event(event : Event) -> Event:
 	if event.type == event.types.has_hit:
-		var hit : HasHitEvent = event as HasHitEvent
+		var hit_event : HasHitEvent = event as HasHitEvent
 		for child : Action in get_children():
-			child.do(get_parent().parent, hit.target)
+			child.do(get_parent().parent, hit_event.target)
+	if event.type == event.types.add_effect:
+		var add_event : AddEffectEvent = event as AddEffectEvent
+		if add_event is AddEffectEvent:
+			var effect : HitActionsEffect = add_event.effect as HitActionsEffect
+			for child : Node in effect.get_children():
+				child.reparent(self)
+			return null
+
 	return event
+

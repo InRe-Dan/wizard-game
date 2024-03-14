@@ -14,19 +14,15 @@ func _process(delta: float) -> void:
 	if despawn_on_standstill:
 		if parent.velocity.length() < 20:
 			parent.distribute_signal(DeathEvent.new())
-			parent.queue_free()
 	if despawn_after_interval:
 		lifetime -= delta
 		if lifetime < 0:
 			parent.distribute_signal(DeathEvent.new())
-			parent.queue_free()
 
 func receive_signal(event : Event) -> Event:
 	match event.type:
 		Event.types.collision:
 			parent.distribute_signal(DeathEvent.new())
-			parent.queue_free()
 		Event.types.dealt_damage:
 			parent.distribute_signal(DeathEvent.new())
-			parent.queue_free()
 	return event

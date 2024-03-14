@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://baqfdpdkjx0ut"]
+[gd_scene load_steps=7 format=3 uid="uid://baqfdpdkjx0ut"]
 
 [ext_resource type="Script" path="res://base_classes/entity.gd" id="1_e0pjf"]
 [ext_resource type="PackedScene" uid="uid://h6thrp5ptkgc" path="res://components/floor_dropper_component.tscn" id="2_cfugy"]
 [ext_resource type="PackedScene" uid="uid://bueaitn7te0q1" path="res://components/projectile_despawner_component.tscn" id="3_1fxar"]
 [ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="4_do0hw"]
+[ext_resource type="PackedScene" uid="uid://b3c3vg8q6e5k7" path="res://components/effect_container.tscn" id="5_fcpwx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wefqm"]
 radius = 5.0
@@ -33,3 +34,5 @@ take_collision_damage = false
 ice_acceleration_multiplier = 1.0
 ice_damping_multiplier = 1.0
 water_damping_multiplier = 1.0
+
+[node name="EffectContainer" parent="." instance=ExtResource("5_fcpwx")]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cu4jaf5f1nlxo"]
+[gd_scene load_steps=27 format=3 uid="uid://cu4jaf5f1nlxo"]
 
 [ext_resource type="Script" path="res://entities/player.gd" id="1_e1iir"]
 [ext_resource type="PackedScene" uid="uid://dfdt5bke0tcu6" path="res://components/player_input_component.tscn" id="2_uw8o3"]
@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://b3c3vg8q6e5k7" path="res://components/effect_container.tscn" id="15_csrq8"]
 [ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="17_dp7c4"]
 [ext_resource type="Script" path="res://effects/fire_vulnerability.gd" id="18_dunkx"]
+[ext_resource type="Script" path="res://effects/add_heal_self_to_projectiles.gd" id="19_is5ut"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qptjs"]
 radius = 9.0
@@ -151,3 +152,6 @@ take_collision_damage = false
 script = ExtResource("18_dunkx")
 immunity = 1.0
 tick_damage = SubResource("Resource_2bf1k")
+
+[node name="AddHealSelfToProjectileKillsEffect" type="Node" parent="EffectContainer"]
+script = ExtResource("19_is5ut")

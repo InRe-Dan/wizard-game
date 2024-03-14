@@ -392,14 +392,6 @@ texture = ExtResource("1_1k541")
 7:5/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 7:5/0/physics_layer_0/angular_velocity = 0.0
 7:5/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_uku1b")
-8:5/0 = 0
-8:5/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-8:5/0/physics_layer_0/angular_velocity = 0.0
-8:5/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_uku1b")
-9:5/0 = 0
-9:5/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-9:5/0/physics_layer_0/angular_velocity = 0.0
-9:5/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_uku1b")
 
 [resource]
 physics_layer_0/collision_layer = 1

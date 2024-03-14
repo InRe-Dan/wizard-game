@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b2qsrxijygjq"]
+[gd_scene load_steps=19 format=3 uid="uid://b2qsrxijygjq"]
 
 [ext_resource type="Script" path="res://entities/projectiles/waterball.gd" id="1_riigk"]
 [ext_resource type="Gradient" uid="uid://cbfyfhnyv6mby" path="res://resources/water_colours.tres" id="2_so62x"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="4_c51vm"]
 [ext_resource type="PackedScene" uid="uid://bueaitn7te0q1" path="res://components/projectile_despawner_component.tscn" id="5_spwsm"]
 [ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="6_de6j4"]
+[ext_resource type="PackedScene" uid="uid://b3c3vg8q6e5k7" path="res://components/effect_container.tscn" id="7_dlx83"]
 
 [sub_resource type="Curve" id="Curve_tq44c"]
 max_value = 3.0
@@ -110,3 +111,5 @@ texture = SubResource("GradientTexture2D_agrek")
 base_acceleration = 0.0
 base_damping = 0.0
 take_collision_damage = false
+
+[node name="EffectContainer" parent="." instance=ExtResource("7_dlx83")]
