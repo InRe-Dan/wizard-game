@@ -11,6 +11,7 @@ class_name FloorEffectsHandler extends Node2D
 var ice_array : Array[Array]
 var fire_array : Array[Array]
 var water_array : Array[Array]
+var floor_mask_array : Array[Array]
 var image : Image
 var texture : ImageTexture
 var array_size : Vector2i
@@ -74,10 +75,9 @@ func add_fire(point : Vector2, radius : float) -> void:
 		for j : int in range(max(0, floor(converted_point.x - radius)), min(array_size.x, ceil(converted_point.x + radius))):
 			var distance : float = Vector2(converted_point.x - j , converted_point.y  - i).length()
 			if distance <= radius:
-				water_array[i][j] = max(0.0, water_array[i][j] - pow((1 - distance / radius), 0.3))
 				if water_array[i][j] < 0.001:
-					fire_array[i][j] = max(pow(1 - distance / radius, 0.3), fire_array[i][j])
-					ice_array[i][j] = max(0.0, ice_array[i][j] - fire_array[i][j])
+					fire_array[i][j] = max(pow(1 - distance / radius, 0.3), fire_array[i][j]) * floor_mask_array[i][j]
+					ice_array[i][j] = 0.0
 				image.set_pixel(j, i, Color(fire_array[i][j], ice_array[i][j], water_array[i][j]))
 
 func add_water(point : Vector2, radius : float) -> void:
@@ -88,7 +88,7 @@ func add_water(point : Vector2, radius : float) -> void:
 			var distance : float = Vector2(converted_point.x - j , converted_point.y  - i).length()
 			if distance <= radius:
 				if ice_array[i][j] < 0.001:
-					water_array[i][j] = max(pow(1 - distance / radius, 0.3), water_array[i][j])
+					water_array[i][j] = max(pow(1 - distance / radius, 0.3), water_array[i][j]) * floor_mask_array[i][j]
 					fire_array[i][j] = 0.0
 				image.set_pixel(j, i, Color(fire_array[i][j], ice_array[i][j], water_array[i][j]))
 
@@ -100,7 +100,7 @@ func add_ice(point : Vector2, radius : float) -> void:
 			var distance : float = Vector2(converted_point.x - j , converted_point.y  - i).length()
 			if distance <= radius:
 				if fire_array[i][j] < 0.01:
-					ice_array[i][j] = max(pow(1 - distance / radius, 0.3), ice_array[i][j])
+					ice_array[i][j] = max(pow(1 - distance / radius, 0.3), ice_array[i][j]) * floor_mask_array[i][j]
 					water_array[i][j] = 0.0
 				image.set_pixel(j, i, Color(fire_array[i][j], ice_array[i][j], water_array[i][j]))
 				
@@ -128,10 +128,16 @@ func init_for_room() -> void:
 		ice_array.append([])
 		fire_array.append([])
 		water_array.append([])
+		floor_mask_array.append([])
 		for j : int in range(array_size.x):
-			(ice_array[i] as Array).append(0)
-			(fire_array[i] as Array).append(0)
-			(water_array[i] as Array).append(0)
+			ice_array[i].append(0)
+			fire_array[i].append(0)
+			water_array[i].append(0)
+			if floor_map.get_cell_tile_data(0, rect.position + Vector2i(j, i) / resolution_factor):
+				floor_mask_array[i].append(1)
+			else:
+				floor_mask_array[i].append(0)
+			
 	effects.scale = floor_map.tile_set.tile_size / resolution_factor
 	effects.global_position = floor_map.to_global(floor_map.map_to_local(floor_map.get_used_rect().position)) - Vector2(floor_map.tile_set.tile_size / 2)
 	lighting.scale = floor_map.tile_set.tile_size / resolution_factor
