@@ -16,8 +16,8 @@
 [ext_resource type="PackedScene" uid="uid://d245vil1ujogo" path="res://items/knife_slash.tscn" id="13_yrken"]
 [ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="14_ljjej"]
 [ext_resource type="PackedScene" uid="uid://b3c3vg8q6e5k7" path="res://components/effect_container.tscn" id="15_csrq8"]
+[ext_resource type="Script" path="res://effects/fire.gd" id="17_126sm"]
 [ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="17_dp7c4"]
-[ext_resource type="Script" path="res://effects/fire_vulnerability.gd" id="18_dunkx"]
 [ext_resource type="Script" path="res://effects/add_heal_self_to_projectiles.gd" id="19_is5ut"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qptjs"]
@@ -148,8 +148,9 @@ take_collision_damage = false
 
 [node name="EffectContainer" parent="." instance=ExtResource("15_csrq8")]
 
-[node name="FireVulnerability" type="Node" parent="EffectContainer"]
-script = ExtResource("18_dunkx")
+[node name="FireInvulnerability" type="Node" parent="EffectContainer"]
+script = ExtResource("17_126sm")
+apply_immunity = true
 immunity = 1.0
 tick_damage = SubResource("Resource_2bf1k")
 

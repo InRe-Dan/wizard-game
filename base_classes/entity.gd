@@ -21,19 +21,16 @@ func _ready() -> void:
 	z_as_relative = false
 	z_index = 2
 	
-func _process(delta : float) -> void:
-	if dead:
-		queue_free()
-
-func _physics_process(delta: float) -> void:
-	pass
-
 func distribute_signal(event : Event) -> void:
-	
 	for child : Node in get_children():
 		if child as EntityComponent:
 			event = (child as EntityComponent).receive_signal(event)
+			if not event:
+				break
 
+	if not event:
+		return
+	
 	match event.type:
 		Event.types.inputmove:
 			var move : InputMoveEvent = event as InputMoveEvent
@@ -70,8 +67,9 @@ func distribute_signal(event : Event) -> void:
 				distribute_signal(DeathEvent.new())
 		event.types.death:
 			if last_hit_by:
-				last_hit_by.distribute_signal(HasKilledEvent.new(self))
-			dead = true
+				if is_instance_valid(last_hit_by):
+					last_hit_by.distribute_signal(HasKilledEvent.new(self))
+			queue_free()
 		event.types.try_heal:
 			var heal_event : TryHealEvent = event as TryHealEvent
 			health += heal_event.amount

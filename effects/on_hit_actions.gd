@@ -12,10 +12,11 @@ func handle_event(event : Event) -> Event:
 	if event.type == event.types.add_effect:
 		var add_event : AddEffectEvent = event as AddEffectEvent
 		if add_event is AddEffectEvent:
-			var effect : HitActionsEffect = add_event.effect as HitActionsEffect
-			for child : Node in effect.get_children():
-				child.reparent(self)
-			return null
+			if add_event.effect is HitActionsEffect:
+				var effect : HitActionsEffect = add_event.effect as HitActionsEffect
+				for child : Node in effect.get_children():
+					child.reparent(self)
+				return null
 
 	return event
 

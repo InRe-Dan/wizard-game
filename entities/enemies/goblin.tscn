@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://uag18b8s0jg4" path="res://components/dialogue_component.tscn" id="6_topu3"]
 [ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="7_h4u4r"]
 [ext_resource type="PackedScene" uid="uid://b3c3vg8q6e5k7" path="res://components/effect_container.tscn" id="8_t1y8k"]
-[ext_resource type="Script" path="res://effects/fire_vulnerability.gd" id="9_mp856"]
+[ext_resource type="Script" path="res://effects/fire.gd" id="9_mp856"]
 [ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="10_cbly1"]
 [ext_resource type="PackedScene" uid="uid://uajwl8rwegui" path="res://components/inventory.tscn" id="11_m2wjy"]
 [ext_resource type="PackedScene" uid="uid://d245vil1ujogo" path="res://items/knife_slash.tscn" id="12_jyaw7"]

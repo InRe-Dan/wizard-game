@@ -758,3 +758,11 @@ I feel a big refactor coming on for items, actions and effects, using Godot's re
 
 The first item - heal on kill - is extremely convoluted.
 The item requires that the projectile has an on-kill effect with a heal-target action. So when a projectile is created by an entity, the relevant heal-on-kill effect needs to add this on-kill effect with the heal action to the projectile.
+
+15/3/24
+
+There is a minor issue with this system - if a fireball with a heal on kill effect hits something and the resulting fire finishes it off, nothing happens. Its up for debate whether or not this should happen, but generally I think kills should be attributed to whoever hit the entity last (maybe up to a time limit). I won't change this for now, however.
+
+My FireVulnerability effect, which is in charge of fire buildup and damage, was originally meant to be called OnFire, and capture other OnFire effect additions to add to fire buildup. I should rename it and give it this behaviour now.
+This results in me needing a FireResistance effect to capture OnFire so that they are not added to the EventContainer. 
+And the problem is that if an entity that has Fire then has FireResistance, Fire will still intercept and stack effects before FireResistance negates them. Easiest way to deal with this is going to be bundling this information into the Fire Effect instead of having two different ones. No real detriment, easiest solution.

@@ -5,7 +5,6 @@ var use_sound : AudioStream = preload("res://assets/sounds/use_sound.wav")
 var dash_cooldown_timer : float = 0.0
 
 func _physics_process(delta: float) -> void:
-	super(delta)
 	dash_cooldown_timer -= delta
 
 func distribute_signal(event : Event) -> void:

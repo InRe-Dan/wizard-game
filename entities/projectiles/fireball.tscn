@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bn06fjm6xnu4i"]
+[gd_scene load_steps=19 format=3 uid="uid://bn06fjm6xnu4i"]
 
 [ext_resource type="Script" path="res://entities/projectiles/fireball.gd" id="1_q01i0"]
 [ext_resource type="Script" path="res://components/hitbox_component.gd" id="2_6h7iu"]
@@ -8,6 +8,8 @@
 [ext_resource type="Script" path="res://effects/death_actions.gd" id="6_y3ren"]
 [ext_resource type="Script" path="res://actions/spawn.gd" id="7_hyqr8"]
 [ext_resource type="PackedScene" uid="uid://cpidswdj0owvh" path="res://entities/projectiles/explosion.tscn" id="8_blnxr"]
+[ext_resource type="Script" path="res://actions/burn_secondary.gd" id="9_ctixm"]
+[ext_resource type="Script" path="res://effects/on_hit_actions.gd" id="9_ihinr"]
 [ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="9_oks0k"]
 
 [sub_resource type="Gradient" id="Gradient_b1x1k"]
@@ -80,6 +82,12 @@ script = ExtResource("6_y3ren")
 [node name="SpawnExplosion" type="Node" parent="EffectContainer/Explode"]
 script = ExtResource("7_hyqr8")
 entity = ExtResource("8_blnxr")
+
+[node name="HitActionsEffect" type="Node" parent="EffectContainer"]
+script = ExtResource("9_ihinr")
+
+[node name="BurnSecondaryAction" type="Node" parent="EffectContainer/HitActionsEffect"]
+script = ExtResource("9_ctixm")
 
 [node name="PhysicsHandler" parent="." instance=ExtResource("9_oks0k")]
 base_damping = 0.0
