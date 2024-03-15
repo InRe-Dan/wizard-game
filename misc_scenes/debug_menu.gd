@@ -53,3 +53,14 @@ func _on_tab_toggled(toggled_on: bool) -> void:
 	else:
 		$ScrollContainer.visible = true
 		$Tab.text = ">"
+
+
+func _on_pause_pressed() -> void:
+	get_tree().paused = not get_tree().paused
+
+
+func _on_override_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		get_tree().get_first_node_in_group("players").process_mode = Node.PROCESS_MODE_ALWAYS
+	else:
+		get_tree().get_first_node_in_group("players").process_mode = Node.PROCESS_MODE_INHERIT

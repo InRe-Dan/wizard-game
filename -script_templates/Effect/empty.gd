@@ -1,7 +1,9 @@
 extends Effect
 
 func _init() -> void:
-	pass
+	icon = null
+	effect_name = ""
+	effect_description = ""
 
 func _process(delta : float) -> void:
 	pass

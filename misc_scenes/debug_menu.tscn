@@ -39,6 +39,26 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Toggle Fullscreen"
 
+[node name="HBoxContainer5" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Pause" type="Button" parent="ScrollContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Pause"
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Override" type="CheckButton" parent="ScrollContainer/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Player pause
+override"
+alignment = 1
+
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -80,6 +100,8 @@ shortcut_feedback = false
 text = "<"
 
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer4/Fullscreen" to="." method="_on_fullscreen_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer5/Pause" to="." method="_on_pause_pressed"]
+[connection signal="toggled" from="ScrollContainer/VBoxContainer/HBoxContainer6/Override" to="." method="_on_override_toggled"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer/RegenButton" to="." method="_on_regen_button_pressed"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer2/KillButton" to="." method="_on_kill_button_pressed"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer3/Give" to="." method="_on_give_pressed"]

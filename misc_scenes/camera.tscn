@@ -65,6 +65,7 @@ atlas = ExtResource("6_l88bi")
 region = Rect2(2, 18, 28, 13)
 
 [node name="Camera" type="Camera2D" groups=["camera"]]
+process_mode = 3
 script = ExtResource("1_67e48")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
