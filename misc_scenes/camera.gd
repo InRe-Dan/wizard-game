@@ -7,11 +7,6 @@ extends Camera2D
 # https://gamedev.stackexchange.com/questions/1828/realistic-camera-screen-shake-from-explosion
 @export var shake_radius : float = 2
 
-@onready var health_label : Label = $UI/Health
-@onready var prompt_label : Label = $UI/Prompt
-@onready var item_info : Label = $UI/ItemInfo
-@onready var cooldown : TextureProgressBar = $UI/ItemCooldown
-
 var current_position: Vector2
 var destination_position: Vector2
 var is_shaking : bool = false
@@ -20,32 +15,6 @@ var shake_time_elapsed : float = 0.0
 
 func _ready() -> void:
 	current_position = global_position
-
-func _process(delta: float) -> void:
-	var player : Entity = get_tree().get_first_node_in_group("players") as Entity
-	if player:
-		health_label.text = "HP: " + str(player.health)
-		var inventory : InventoryComponent = player.get_children().filter(func f(x : Node) -> bool: return x is InventoryComponent).front()
-		if inventory:
-			var item : InventoryItem = inventory.get_selected()
-			if item:
-				item_info.text = ""
-				item_info.text += item.item_name + "\n"
-				if item.limited_use:
-					item_info.text += str(item.uses) + "/" + str(item.max_uses) + "\n"
-				else:
-					item_info.text += "Unlimited use\n"
-				item_info.text += item.description
-			else:
-				item_info.text = "Item: Nothing!"
-			cooldown.value = inventory.get_item_cooldown_progress()
-		else:
-			item_info.text = "Item: No inventory!"
-		var interact_component : CanInteractComponent = player.get_children().filter(func f(x : Node) -> bool: return x is CanInteractComponent).front()
-		if interact_component:
-			prompt_label.visible = interact_component.interactable_found()
-	else:
-		health_label.text = "HP: Dead!"
 
 func _physics_process(delta: float) -> void:
 	var target: Node2D = get_tree().get_first_node_in_group("players") as Node2D

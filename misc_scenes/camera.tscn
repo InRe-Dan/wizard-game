@@ -1,8 +1,9 @@
-[gd_scene load_steps=26 format=3 uid="uid://dkfutwmsr2tli"]
+[gd_scene load_steps=23 format=3 uid="uid://dkfutwmsr2tli"]
 
 [ext_resource type="Script" path="res://misc_scenes/camera.gd" id="1_67e48"]
 [ext_resource type="Shader" path="res://shaders/screen.gdshader" id="2_gcgr3"]
 [ext_resource type="FontFile" uid="uid://byo6fct4u77e6" path="res://assets/fonts/m3x6.ttf" id="3_cgkpt"]
+[ext_resource type="PackedScene" uid="uid://cdem0qwd86q7t" path="res://misc_scenes/player_ui.tscn" id="3_v6rg3"]
 [ext_resource type="Script" path="res://misc_scripts/frame_counter.gd" id="4_dqccr"]
 [ext_resource type="Texture2D" uid="uid://du436jkuxg0ah" path="res://assets/ui/keyboard_keys.png" id="5_nlf4r"]
 [ext_resource type="Texture2D" uid="uid://0yo7q0qi576d" path="res://assets/ui/keyboard_extras.png" id="6_l88bi"]
@@ -31,27 +32,6 @@ font_color = Color(0.980392, 0.980392, 0.980392, 0.196078)
 [sub_resource type="LabelSettings" id="LabelSettings_1xakj"]
 font = ExtResource("3_cgkpt")
 font_color = Color(0.980392, 0.980392, 0.980392, 0.196078)
-
-[sub_resource type="LabelSettings" id="LabelSettings_pb07d"]
-line_spacing = -4.0
-font = ExtResource("3_cgkpt")
-font_color = Color(1, 1, 1, 0.52549)
-
-[sub_resource type="LabelSettings" id="LabelSettings_aq4ru"]
-line_spacing = -4.0
-font = ExtResource("3_cgkpt")
-font_color = Color(1, 1, 1, 0.203922)
-
-[sub_resource type="Gradient" id="Gradient_owpxs"]
-offsets = PackedFloat32Array(0, 0.657143, 1)
-colors = PackedColorArray(1, 1, 1, 0.505882, 1, 1, 1, 0.309804, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_d0hgj"]
-gradient = SubResource("Gradient_owpxs")
-width = 6
-height = 6
-fill = 1
-fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="LabelSettings" id="LabelSettings_rbcjx"]
 font = ExtResource("3_cgkpt")
@@ -104,6 +84,12 @@ mouse_filter = 2
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 2
 
+[node name="PlayerUI" parent="UI" instance=ExtResource("3_v6rg3")]
+offset_left = 25.0
+offset_top = 95.0
+offset_right = 65.0
+offset_bottom = 135.0
+
 [node name="VersionNumber" type="Label" parent="UI"]
 offset_left = 453.0
 offset_top = -4.0
@@ -120,50 +106,6 @@ offset_bottom = 9.0
 text = "fps: err"
 label_settings = SubResource("LabelSettings_1xakj")
 script = ExtResource("4_dqccr")
-
-[node name="Health" type="Label" parent="UI"]
-offset_left = 157.0
-offset_top = 149.0
-offset_right = 292.0
-offset_bottom = 162.0
-text = "HP: "
-label_settings = SubResource("LabelSettings_pb07d")
-
-[node name="Prompt" type="Label" parent="UI"]
-offset_left = 157.0
-offset_top = 157.0
-offset_right = 234.0
-offset_bottom = 170.0
-text = "Press F to interact
-"
-label_settings = SubResource("LabelSettings_pb07d")
-
-[node name="ItemInfo" type="Label" parent="UI"]
-anchors_preset = -1
-anchor_left = -1.261
-anchor_top = 4.107
-anchor_right = -1.261
-anchor_bottom = 4.107
-offset_left = 762.28
-offset_top = -943.89
-offset_right = 887.28
-offset_bottom = -881.89
-text = "Item: Item Name
-Uses: 3/3
-This is where the description goes, but it hopefully won't use this much space."
-label_settings = SubResource("LabelSettings_aq4ru")
-autowrap_mode = 3
-
-[node name="ItemCooldown" type="TextureProgressBar" parent="UI"]
-offset_left = 149.0
-offset_top = 170.0
-offset_right = 155.0
-offset_bottom = 176.0
-max_value = 1.0
-step = 0.0
-value = 0.25
-fill_mode = 4
-texture_progress = SubResource("GradientTexture2D_d0hgj")
 
 [node name="DebugMenu" parent="UI" instance=ExtResource("7_a1mme")]
 anchors_preset = -1
