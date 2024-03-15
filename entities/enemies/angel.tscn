@@ -1,9 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://bbwrd3v7gvwa7"]
+[gd_scene load_steps=25 format=3 uid="uid://bbwrd3v7gvwa7"]
 
 [ext_resource type="Script" path="res://entities/enemies/angel.gd" id="1_avhs3"]
 [ext_resource type="PackedScene" uid="uid://c03pfmwpgtofc" path="res://components/simple_graphics_component.tscn" id="2_2quqi"]
 [ext_resource type="SpriteFrames" uid="uid://b75orqrqxkdeu" path="res://resources/angel_sprite_frames.tres" id="3_mc3dn"]
+[ext_resource type="Script" path="res://effects/death_actions.gd" id="11_3ea41"]
 [ext_resource type="PackedScene" uid="uid://dm7txjk84pxhw" path="res://components/enemy_seeker_ai_component.tscn" id="11_76e7k"]
+[ext_resource type="Script" path="res://actions/spawn_particles.gd" id="12_krwbi"]
 [ext_resource type="PackedScene" uid="uid://c867pju6atw7e" path="res://components/hurtbox_component.tscn" id="12_scnas"]
 [ext_resource type="PackedScene" uid="uid://uag18b8s0jg4" path="res://components/dialogue_component.tscn" id="13_wylbv"]
 [ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="14_4u08n"]
@@ -34,6 +36,50 @@ damage = 1
 damage_type = 1
 knockback_type = 1
 knockback_velocity = 0.0
+
+[sub_resource type="Gradient" id="Gradient_c41mo"]
+offsets = PackedFloat32Array(0.00819672, 1)
+colors = PackedColorArray(0.396889, 0.396889, 0.396889, 1, 0.637843, 0.637843, 0.637843, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_60qux"]
+gradient = SubResource("Gradient_c41mo")
+
+[sub_resource type="Curve" id="Curve_ipq4l"]
+min_value = -200.0
+max_value = 200.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_wlgo3"]
+curve = SubResource("Curve_ipq4l")
+
+[sub_resource type="Curve" id="Curve_n6ddx"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_tev1j"]
+curve = SubResource("Curve_n6ddx")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_v8hnj"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 12.0
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, -1, 0)
+spread = 180.0
+initial_velocity_min = 30.0
+initial_velocity_max = 50.0
+gravity = Vector3(0, 0, 0)
+linear_accel_curve = SubResource("CurveTexture_wlgo3")
+damping_min = 50.0
+damping_max = 100.0
+scale_min = 2.0
+scale_max = 2.0
+scale_over_velocity_max = 50.0
+scale_over_velocity_curve = SubResource("CurveTexture_tev1j")
+color = Color(1, 1, 1, 0.843137)
+color_initial_ramp = SubResource("GradientTexture1D_60qux")
 
 [node name="AngelEntity" type="CharacterBody2D" groups=["enemies", "npcs"]]
 collision_layer = 4
@@ -83,3 +129,18 @@ script = ExtResource("16_22jub")
 seconds_threshold = 0.2
 immunity = 0.25
 tick_damage = SubResource("Resource_86q0u")
+
+[node name="DeathActionsEffect" type="Node" parent="EffectContainer"]
+script = ExtResource("11_3ea41")
+
+[node name="SpawnParticlesAction" type="Node" parent="EffectContainer/DeathActionsEffect" node_paths=PackedStringArray("particles")]
+script = ExtResource("12_krwbi")
+particles = NodePath("DeathParticles")
+
+[node name="DeathParticles" type="GPUParticles2D" parent="EffectContainer/DeathActionsEffect/SpawnParticlesAction"]
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_v8hnj")
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0

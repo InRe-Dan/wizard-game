@@ -754,7 +754,7 @@ Many of these would benefit from knowing whether or not an entity is a projectil
 The only thing that needs a unique solution is projectiles knowing when they have killed something. This might be easily achieved by having entites track what entity dealt damage to them last, and giving them a "Killed Entity" event before dying.
 I see some potential issues with the entity technically still being alive when all of this happens, but I will deal with those as I get to them - potentially by running code only when the entity is actually freed?
 
-I feel a big refactor coming on for items, actions and effects, using Godot's resource system. It's been constantly recommended to me by tutorials and forums, but I was able to make to without it. My issue now is cleanly defining enemies, projectiles, attacks and items without having one or two files for each one. Will have to think on it.
+I feel a big refactor being needed, actions and effects, using Godot's resource system. It's been constantly recommended to me by tutorials and forums, but I was able to make to without it. My issue now is cleanly defining enemies, projectiles, attacks and items without having one or two files for each one. Will have to think on it.
 
 The first item - heal on kill - is extremely convoluted.
 The item requires that the projectile has an on-kill effect with a heal-target action. So when a projectile is created by an entity, the relevant heal-on-kill effect needs to add this on-kill effect with the heal action to the projectile.
