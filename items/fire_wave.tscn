@@ -1,12 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://1oy1owh5aweh"]
+[gd_scene load_steps=6 format=3 uid="uid://1oy1owh5aweh"]
 
 [ext_resource type="Script" path="res://base_classes/inventory_item.gd" id="1_jjxwt"]
 [ext_resource type="Script" path="res://actions/shoot_projectile.gd" id="2_3xbpu"]
+[ext_resource type="Resource" uid="uid://j0ou30rhrq1q" path="res://resources/items/fire_wave.tres" id="2_xt0th"]
 [ext_resource type="PackedScene" uid="uid://baqfdpdkjx0ut" path="res://entities/projectiles/fire_wave.tscn" id="3_hs2sq"]
 [ext_resource type="Script" path="res://actions/cooldown.gd" id="4_vebl0"]
 
 [node name="FireWave" type="Node"]
 script = ExtResource("1_jjxwt")
+resource = ExtResource("2_xt0th")
 
 [node name="Node" type="Node" parent="."]
 script = ExtResource("2_3xbpu")

@@ -1,15 +1,15 @@
 class_name InventoryComponent extends EntityComponent
 
+@export var starting_items : Array[ItemResource]
+
 var selected : int = 0
 
 @onready var active : Node = $Active
 @onready var consumed : Node = $Consumed
 
 func _ready() -> void:
-	for node : Node in get_children():
-		if node is InventoryItem:
-			remove_child(node)
-			active.add_child(node)
+	for resource : ItemResource in starting_items:
+		active.add_child(resource.make_item())
 
 func get_selected() -> InventoryItem:
 	if active.get_child_count() == 0:

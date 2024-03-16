@@ -6,8 +6,8 @@ var item_to_give : InventoryItem
 
 func _ready() -> void:
 	item_to_give = item.instantiate()
-	$ItemSprite.texture = item_to_give.item_icon
-	$PointLight2D.color = item_to_give.pickup_light_color
+	$ItemSprite.texture = item_to_give.resource.inventory_icon
+	$PointLight2D.color = item_to_give.resource.glow
 
 func distribute_signal(event : Event) -> void:
 	if event.type == event.types.been_interacted:

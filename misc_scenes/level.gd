@@ -9,13 +9,12 @@ class_name Level extends Node2D
 @export var min_enemies_per_room : int = 0
 @export var max_enemies_per_room : int = 3
 @export_category("Item generation")
-@export var item_list : Array[PackedScene]
+@export var item_list : Array[ItemResource]
 @export var min_items_per_room : int = 0
 @export var max_items_per_room : int = 1
 
 @onready var floor : TileMap = $Floor
 @onready var walls : TileMap = $Walls
-@onready var item_pickup_scene : PackedScene = preload("res://entities/item_pickup.tscn")
 
 class Room extends RefCounted:
 	func _init(rect : Rect2i) -> void:
@@ -46,10 +45,10 @@ func populate_room(room : Room) -> void:
 		enemies -= 1
 	while items > 0:
 		var pos : Vector2i = positions.pop_front()
-		var pickup : ItemPickupEntity = item_pickup_scene.instantiate()
-		pickup.item = item_list.pick_random()
-		pickup.global_position = floor.to_global(floor.map_to_local(pos))
-		add_child(pickup)
+		# var pickup : ItemPickupEntity = item_pickup_scene.instantiate()
+		# pickup.item = item_list.pick_random()
+		# pickup.global_position = floor.to_global(floor.map_to_local(pos))
+		# add_child(pickup)
 		items -= 1
 
 func set_floor(v : Vector2i) -> void:

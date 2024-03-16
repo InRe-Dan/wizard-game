@@ -766,3 +766,13 @@ There is a minor issue with this system - if a fireball with a heal on kill effe
 My FireVulnerability effect, which is in charge of fire buildup and damage, was originally meant to be called OnFire, and capture other OnFire effect additions to add to fire buildup. I should rename it and give it this behaviour now.
 This results in me needing a FireResistance effect to capture OnFire so that they are not added to the EventContainer. 
 And the problem is that if an entity that has Fire then has FireResistance, Fire will still intercept and stack effects before FireResistance negates them. Easiest way to deal with this is going to be bundling this information into the Fire Effect instead of having two different ones. No real detriment, easiest solution.
+
+16/3/24
+
+I want to start refactoring active attack items and passive buff items to get their data from a resource, so that actions and effects can look up these attributes in the item's resource. Items only need to store references to these resources, and they will not be dupliicates of eachother.
+
+This lets me easily tag items with any attribute that I want using their resources, and I can autogenerate pickups, descriptions, level gen information and UI in the item's resource rather than in the actual scene for the item. In the resource, I will also have a way to instantiate items directly.
+
+This feels like a pretty significant upgrade to my codebase in terms of performance and being able to define everything as a resource instead of a packed entity, so I'm going to extend this idea to Entities in general and effects, giving me better metadata and type safety.
+
+While I was reimplementing item spawning, Godot corrupted all my ItemResource files and all the scenes that used them, so I had to delete the resources and use a text editor to edit the scenes to fix them myself. Hope that a rollback is not necessary.

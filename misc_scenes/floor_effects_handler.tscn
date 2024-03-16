@@ -127,7 +127,7 @@ texture = SubResource("GradientTexture2D_qvylg")
 centered = false
 
 [node name="Lighting" type="Sprite2D" parent="."]
-z_index = 4
+z_index = 7
 z_as_relative = false
 texture_filter = 2
 material = SubResource("ShaderMaterial_hfvbw")

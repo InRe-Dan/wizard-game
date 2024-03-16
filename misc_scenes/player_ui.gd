@@ -25,13 +25,14 @@ func populate_icons(effects : Array) -> void:
 func _process(delta: float) -> void:
 	var player : Entity = get_tree().get_first_node_in_group("players") as Entity
 	if player:
+		health_label.text = "HP: " + str(player.health)
 		var inventory : InventoryComponent = player.get_children().filter(func f(x : Node) -> bool: return x is InventoryComponent).front()
 		if inventory:
 			var item : InventoryItem = inventory.get_selected()
 			if item:
 				item_info.text = ""
-				item_info.text += item.item_name + "\n"
-				if item.limited_use:
+				item_info.text += item.resource.item_name + "\n"
+				if item.resource.limited_use:
 					item_info.text += str(item.uses) + "/" + str(item.max_uses) + "\n"
 				else:
 					item_info.text += "Unlimited use\n"
