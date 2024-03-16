@@ -6,8 +6,8 @@ func _init(action : Action = null) -> void:
 	
 func handle_event(event : Event) -> Event:
 	if event.type == event.types.death:
-		for child : Action in get_children():
-			child.do(get_parent().parent)
+		for child : Node in get_children():
+			(child as Action).do(get_parent().parent)
 	if event.type == event.types.add_effect:
 		var add_event : AddEffectEvent = event as AddEffectEvent
 		if add_event.effect is DeathActionsEffect:

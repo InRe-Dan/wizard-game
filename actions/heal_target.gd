@@ -4,10 +4,13 @@ class_name HealTargetAction extends Action
 @export var amount : int = 1
 @export var target : Entity = null
 
+
+
 func _init(heal_target : Entity = null) -> void:
 	if not target:
 		if heal_target:
 			target = heal_target
+	
 
 func _ready() -> void:
 	description = "Heals another entity"

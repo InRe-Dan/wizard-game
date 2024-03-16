@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bent3fo2kwsvd"]
+[gd_scene load_steps=21 format=3 uid="uid://bent3fo2kwsvd"]
 
 [ext_resource type="Script" path="res://base_classes/entity.gd" id="1_oen2d"]
 [ext_resource type="PackedScene" uid="uid://c03pfmwpgtofc" path="res://components/simple_graphics_component.tscn" id="2_nino7"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="10_cbly1"]
 [ext_resource type="Script" path="res://effects/death_actions.gd" id="11_2o7lh"]
 [ext_resource type="Script" path="res://actions/spawn_particles.gd" id="12_affp8"]
+[ext_resource type="PackedScene" uid="uid://drax5ptymlccj" path="res://particles/death_particles.tscn" id="13_10h3r"]
 [ext_resource type="PackedScene" uid="uid://uajwl8rwegui" path="res://components/inventory.tscn" id="13_d7ps5"]
 [ext_resource type="Resource" uid="uid://bnuiiw0qvuwwn" path="res://resources/items/knife.tres" id="14_5d0en"]
 
@@ -38,50 +39,6 @@ damage = 2
 damage_type = 1
 knockback_type = 1
 knockback_velocity = 0.0
-
-[sub_resource type="Gradient" id="Gradient_783ov"]
-offsets = PackedFloat32Array(0.00819672, 1)
-colors = PackedColorArray(0.396889, 0.396889, 0.396889, 1, 0.637843, 0.637843, 0.637843, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_3tqnp"]
-gradient = SubResource("Gradient_783ov")
-
-[sub_resource type="Curve" id="Curve_a7mje"]
-min_value = -200.0
-max_value = 200.0
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_nhyi4"]
-curve = SubResource("Curve_a7mje")
-
-[sub_resource type="Curve" id="Curve_y80hs"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_lfc0r"]
-curve = SubResource("Curve_y80hs")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bpyjj"]
-particle_flag_disable_z = true
-emission_shape = 1
-emission_sphere_radius = 12.0
-angle_min = -720.0
-angle_max = 720.0
-direction = Vector3(0, -1, 0)
-spread = 180.0
-initial_velocity_min = 30.0
-initial_velocity_max = 50.0
-gravity = Vector3(0, 0, 0)
-linear_accel_curve = SubResource("CurveTexture_nhyi4")
-damping_min = 50.0
-damping_max = 100.0
-scale_min = 2.0
-scale_max = 2.0
-scale_over_velocity_max = 50.0
-scale_over_velocity_curve = SubResource("CurveTexture_lfc0r")
-color = Color(1, 1, 1, 0.843137)
-color_initial_ramp = SubResource("GradientTexture1D_3tqnp")
 
 [node name="Goblin" type="CharacterBody2D" groups=["enemies", "npcs"]]
 collision_layer = 4
@@ -131,6 +88,7 @@ lifetime = 3.0
 
 [node name="FireVulnerability" type="Node" parent="EffectContainer"]
 script = ExtResource("9_mp856")
+apply_immunity = null
 seconds_threshold = 0.2
 immunity = 0.25
 tick_damage = SubResource("Resource_8xrkf")
@@ -138,17 +96,9 @@ tick_damage = SubResource("Resource_8xrkf")
 [node name="DeathActionsEffect" type="Node" parent="EffectContainer"]
 script = ExtResource("11_2o7lh")
 
-[node name="SpawnParticlesAction" type="Node" parent="EffectContainer/DeathActionsEffect" node_paths=PackedStringArray("particles")]
+[node name="SpawnParticlesAction2" type="Node" parent="EffectContainer/DeathActionsEffect"]
 script = ExtResource("12_affp8")
-particles = NodePath("DeathParticles")
-
-[node name="DeathParticles" type="GPUParticles2D" parent="EffectContainer/DeathActionsEffect/SpawnParticlesAction"]
-emitting = false
-amount = 50
-process_material = SubResource("ParticleProcessMaterial_bpyjj")
-lifetime = 2.0
-one_shot = true
-explosiveness = 1.0
+particles = ExtResource("13_10h3r")
 
 [node name="Inventory" parent="." instance=ExtResource("13_d7ps5")]
 starting_items = Array[Resource("res://resources/custom_bases/item_resource.gd")]([ExtResource("14_5d0en")])
