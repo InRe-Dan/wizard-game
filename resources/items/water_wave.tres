@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=4 format=3 uid="uid://dictkhs5wsiak"]
+
+[ext_resource type="PackedScene" uid="uid://jie2026812kn" path="res://items/water_wave.tscn" id="1_cg0ad"]
+[ext_resource type="Script" path="res://resources/custom_bases/item_resource.gd" id="1_mo4qt"]
+[ext_resource type="Texture2D" uid="uid://dvwbuayyrbcye" path="res://assets/water_icon.png" id="2_rqygv"]
+
+[resource]
+script = ExtResource("1_mo4qt")
+item_name = "Water Wave"
+element = 2
+type = 0
+limited_use = true
+item_durability = 5
+inventory_icon = ExtResource("2_rqygv")
+glow = Color(0, 0.337255, 1, 1)
+_item_scene = ExtResource("1_cg0ad")

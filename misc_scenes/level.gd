@@ -16,6 +16,8 @@ class_name Level extends Node2D
 @onready var floor : TileMap = $Floor
 @onready var walls : TileMap = $Walls
 
+var item_pickup_scene : PackedScene = preload("res://entities/item_pickup.tscn")
+
 class Room extends RefCounted:
 	func _init(rect : Rect2i) -> void:
 		self.rect = rect
@@ -45,10 +47,10 @@ func populate_room(room : Room) -> void:
 		enemies -= 1
 	while items > 0:
 		var pos : Vector2i = positions.pop_front()
-		# var pickup : ItemPickupEntity = item_pickup_scene.instantiate()
-		# pickup.item = item_list.pick_random()
-		# pickup.global_position = floor.to_global(floor.map_to_local(pos))
-		# add_child(pickup)
+		var pickup : ItemPickupEntity = item_pickup_scene.instantiate()
+		pickup.item = item_list.pick_random()
+		pickup.global_position = floor.to_global(floor.map_to_local(pos))
+		add_child(pickup)
 		items -= 1
 
 func set_floor(v : Vector2i) -> void:

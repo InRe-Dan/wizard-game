@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b85ijfyowcx7n"]
+[gd_scene load_steps=14 format=3 uid="uid://b85ijfyowcx7n"]
 
 [ext_resource type="TileSet" uid="uid://p8b656ms37q" path="res://resources/floor.tres" id="1_1cp4m"]
 [ext_resource type="Script" path="res://misc_scenes/level.gd" id="1_dod73"]
@@ -6,6 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://bbwrd3v7gvwa7" path="res://entities/enemies/angel.tscn" id="2_3vym5"]
 [ext_resource type="PackedScene" uid="uid://bent3fo2kwsvd" path="res://entities/enemies/goblin.tscn" id="3_1x2oe"]
 [ext_resource type="PackedScene" uid="uid://dw5mqad2mfl2a" path="res://entities/enemies/ice_zombie.tscn" id="4_fm3eo"]
+[ext_resource type="Resource" uid="uid://comxxliqq6s8g" path="res://resources/items/firebolt.tres" id="5_jsrx3"]
+[ext_resource type="Resource" uid="uid://bv4lrl4ookqh4" path="res://resources/items/ice_wave.tres" id="6_gjijd"]
+[ext_resource type="Resource" uid="uid://b34wl3rb20hbn" path="res://resources/items/fire_wave.tres" id="7_i1ey6"]
+[ext_resource type="Resource" uid="uid://dictkhs5wsiak" path="res://resources/items/water_wave.tres" id="8_voof8"]
+[ext_resource type="Resource" uid="uid://du08ic7x2a6a8" path="res://resources/items/flame_circle.tres" id="9_v2ant"]
+[ext_resource type="Resource" uid="uid://q26t08cme7jm" path="res://resources/items/waterbolt.tres" id="10_ba4jq"]
+[ext_resource type="Resource" uid="uid://c86lxyknu8xrs" path="res://resources/items/flame_blast.tres" id="11_nbup2"]
 
 [node name="Level" type="Node2D" groups=["level"]]
 script = ExtResource("1_dod73")
@@ -13,6 +20,8 @@ room_size = Vector2i(21, 13)
 door_width = 5
 wall_padding = 1
 enemy_list = Array[PackedScene]([ExtResource("3_1x2oe"), ExtResource("2_3vym5"), ExtResource("4_fm3eo")])
+item_list = Array[Resource("res://resources/custom_bases/item_resource.gd")]([ExtResource("5_jsrx3"), ExtResource("6_gjijd"), ExtResource("7_i1ey6"), ExtResource("8_voof8"), ExtResource("9_v2ant"), ExtResource("10_ba4jq"), ExtResource("11_nbup2")])
+max_items_per_room = 3
 
 [node name="Floor" type="TileMap" parent="."]
 z_as_relative = false

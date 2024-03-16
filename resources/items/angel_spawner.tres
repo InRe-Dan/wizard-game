@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=4 format=3 uid="uid://brvpdy073ytrk"]
+
+[ext_resource type="PackedScene" uid="uid://hvjd5t2ulhhb" path="res://items/spawn_angel.tscn" id="1_b72vc"]
+[ext_resource type="Script" path="res://resources/custom_bases/item_resource.gd" id="1_uet8s"]
+[ext_resource type="Texture2D" uid="uid://dithi6lbv08ne" path="res://assets/placeholder_icon.png" id="2_1rtqj"]
+
+[resource]
+script = ExtResource("1_uet8s")
+item_name = "Angel Spawner"
+element = 3
+type = 3
+limited_use = false
+item_durability = 10
+inventory_icon = ExtResource("2_1rtqj")
+glow = Color(1, 1, 1, 1)
+_item_scene = ExtResource("1_b72vc")

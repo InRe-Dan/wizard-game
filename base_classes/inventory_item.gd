@@ -4,12 +4,13 @@ class_name InventoryItem extends Node
 var resource : ItemResource
 
 var description : String
-var uses : int = 3
+var uses : int
 var awaited_signal_count : int
 var expected_cooldown : float
 var time_since_used : float = INF
 
 func _ready() -> void:
+	uses = resource.item_durability
 	expected_cooldown = 0
 	for action : Action in get_children():
 		action.finished.connect(_on_action_finish)

@@ -7,8 +7,6 @@
 
 [node name="DeathBlast" type="Node"]
 script = ExtResource("1_qv2u6")
-item_name = "Flame Blast"
-pickup_light_color = Color(1, 0.415686, 0, 1)
 
 [node name="ShootProjectileAction" type="Node" parent="."]
 script = ExtResource("2_yqwyu")

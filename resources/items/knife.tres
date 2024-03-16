@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=4 format=3 uid="uid://bnuiiw0qvuwwn"]
+
+[ext_resource type="PackedScene" uid="uid://d245vil1ujogo" path="res://items/knife_slash.tscn" id="1_1dhex"]
+[ext_resource type="Script" path="res://resources/custom_bases/item_resource.gd" id="1_bddyc"]
+[ext_resource type="Texture2D" uid="uid://dithi6lbv08ne" path="res://assets/placeholder_icon.png" id="1_fd6xu"]
+
+[resource]
+script = ExtResource("1_bddyc")
+item_name = "Knife"
+element = 3
+type = 1
+limited_use = false
+item_durability = 10
+inventory_icon = ExtResource("1_fd6xu")
+glow = Color(1, 1, 1, 1)
+_item_scene = ExtResource("1_1dhex")

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=4 format=3 uid="uid://du08ic7x2a6a8"]
+
+[ext_resource type="PackedScene" uid="uid://bx3pxaj88kom" path="res://items/fire_circle.tscn" id="1_cmdcs"]
+[ext_resource type="Script" path="res://resources/custom_bases/item_resource.gd" id="1_ig04e"]
+[ext_resource type="Texture2D" uid="uid://beta740l86jnj" path="res://assets/fire_icon.png" id="2_68tkg"]
+
+[resource]
+script = ExtResource("1_ig04e")
+item_name = "Circle of Flame"
+element = 0
+type = 0
+limited_use = true
+item_durability = 1
+inventory_icon = ExtResource("2_68tkg")
+glow = Color(1, 1, 1, 1)
+_item_scene = ExtResource("1_cmdcs")

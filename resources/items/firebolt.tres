@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=4 format=3 uid="uid://comxxliqq6s8g"]
+
+[ext_resource type="Script" path="res://resources/custom_bases/item_resource.gd" id="1_cwujh"]
+[ext_resource type="PackedScene" uid="uid://djl7t4qk4315m" path="res://items/fire_ball.tscn" id="1_gahid"]
+[ext_resource type="Texture2D" uid="uid://beta740l86jnj" path="res://assets/fire_icon.png" id="2_f6tnj"]
+
+[resource]
+script = ExtResource("1_cwujh")
+item_name = "Firebolt"
+element = 0
+type = 0
+limited_use = false
+item_durability = 10
+inventory_icon = ExtResource("2_f6tnj")
+glow = Color(1, 0.309804, 0, 1)
+_item_scene = ExtResource("1_gahid")

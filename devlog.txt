@@ -775,4 +775,5 @@ This lets me easily tag items with any attribute that I want using their resourc
 
 This feels like a pretty significant upgrade to my codebase in terms of performance and being able to define everything as a resource instead of a packed entity, so I'm going to extend this idea to Entities in general and effects, giving me better metadata and type safety.
 
-While I was reimplementing item spawning, Godot corrupted all my ItemResource files and all the scenes that used them, so I had to delete the resources and use a text editor to edit the scenes to fix them myself. Hope that a rollback is not necessary.
+While I was reimplementing item spawning, Godot corrupted all my ItemResource files and all the scenes that used them, so I had to delete the resources and use a text editor to edit the scenes to fix them myself. Hope that a rollback is not necessary. 
+It now detected "infinite recursion" because of a cyclic dependency that was no longer visible in the editor - had to go to tscn files to resolve again.

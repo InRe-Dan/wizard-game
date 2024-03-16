@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://entities/item_pickup.gd" id="1_kyvr7"]
 [ext_resource type="PackedScene" uid="uid://c867pju6atw7e" path="res://components/hurtbox_component.tscn" id="2_iolof"]
-[ext_resource type="PackedScene" uid="uid://crj0qfagtt6ed" path="res://items/death_blast.tscn" id="2_ovui0"]
 [ext_resource type="PackedScene" uid="uid://dwqy3vhl4qyw1" path="res://components/interactable_component.tscn" id="2_sun53"]
 [ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="3_bgrho"]
 
@@ -28,7 +27,6 @@ fill_from = Vector2(0.5, 0.5)
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_kyvr7")
-item = ExtResource("2_ovui0")
 entity_name = "Item Pickup"
 spawn_velocity = 50.0
 health = 100000

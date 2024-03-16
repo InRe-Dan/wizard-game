@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=4 format=3 uid="uid://bv4lrl4ookqh4"]
+
+[ext_resource type="PackedScene" uid="uid://bs0yjnt7cccaj" path="res://items/ice_wave.tscn" id="1_oof27"]
+[ext_resource type="Script" path="res://resources/custom_bases/item_resource.gd" id="1_w2007"]
+[ext_resource type="Texture2D" uid="uid://x15b7y2g8ert" path="res://assets/ice_icon.png" id="2_nofjc"]
+
+[resource]
+script = ExtResource("1_w2007")
+item_name = "Frost Wave"
+element = 1
+type = 0
+limited_use = true
+item_durability = 5
+inventory_icon = ExtResource("2_nofjc")
+glow = Color(0, 1, 1, 1)
+_item_scene = ExtResource("1_oof27")

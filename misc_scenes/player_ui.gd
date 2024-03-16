@@ -33,7 +33,7 @@ func _process(delta: float) -> void:
 				item_info.text = ""
 				item_info.text += item.resource.item_name + "\n"
 				if item.resource.limited_use:
-					item_info.text += str(item.uses) + "/" + str(item.max_uses) + "\n"
+					item_info.text += str(item.uses) + "/" + str(item.resource.item_durability) + "\n"
 				else:
 					item_info.text += "Unlimited use\n"
 				item_info.text += item.description

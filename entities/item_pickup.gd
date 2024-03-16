@@ -1,11 +1,11 @@
 class_name ItemPickupEntity extends Entity
 
-@export var item : PackedScene
+@export var item : ItemResource
 
 var item_to_give : InventoryItem
 
 func _ready() -> void:
-	item_to_give = item.instantiate()
+	item_to_give = item.make_item()
 	$ItemSprite.texture = item_to_give.resource.inventory_icon
 	$PointLight2D.color = item_to_give.resource.glow
 
