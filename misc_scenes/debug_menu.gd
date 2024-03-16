@@ -10,9 +10,10 @@ func _ready() -> void:
 	var dir : DirAccess = DirAccess.open(item_directory)
 	if dir:
 		var files : PackedStringArray = dir.get_files()
+		files.sort()
 		var index : int = 0
 		for filename : String in files:
-			if filename.ends_with(".tscn"):
+			if filename.ends_with(".tres"):
 				item_select.add_item(filename.trim_suffix(".tscn"), index)
 				item_map[filename.trim_suffix(".tscn")] = load(item_directory + "/" + filename)
 				index += 1
@@ -35,7 +36,9 @@ func _on_kill_button_pressed() -> void:
 
 
 func _on_give_pressed() -> void:
-	(get_tree().get_first_node_in_group("players") as Entity).give(item_map[item_select.get_item_text(item_select.get_selected_id())].instantiate())
+	var player : Entity = get_tree().get_first_node_in_group("players")
+	var item : InventoryItem = (item_map[item_select.get_item_text(item_select.get_selected_id())] as ItemResource).make_item()
+	player.give(item)
 
 
 func _on_fullscreen_pressed() -> void:

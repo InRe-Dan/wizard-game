@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cpr0fc00qielw"]
+[gd_scene load_steps=10 format=3 uid="uid://cpr0fc00qielw"]
 
 [ext_resource type="Script" path="res://entities/item_pickup.gd" id="1_kyvr7"]
 [ext_resource type="PackedScene" uid="uid://c867pju6atw7e" path="res://components/hurtbox_component.tscn" id="2_iolof"]

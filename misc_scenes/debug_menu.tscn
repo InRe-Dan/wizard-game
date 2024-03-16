@@ -17,7 +17,7 @@ offset_bottom = 21.0
 theme = ExtResource("1_y6vbq")
 alignment = 2
 script = ExtResource("2_7yxgm")
-item_directory = "res://items"
+item_directory = "res://resources/items"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 custom_minimum_size = Vector2(100, 100)
