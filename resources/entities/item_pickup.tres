@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EntityResource" load_steps=3 format=3 uid="uid://b7xfhjcueecl2"]
+
+[ext_resource type="Script" path="res://resources/custom_bases/entity_resource.gd" id="1_c4r0l"]
+[ext_resource type="PackedScene" uid="uid://cpr0fc00qielw" path="res://entities/item_pickup.tscn" id="1_dv1e6"]
+
+[resource]
+script = ExtResource("1_c4r0l")
+entity_name = "Item Pickup"
+spawn_velocity = 0.0
+start_health = 999999
+team = 2
+entity_type = 5
+affinity = 0
+_entity_scene = ExtResource("1_dv1e6")

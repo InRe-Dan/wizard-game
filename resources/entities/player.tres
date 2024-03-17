@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EntityResource" load_steps=3 format=3 uid="uid://i4iims3m80tg"]
+
+[ext_resource type="PackedScene" uid="uid://cu4jaf5f1nlxo" path="res://entities/player.tscn" id="1_g7ydq"]
+[ext_resource type="Script" path="res://resources/custom_bases/entity_resource.gd" id="1_hfb1o"]
+
+[resource]
+script = ExtResource("1_hfb1o")
+entity_name = "Player"
+spawn_velocity = 0.0
+start_health = 50
+team = 0
+entity_type = -1
+affinity = 0
+_entity_scene = ExtResource("1_g7ydq")

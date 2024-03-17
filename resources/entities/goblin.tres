@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EntityResource" load_steps=3 format=3 uid="uid://bsc4kue06nddv"]
+
+[ext_resource type="PackedScene" uid="uid://bent3fo2kwsvd" path="res://entities/enemies/goblin.tscn" id="1_ousrh"]
+[ext_resource type="Script" path="res://resources/custom_bases/entity_resource.gd" id="1_umc7s"]
+
+[resource]
+script = ExtResource("1_umc7s")
+entity_name = "Goblin"
+spawn_velocity = 100.0
+start_health = 5
+team = 1
+entity_type = 1
+affinity = 0
+_entity_scene = ExtResource("1_ousrh")

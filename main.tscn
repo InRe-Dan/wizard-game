@@ -21,7 +21,6 @@ texture_filter = 1
 [node name="level" parent="." instance=ExtResource("1_pf5qg")]
 
 [node name="PlayerEntity" parent="level" instance=ExtResource("4_urxv3")]
-entity_name = "Player"
 
 [node name="EffectPickup" parent="level" instance=ExtResource("5_cnmpi")]
 position = Vector2(-43, 34)

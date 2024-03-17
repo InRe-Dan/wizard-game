@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EntityResource" load_steps=3 format=3 uid="uid://ce57l2as27ylj"]
+
+[ext_resource type="Script" path="res://resources/custom_bases/entity_resource.gd" id="1_1uu3v"]
+[ext_resource type="PackedScene" uid="uid://bbwrd3v7gvwa7" path="res://entities/enemies/angel.tscn" id="1_6gepj"]
+
+[resource]
+script = ExtResource("1_1uu3v")
+entity_name = "Angel"
+spawn_velocity = 100.0
+start_health = 5
+team = 1
+entity_type = 1
+affinity = 0
+_entity_scene = ExtResource("1_6gepj")

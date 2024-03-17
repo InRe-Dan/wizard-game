@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EntityResource" load_steps=3 format=3 uid="uid://o7o72mifrndp"]
+
+[ext_resource type="Script" path="res://resources/custom_bases/entity_resource.gd" id="1_mbwl7"]
+[ext_resource type="PackedScene" uid="uid://1oy1owh5aweh" path="res://items/fire_wave.tscn" id="1_ocwoe"]
+
+[resource]
+script = ExtResource("1_mbwl7")
+entity_name = "Fire Wave"
+spawn_velocity = 500.0
+start_health = 5
+team = 2
+entity_type = 2
+affinity = 1
+_entity_scene = ExtResource("1_ocwoe")

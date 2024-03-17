@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EntityResource" load_steps=3 format=3 uid="uid://b8x5ty7pt33k6"]
+
+[ext_resource type="PackedScene" uid="uid://dstqfwhd2e66a" path="res://entities/projectiles/ice_wave.tscn" id="1_067h4"]
+[ext_resource type="Script" path="res://resources/custom_bases/entity_resource.gd" id="1_xgtir"]
+
+[resource]
+script = ExtResource("1_xgtir")
+entity_name = "Ice Wave"
+spawn_velocity = 500.0
+start_health = 1
+team = 2
+entity_type = 2
+affinity = 2
+_entity_scene = ExtResource("1_067h4")

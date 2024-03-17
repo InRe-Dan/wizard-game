@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EntityResource" load_steps=3 format=3 uid="uid://dw25a25agcpkr"]
+
+[ext_resource type="Script" path="res://resources/custom_bases/entity_resource.gd" id="1_cemt5"]
+[ext_resource type="PackedScene" uid="uid://pt14go12aimq" path="res://entities/projectiles/water_wave.tscn" id="1_styi1"]
+
+[resource]
+script = ExtResource("1_cemt5")
+entity_name = "Water Wave"
+spawn_velocity = 500.0
+start_health = 1
+team = 2
+entity_type = 2
+affinity = 3
+_entity_scene = ExtResource("1_styi1")
