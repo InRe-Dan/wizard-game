@@ -1,0 +1,64 @@
+[gd_scene load_steps=10 format=3 uid="uid://dh5tws8vtmx4r"]
+
+[ext_resource type="Script" path="res://entities/effect_pickup.gd" id="1_qyjp8"]
+[ext_resource type="PackedScene" uid="uid://c867pju6atw7e" path="res://components/hurtbox_component.tscn" id="2_g31wd"]
+[ext_resource type="PackedScene" uid="uid://dwqy3vhl4qyw1" path="res://components/interactable_component.tscn" id="3_p38am"]
+[ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="4_utbb3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0pbab"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_txm8r"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qcy3a"]
+radius = 6.0
+
+[sub_resource type="Gradient" id="Gradient_m82ut"]
+offsets = PackedFloat32Array(0, 0.467105)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_uqo5u"]
+gradient = SubResource("Gradient_m82ut")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="EffectPickup" type="CharacterBody2D"]
+collision_layer = 32
+collision_mask = 38
+script = ExtResource("1_qyjp8")
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("area") instance=ExtResource("2_g31wd")]
+area = NodePath("Area2D")
+
+[node name="Area2D" type="Area2D" parent="HurtboxComponent"]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent/Area2D"]
+shape = SubResource("CircleShape2D_0pbab")
+
+[node name="InteractableComponent" parent="." node_paths=PackedStringArray("detection_area") instance=ExtResource("3_p38am")]
+detection_area = NodePath("Area2D")
+
+[node name="Area2D" type="Area2D" parent="InteractableComponent"]
+collision_layer = 64
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent/Area2D"]
+shape = SubResource("CircleShape2D_txm8r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_qcy3a")
+
+[node name="PhysicsHandlerComponent" parent="." instance=ExtResource("4_utbb3")]
+take_collision_damage = false
+knockback_damage_min_speed = 5000.0
+
+[node name="ItemSprite" type="Sprite2D" parent="."]
+z_index = 2
+z_as_relative = false
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.5
+texture = SubResource("GradientTexture2D_uqo5u")

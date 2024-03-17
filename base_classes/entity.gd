@@ -30,7 +30,7 @@ func distribute_signal(event : Event) -> void:
 
 	if not event:
 		return
-	
+
 	match event.type:
 		Event.types.inputmove:
 			var move : InputMoveEvent = event as InputMoveEvent

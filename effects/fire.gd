@@ -20,7 +20,6 @@ func _ready() -> void:
 	effect_description = "You're on fire! Take " + str(tick_damage.damage * 1 / immunity) + " DPS!"
 
 func _process(delta : float) -> void:
-	is_visible = false
 	if not apply_immunity:
 		var entity : Entity = (get_parent() as EntityComponent).parent
 		if FloorHandler.is_point_in_fire(entity.global_position):
@@ -32,8 +31,12 @@ func _process(delta : float) -> void:
 			immunity_frames = immunity
 		if immunity_frames > 0:
 			immunity_frames -= delta
-		if buildup > seconds_threshold:
+		if buildup > seconds_threshold and not is_visible:
 			is_visible = true
+			updated.emit(self)
+		if buildup < seconds_threshold and is_visible:
+			is_visible = false
+			updated.emit(self)
 
 func handle_event(event : Event) -> Event:
 	if event is AddEffectEvent:

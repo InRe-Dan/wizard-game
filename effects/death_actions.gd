@@ -14,6 +14,7 @@ func handle_event(event : Event) -> Event:
 			var effect : DeathActionsEffect = add_event.effect as DeathActionsEffect
 			for child : Node in effect.get_children():
 				child.reparent(self)
+			updated.emit(self)
 			return null
 
 	return event

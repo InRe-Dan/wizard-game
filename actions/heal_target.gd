@@ -6,10 +6,12 @@ class_name HealTargetAction extends Action
 
 
 
-func _init(heal_target : Entity = null) -> void:
+func _init(heal_target : Entity = null, amount : int = 0) -> void:
 	if not target:
 		if heal_target:
 			target = heal_target
+	if amount:
+		self.amount = amount
 	
 
 func _ready() -> void:

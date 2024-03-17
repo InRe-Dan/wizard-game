@@ -8,10 +8,17 @@ extends Control
 
 var effect_to_rect : Dictionary = {}
 
+func update_icon(effect : Effect) -> void:
+	if effect in effect_to_rect.keys():
+		var rect : TextureRect = effect_to_rect[effect]
+		rect.texture = effect.icon
+		rect.tooltip_text = effect.effect_name + "\n" + effect.effect_description
+		
 func populate_icons(effects : Array) -> void:
 	effects = effects.filter(func x(a : Effect) -> bool: return a.is_visible)
 	for effect : Effect in effects:
 		if not effect_to_rect.has(effect):
+			effect.updated.connect(update_icon)
 			var rect : TextureRect = TextureRect.new()
 			rect.texture = effect.icon
 			rect.tooltip_text = effect.effect_name + "\n" + effect.effect_description
