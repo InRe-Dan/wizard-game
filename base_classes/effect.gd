@@ -7,8 +7,14 @@ var effect_description : String = "Unknown behaviour"
 var icon : Texture2D = PlaceholderTexture2D.new()
 var is_visible : bool = true
 ## Can be null - indicates that this is a temporary debuff or buff
-var resource : PassiveResource
+var resource : PassiveResource = null
 
 func handle_event(event : Event) -> Event:
 	push_error("Unimplementedeffect behaviour!")
 	return null
+	
+func set_resource(res : PassiveResource) -> void:
+	resource = res
+	effect_name = res.passive_name
+	effect_description = res.passive_menu_description
+	icon = res.icon

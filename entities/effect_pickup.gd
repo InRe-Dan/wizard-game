@@ -5,7 +5,8 @@ class_name EffectPickupEntity extends Entity
 var item_to_give : Effect
 
 func _ready() -> void:
-	item_to_give = item.make_effect()
+	if not item_to_give:
+		item_to_give = item.make_effect()
 	$ItemSprite.texture = item_to_give.resource.icon
 	$PointLight2D.color = item_to_give.resource.glow
 

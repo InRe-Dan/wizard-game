@@ -24,4 +24,6 @@ func make_item() -> InventoryItem:
 	return null
 
 func make_item_pickup() -> Entity:
-	return null
+	var pickup : ItemPickupEntity = item_pickup_scene.instantiate()
+	pickup.item_to_give = make_item()
+	return pickup
