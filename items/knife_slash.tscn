@@ -13,10 +13,3 @@ entity_resource = ExtResource("3_cicl0")
 swing_angle = 120.0
 swing_distance = 12.0
 swing_angular_speed = 720.0
-
-[node name="Slash2" type="Node" parent="."]
-script = ExtResource("2_4hsox")
-entity_resource = ExtResource("3_cicl0")
-swing_angle = 120.0
-swing_distance = 12.0
-swing_angular_speed = 720.0

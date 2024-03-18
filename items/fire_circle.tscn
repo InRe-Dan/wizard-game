@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://base_classes/inventory_item.gd" id="1_8xdd0"]
 [ext_resource type="Script" path="res://actions/radial_shoot.gd" id="2_8010o"]
-[ext_resource type="PackedScene" uid="uid://baqfdpdkjx0ut" path="res://entities/projectiles/fire_wave.tscn" id="3_017lp"]
+[ext_resource type="Resource" uid="uid://o7o72mifrndp" path="res://resources/entities/fire_wave.tres" id="3_bgwgs"]
 [ext_resource type="Script" path="res://actions/cooldown.gd" id="4_kso71"]
 
 [node name="FireCircle" type="Node"]
@@ -10,7 +10,7 @@ script = ExtResource("1_8xdd0")
 
 [node name="RadialCast" type="Node" parent="."]
 script = ExtResource("2_8010o")
-projectile = ExtResource("3_017lp")
+projectile = ExtResource("3_bgwgs")
 
 [node name="Cooldown" type="Node" parent="."]
 script = ExtResource("4_kso71")

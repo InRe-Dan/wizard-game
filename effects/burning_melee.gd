@@ -16,8 +16,8 @@ func handle_event(event : Event) -> Event:
 
 	if event.type == event.types.created_projectile:
 		var proj_event : CreatedProjectileEvent = event as CreatedProjectileEvent
-		var effect : KillActionsEffect = KillActionsEffect.new()
-		effect.add_child(HealTargetAction.new(get_parent().parent, healing_amount))
+		var effect : HitActionsEffect = HitActionsEffect.new()
+		effect.add_child(BurnAction.new(burn_buildup))
 		proj_event.proj.distribute_signal(AddEffectEvent.new(effect))
 	return event
 

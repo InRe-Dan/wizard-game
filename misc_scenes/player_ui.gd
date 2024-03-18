@@ -24,14 +24,17 @@ func populate_icons(effects : Array) -> void:
 			rect.tooltip_text = effect.effect_name + "\n" + effect.effect_description
 			effect_icons.add_child(rect)
 			effect_to_rect[effect] = rect
-	for effect : Effect in effect_to_rect.keys():
-		if not effects.has(effect):
-			effect_icons.remove_child(effect_to_rect[effect])
-			effect_to_rect.erase(effect)
+	var effect_keys : Array = effect_to_rect.keys()
+	for i : int in range(effect_keys.size()):
+		if is_instance_valid(effect_keys[i]):
+			var effect : Effect = effect_keys[i]
+			if not effects.has(effect):
+				effect_icons.remove_child(effect_to_rect[effect])
+				effect_to_rect.erase(effect)
 
 func _process(delta: float) -> void:
 	var player : Entity = get_tree().get_first_node_in_group("players") as Entity
-	if player:
+	if player and is_instance_valid(player):
 		health_label.text = "HP: " + str(player.health)
 		var inventory : InventoryComponent = player.get_children().filter(func f(x : Node) -> bool: return x is InventoryComponent).front()
 		if inventory:

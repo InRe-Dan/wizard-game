@@ -2,10 +2,11 @@ class_name FireEffect extends Effect
 
 @export var apply_immunity : bool = false
 
-var buildup : float = 0
 @export var seconds_threshold : float = 0.5
 @export var immunity : float = 0.5
 @export var tick_damage : DamageData
+
+var buildup : float = 0
 var immunity_frames : float
 
 func _init() -> void:
@@ -46,6 +47,6 @@ func handle_event(event : Event) -> Event:
 			if effect.apply_immunity:
 				apply_immunity = true
 			else:
-				buildup = effect.buildup
+				buildup += effect.buildup
 			return null
 	return event

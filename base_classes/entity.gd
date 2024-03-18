@@ -7,6 +7,7 @@ var last_move_input : Vector2
 var knocked_back_by : Entity = null
 var knockback_time : float
 const knockback_valid_timer : float = 0.1
+var team : EntityResource.Team
 
 var last_hit_by : Entity = null
 var dead : bool = false

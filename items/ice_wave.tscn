@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://base_classes/inventory_item.gd" id="1_kruem"]
 [ext_resource type="Script" path="res://actions/shoot_projectile.gd" id="2_qjed4"]
-[ext_resource type="PackedScene" uid="uid://dstqfwhd2e66a" path="res://entities/projectiles/ice_wave.tscn" id="3_820l1"]
+[ext_resource type="Resource" uid="uid://b8x5ty7pt33k6" path="res://resources/entities/icewave.tres" id="3_xqc8g"]
 [ext_resource type="Script" path="res://actions/cooldown.gd" id="4_mnei1"]
 
 [node name="IceWave" type="Node"]
@@ -10,10 +10,8 @@ script = ExtResource("1_kruem")
 
 [node name="ShootProjectileAction" type="Node" parent="."]
 script = ExtResource("2_qjed4")
-projectile = ExtResource("3_820l1")
+projectile_resource = ExtResource("3_xqc8g")
 side_projectiles = 3
-spread = null
-cast_distance = null
 
 [node name="Cooldown" type="Node" parent="."]
 script = ExtResource("4_mnei1")

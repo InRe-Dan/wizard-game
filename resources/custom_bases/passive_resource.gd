@@ -20,6 +20,7 @@ func make_effect() -> Effect:
 		effect.set_script(_effect_script)
 		if effect is Effect:
 			var typed_effect : Effect = effect as Effect
+			
 			typed_effect.set_resource(self)
 			return typed_effect
 	push_error("Failed to generate effect.")

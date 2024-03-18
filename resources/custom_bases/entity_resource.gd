@@ -21,5 +21,6 @@ func make_entity() -> Entity:
 		if entity:
 			entity.health = start_health
 			entity.resource = self
+			return entity
 	push_error("Failed to create entity.")
 	return null
