@@ -16,5 +16,4 @@ func handle_event(event : Event) -> Event:
 func set_resource(res : PassiveResource) -> void:
 	resource = res
 	effect_name = res.passive_name
-	effect_description = res.passive_menu_description
 	icon = res.icon

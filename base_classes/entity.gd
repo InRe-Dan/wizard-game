@@ -4,7 +4,7 @@ class_name Entity extends CharacterBody2D
 var resource : EntityResource
 var team : EntityResource.EntityTeam
 
-var health : int = 5
+var health : float = 1000
 
 var last_move_input : Vector2
 var knocked_back_by : Entity = null
@@ -36,28 +36,30 @@ func distribute_signal(event : Event) -> void:
 			distribute_signal(AttemptMoveEvent.new(move.direction))
 		Event.types.has_hit:
 			var hit : HasHitEvent = event as HasHitEvent 
-			hit.target.distribute_signal(BeenHitEvent.new(self, hit.damage))
+			hit.target.distribute_signal(BeenHitEvent.new(self, hit.damage, hit.multiplier))
 		Event.types.been_hit:
 			var hit : BeenHitEvent = event as BeenHitEvent
 			last_hit_by = hit.dealer
 			if hit.damage.knockback_type == hit.damage.KnockbackTypes.origin:
-				distribute_signal(TakeDamageEvent.new(hit.damage, (global_position - hit.dealer.global_position)))
+				distribute_signal(TakeDamageEvent.new(hit.damage, (global_position - hit.dealer.global_position), hit.multiplier))
 			else:
-				distribute_signal(TakeDamageEvent.new(hit.damage, hit.dealer.velocity))
-			hit.dealer.distribute_signal(DealtDamageEvent.new(self, hit.damage))
+				distribute_signal(TakeDamageEvent.new(hit.damage, hit.dealer.velocity, hit.multiplier))
+			hit.dealer.distribute_signal(DealtDamageEvent.new(self, hit.damage, hit.multiplier))
 		Event.types.take_damage:
 			var hit : TakeDamageEvent = event as TakeDamageEvent
-			health -= hit.damage.damage
-			if hit.damage.damage > 0:
+			var damage : float = hit.damage.damage * hit.multiplier
+			health -= damage
+			print(damage, " ", health)
+			if damage > 0:
 				match hit.damage.damage_type:
 					DamageData.DamageTypes.fire:
-						say("-" + str(hit.damage.damage) + "HP", Color.ORANGE_RED * 0.5 + Color.WHITE * 0.5)
+						say("-" + str(damage) + "HP", Color.ORANGE_RED * 0.5 + Color.WHITE * 0.5)
 					DamageData.DamageTypes.ice:
-						say("-" + str(hit.damage.damage) + "HP", Color.CYAN * 0.5 + Color.WHITE * 0.5)
+						say("-" + str(damage) + "HP", Color.CYAN * 0.5 + Color.WHITE * 0.5)
 					DamageData.DamageTypes.water:
-						say("-" + str(hit.damage.damage) + "HP", Color.SKY_BLUE * 0.5 + Color.WHITE * 0.5)
+						say("-" + str(damage) + "HP", Color.SKY_BLUE * 0.5 + Color.WHITE * 0.5)
 					DamageData.DamageTypes.kinetic:
-						say("-" + str(hit.damage.damage) + "HP", Color.LIGHT_STEEL_BLUE)
+						say("-" + str(damage) + "HP", Color.LIGHT_STEEL_BLUE)
 			if hit.damage.knockback_velocity > 0.0:
 				knockback_time = Time.get_ticks_msec()
 				velocity += hit.direction.normalized() * hit.damage.knockback_velocity

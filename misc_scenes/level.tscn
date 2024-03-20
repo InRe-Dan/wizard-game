@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b85ijfyowcx7n"]
+[gd_scene load_steps=14 format=3 uid="uid://b85ijfyowcx7n"]
 
 [ext_resource type="TileSet" uid="uid://p8b656ms37q" path="res://resources/floor.tres" id="1_1cp4m"]
 [ext_resource type="Script" path="res://misc_scenes/level.gd" id="1_dod73"]
@@ -9,7 +9,9 @@
 [ext_resource type="Resource" uid="uid://b34wl3rb20hbn" path="res://resources/items/fire_wave.tres" id="7_i1ey6"]
 [ext_resource type="Resource" uid="uid://dictkhs5wsiak" path="res://resources/items/water_wave.tres" id="8_voof8"]
 [ext_resource type="Resource" uid="uid://du08ic7x2a6a8" path="res://resources/items/flame_circle.tres" id="9_v2ant"]
+[ext_resource type="Resource" uid="uid://dqnhoup1cex12" path="res://resources/passives/fire_bonus.tres" id="10_8r3u0"]
 [ext_resource type="Resource" uid="uid://q26t08cme7jm" path="res://resources/items/waterbolt.tres" id="10_ba4jq"]
+[ext_resource type="Resource" uid="uid://dbaliilxi5nod" path="res://resources/passives/vampirism.tres" id="11_68d5o"]
 [ext_resource type="Resource" uid="uid://c86lxyknu8xrs" path="res://resources/items/flame_blast.tres" id="11_nbup2"]
 
 [node name="Level" type="Node2D" groups=["level"]]
@@ -19,7 +21,7 @@ door_width = 5
 wall_padding = 1
 enemy_list = Array[Resource("res://resources/custom_bases/entity_resource.gd")]([ExtResource("2_vthdy")])
 item_list = Array[Resource("res://resources/custom_bases/item_resource.gd")]([ExtResource("5_jsrx3"), ExtResource("6_gjijd"), ExtResource("7_i1ey6"), ExtResource("8_voof8"), ExtResource("9_v2ant"), ExtResource("10_ba4jq"), ExtResource("11_nbup2")])
-max_items_per_room = 3
+passive_list = Array[Resource("res://resources/custom_bases/passive_resource.gd")]([ExtResource("10_8r3u0"), ExtResource("11_68d5o")])
 
 [node name="Floor" type="TileMap" parent="."]
 z_as_relative = false

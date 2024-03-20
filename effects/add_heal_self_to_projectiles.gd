@@ -3,6 +3,9 @@ class_name AddHealSelfToProjectileKillsEffect extends Effect
 var healing_amount : int = 1
 var stacks : int = 1
 
+func _init() -> void:
+	effect_description = "Heal for " + str(healing_amount) + "HP when killing enemies." 
+
 func handle_event(event : Event) -> Event:
 	if event.type == event.types.add_effect:
 		var effect_event : AddEffectEvent = event as AddEffectEvent

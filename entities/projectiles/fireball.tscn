@@ -26,7 +26,7 @@ fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="Resource" id="Resource_qwe1d"]
 script = ExtResource("3_uxqm2")
-damage = 1
+damage = 1.0
 damage_type = 1
 knockback_type = 1
 knockback_velocity = 0.0

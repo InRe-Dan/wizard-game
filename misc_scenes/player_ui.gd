@@ -20,6 +20,7 @@ func populate_icons(effects : Array) -> void:
 		if not effect_to_rect.has(effect):
 			effect.updated.connect(update_icon)
 			var rect : TextureRect = TextureRect.new()
+			rect.expand_mode = rect.EXPAND_KEEP_SIZE
 			rect.texture = effect.icon
 			rect.tooltip_text = effect.effect_name + "\n" + effect.effect_description
 			effect_icons.add_child(rect)

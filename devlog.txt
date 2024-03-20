@@ -779,3 +779,7 @@ While I was reimplementing item spawning, Godot corrupted all my ItemResource fi
 It now detected "infinite recursion" because of a cyclic dependency that was no longer visible in the editor - had to go to tscn files to resolve again.
 
 And later on in the day, Godot threw a hissy fit and detached my script from my node because it didn't like the fact that the _init override had parameters with no defaults. It did not warn me about this, it just silently refused to attach the script at runtime.
+
+20/3/24
+
+After many days of strange errors and a couple of days of rest, I finally have entity metadata, so I can start creating effects that look up this metadata when changing entity atttributes - mostly looking up the type of projectile and its element.

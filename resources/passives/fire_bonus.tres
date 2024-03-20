@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PassiveResource" load_steps=4 format=3 uid="uid://dqnhoup1cex12"]
+
+[ext_resource type="Script" path="res://effects/fire_bonus.gd" id="1_5pw2d"]
+[ext_resource type="Texture2D" uid="uid://cchkrwp05guqo" path="res://assets/dungeon/flask_red.png" id="2_2or7s"]
+[ext_resource type="Script" path="res://resources/custom_bases/passive_resource.gd" id="3_63f1s"]
+
+[resource]
+script = ExtResource("3_63f1s")
+passive_name = "Flame Empowered"
+passive_menu_description = "Deal 10% bonus fire damage per stack!"
+icon = ExtResource("2_2or7s")
+glow = Color(1, 0.301961, 0, 1)
+_effect_script = ExtResource("1_5pw2d")

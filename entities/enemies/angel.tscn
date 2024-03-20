@@ -33,7 +33,7 @@ fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="Resource" id="Resource_86q0u"]
 script = ExtResource("17_eyouo")
-damage = 1
+damage = 0.0
 damage_type = 1
 knockback_type = 1
 knockback_velocity = 0.0
@@ -42,9 +42,6 @@ knockback_velocity = 0.0
 collision_layer = 4
 collision_mask = 6
 script = ExtResource("1_avhs3")
-entity_name = "Angel"
-health = 10
-team = 1
 
 [node name="SimpleGraphics" parent="." instance=ExtResource("2_2quqi")]
 
@@ -83,7 +80,6 @@ base_damping = 2.0
 
 [node name="FireVulnerability" type="Node" parent="EffectContainer"]
 script = ExtResource("16_22jub")
-apply_immunity = null
 seconds_threshold = 0.2
 immunity = 0.25
 tick_damage = SubResource("Resource_86q0u")

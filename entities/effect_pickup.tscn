@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dh5tws8vtmx4r"]
+[gd_scene load_steps=12 format=3 uid="uid://dh5tws8vtmx4r"]
 
 [ext_resource type="Script" path="res://entities/effect_pickup.gd" id="1_qyjp8"]
 [ext_resource type="PackedScene" uid="uid://c867pju6atw7e" path="res://components/hurtbox_component.tscn" id="2_g31wd"]
@@ -14,6 +14,17 @@ radius = 6.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_qcy3a"]
 radius = 6.0
 
+[sub_resource type="Gradient" id="Gradient_xi7iv"]
+offsets = PackedFloat32Array(0, 0.686347)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.0684931)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0g0rh"]
+gradient = SubResource("Gradient_xi7iv")
+width = 12
+height = 12
+fill = 1
+fill_from = Vector2(0.508547, 0.508547)
+
 [sub_resource type="Gradient" id="Gradient_m82ut"]
 offsets = PackedFloat32Array(0, 0.467105)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
@@ -23,7 +34,7 @@ gradient = SubResource("Gradient_m82ut")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
-[node name="EffectPickup" type="CharacterBody2D"]
+[node name="EffectPickup" type="CharacterBody2D" groups=["npcs"]]
 collision_layer = 32
 collision_mask = 38
 script = ExtResource("1_qyjp8")
@@ -58,6 +69,9 @@ knockback_damage_min_speed = 5000.0
 [node name="ItemSprite" type="Sprite2D" parent="."]
 z_index = 2
 z_as_relative = false
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_0g0rh")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 energy = 0.5

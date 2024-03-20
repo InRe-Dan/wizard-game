@@ -11,7 +11,7 @@ func handle_event(event : Event) -> Event:
 			child.do(get_parent().parent, kill_event.target)
 	if event.type == event.types.add_effect:
 		var add_event : AddEffectEvent = event as AddEffectEvent
-		if add_event is AddEffectEvent:
+		if add_event.effect is KillActionsEffect:
 			var effect : KillActionsEffect = add_event.effect as KillActionsEffect
 			for child : Node in effect.get_children():
 				child.reparent(self)

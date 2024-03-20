@@ -12,7 +12,7 @@ class_name Level extends Node2D
 @export var item_list : Array[ItemResource]
 @export var passive_list : Array[PassiveResource]
 @export var min_items_per_room : int = 0
-@export var max_items_per_room : int = 1
+@export var max_items_per_room : int = 3
 
 @onready var floor : TileMap = $Floor
 @onready var walls : TileMap = $Walls
@@ -34,7 +34,7 @@ func populate_room(room : Room) -> void:
 	var enemies : int = randi_range(min_enemies_per_room, max_enemies_per_room)
 	var items : int = randi_range(min_items_per_room, max_items_per_room)
 	var positions : Array[Vector2i] = []
-	while positions.size() < enemies + items:
+	while positions.size() < enemies + items + 1:
 		var x : int = randi_range(room.rect.position.x + 1, room.rect.position.x + room.rect.size.x - 1)
 		var y : int = randi_range(room.rect.position.y + 1, room.rect.position.y + room.rect.size.y - 1)
 		positions.append(Vector2i(x, y))
@@ -50,6 +50,10 @@ func populate_room(room : Room) -> void:
 		pickup.global_position = floor.to_global(floor.map_to_local(pos))
 		add_child(pickup)
 		items -= 1
+	var pos : Vector2i = positions.pop_front()
+	var pickup : EffectPickupEntity = (passive_list.pick_random() as PassiveResource).make_item_pickup()
+	pickup.global_position = floor.to_global(floor.map_to_local(pos))
+	add_child(pickup)
 
 func set_floor(v : Vector2i) -> void:
 	floor.set_cell(0, v, 58, Vector2i(range(0, 8).pick_random(), 0))

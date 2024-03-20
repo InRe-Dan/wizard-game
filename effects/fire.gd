@@ -27,7 +27,7 @@ func _process(delta : float) -> void:
 		elif buildup > 0.0:
 			buildup -= min(delta * 2, buildup)
 		if buildup > 1.0 and immunity_frames < 0.01:
-			entity.distribute_signal(TakeDamageEvent.new(tick_damage, Vector2.ZERO))
+			entity.distribute_signal(TakeDamageEvent.new(tick_damage, Vector2.ZERO, 1.0))
 			immunity_frames = immunity
 		if immunity_frames > 0:
 			immunity_frames -= delta
