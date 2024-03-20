@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://base_classes/inventory_item.gd" id="1_jq42r"]
 [ext_resource type="Script" path="res://actions/spawn_in_front.gd" id="2_ttwu0"]
-[ext_resource type="PackedScene" uid="uid://bbwrd3v7gvwa7" path="res://entities/enemies/angel.tscn" id="3_xhbw5"]
+[ext_resource type="Resource" uid="uid://de3xho4ihfqg3" path="res://resources/entities/angel.tres" id="3_b7nev"]
 
 [node name="SpawnAngel" type="Node"]
 script = ExtResource("1_jq42r")
 
 [node name="SpawnAngelAction" type="Node" parent="."]
 script = ExtResource("2_ttwu0")
-entity = ExtResource("3_xhbw5")
+entity = ExtResource("3_b7nev")

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EntityResource" load_steps=3 format=3 uid="uid://dj32jyci1h56x"]
+
+[ext_resource type="PackedScene" uid="uid://boqhwrbssha6p" path="res://entities/melee_weapons/dagger.tscn" id="1_etksx"]
+[ext_resource type="Script" path="res://resources/custom_bases/entity_resource.gd" id="2_oydft"]
+
+[resource]
+script = ExtResource("2_oydft")
+entity_name = "Knife"
+_entity_scene = ExtResource("1_etksx")
+starting_health = 50
+spawn_velocity = 0
+type = 2
+default_team = 2
+element = 0

@@ -1,12 +1,10 @@
 @icon("res://assets/editor_icons/engine/CapsuleMesh.svg")
 class_name Entity extends CharacterBody2D
 
-enum Team {player, enemy, any}
+var resource : EntityResource
+var team : EntityResource.EntityTeam
 
-@export var entity_name : String = "Unnamed Entity"
-@export var spawn_velocity : float = 500
-@export var health : int = 5
-@export_enum("Player", "Enemy", "Any") var team : int = Team.any
+var health : int = 5
 
 var last_move_input : Vector2
 var knocked_back_by : Entity = null

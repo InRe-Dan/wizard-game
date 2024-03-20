@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EntityResource" load_steps=3 format=3 uid="uid://citrs7i2kkftb"]
+
+[ext_resource type="PackedScene" uid="uid://bent3fo2kwsvd" path="res://entities/enemies/goblin.tscn" id="1_gruup"]
+[ext_resource type="Script" path="res://resources/custom_bases/entity_resource.gd" id="2_oq7qs"]
+
+[resource]
+script = ExtResource("2_oq7qs")
+entity_name = "Ice Zombie"
+_entity_scene = ExtResource("1_gruup")
+starting_health = 20
+spawn_velocity = 0
+type = 1
+default_team = 1
+element = 2

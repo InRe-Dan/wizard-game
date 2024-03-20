@@ -12,7 +12,7 @@ class_name PassiveResource extends Resource
 # Script must be of type Effect
 @export var _effect_script : Script
 
-var effect_giver_scene : PackedScene = preload("res://entities/effect_pickup.tscn")
+var effect_giver_resource : EntityResource = preload("res://resources/entities/passive_pickup.tres")
 
 func make_effect() -> Effect:
 	if _effect_script:
@@ -28,7 +28,7 @@ func make_effect() -> Effect:
 # I'm thinking that unifying effects and items as Loot could help in the long run, since I
 # can then define the Loot of an enemy, to just drop whatever this function spits out.
 func make_item_pickup() -> Entity:
-	var pickup : EffectPickupEntity = effect_giver_scene.instantiate()
+	var pickup : EffectPickupEntity = effect_giver_resource.make_entity()
 	pickup.item_to_give = make_effect()
 	return pickup
 	

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EntityResource" load_steps=3 format=3 uid="uid://bvg6rcon7pd53"]
+
+[ext_resource type="PackedScene" uid="uid://cpidswdj0owvh" path="res://entities/projectiles/explosion.tscn" id="1_3huj6"]
+[ext_resource type="Script" path="res://resources/custom_bases/entity_resource.gd" id="2_6jvqa"]
+
+[resource]
+script = ExtResource("2_6jvqa")
+entity_name = "Explosion"
+_entity_scene = ExtResource("1_3huj6")
+starting_health = 50
+spawn_velocity = 0
+type = 6
+default_team = 2
+element = 1

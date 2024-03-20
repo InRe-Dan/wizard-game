@@ -1,11 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://c3ymrarugklpb"]
+[gd_scene load_steps=6 format=3 uid="uid://c3ymrarugklpb"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_jl44l"]
 [ext_resource type="PackedScene" uid="uid://b85ijfyowcx7n" path="res://misc_scenes/level.tscn" id="1_pf5qg"]
 [ext_resource type="PackedScene" uid="uid://dkfutwmsr2tli" path="res://misc_scenes/camera.tscn" id="3_5shnw"]
-[ext_resource type="PackedScene" uid="uid://cu4jaf5f1nlxo" path="res://entities/player.tscn" id="4_urxv3"]
-[ext_resource type="PackedScene" uid="uid://dh5tws8vtmx4r" path="res://entities/effect_pickup.tscn" id="5_cnmpi"]
-[ext_resource type="Resource" uid="uid://dbaliilxi5nod" path="res://resources/passives/vampirism.tres" id="6_8s3es"]
 [ext_resource type="Texture2D" uid="uid://derg3kptuadmm" path="res://assets/dungeon/wall_mid.png" id="6_ybf1x"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_62fnj"]
@@ -19,13 +16,6 @@ script = ExtResource("1_jl44l")
 texture_filter = 1
 
 [node name="level" parent="." instance=ExtResource("1_pf5qg")]
-
-[node name="PlayerEntity" parent="level" instance=ExtResource("4_urxv3")]
-entity_name = "Player"
-
-[node name="EffectPickup" parent="level" instance=ExtResource("5_cnmpi")]
-position = Vector2(-43, 34)
-item = ExtResource("6_8s3es")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 

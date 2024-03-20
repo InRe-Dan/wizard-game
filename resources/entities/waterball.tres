@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EntityResource" load_steps=3 format=3 uid="uid://c11l1phjh0162"]
+
+[ext_resource type="PackedScene" uid="uid://b2qsrxijygjq" path="res://entities/projectiles/waterball.tscn" id="1_187rk"]
+[ext_resource type="Script" path="res://resources/custom_bases/entity_resource.gd" id="2_v03es"]
+
+[resource]
+script = ExtResource("2_v03es")
+entity_name = "Waterbolt"
+_entity_scene = ExtResource("1_187rk")
+starting_health = 5
+spawn_velocity = 200
+type = 3
+default_team = 2
+element = 3

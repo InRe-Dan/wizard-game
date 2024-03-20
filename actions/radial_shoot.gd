@@ -1,6 +1,6 @@
 extends Action
 
-@export var projectile : PackedScene
+@export var projectile : EntityResource
 @export var shot_delay : float = 0.03
 @export var shot_count : int = 15
 @export var cast_distance : float = 36
@@ -15,7 +15,7 @@ var caster : Entity
 var start_angle : float
 
 func _ready() -> void:
-	description = "Cast " + (projectile.instantiate() as Entity).entity_name + " all around you"
+	description = "Cast " + projectile.entity_name + " all around you"
 
 func _process(delta : float) -> void:
 	if not firing:
@@ -26,8 +26,8 @@ func _process(delta : float) -> void:
 	for i : int in range(shots_to_fire):
 		for j : float in [-0.5, 0.5]:
 			var direction : Vector2 = Vector2.from_angle(PI + (start_angle + j * angle_change * (shots_fired)))
-			var entity_instance : Entity = projectile.instantiate() as Entity
-			entity_instance.velocity = entity_instance.spawn_velocity * direction
+			var entity_instance : Entity = projectile.make_entity() as Entity
+			entity_instance.velocity = projectile.spawn_velocity * direction
 			entity_instance.global_position = pos + direction * cast_distance
 			entity_instance.team = caster.team
 			get_tree().get_first_node_in_group("main").add_child(entity_instance)

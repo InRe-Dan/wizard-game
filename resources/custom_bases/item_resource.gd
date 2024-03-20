@@ -12,7 +12,8 @@ enum ItemTypes {RANGED, MELEE, BUFF, SUMMON}
 @export var glow : Color = Color.WHITE
 @export var _item_scene : PackedScene = null
 
-var item_pickup_scene : PackedScene = preload("res://entities/item_pickup.tscn")
+# HACK If you preload, its a reference import error due to a circular dependency.
+var item_pickup_scene : EntityResource = load("res://resources/entities/item_pickup.tres")
 
 func make_item() -> InventoryItem:
 	if _item_scene:
@@ -24,6 +25,6 @@ func make_item() -> InventoryItem:
 	return null
 
 func make_item_pickup() -> Entity:
-	var pickup : ItemPickupEntity = item_pickup_scene.instantiate()
+	var pickup : ItemPickupEntity = item_pickup_scene.make_entity()
 	pickup.item_to_give = make_item()
 	return pickup

@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b3c3vg8q6e5k7" path="res://components/effect_container.tscn" id="5_vqeck"]
 [ext_resource type="Script" path="res://effects/death_actions.gd" id="6_y3ren"]
 [ext_resource type="Script" path="res://actions/spawn.gd" id="7_hyqr8"]
-[ext_resource type="PackedScene" uid="uid://cpidswdj0owvh" path="res://entities/projectiles/explosion.tscn" id="8_blnxr"]
+[ext_resource type="Resource" uid="uid://bvg6rcon7pd53" path="res://resources/entities/death_blast.tres" id="8_4iwo7"]
 [ext_resource type="Script" path="res://actions/burn_secondary.gd" id="9_ctixm"]
 [ext_resource type="Script" path="res://effects/on_hit_actions.gd" id="9_ihinr"]
 [ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="9_oks0k"]
@@ -52,8 +52,6 @@ fill_from = Vector2(0.5, 0.5)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_q01i0")
-entity_name = "Fireball"
-spawn_velocity = 200.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("GradientTexture2D_ku6a4")
@@ -81,7 +79,7 @@ script = ExtResource("6_y3ren")
 
 [node name="SpawnExplosion" type="Node" parent="EffectContainer/Explode"]
 script = ExtResource("7_hyqr8")
-entity = ExtResource("8_blnxr")
+entity_resource = ExtResource("8_4iwo7")
 
 [node name="HitActionsEffect" type="Node" parent="EffectContainer"]
 script = ExtResource("9_ihinr")

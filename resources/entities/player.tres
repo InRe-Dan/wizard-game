@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EntityResource" load_steps=3 format=3 uid="uid://8yywxdv1mmte"]
+
+[ext_resource type="Script" path="res://resources/custom_bases/entity_resource.gd" id="1_p38qd"]
+[ext_resource type="PackedScene" uid="uid://cu4jaf5f1nlxo" path="res://entities/player.tscn" id="1_xnb0p"]
+
+[resource]
+script = ExtResource("1_p38qd")
+entity_name = "Wizard"
+_entity_scene = ExtResource("1_xnb0p")
+starting_health = 50
+spawn_velocity = 0
+type = 0
+default_team = 0
+element = 0

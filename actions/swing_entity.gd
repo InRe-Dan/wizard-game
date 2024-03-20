@@ -1,6 +1,6 @@
 extends Action
 
-@export var entity_scene : PackedScene
+@export var entity_resource : EntityResource
 @export var swing_angle : float = 90
 @export var swing_distance : float = 24
 @export var swing_angular_speed : float = 360
@@ -20,8 +20,8 @@ func move_to_orbit_location() -> void:
 	entity.global_position = orbit_entity.global_position + swing_distance * Vector2.from_angle(deg_to_rad(entity.rotation_degrees - 90))
 
 func _ready() -> void:
-	var entity : Entity = entity_scene.instantiate() as Entity
-	description = "Swing " + a_or_an(entity.entity_name) + " in front of you"
+	var entity : Entity = entity_resource.make_entity() as Entity
+	description = "Swing " + a_or_an(entity.resource.entity_name) + " in front of you"
 	expected_cooldown = swing_angle / swing_angular_speed
 
 func _process(delta : float) -> void:
@@ -35,7 +35,7 @@ func _process(delta : float) -> void:
 
 func do(target : Entity, secondary : Entity = null, direction : Vector2 = Vector2.ZERO) -> void:
 	if not swinging:
-		entity = entity_scene.instantiate() as Entity
+		entity = entity_resource.make_entity() as Entity
 		target.distribute_signal(CreatedProjectileEvent.new(entity))
 		orbit_entity = target
 		entity.team = orbit_entity.team

@@ -5,11 +5,12 @@ class_name Level extends Node2D
 @export var door_width : int = 3
 @export var wall_padding : int = 20
 @export_category("Enemy generation")
-@export var enemy_list : Array[PackedScene]
+@export var enemy_list : Array[EntityResource]
 @export var min_enemies_per_room : int = 0
 @export var max_enemies_per_room : int = 3
 @export_category("Item generation")
 @export var item_list : Array[ItemResource]
+@export var passive_list : Array[PassiveResource]
 @export var min_items_per_room : int = 0
 @export var max_items_per_room : int = 1
 
@@ -39,7 +40,7 @@ func populate_room(room : Room) -> void:
 		positions.append(Vector2i(x, y))
 	while enemies > 0:
 		var pos : Vector2i = positions.pop_front()
-		var enemy : Entity = enemy_list.pick_random().instantiate()
+		var enemy : Entity = (enemy_list.pick_random() as EntityResource).make_entity()
 		enemy.global_position = floor.to_global(floor.map_to_local(pos))
 		add_child(enemy)
 		enemies -= 1

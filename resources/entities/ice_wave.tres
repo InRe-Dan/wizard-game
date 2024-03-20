@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EntityResource" load_steps=3 format=3 uid="uid://dsh2vuexgbs2v"]
+
+[ext_resource type="PackedScene" uid="uid://dstqfwhd2e66a" path="res://entities/projectiles/ice_wave.tscn" id="1_7wham"]
+[ext_resource type="Script" path="res://resources/custom_bases/entity_resource.gd" id="2_c8031"]
+
+[resource]
+script = ExtResource("2_c8031")
+entity_name = "Ice Wave"
+_entity_scene = ExtResource("1_7wham")
+starting_health = 5
+spawn_velocity = 500
+type = 3
+default_team = 2
+element = 2

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://base_classes/inventory_item.gd" id="1_4b3mq"]
 [ext_resource type="Script" path="res://actions/shoot_projectile.gd" id="2_0modi"]
-[ext_resource type="PackedScene" uid="uid://pt14go12aimq" path="res://entities/projectiles/water_wave.tscn" id="3_4jmao"]
+[ext_resource type="Resource" uid="uid://b5vl4j0p4p3y0" path="res://resources/entities/water_wave.tres" id="3_i3ga2"]
 [ext_resource type="Script" path="res://actions/cooldown.gd" id="4_31qji"]
 
 [node name="WaterWave" type="Node"]
@@ -10,7 +10,7 @@ script = ExtResource("1_4b3mq")
 
 [node name="ShootProjectileAction" type="Node" parent="."]
 script = ExtResource("2_0modi")
-projectile = ExtResource("3_4jmao")
+projectile = ExtResource("3_i3ga2")
 side_projectiles = 7
 
 [node name="Cooldown" type="Node" parent="."]

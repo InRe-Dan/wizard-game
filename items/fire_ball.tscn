@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://base_classes/inventory_item.gd" id="1_xxgu0"]
 [ext_resource type="Script" path="res://actions/shoot_projectile.gd" id="2_i6agc"]
-[ext_resource type="PackedScene" uid="uid://bn06fjm6xnu4i" path="res://entities/projectiles/fireball.tscn" id="3_du84a"]
+[ext_resource type="Resource" uid="uid://cbttm8t1eyt7" path="res://resources/entities/fireball.tres" id="3_l6oop"]
 [ext_resource type="Script" path="res://actions/cooldown.gd" id="4_g42ay"]
 
 [node name="FireBall" type="Node"]
@@ -10,7 +10,7 @@ script = ExtResource("1_xxgu0")
 
 [node name="ShootProjectileAction" type="Node" parent="."]
 script = ExtResource("2_i6agc")
-projectile = ExtResource("3_du84a")
+projectile = ExtResource("3_l6oop")
 
 [node name="Cooldown" type="Node" parent="."]
 script = ExtResource("4_g42ay")
