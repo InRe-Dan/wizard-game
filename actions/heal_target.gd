@@ -21,4 +21,5 @@ func _ready() -> void:
 func do(caller : Entity, secondary : Entity = null, direction : Vector2 = Vector2.ZERO) -> void:
 	if not target:
 		push_error("No target provided to heal_target action.")
-	target.distribute_signal(TryHealEvent.new(amount))
+	if is_instance_valid(target):
+		target.distribute_signal(TryHealEvent.new(amount))

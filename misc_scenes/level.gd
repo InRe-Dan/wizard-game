@@ -38,7 +38,7 @@ class Partition extends RefCounted:
 		string += str(rect)
 		print(string)
 		
-		if level >= 3:
+		if level >= 4:
 			return
 
 		split_dir = SplitDir.values().pick_random()
