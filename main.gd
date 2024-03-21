@@ -4,7 +4,9 @@ var player_resource : EntityResource = preload("res://resources/entities/player.
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	var player : Entity = player_resource.make_entity()
+	add_child(player)
+	$level.move_player(player)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta : float) -> void:

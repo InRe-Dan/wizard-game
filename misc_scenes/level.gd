@@ -19,6 +19,8 @@ class_name Level extends Node2D
 @onready var floor : TileMap = $Floor
 @onready var walls : TileMap = $Walls
 
+var current_rooms : Array[Room]
+
 class Connection extends RefCounted:
 	func _init(one : Room, two : Room) -> void:
 		self.one = one
@@ -167,6 +169,9 @@ func put_connections_on_tilemap(rooms : Array[Room]) -> void:
 			
 				
 	
+func move_player(entity : Entity) -> void:
+	entity.global_position = floor.to_global(floor.map_to_local(current_rooms.front().rect.get_center()))
+	
 func generate_bsp() -> void:
 	var size : Vector2i = level_min_size + Vector2i((level_max_size - level_min_size) * (randf()))
 	var rect : Rect2i = Rect2i(Vector2i.ZERO - size / 2, size)
@@ -174,9 +179,13 @@ func generate_bsp() -> void:
 	walls.clear()
 	var part : Partition = Partition.new(rect, level_splits)
 	var rooms : Array[Room] = part.make_rooms()
+	current_rooms = rooms
 	put_rooms_on_tilemap(rooms)
 	put_connections_on_tilemap(rooms)
 	fill_with_walls()
 	for room : Room in rooms:
 		populate_room(room)
+	var player : Entity = get_tree().get_first_node_in_group("players")
+	if player:
+		move_player(player)
 	FloorHandler.init_for_room()

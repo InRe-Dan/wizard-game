@@ -20,8 +20,8 @@
 [ext_resource type="Script" path="res://effects/fire.gd" id="17_126sm"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qptjs"]
-radius = 9.0
-height = 20.0
+radius = 8.0
+height = 16.0
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vhqd5"]
 lifetime_randomness = 0.18

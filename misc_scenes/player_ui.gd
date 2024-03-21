@@ -18,7 +18,8 @@ func populate_icons(effects : Array) -> void:
 	effects = effects.filter(func x(a : Effect) -> bool: return a.is_visible)
 	for effect : Effect in effects:
 		if not effect_to_rect.has(effect):
-			effect.updated.connect(update_icon)
+			if not effect.updated.is_connected(update_icon):
+				effect.updated.connect(update_icon)
 			var rect : TextureRect = TextureRect.new()
 			rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 			rect.expand_mode = rect.EXPAND_KEEP_SIZE

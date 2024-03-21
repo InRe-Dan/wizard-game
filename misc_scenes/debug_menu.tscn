@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cnmm04jdtxbiy"]
+[gd_scene load_steps=6 format=3 uid="uid://cnmm04jdtxbiy"]
 
 [ext_resource type="Theme" uid="uid://btn2pknwbkdml" path="res://resources/ui_theme.tres" id="1_y6vbq"]
 [ext_resource type="Script" path="res://misc_scenes/debug_menu.gd" id="2_7yxgm"]
+[ext_resource type="Texture2D" uid="uid://drvuk1erggvk1" path="res://assets/editor_icons/engine/Camera3D.svg" id="3_7j0no"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_82qsu"]
 device = -1
@@ -38,6 +39,24 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Toggle Fullscreen"
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Reset" type="Button" parent="ScrollContainer/VBoxContainer/HBoxContainer7"]
+layout_mode = 2
+icon = ExtResource("3_7j0no")
+icon_alignment = 1
+
+[node name="Zoom" type="HSlider" parent="ScrollContainer/VBoxContainer/HBoxContainer7"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = 0.1
+max_value = 3.0
+step = 0.0
+value = 1.0
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -100,6 +119,8 @@ shortcut_feedback = false
 text = "<"
 
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer4/Fullscreen" to="." method="_on_fullscreen_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer7/Reset" to="." method="_on_reset_pressed"]
+[connection signal="value_changed" from="ScrollContainer/VBoxContainer/HBoxContainer7/Zoom" to="." method="_on_h_slider_value_changed"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer5/Pause" to="." method="_on_pause_pressed"]
 [connection signal="toggled" from="ScrollContainer/VBoxContainer/HBoxContainer6/Override" to="." method="_on_override_toggled"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer/RegenButton" to="." method="_on_regen_button_pressed"]

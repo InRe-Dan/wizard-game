@@ -67,3 +67,12 @@ func _on_override_toggled(toggled_on: bool) -> void:
 		get_tree().get_first_node_in_group("players").process_mode = Node.PROCESS_MODE_ALWAYS
 	else:
 		get_tree().get_first_node_in_group("players").process_mode = Node.PROCESS_MODE_INHERIT
+
+
+func _on_h_slider_value_changed(value: float) -> void:
+	get_tree().get_first_node_in_group("camera").zoom = Vector2.ONE * value
+
+
+func _on_reset_pressed() -> void:
+	get_tree().get_first_node_in_group("camera").zoom = Vector2.ONE
+	$ScrollContainer/VBoxContainer/HBoxContainer7/Zoom.value = 1
