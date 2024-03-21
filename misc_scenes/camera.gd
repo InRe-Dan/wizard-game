@@ -33,3 +33,10 @@ func shake(duration : float) -> void:
 	is_shaking = true
 	shake_duration = duration
 	shake_time_elapsed = 0.0
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("zoom_in"):
+		print("baller")
+		zoom += Vector2.ONE * 0.1
+	elif event.is_action_pressed("zoom_out"):
+		zoom -= Vector2.ONE * 0.1

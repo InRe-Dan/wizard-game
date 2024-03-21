@@ -792,3 +792,10 @@ The block is an opportunity to expand on the library of effects and actions avai
     On death or collision, the block should explode into ice shards 
     It should have a unique hitbox component which multiplies its damage by the block's velocity
     When hit by fire-affinity entities, it should dissappear immediately and turn to a puddle of water
+
+The core of the BSP level generation was easy to implement, but there is a lot to iron out and a lot of utilities to add to the level generator to make generation easy to iterate on and to numerically tweak.
+I also have the goal of being able to define prefab tilemaps as children of the level generator scene and have the level generator parse them and copy them into the generate maps, if they fit. 
+I also need to add some constraints to the level generation to make sure that rooms are sufficiently large and splitting is done sensibly.
+
+First thing I will do it tear out code from the monolithic level generation function and make more intermediate functions, as this will come in handy for changing things later. The step is to generate partitions, then rooms from those partitions, then populate the rooms, then connect them, and finally to fill the level with walls where applicable.
+
