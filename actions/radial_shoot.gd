@@ -32,7 +32,8 @@ func _process(delta : float) -> void:
 			entity_instance.velocity = projectile.spawn_velocity * direction
 			entity_instance.global_position = pos + direction * cast_distance
 			entity_instance.team = caster.team
-			get_tree().get_first_node_in_group("main").add_child(entity_instance)
+			var call : Callable = get_tree().get_first_node_in_group("main").add_child
+			call.call_deferred(entity_instance)
 			caster.distribute_signal(CreatedProjectileEvent.new(entity_instance))
 		shots_fired += 1
 	if time_elapsed > duration:

@@ -37,8 +37,11 @@ func _physics_process(delta : float) -> void:
 				AudioHandler.play_sound(sound, global_position)
 				parent.distribute_signal(TakeDamageEvent.new(damage, collision.get_normal(), 1.0))
 
+		var old_velocity : Vector2 = parent.velocity
 		parent.velocity = parent.velocity.slide(collision.get_normal())
-		parent.distribute_signal(CollisionEvent.new(collision))
+		# Might be null
+		var entity : Entity = collision.get_collider() as Entity
+		parent.distribute_signal(CollisionEvent.new(collision, old_velocity, abs(old_velocity.length() - parent.velocity.length()), entity))
 
 
 func receive_signal(event : Event) -> Event:

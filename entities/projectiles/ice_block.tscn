@@ -1,6 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://h7de1n8frdwv"]
+[gd_scene load_steps=17 format=3 uid="uid://h7de1n8frdwv"]
 
-[ext_resource type="Script" path="res://base_classes/entity.gd" id="1_2yuu1"]
+[ext_resource type="Script" path="res://entities/projectiles/ice_block.gd" id="1_ocvix"]
 [ext_resource type="PackedScene" uid="uid://b3c3vg8q6e5k7" path="res://components/effect_container.tscn" id="2_k0l51"]
 [ext_resource type="Script" path="res://effects/death_actions.gd" id="3_grmvv"]
 [ext_resource type="PackedScene" uid="uid://c867pju6atw7e" path="res://components/hurtbox_component.tscn" id="3_ne2k6"]
@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://cs5yefcn05smc" path="res://entities/projectiles/ice_shard.tscn" id="5_2vgwl"]
 [ext_resource type="Script" path="res://resources/custom_bases/entity_resource.gd" id="5_w20jb"]
 [ext_resource type="Script" path="res://effects/melt.gd" id="7_j6grc"]
+[ext_resource type="Script" path="res://effects/fire.gd" id="8_sbah2"]
+[ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="9_3vxlj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yli8y"]
 radius = 7.0
@@ -37,10 +39,21 @@ inherit_team = true
 default_team = 2
 element = 2
 
+[sub_resource type="Resource" id="Resource_04n34"]
+script = ExtResource("9_3vxlj")
+damage = 1.0
+damage_type = 1
+knockback_type = 1
+knockback_velocity = 0.0
+
 [node name="IceBlock" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 6
-script = ExtResource("1_2yuu1")
+script = ExtResource("1_ocvix")
+min_damage = 1.0
+max_damage = 10.0
+min_speed = 50.0
+max_speed = 500.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_yli8y")
@@ -62,6 +75,11 @@ cast_distance = 4.0
 
 [node name="Melt" type="Node" parent="EffectContainer"]
 script = ExtResource("7_j6grc")
+
+[node name="Node" type="Node" parent="EffectContainer"]
+script = ExtResource("8_sbah2")
+seconds_threshold = 0.1
+tick_damage = SubResource("Resource_04n34")
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("area") instance=ExtResource("3_ne2k6")]
 area = NodePath("Area2D")
