@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://b0ec7mhx8j8pu"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_x2tyu"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="Curve" id="Curve_ehwij"]
+max_value = 3.0
+_data = [Vector2(0.0561798, 0), 0.0, 0.0, 0, 0, Vector2(0.382022, 0), 0.0, 0.0, 0, 0, Vector2(1, 1.46291), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_fkt0f"]
+curve = SubResource("Curve_ehwij")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ljx76"]
+particle_flag_disable_z = true
+particle_flag_damping_as_friction = true
+angle_min = -720.0
+angle_max = 720.0
+spread = 20.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, 0, 0)
+damping_min = 1.0
+damping_max = 1.0
+scale_min = 1.5
+scale_max = 1.5
+scale_over_velocity_max = 58.17
+scale_over_velocity_curve = SubResource("CurveTexture_fkt0f")
+hue_variation_max = 0.05
+
+[sub_resource type="Gradient" id="Gradient_q1mnr"]
+offsets = PackedFloat32Array(0, 0.623616, 0.678967)
+colors = PackedColorArray(1, 0.533333, 0, 1, 1, 0.518649, 0, 0.929348, 1, 0.32549, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fdfq4"]
+gradient = SubResource("Gradient_q1mnr")
+width = 4
+height = 4
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="FireBurst" type="GPUParticles2D"]
+z_index = 10
+material = SubResource("CanvasItemMaterial_x2tyu")
+emitting = false
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_ljx76")
+texture = SubResource("GradientTexture2D_fdfq4")
+one_shot = true
+explosiveness = 1.0
