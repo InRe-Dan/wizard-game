@@ -26,9 +26,68 @@ class Room extends RefCounted:
 	var east : Room
 	var south : Room
 	var west : Room
+	
+class Partition extends RefCounted:
+	enum SplitDir {Horizontal, Vertical}
+	func _init(rect : Rect2i, level : int = 1) -> void:
+		self.rect = rect
+		self.level = level
+		var string : String = ""
+		for i : int in range(level - 1):
+			string += "    "
+		string += str(rect)
+		print(string)
+		
+		if level >= 3:
+			return
+
+		split_dir = SplitDir.values().pick_random()
+		if split_dir == SplitDir.Horizontal:
+			var one_height : int = rect.size.y / 2 + randi_range(-3, 3)
+			var y : int = rect.position.y + one_height
+			var one_pos : Vector2i = Vector2i(rect.position.x, rect.position.y)
+			var one_size : Vector2i = Vector2i(rect.size.x, one_height)
+			var two_pos : Vector2i = Vector2i(rect.position.x, y)
+			var two_size : Vector2i = Vector2i(rect.size.x, rect.size.y - one_height)
+			one = Partition.new(Rect2i(one_pos, one_size), level + 1)
+			two = Partition.new(Rect2i(two_pos, two_size), level + 1)
+		elif split_dir == SplitDir.Vertical:
+			var one_width : int = rect.size.x / 2 + randi_range(-3, 3)
+			var x : int = rect.position.x + one_width
+			var one_pos : Vector2i = Vector2i(rect.position.x, rect.position.y)
+			var one_size : Vector2i = Vector2i(one_width, (rect.size.y))
+			var two_pos : Vector2i = Vector2i(x, rect.position.y)
+			var two_size : Vector2i = Vector2i(rect.size.x - one_width, rect.size.y)
+			one = Partition.new(Rect2i(one_pos, one_size), level + 1)
+			two = Partition.new(Rect2i(two_pos, two_size), level + 1)
+		assert(not one.rect.intersects(two.rect))
+		assert(one.rect.get_area() + two.rect.get_area() == rect.get_area())
+				
+	func make_rooms(array : Array[Room] = []) -> Array[Room]:
+		if not one:
+			room = Room.new(Rect2i(rect.position + Vector2i.ONE, rect.size - Vector2i.ONE))
+			array.append(room)
+		else:
+			one.make_rooms(array)
+			two.make_rooms(array)
+			if split_dir == SplitDir.Vertical:
+				one.room.west = two.room
+				two.room.east = one.room
+			else:
+				one.room.south = two.room
+				two.room.north = one.room
+			room = [one.room, two.room].pick_random()
+		return array
+
+	var rect : Rect2i
+	var split_dir : SplitDir
+	var one : Partition = null
+	var two : Partition = null
+	var room : Room = null
+	var level : int
 
 func _ready() -> void:
-	generate(10)
+	generate_bsp(Rect2i(-20, -20, 40, 40))
 
 func populate_room(room : Room) -> void:
 	var enemies : int = randi_range(min_enemies_per_room, max_enemies_per_room)
@@ -60,7 +119,37 @@ func set_floor(v : Vector2i) -> void:
 func set_wall(v : Vector2i) -> void:
 	walls.set_cell(0, v, 0, Vector2i(range(4, 8).pick_random(), 4))
 
-func generate(room_count : int) -> void:
+func put_rooms_on_tilemap(rooms : Array[Room]) -> void:
+	for room : Room in rooms:
+		for i : int in range(room.rect.size.y):
+			for j : int in range(room.rect.size.x):
+				set_floor(room.rect.position + Vector2i(j, i))
+		populate_room(room)
+				
+		for i : int in range(door_width):
+			if room.north:
+				set_floor(Vector2i(room.rect.position.x + room.rect.size.x / 2 - door_width / 2 + i, (room.rect.position.y - 1)))
+			if room.east:
+				set_floor(Vector2i(room.rect.position.x - 1, room.rect.position.y + room.rect.size.y / 2 - door_width / 2 + i))
+			if room.south:
+				set_floor(Vector2i(room.rect.position.x + room.rect.size.x / 2 - door_width / 2 + i, room.rect.position.y + room.rect.size.y  + 1))
+			if room.west:
+				set_floor(Vector2i(room.rect.position.x + room.rect.size.x, room.rect.position.y + room.rect.size.y / 2 - door_width / 2 + i))
+	var floor_rect : Rect2i = floor.get_used_rect()
+	var walls_corner : Vector2i = Vector2i(floor_rect.position - wall_padding * Vector2i.ONE)
+	var walls_size : Vector2i = Vector2i(floor_rect.size + wall_padding * 2 * Vector2i.ONE)
+	var offsets : Array[Vector2i] = [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(1, 1), Vector2i(1, -1), Vector2i(0, -1), Vector2i(0, 1), Vector2i(-1, -1), Vector2i(-1, 1)]
+	for x : int in range(walls_size.x):
+		for y : int in range(walls_size.y):
+			if not floor.get_cell_tile_data(0, walls_corner + Vector2i(x, y)):
+				var place : bool = false
+				for offset : Vector2i in offsets:
+					place = place or floor.get_cell_tile_data(0, walls_corner + Vector2i(x, y) + offset)
+				if place:
+					set_wall(walls_corner + Vector2i(x, y))
+	FloorHandler.init_for_room()
+
+func generate_tiled(room_count : int) -> void:
 	floor.clear()
 	walls.clear()
 	var rooms : Array[Room]
@@ -105,37 +194,11 @@ func generate(room_count : int) -> void:
 					rooms.append(new_room)
 					rooms_made += 1
 	
-	var skip : bool = true
-	for room : Room in rooms:
-		for i : int in range(room.rect.size.y):
-			for j : int in range(room.rect.size.x):
-				set_floor(room.rect.position + Vector2i(j, i))
-		if skip:
-			skip = false
-		else:
-			populate_room(room)
-				
-		for i : int in range(door_width):
-			if room.north:
-				set_floor(Vector2i(room.rect.position.x + room.rect.size.x / 2 - door_width / 2 + i, (room.rect.position.y - 1)))
-			if room.east:
-				set_floor(Vector2i(room.rect.position.x - 1, room.rect.position.y + room.rect.size.y / 2 - door_width / 2 + i))
-			if room.south:
-				set_floor(Vector2i(room.rect.position.x + room.rect.size.x / 2 - door_width / 2 + i, room.rect.position.y + room.rect.size.y  + 1))
-			if room.west:
-				set_floor(Vector2i(room.rect.position.x + room.rect.size.x, room.rect.position.y + room.rect.size.y / 2 - door_width / 2 + i))
+	put_rooms_on_tilemap(rooms)
 	
-	var floor_rect : Rect2i = floor.get_used_rect()
-	var walls_corner : Vector2i = Vector2i(floor_rect.position - wall_padding * Vector2i.ONE)
-	var walls_size : Vector2i = Vector2i(floor_rect.size + wall_padding * 2 * Vector2i.ONE)
-	var offsets : Array[Vector2i] = [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(1, 1), Vector2i(1, -1), Vector2i(0, -1), Vector2i(0, 1), Vector2i(-1, -1), Vector2i(-1, 1)]
-	for x : int in range(walls_size.x):
-		for y : int in range(walls_size.y):
-			if not floor.get_cell_tile_data(0, walls_corner + Vector2i(x, y)):
-				var place : bool = false
-				for offset : Vector2i in offsets:
-					place = place or floor.get_cell_tile_data(0, walls_corner + Vector2i(x, y) + offset)
-				if place:
-					set_wall(walls_corner + Vector2i(x, y))
-	
-	FloorHandler.init_for_room()
+func generate_bsp(rect : Rect2i) -> void:
+	floor.clear()
+	walls.clear()
+	var part : Partition = Partition.new(rect)
+	var rooms : Array[Room] = part.make_rooms()
+	put_rooms_on_tilemap(rooms)

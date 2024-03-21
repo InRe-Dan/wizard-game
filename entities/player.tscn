@@ -110,6 +110,7 @@ shape = SubResource("CircleShape2D_4s2ka")
 z_index = 1
 energy = 0.5
 shadow_enabled = true
+shadow_filter_smooth = 28.1
 texture = SubResource("GradientTexture2D_mfdbb")
 
 [node name="DialogueComponent" parent="." instance=ExtResource("12_7vj67")]

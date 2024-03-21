@@ -27,7 +27,7 @@ func _process(delta: float) -> void:
 func _on_regen_button_pressed() -> void:
 	for child : Node in get_tree().get_nodes_in_group("npcs"):
 		child.queue_free()
-	(get_tree().get_first_node_in_group("level") as Level).generate(10)
+	(get_tree().get_first_node_in_group("level") as Level).generate_bsp(Rect2i(-20, -20, 40, 40))
 
 
 func _on_kill_button_pressed() -> void:
