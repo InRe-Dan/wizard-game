@@ -1,8 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://c3ymrarugklpb"]
+[gd_scene load_steps=9 format=3 uid="uid://c3ymrarugklpb"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_jl44l"]
 [ext_resource type="PackedScene" uid="uid://b85ijfyowcx7n" path="res://misc_scenes/level.tscn" id="1_pf5qg"]
 [ext_resource type="PackedScene" uid="uid://dkfutwmsr2tli" path="res://misc_scenes/camera.tscn" id="3_5shnw"]
+[ext_resource type="Resource" uid="uid://b0417rkfcoxqv" path="res://resources/entities/goblin.tres" id="4_lctcp"]
+[ext_resource type="Resource" uid="uid://de3xho4ihfqg3" path="res://resources/entities/angel.tres" id="5_tw4re"]
+[ext_resource type="Resource" uid="uid://citrs7i2kkftb" path="res://resources/entities/ice_zombie.tres" id="6_fi4jd"]
 [ext_resource type="Texture2D" uid="uid://derg3kptuadmm" path="res://assets/dungeon/wall_mid.png" id="6_ybf1x"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_62fnj"]
@@ -16,6 +19,7 @@ script = ExtResource("1_jl44l")
 texture_filter = 1
 
 [node name="level" parent="." instance=ExtResource("1_pf5qg")]
+enemy_list = Array[Resource("res://resources/custom_bases/entity_resource.gd")]([ExtResource("4_lctcp"), ExtResource("5_tw4re"), ExtResource("6_fi4jd")])
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 

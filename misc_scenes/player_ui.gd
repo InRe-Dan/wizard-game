@@ -20,15 +20,22 @@ func populate_icons(effects : Array) -> void:
 		if not effect_to_rect.has(effect):
 			effect.updated.connect(update_icon)
 			var rect : TextureRect = TextureRect.new()
+			rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 			rect.expand_mode = rect.EXPAND_KEEP_SIZE
 			rect.texture = effect.icon
 			rect.tooltip_text = effect.effect_name + "\n" + effect.effect_description
 			effect_icons.add_child(rect)
 			effect_to_rect[effect] = rect
-	for effect : Effect in effect_to_rect.keys():
-		if not effects.has(effect):
-			effect_icons.remove_child(effect_to_rect[effect])
-			effect_to_rect.erase(effect)
+	var keys : Array = effect_to_rect.keys()
+	for i : int in range(keys.size()):
+		if is_instance_valid(keys[i]):
+			var effect : Effect = keys[i]
+			if not effects.has(effect):
+				effect_icons.remove_child(effect_to_rect[effect])
+				effect_to_rect.erase(effect)
+		else:
+			effect_to_rect[keys[i]].queue_free()
+			effect_to_rect.erase(keys[i])
 
 func _process(delta: float) -> void:
 	var player : Entity = get_tree().get_first_node_in_group("players") as Entity

@@ -49,7 +49,6 @@ func distribute_signal(event : Event) -> void:
 			var hit : TakeDamageEvent = event as TakeDamageEvent
 			var damage : float = hit.damage.damage * hit.multiplier
 			health -= damage
-			print(damage, " ", health)
 			if damage > 0:
 				match hit.damage.damage_type:
 					DamageData.DamageTypes.fire:

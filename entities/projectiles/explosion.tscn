@@ -57,7 +57,6 @@ fill_to = Vector2(0.782407, 0.203704)
 
 [node name="ExplosionEntity" type="CharacterBody2D" groups=["npcs"]]
 script = ExtResource("1_2d4i0")
-entity_name = "Explosion"
 
 [node name="HitboxComponent" parent="." instance=ExtResource("2_qlgqq")]
 damage = SubResource("Resource_x0s8p")

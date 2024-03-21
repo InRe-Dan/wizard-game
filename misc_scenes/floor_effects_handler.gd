@@ -124,6 +124,7 @@ func init_for_room() -> void:
 	ice_array.clear()
 	fire_array.clear()
 	water_array.clear()
+	floor_mask_array.clear()
 	for i : int in range(array_size.y):
 		ice_array.append([])
 		fire_array.append([])

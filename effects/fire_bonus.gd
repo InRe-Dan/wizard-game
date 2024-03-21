@@ -32,7 +32,6 @@ func handle_event(event : Event) -> Event:
 	if event is HasHitEvent:
 		var hit_event : HasHitEvent = event as HasHitEvent
 		hit_event.multiplier += (bonus_per_stack * stacks)
-		print(hit_event.damage.damage)
 		return hit_event
 	return event
 

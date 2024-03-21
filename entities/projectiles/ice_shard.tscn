@@ -1,0 +1,69 @@
+[gd_scene load_steps=12 format=3 uid="uid://cs5yefcn05smc"]
+
+[ext_resource type="Script" path="res://base_classes/entity.gd" id="1_2kmof"]
+[ext_resource type="Script" path="res://components/hitbox_component.gd" id="2_ocv26"]
+[ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="3_p51uj"]
+[ext_resource type="PackedScene" uid="uid://bueaitn7te0q1" path="res://components/projectile_despawner_component.tscn" id="4_qlkcp"]
+[ext_resource type="PackedScene" uid="uid://b3c3vg8q6e5k7" path="res://components/effect_container.tscn" id="5_lcspa"]
+[ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="11_6mlv5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ue3li"]
+size = Vector2(4, 4)
+
+[sub_resource type="Gradient" id="Gradient_b1x1k"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.00657895, 0.896679, 1)
+colors = PackedColorArray(1, 0.898039, 0.556863, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4l386"]
+gradient = SubResource("Gradient_b1x1k")
+width = 4
+height = 4
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Resource" id="Resource_crfkm"]
+script = ExtResource("3_p51uj")
+damage = 1.0
+damage_type = 3
+knockback_type = 1
+knockback_velocity = 10.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_88r68"]
+radius = 4.0
+
+[node name="IceShard" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_2kmof")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ue3li")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_4l386")
+
+[node name="HitboxComponent" type="Node2D" parent="."]
+script = ExtResource("2_ocv26")
+damage = SubResource("Resource_crfkm")
+
+[node name="Area2D" type="Area2D" parent="HitboxComponent"]
+collision_layer = 16
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent/Area2D"]
+shape = SubResource("CircleShape2D_88r68")
+
+[node name="ProjectileDespawner" parent="." instance=ExtResource("4_qlkcp")]
+despawn_on_standstill = true
+despawn_after_interval = true
+lifetime = 0.3
+
+[node name="EffectContainer" parent="." instance=ExtResource("5_lcspa")]
+
+[node name="PhysicsHandler" parent="." instance=ExtResource("11_6mlv5")]
+base_acceleration = 0.0
+take_collision_damage = false
+ice_acceleration_multiplier = 1.0
+ice_damping_multiplier = 1.0
+water_damping_multiplier = 1.0

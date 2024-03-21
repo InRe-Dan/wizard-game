@@ -783,3 +783,12 @@ And later on in the day, Godot threw a hissy fit and detached my script from my 
 20/3/24
 
 After many days of strange errors and a couple of days of rest, I finally have entity metadata, so I can start creating effects that look up this metadata when changing entity atttributes - mostly looking up the type of projectile and its element.
+
+21/3/24
+
+This whole time I've been meaning to add an ice block projectile which spawns as a static object that entities collide with and take damage from if struck by, and this block is going to definetely push my entity component system. 
+
+The block is an opportunity to expand on the library of effects and actions available to entities:
+    On death or collision, the block should explode into ice shards 
+    It should have a unique hitbox component which multiplies its damage by the block's velocity
+    When hit by fire-affinity entities, it should dissappear immediately and turn to a puddle of water

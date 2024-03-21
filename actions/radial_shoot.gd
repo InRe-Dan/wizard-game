@@ -21,7 +21,9 @@ func _process(delta : float) -> void:
 	if not firing:
 		return
 	time_elapsed += delta
-	var shots_that_should_have_fired : int = ceil(time_elapsed / shot_delay)
+	var shots_that_should_have_fired : int = shot_count
+	if shot_delay > 0:
+		shots_that_should_have_fired = ceil(time_elapsed / shot_delay)
 	var shots_to_fire : int = shots_that_should_have_fired - shots_fired
 	for i : int in range(shots_to_fire):
 		for j : float in [-0.5, 0.5]:
@@ -48,5 +50,8 @@ func do(target : Entity, secondary : Entity = null, direction : Vector2 = Vector
 		shots_fired = 0
 		caster = target
 		start_angle = direction.angle()
+		# jank
+		if shot_delay == 0:
+			_process(1.0)
 	
 

@@ -9,6 +9,7 @@ enum EntityElement {None, Fire, Ice, Water}
 @export var starting_health : int
 @export var spawn_velocity : int 
 @export var type : EntityType
+@export var inherit_team : bool = true
 @export var default_team : EntityTeam
 @export var element : EntityElement
 

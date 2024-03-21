@@ -1,0 +1,82 @@
+[gd_scene load_steps=14 format=3 uid="uid://h7de1n8frdwv"]
+
+[ext_resource type="Script" path="res://base_classes/entity.gd" id="1_2yuu1"]
+[ext_resource type="PackedScene" uid="uid://b3c3vg8q6e5k7" path="res://components/effect_container.tscn" id="2_k0l51"]
+[ext_resource type="Script" path="res://effects/death_actions.gd" id="3_grmvv"]
+[ext_resource type="PackedScene" uid="uid://c867pju6atw7e" path="res://components/hurtbox_component.tscn" id="3_ne2k6"]
+[ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="4_1pvt7"]
+[ext_resource type="Script" path="res://actions/radial_shoot.gd" id="4_6j8aa"]
+[ext_resource type="PackedScene" uid="uid://cs5yefcn05smc" path="res://entities/projectiles/ice_shard.tscn" id="5_2vgwl"]
+[ext_resource type="Script" path="res://resources/custom_bases/entity_resource.gd" id="5_w20jb"]
+[ext_resource type="Script" path="res://effects/melt.gd" id="7_j6grc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yli8y"]
+radius = 7.0
+
+[sub_resource type="Gradient" id="Gradient_8a0ec"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0.0184502, 0.369004, 0.542435, 0.682657)
+colors = PackedColorArray(0, 0, 1, 0.960784, 0, 0.764706, 0.764706, 0.596078, 1, 1, 1, 0.717647, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_os2xt"]
+gradient = SubResource("Gradient_8a0ec")
+width = 16
+height = 16
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 1)
+
+[sub_resource type="Resource" id="Resource_uyknv"]
+script = ExtResource("5_w20jb")
+entity_name = "Ice Shard"
+_entity_scene = ExtResource("5_2vgwl")
+starting_health = 1
+spawn_velocity = 200
+type = 3
+inherit_team = true
+default_team = 2
+element = 2
+
+[node name="IceBlock" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 6
+script = ExtResource("1_2yuu1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_yli8y")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_os2xt")
+
+[node name="EffectContainer" parent="." instance=ExtResource("2_k0l51")]
+
+[node name="DeathActionsEffect" type="Node" parent="EffectContainer"]
+script = ExtResource("3_grmvv")
+
+[node name="Shards" type="Node" parent="EffectContainer/DeathActionsEffect"]
+script = ExtResource("4_6j8aa")
+projectile = SubResource("Resource_uyknv")
+shot_delay = 0.0
+shot_count = 4
+cast_distance = 4.0
+
+[node name="Melt" type="Node" parent="EffectContainer"]
+script = ExtResource("7_j6grc")
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("area") instance=ExtResource("3_ne2k6")]
+area = NodePath("Area2D")
+
+[node name="Area2D" type="Area2D" parent="HurtboxComponent"]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent/Area2D"]
+shape = SubResource("CircleShape2D_yli8y")
+
+[node name="PhysicsHandler" parent="." instance=ExtResource("4_1pvt7")]
+base_acceleration = 0.0
+base_damping = 0.01
+take_collision_damage = false
+ice_acceleration_multiplier = 0.0
+ice_damping_multiplier = 0.0
+water_damping_multiplier = 500.0
