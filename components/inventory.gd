@@ -16,6 +16,9 @@ func get_selected() -> InventoryItem:
 		return null
 	return active.get_children()[selected] as InventoryItem
 
+func get_items() -> Array:
+	return active.get_children()
+
 func use(direction : Vector2) -> void:
 	var item : InventoryItem = get_selected()
 	if item:

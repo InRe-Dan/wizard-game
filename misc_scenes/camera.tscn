@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dkfutwmsr2tli"]
+[gd_scene load_steps=24 format=3 uid="uid://dkfutwmsr2tli"]
 
 [ext_resource type="Script" path="res://misc_scenes/camera.gd" id="1_67e48"]
 [ext_resource type="Shader" path="res://shaders/screen.gdshader" id="2_gcgr3"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://du436jkuxg0ah" path="res://assets/ui/keyboard_keys.png" id="5_nlf4r"]
 [ext_resource type="Texture2D" uid="uid://0yo7q0qi576d" path="res://assets/ui/keyboard_extras.png" id="6_l88bi"]
 [ext_resource type="PackedScene" uid="uid://cnmm04jdtxbiy" path="res://misc_scenes/debug_menu.tscn" id="7_a1mme"]
+[ext_resource type="PackedScene" uid="uid://ctvyx6fxdx3mx" path="res://misc_scenes/radial_menu.tscn" id="9_0rdqt"]
 
 [sub_resource type="Gradient" id="Gradient_uhjsu"]
 
@@ -108,6 +109,7 @@ offset_bottom = 9.0
 text = "fps: err"
 label_settings = SubResource("LabelSettings_1xakj")
 script = ExtResource("4_dqccr")
+metadata/_edit_use_anchors_ = true
 
 [node name="DebugMenu" parent="UI" instance=ExtResource("7_a1mme")]
 anchors_preset = -1
@@ -172,3 +174,17 @@ texture = SubResource("AtlasTexture_6376t")
 modulate = Color(0.996078, 1, 1, 0.545098)
 position = Vector2(328, 259.5)
 texture = SubResource("AtlasTexture_v6fyo")
+
+[node name="CenterContainer" type="CenterContainer" parent="UI"]
+anchors_preset = -1
+anchor_left = 0.356
+anchor_top = 0.356
+anchor_right = 0.565
+anchor_bottom = 0.722
+offset_left = 0.119995
+offset_top = -0.120003
+offset_right = -0.200012
+offset_bottom = 1.05998
+
+[node name="RadialMenu" parent="UI/CenterContainer" instance=ExtResource("9_0rdqt")]
+layout_mode = 2

@@ -1,6 +1,7 @@
 class_name FrozenEffect extends Effect
 
 @export var apply_immunity : bool = false
+@export var permanent : bool = false
 
 var particle_scene : PackedScene = preload("res://particles/frozen_particles.tscn")
 var buildup : float = 0
@@ -18,6 +19,8 @@ func _ready() -> void:
 
 func _process(delta : float) -> void:
 	particles.global_position = get_parent().parent.global_position
+	if permanent:
+		buildup = 100
 	if not apply_immunity:
 		var entity : Entity = (get_parent() as EntityComponent).parent
 		if FloorHandler.is_point_in_ice(entity.global_position):
