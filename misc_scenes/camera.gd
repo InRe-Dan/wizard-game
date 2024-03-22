@@ -6,6 +6,7 @@ extends Camera2D
 @export var SMOOTHING_DURATION : float = 0.2
 # https://gamedev.stackexchange.com/questions/1828/realistic-camera-screen-shake-from-explosion
 @export var shake_radius : float = 2
+@export var offset_scale : float = 0.2
 
 var current_position: Vector2
 var destination_position: Vector2
@@ -19,7 +20,8 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	var target: Node2D = get_tree().get_first_node_in_group("players") as Node2D
 	if target:
-		destination_position = target.global_position
+		var vector_to_mouse : Vector2 = get_global_mouse_position() - target.global_position
+		destination_position = target.global_position + offset_scale * vector_to_mouse
 	current_position += Vector2(destination_position.x - current_position.x, destination_position.y - current_position.y) / SMOOTHING_DURATION * delta
 	global_position = current_position.round()
 	if is_shaking:
