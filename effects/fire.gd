@@ -28,7 +28,7 @@ func _process(delta : float) -> void:
 		var entity : Entity = (get_parent() as EntityComponent).parent
 		if FloorHandler.is_point_in_fire(entity.global_position):
 			entity.distribute_signal(AddEffectEvent.new(FireEffect.new(delta)))
-		elif decay_threshold < time_since_fire:
+		elif buildup > 0:
 			buildup -= min(delta * 2, buildup)
 		if buildup > 1.0 and immunity_frames < 0.01:
 			entity.distribute_signal(TakeDamageEvent.new(tick_damage, Vector2.ZERO, 1.0))

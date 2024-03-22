@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c3ymrarugklpb"]
+[gd_scene load_steps=11 format=3 uid="uid://c3ymrarugklpb"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_jl44l"]
 [ext_resource type="PackedScene" uid="uid://b85ijfyowcx7n" path="res://misc_scenes/level.tscn" id="1_pf5qg"]
@@ -10,6 +10,21 @@
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_62fnj"]
 light_mode = 1
+
+[sub_resource type="Environment" id="Environment_mhhjo"]
+background_mode = 3
+reflected_light_source = 1
+tonemap_mode = 3
+glow_enabled = true
+glow_normalized = true
+glow_intensity = 6.39
+glow_strength = 2.0
+glow_bloom = 0.05
+glow_blend_mode = 4
+adjustment_enabled = true
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_gxvpy"]
+auto_exposure_enabled = true
 
 [node name="main" type="Node2D" groups=["main"]]
 texture_filter = 1
@@ -34,3 +49,7 @@ material = SubResource("CanvasItemMaterial_62fnj")
 texture = ExtResource("6_ybf1x")
 region_enabled = true
 region_rect = Rect2(-10000, -10000, 20000, 20000)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_mhhjo")
+camera_attributes = SubResource("CameraAttributesPractical_gxvpy")
