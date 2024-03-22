@@ -51,5 +51,6 @@ region_enabled = true
 region_rect = Rect2(-10000, -10000, 20000, 20000)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+process_mode = 3
 environment = SubResource("Environment_mhhjo")
 camera_attributes = SubResource("CameraAttributesPractical_gxvpy")

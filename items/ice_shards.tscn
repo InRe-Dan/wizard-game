@@ -1,0 +1,29 @@
+[gd_scene load_steps=7 format=3 uid="uid://vcl5qk42gq8x"]
+
+[ext_resource type="Script" path="res://base_classes/inventory_item.gd" id="1_lfbs0"]
+[ext_resource type="Script" path="res://actions/shoot_projectile.gd" id="2_f2tps"]
+[ext_resource type="Script" path="res://actions/cooldown.gd" id="3_5r6cy"]
+[ext_resource type="PackedScene" uid="uid://cs5yefcn05smc" path="res://entities/projectiles/ice_shard.tscn" id="3_hdg83"]
+[ext_resource type="Script" path="res://resources/custom_bases/entity_resource.gd" id="4_31alj"]
+
+[sub_resource type="Resource" id="Resource_0ndrm"]
+script = ExtResource("4_31alj")
+entity_name = "Shard"
+_entity_scene = ExtResource("3_hdg83")
+starting_health = 1
+spawn_velocity = 500
+type = 3
+inherit_team = true
+default_team = 0
+element = 2
+
+[node name="IceShards" type="Node"]
+script = ExtResource("1_lfbs0")
+
+[node name="Shards" type="Node" parent="."]
+script = ExtResource("2_f2tps")
+projectile = SubResource("Resource_0ndrm")
+
+[node name="Cooldown" type="Node" parent="."]
+script = ExtResource("3_5r6cy")
+cooldown_time = 0.1

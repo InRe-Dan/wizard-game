@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bn1kf1pq2gcxx"]
+
+[ext_resource type="Script" path="res://components/turning_graphics_component.gd" id="1_qcmri"]
+
+[node name="TurningGraphicsComponent" type="Node2D"]
+script = ExtResource("1_qcmri")

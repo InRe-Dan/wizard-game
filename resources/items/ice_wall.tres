@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=4 format=3 uid="uid://hy23133r1yhg"]
+
+[ext_resource type="PackedScene" uid="uid://bgbqojie4hrhc" path="res://items/ice_wall.tscn" id="1_loyco"]
+[ext_resource type="Texture2D" uid="uid://x15b7y2g8ert" path="res://assets/ice_icon.png" id="2_yocrw"]
+[ext_resource type="Script" path="res://resources/custom_bases/item_resource.gd" id="3_cclh4"]
+
+[resource]
+script = ExtResource("3_cclh4")
+item_name = "Ice Block"
+element = 1
+type = 3
+limited_use = false
+item_durability = 10
+inventory_icon = ExtResource("2_yocrw")
+glow = Color(0.466667, 1, 1, 1)
+_item_scene = ExtResource("1_loyco")

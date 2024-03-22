@@ -1,4 +1,5 @@
 shader_type canvas_item;
+render_mode world_vertex_coords;
 
 uniform float quantizationSteps = 8;
 uniform float vignetteExponent = 0.5;
@@ -24,7 +25,8 @@ void fragment() {
 	vec3 quantizedCol = floor(COLOR.xyz / stepSize) * stepSize;
 	vec3 remainder = mod(COLOR.xyz, stepSize);
 	vec3 ditherProb = remainder / stepSize;
-	float rand = texture(noise_texture, world_pos).r;
+	vec2 uv = world_pos / vec2(textureSize(noise_texture, 0));
+	float rand = texture(noise_texture, uv).r;
 	vec3 dither_colour = vec3(bvec3(ditherProb.x > rand, ditherProb.y > rand, ditherProb.z > rand));
 	COLOR = vec4(quantizedCol.xyz + stepSize * dither_colour, COLOR.w);
 }

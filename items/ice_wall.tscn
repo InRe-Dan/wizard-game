@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bgbqojie4hrhc"]
+[gd_scene load_steps=7 format=3 uid="uid://bgbqojie4hrhc"]
 
 [ext_resource type="Script" path="res://base_classes/inventory_item.gd" id="1_bl7iu"]
 [ext_resource type="Script" path="res://actions/shoot_projectile.gd" id="2_n7uh5"]
 [ext_resource type="PackedScene" uid="uid://h7de1n8frdwv" path="res://entities/projectiles/ice_block.tscn" id="3_taerr"]
 [ext_resource type="Script" path="res://resources/custom_bases/entity_resource.gd" id="4_ulre0"]
+[ext_resource type="Script" path="res://actions/cooldown.gd" id="5_njj66"]
 
 [sub_resource type="Resource" id="Resource_n7b7p"]
 script = ExtResource("4_ulre0")
@@ -22,5 +23,10 @@ script = ExtResource("1_bl7iu")
 [node name="Node" type="Node" parent="."]
 script = ExtResource("2_n7uh5")
 projectile = SubResource("Resource_n7b7p")
-side_projectiles = 1
+side_projectiles = 2
+spread = 35.0
 cast_distance = 48.0
+
+[node name="Node2" type="Node" parent="."]
+script = ExtResource("5_njj66")
+cooldown_time = 1.0
