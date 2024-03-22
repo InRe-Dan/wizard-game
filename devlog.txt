@@ -799,3 +799,6 @@ I also need to add some constraints to the level generation to make sure that ro
 
 First thing I will do it tear out code from the monolithic level generation function and make more intermediate functions, as this will come in handy for changing things later. The step is to generate partitions, then rooms from those partitions, then populate the rooms, then connect them, and finally to fill the level with walls where applicable.
 
+22/3/24
+
+Godot said it doesnt know what FireEffect is. I restarted the editor. No dice. I renamed it to F**kEffect, and back to FireEffect. Now it works. Happy days.

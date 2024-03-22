@@ -8,11 +8,15 @@ var buildup : float = 0
 @export var tick_damage : DamageData
 var immunity_frames : float
 
-func _init() -> void:
+var decay_threshold : float = 0.2
+var time_since_fire : float
+
+func _init(buildup : float = 0) -> void:
 	if not tick_damage:
 		tick_damage = DamageData.new()
 		tick_damage.damage = 1
 		tick_damage.damage_type = tick_damage.DamageTypes.fire
+	self.buildup = buildup
 
 func _ready() -> void:
 	icon = preload("res://assets/fire_icon.png")
@@ -23,8 +27,8 @@ func _process(delta : float) -> void:
 	if not apply_immunity:
 		var entity : Entity = (get_parent() as EntityComponent).parent
 		if FloorHandler.is_point_in_fire(entity.global_position):
-			buildup += delta
-		elif buildup > 0.0:
+			entity.distribute_signal(AddEffectEvent.new(FireEffect.new(delta)))
+		elif decay_threshold < time_since_fire:
 			buildup -= min(delta * 2, buildup)
 		if buildup > 1.0 and immunity_frames < 0.01:
 			entity.distribute_signal(TakeDamageEvent.new(tick_damage, Vector2.ZERO, 1.0))
@@ -46,6 +50,6 @@ func handle_event(event : Event) -> Event:
 			if effect.apply_immunity:
 				apply_immunity = true
 			else:
-				buildup = effect.buildup
+				buildup += effect.buildup
 			return null
 	return event

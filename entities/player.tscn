@@ -127,9 +127,6 @@ collision_mask = 64
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CanInteractComponent/Area2D"]
 shape = SubResource("CircleShape2D_b1i4r")
 
-[node name="PhysicsHandler" parent="." instance=ExtResource("14_ljjej")]
-take_collision_damage = false
-
 [node name="EffectContainer" parent="." instance=ExtResource("15_csrq8")]
 initial_effects = Array[Resource("res://resources/custom_bases/passive_resource.gd")]([ExtResource("13_5t7u7")])
 
@@ -138,3 +135,6 @@ script = ExtResource("17_126sm")
 
 [node name="Healparticles" type="Node" parent="EffectContainer"]
 script = ExtResource("14_3i7el")
+
+[node name="PhysicsHandler" parent="." instance=ExtResource("14_ljjej")]
+take_collision_damage = false

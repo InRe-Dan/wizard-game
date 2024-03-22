@@ -45,7 +45,6 @@ func _physics_process(delta : float) -> void:
 
 
 func receive_signal(event : Event) -> Event:
-	event.types.attempt_move
 	match event.type:
 		event.types.attempt_move:
 			var cast_event : AttemptMoveEvent = event as AttemptMoveEvent

@@ -72,10 +72,6 @@ texture = SubResource("GradientTexture2D_qpxde")
 [node name="DialogueComponent" parent="." instance=ExtResource("13_wylbv")]
 lifetime = 3.0
 
-[node name="PhysicsHandlerComponent" parent="." instance=ExtResource("14_4u08n")]
-base_acceleration = 200.0
-base_damping = 2.0
-
 [node name="EffectContainer" parent="." instance=ExtResource("15_q8jtu")]
 
 [node name="FireVulnerability" type="Node" parent="EffectContainer"]
@@ -90,3 +86,7 @@ script = ExtResource("11_3ea41")
 [node name="SpawnParticlesAction2" type="Node" parent="EffectContainer/DeathActionsEffect"]
 script = ExtResource("12_krwbi")
 particles = ExtResource("13_4yxaj")
+
+[node name="PhysicsHandlerComponent" parent="." instance=ExtResource("14_4u08n")]
+base_acceleration = 200.0
+base_damping = 2.0

@@ -46,9 +46,6 @@ collision_layer = 4
 collision_mask = 6
 motion_mode = 1
 script = ExtResource("1_4y1gt")
-entity_name = "Ice Zombie"
-health = 20
-team = 1
 
 [node name="SimpleGraphics" parent="." instance=ExtResource("2_afb3p")]
 position = Vector2(1, 2)
@@ -88,17 +85,10 @@ texture = SubResource("GradientTexture2D_536dq")
 [node name="DialogueComponent" parent="." instance=ExtResource("6_s8xix")]
 lifetime = 3.0
 
-[node name="PhysicsHandlerComponent" parent="." instance=ExtResource("7_03jtt")]
-base_acceleration = 200.0
-base_damping = 10.0
-ice_acceleration_multiplier = 1.0
-ice_damping_multiplier = 1.0
-
 [node name="EffectContainer" parent="." instance=ExtResource("8_3e7oh")]
 
 [node name="FireVulnerability" type="Node" parent="EffectContainer"]
 script = ExtResource("9_ec5pk")
-apply_immunity = null
 seconds_threshold = 0.001
 immunity = 0.1
 tick_damage = SubResource("Resource_8xrkf")
@@ -113,3 +103,9 @@ particles = ExtResource("13_dseqh")
 [node name="FloorDropperComponent" parent="." instance=ExtResource("11_45m8e")]
 position = Vector2(0, 6)
 radius = 24.0
+
+[node name="PhysicsHandlerComponent" parent="." instance=ExtResource("7_03jtt")]
+base_acceleration = 200.0
+base_damping = 10.0
+ice_acceleration_multiplier = 1.0
+ice_damping_multiplier = 1.0

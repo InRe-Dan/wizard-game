@@ -74,6 +74,10 @@ folder_colors={
 "res://shaders/": "orange"
 }
 
+[gui]
+
+timers/tooltip_delay_sec=0.0
+
 [input]
 
 up={

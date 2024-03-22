@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://actions/spawn.gd" id="7_hyqr8"]
 [ext_resource type="Resource" uid="uid://bvg6rcon7pd53" path="res://resources/entities/death_blast.tres" id="8_4iwo7"]
 [ext_resource type="Script" path="res://actions/burn_secondary.gd" id="9_ctixm"]
-[ext_resource type="Script" path="res://effects/on_hit_actions.gd" id="9_ihinr"]
+[ext_resource type="Script" path="res://actions/on_hit_actions.gd" id="9_ihinr"]
 [ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="9_oks0k"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_08qk3"]

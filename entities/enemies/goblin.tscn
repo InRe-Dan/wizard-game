@@ -79,14 +79,8 @@ texture = SubResource("GradientTexture2D_536dq")
 [node name="DialogueComponent" parent="." instance=ExtResource("6_topu3")]
 lifetime = 3.0
 
-[node name="PhysicsHandlerComponent" parent="." instance=ExtResource("7_h4u4r")]
-base_acceleration = null
-base_damping = null
-take_collision_damage = null
-knockback_damage_min_speed = null
-ice_acceleration_multiplier = null
-ice_damping_multiplier = null
-water_damping_multiplier = null
+[node name="Inventory" parent="." instance=ExtResource("13_d7ps5")]
+starting_items = Array[Resource("res://resources/custom_bases/item_resource.gd")]([ExtResource("14_5d0en")])
 
 [node name="EffectContainer" parent="." instance=ExtResource("8_t1y8k")]
 
@@ -103,5 +97,11 @@ script = ExtResource("11_2o7lh")
 script = ExtResource("12_affp8")
 particles = ExtResource("13_10h3r")
 
-[node name="Inventory" parent="." instance=ExtResource("13_d7ps5")]
-starting_items = Array[Resource("res://resources/custom_bases/item_resource.gd")]([ExtResource("14_5d0en")])
+[node name="PhysicsHandlerComponent" parent="." instance=ExtResource("7_h4u4r")]
+base_acceleration = null
+base_damping = null
+take_collision_damage = null
+knockback_damage_min_speed = null
+ice_acceleration_multiplier = null
+ice_damping_multiplier = null
+water_damping_multiplier = null
