@@ -22,6 +22,7 @@ height = 8
 
 [node name="RadialMenu" type="Control"]
 layout_mode = 3
+anchors_preset = 0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3

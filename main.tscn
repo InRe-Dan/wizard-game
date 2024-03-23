@@ -24,7 +24,6 @@ glow_blend_mode = 4
 adjustment_enabled = true
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_gxvpy"]
-auto_exposure_enabled = true
 
 [node name="main" type="Node2D" groups=["main"]]
 texture_filter = 1

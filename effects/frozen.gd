@@ -24,14 +24,13 @@ func _process(delta : float) -> void:
 	if not apply_immunity:
 		var entity : Entity = (get_parent() as EntityComponent).parent
 		if FloorHandler.is_point_in_ice(entity.global_position):
-			buildup -= min(delta / 2, buildup)
+			buildup -= min(delta / 10, buildup)
 		elif buildup > 0.0:
 			buildup -= min(delta, buildup)
 		if buildup > 1 and not is_visible:
 			is_visible = true
 			updated.emit(self)
 			particles.emitting = true
-			print(particles.emitting)
 		if buildup < 1 and is_visible:
 			is_visible = false
 			updated.emit(self)
@@ -47,7 +46,7 @@ func handle_event(event : Event) -> Event:
 			if effect.apply_immunity:
 				apply_immunity = true
 			else:
-				buildup = effect.buildup
+				buildup += effect.buildup
 			return null
 		elif effect_event.effect is FireEffect:
 			buildup -= (effect_event.event as FireEffect).buildup
