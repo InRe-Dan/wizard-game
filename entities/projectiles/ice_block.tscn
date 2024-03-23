@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://h7de1n8frdwv"]
+[gd_scene load_steps=18 format=3 uid="uid://h7de1n8frdwv"]
 
 [ext_resource type="Script" path="res://entities/projectiles/ice_block.gd" id="1_ocvix"]
 [ext_resource type="PackedScene" uid="uid://b3c3vg8q6e5k7" path="res://components/effect_container.tscn" id="2_k0l51"]
@@ -8,8 +8,10 @@
 [ext_resource type="Script" path="res://actions/radial_shoot.gd" id="4_6j8aa"]
 [ext_resource type="PackedScene" uid="uid://cs5yefcn05smc" path="res://entities/projectiles/ice_shard.tscn" id="5_2vgwl"]
 [ext_resource type="Script" path="res://resources/custom_bases/entity_resource.gd" id="5_w20jb"]
+[ext_resource type="Script" path="res://actions/play_sound.gd" id="7_07rbs"]
 [ext_resource type="Script" path="res://effects/melt.gd" id="7_j6grc"]
 [ext_resource type="Script" path="res://effects/fire.gd" id="8_sbah2"]
+[ext_resource type="AudioStream" uid="uid://bkfxy1gq8dgq5" path="res://assets/sounds/explosion_4.wav" id="8_yqo8g"]
 [ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="9_3vxlj"]
 [ext_resource type="Script" path="res://effects/frozen.gd" id="10_ckvq1"]
 
@@ -62,6 +64,10 @@ projectile = SubResource("Resource_uyknv")
 shot_delay = 0.0
 shot_count = 4
 cast_distance = 4.0
+
+[node name="PlaySoundAction" type="Node" parent="EffectContainer/DeathActionsEffect"]
+script = ExtResource("7_07rbs")
+sound = ExtResource("8_yqo8g")
 
 [node name="Melt" type="Node" parent="EffectContainer"]
 script = ExtResource("7_j6grc")

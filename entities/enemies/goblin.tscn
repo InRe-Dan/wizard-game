@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bent3fo2kwsvd"]
+[gd_scene load_steps=25 format=3 uid="uid://bent3fo2kwsvd"]
 
 [ext_resource type="Script" path="res://base_classes/entity.gd" id="1_oen2d"]
 [ext_resource type="PackedScene" uid="uid://c03pfmwpgtofc" path="res://components/simple_graphics_component.tscn" id="2_nino7"]
@@ -15,6 +15,10 @@
 [ext_resource type="PackedScene" uid="uid://drax5ptymlccj" path="res://particles/death_particles.tscn" id="13_10h3r"]
 [ext_resource type="PackedScene" uid="uid://uajwl8rwegui" path="res://components/inventory.tscn" id="13_d7ps5"]
 [ext_resource type="Resource" uid="uid://bnuiiw0qvuwwn" path="res://resources/items/knife.tres" id="14_5d0en"]
+[ext_resource type="Script" path="res://effects/actions_on_event.gd" id="15_hft8l"]
+[ext_resource type="Script" path="res://actions/play_sound.gd" id="16_qr7hb"]
+[ext_resource type="AudioStream" uid="uid://d854rjj6wqdj" path="res://assets/sounds/ouch.wav" id="17_hsobn"]
+[ext_resource type="AudioStream" uid="uid://dosjuvfa2igba" path="res://assets/sounds/death.wav" id="17_wp0au"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_krkv8"]
 radius = 5.0
@@ -96,6 +100,22 @@ script = ExtResource("11_2o7lh")
 [node name="SpawnParticlesAction2" type="Node" parent="EffectContainer/DeathActionsEffect"]
 script = ExtResource("12_affp8")
 particles = ExtResource("13_10h3r")
+
+[node name="OnDeath" type="Node" parent="EffectContainer"]
+script = ExtResource("15_hft8l")
+event_type = 8
+
+[node name="PlayDeathSound" type="Node" parent="EffectContainer/OnDeath"]
+script = ExtResource("16_qr7hb")
+sound = ExtResource("17_wp0au")
+
+[node name="OnGetHit" type="Node" parent="EffectContainer"]
+script = ExtResource("15_hft8l")
+event_type = 4
+
+[node name="PlayHitSound" type="Node" parent="EffectContainer/OnGetHit"]
+script = ExtResource("16_qr7hb")
+sound = ExtResource("17_hsobn")
 
 [node name="PhysicsHandlerComponent" parent="." instance=ExtResource("7_h4u4r")]
 base_acceleration = null

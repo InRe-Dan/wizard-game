@@ -1,14 +1,18 @@
-[gd_scene load_steps=13 format=3 uid="uid://cs5yefcn05smc"]
+[gd_scene load_steps=17 format=3 uid="uid://cs5yefcn05smc"]
 
 [ext_resource type="Script" path="res://base_classes/entity.gd" id="1_2kmof"]
 [ext_resource type="Script" path="res://components/hitbox_component.gd" id="2_ocv26"]
 [ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="3_p51uj"]
 [ext_resource type="PackedScene" uid="uid://bueaitn7te0q1" path="res://components/projectile_despawner_component.tscn" id="4_qlkcp"]
 [ext_resource type="PackedScene" uid="uid://b3c3vg8q6e5k7" path="res://components/effect_container.tscn" id="5_lcspa"]
-[ext_resource type="Script" path="res://actions/on_hit_actions.gd" id="6_ve33i"]
+[ext_resource type="Script" path="res://effects/on_hit_actions.gd" id="6_37u3y"]
 [ext_resource type="Script" path="res://actions/freeze_secondary.gd" id="7_f2w83"]
 [ext_resource type="PackedScene" uid="uid://bn1kf1pq2gcxx" path="res://components/turning_graphics_component.tscn" id="7_vj5xj"]
+[ext_resource type="Script" path="res://actions/play_sound.gd" id="8_kofyt"]
+[ext_resource type="AudioStream" uid="uid://ddsn0ulfml6ni" path="res://assets/sounds/cut.wav" id="9_uiy3f"]
+[ext_resource type="Script" path="res://effects/on_spawn_actions.gd" id="10_lxyyy"]
 [ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="11_6mlv5"]
+[ext_resource type="AudioStream" uid="uid://btklr1o52eh7" path="res://assets/sounds/laserShoot.wav" id="11_no2ku"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ue3li"]
 size = Vector2(4, 4)
@@ -50,11 +54,22 @@ lifetime = 0.3
 [node name="EffectContainer" parent="." instance=ExtResource("5_lcspa")]
 
 [node name="OnHit" type="Node" parent="EffectContainer"]
-script = ExtResource("6_ve33i")
+script = ExtResource("6_37u3y")
 
 [node name="Node" type="Node" parent="EffectContainer/OnHit"]
 script = ExtResource("7_f2w83")
 buildup = 0.5
+
+[node name="PlaySoundAction" type="Node" parent="EffectContainer/OnHit"]
+script = ExtResource("8_kofyt")
+sound = ExtResource("9_uiy3f")
+
+[node name="OnSpawnActionsEffect" type="Node" parent="EffectContainer"]
+script = ExtResource("10_lxyyy")
+
+[node name="PlaySoundAction" type="Node" parent="EffectContainer/OnSpawnActionsEffect"]
+script = ExtResource("8_kofyt")
+sound = ExtResource("11_no2ku")
 
 [node name="PhysicsHandler" parent="." instance=ExtResource("11_6mlv5")]
 base_acceleration = 0.0

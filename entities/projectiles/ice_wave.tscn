@@ -1,10 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://dstqfwhd2e66a"]
+[gd_scene load_steps=10 format=3 uid="uid://dstqfwhd2e66a"]
 
 [ext_resource type="Script" path="res://base_classes/entity.gd" id="1_hlwpr"]
 [ext_resource type="PackedScene" uid="uid://h6thrp5ptkgc" path="res://components/floor_dropper_component.tscn" id="2_opanp"]
 [ext_resource type="PackedScene" uid="uid://bueaitn7te0q1" path="res://components/projectile_despawner_component.tscn" id="3_gfnjy"]
 [ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="4_0hl4x"]
 [ext_resource type="PackedScene" uid="uid://b3c3vg8q6e5k7" path="res://components/effect_container.tscn" id="5_6nvdr"]
+[ext_resource type="Script" path="res://effects/on_spawn_actions.gd" id="6_vj41k"]
+[ext_resource type="Script" path="res://actions/play_sound.gd" id="7_akvvf"]
+[ext_resource type="AudioStream" uid="uid://6gh5h1ajcvm6" path="res://assets/sounds/snow_blast.wav" id="8_0lct5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5dvvf"]
 radius = 5.0
@@ -14,8 +17,6 @@ collision_layer = 0
 collision_mask = 2
 motion_mode = 1
 script = ExtResource("1_hlwpr")
-entity_name = "Ice Wave"
-spawn_velocity = 600.0
 
 [node name="FloorDropperComponent" parent="." instance=ExtResource("2_opanp")]
 radius = 16.0
@@ -36,3 +37,10 @@ ice_damping_multiplier = 1.0
 water_damping_multiplier = 1.0
 
 [node name="EffectContainer" parent="." instance=ExtResource("5_6nvdr")]
+
+[node name="OnSpawnActionsEffect" type="Node" parent="EffectContainer"]
+script = ExtResource("6_vj41k")
+
+[node name="PlaySoundAction" type="Node" parent="EffectContainer/OnSpawnActionsEffect"]
+script = ExtResource("7_akvvf")
+sound = ExtResource("8_0lct5")

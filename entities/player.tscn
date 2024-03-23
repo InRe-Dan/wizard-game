@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cu4jaf5f1nlxo"]
+[gd_scene load_steps=27 format=3 uid="uid://cu4jaf5f1nlxo"]
 
 [ext_resource type="Script" path="res://entities/player.gd" id="1_e1iir"]
 [ext_resource type="PackedScene" uid="uid://dfdt5bke0tcu6" path="res://components/player_input_component.tscn" id="2_uw8o3"]
@@ -14,12 +14,16 @@
 [ext_resource type="PackedScene" uid="uid://b6byd7ixvxc8n" path="res://components/can_interact_component.tscn" id="13_lp353"]
 [ext_resource type="Script" path="res://effects/show_heal_particles.gd" id="14_3i7el"]
 [ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="14_ljjej"]
+[ext_resource type="Script" path="res://effects/actions_on_event.gd" id="14_tlggt"]
 [ext_resource type="PackedScene" uid="uid://b3c3vg8q6e5k7" path="res://components/effect_container.tscn" id="15_csrq8"]
+[ext_resource type="Script" path="res://actions/play_sound.gd" id="15_vojiu"]
+[ext_resource type="AudioStream" uid="uid://tf11vprywdnr" path="res://assets/sounds/player_hurt.wav" id="16_2xikm"]
 [ext_resource type="Script" path="res://effects/fire.gd" id="17_126sm"]
+[ext_resource type="AudioStream" uid="uid://dosjuvfa2igba" path="res://assets/sounds/death.wav" id="19_yvff5"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qptjs"]
-radius = 8.0
-height = 16.0
+radius = 6.0
+height = 12.0
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vhqd5"]
 lifetime_randomness = 0.18
@@ -117,11 +121,27 @@ shape = SubResource("CircleShape2D_b1i4r")
 [node name="EffectContainer" parent="." instance=ExtResource("15_csrq8")]
 initial_effects = Array[Resource("res://resources/custom_bases/passive_resource.gd")]([ExtResource("13_5t7u7")])
 
+[node name="OnGetHit" type="Node" parent="EffectContainer"]
+script = ExtResource("14_tlggt")
+event_type = 4
+
+[node name="PlayHitSound" type="Node" parent="EffectContainer/OnGetHit"]
+script = ExtResource("15_vojiu")
+sound = ExtResource("16_2xikm")
+
 [node name="FireEffect" type="Node" parent="EffectContainer"]
 script = ExtResource("17_126sm")
 
 [node name="Healparticles" type="Node" parent="EffectContainer"]
 script = ExtResource("14_3i7el")
+
+[node name="OnDeath" type="Node" parent="EffectContainer"]
+script = ExtResource("14_tlggt")
+event_type = 8
+
+[node name="PlayDeathSound" type="Node" parent="EffectContainer/OnDeath"]
+script = ExtResource("15_vojiu")
+sound = ExtResource("19_yvff5")
 
 [node name="PhysicsHandler" parent="." instance=ExtResource("14_ljjej")]
 take_collision_damage = false

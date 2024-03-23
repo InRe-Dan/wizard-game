@@ -1,9 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://b85ijfyowcx7n"]
+[gd_scene load_steps=16 format=3 uid="uid://b85ijfyowcx7n"]
 
 [ext_resource type="TileSet" uid="uid://p8b656ms37q" path="res://resources/floor.tres" id="1_1cp4m"]
 [ext_resource type="Script" path="res://misc_scenes/level.gd" id="1_dod73"]
 [ext_resource type="TileSet" uid="uid://dsyqknbswyeua" path="res://resources/walls.tres" id="2_2xomd"]
 [ext_resource type="Resource" uid="uid://b0417rkfcoxqv" path="res://resources/entities/goblin.tres" id="2_vthdy"]
+[ext_resource type="Resource" uid="uid://citrs7i2kkftb" path="res://resources/entities/ice_zombie.tres" id="3_tvi7y"]
+[ext_resource type="Resource" uid="uid://de3xho4ihfqg3" path="res://resources/entities/angel.tres" id="4_1qtmx"]
 [ext_resource type="Resource" uid="uid://comxxliqq6s8g" path="res://resources/items/firebolt.tres" id="5_jsrx3"]
 [ext_resource type="Resource" uid="uid://bv4lrl4ookqh4" path="res://resources/items/ice_wave.tres" id="6_gjijd"]
 [ext_resource type="Resource" uid="uid://b34wl3rb20hbn" path="res://resources/items/fire_wave.tres" id="7_i1ey6"]
@@ -20,7 +22,7 @@ level_min_size = Vector2i(80, 80)
 level_max_size = Vector2i(100, 100)
 level_splits = 4
 path_randomness = 0.01
-enemy_list = Array[Resource("res://resources/custom_bases/entity_resource.gd")]([ExtResource("2_vthdy")])
+enemy_list = Array[Resource("res://resources/custom_bases/entity_resource.gd")]([ExtResource("2_vthdy"), ExtResource("3_tvi7y"), ExtResource("4_1qtmx")])
 item_list = Array[Resource("res://resources/custom_bases/item_resource.gd")]([ExtResource("5_jsrx3"), ExtResource("6_gjijd"), ExtResource("7_i1ey6"), ExtResource("8_voof8"), ExtResource("9_v2ant"), ExtResource("10_ba4jq"), ExtResource("11_nbup2")])
 passive_list = Array[Resource("res://resources/custom_bases/passive_resource.gd")]([ExtResource("10_8r3u0"), ExtResource("11_68d5o")])
 

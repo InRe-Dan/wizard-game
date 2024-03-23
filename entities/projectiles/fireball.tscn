@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bn06fjm6xnu4i"]
+[gd_scene load_steps=22 format=3 uid="uid://bn06fjm6xnu4i"]
 
 [ext_resource type="Script" path="res://entities/projectiles/fireball.gd" id="1_q01i0"]
 [ext_resource type="Script" path="res://components/hitbox_component.gd" id="2_6h7iu"]
@@ -9,8 +9,11 @@
 [ext_resource type="Script" path="res://actions/spawn.gd" id="7_hyqr8"]
 [ext_resource type="Resource" uid="uid://bvg6rcon7pd53" path="res://resources/entities/death_blast.tres" id="8_4iwo7"]
 [ext_resource type="Script" path="res://actions/burn_secondary.gd" id="9_ctixm"]
-[ext_resource type="Script" path="res://actions/on_hit_actions.gd" id="9_ihinr"]
 [ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="9_oks0k"]
+[ext_resource type="Script" path="res://effects/on_hit_actions.gd" id="9_tljok"]
+[ext_resource type="Script" path="res://effects/on_spawn_actions.gd" id="11_qphh8"]
+[ext_resource type="Script" path="res://actions/play_sound.gd" id="12_3gcbl"]
+[ext_resource type="AudioStream" uid="uid://btklr1o52eh7" path="res://assets/sounds/laserShoot.wav" id="13_1yuh2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_08qk3"]
 radius = 5.0
@@ -82,10 +85,17 @@ script = ExtResource("7_hyqr8")
 entity_resource = ExtResource("8_4iwo7")
 
 [node name="HitActionsEffect" type="Node" parent="EffectContainer"]
-script = ExtResource("9_ihinr")
+script = ExtResource("9_tljok")
 
 [node name="BurnSecondaryAction" type="Node" parent="EffectContainer/HitActionsEffect"]
 script = ExtResource("9_ctixm")
+
+[node name="OnSpawnActionsEffect" type="Node" parent="EffectContainer"]
+script = ExtResource("11_qphh8")
+
+[node name="PlaySoundAction" type="Node" parent="EffectContainer/OnSpawnActionsEffect"]
+script = ExtResource("12_3gcbl")
+sound = ExtResource("13_1yuh2")
 
 [node name="PhysicsHandler" parent="." instance=ExtResource("9_oks0k")]
 base_damping = 0.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dw5mqad2mfl2a"]
+[gd_scene load_steps=24 format=3 uid="uid://dw5mqad2mfl2a"]
 
 [ext_resource type="Script" path="res://base_classes/entity.gd" id="1_4y1gt"]
 [ext_resource type="PackedScene" uid="uid://c03pfmwpgtofc" path="res://components/simple_graphics_component.tscn" id="2_afb3p"]
@@ -14,6 +14,10 @@
 [ext_resource type="Script" path="res://effects/death_actions.gd" id="11_xq7ws"]
 [ext_resource type="Script" path="res://actions/spawn_particles.gd" id="12_tsjf7"]
 [ext_resource type="PackedScene" uid="uid://drax5ptymlccj" path="res://particles/death_particles.tscn" id="13_dseqh"]
+[ext_resource type="Script" path="res://effects/actions_on_event.gd" id="13_t4g6t"]
+[ext_resource type="Script" path="res://actions/play_sound.gd" id="14_p6is2"]
+[ext_resource type="AudioStream" uid="uid://x15gau2t1asa" path="res://assets/sounds/impact.wav" id="15_vki1l"]
+[ext_resource type="AudioStream" uid="uid://dosjuvfa2igba" path="res://assets/sounds/death.wav" id="16_wi4d2"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_huuuy"]
 radius = 4.0
@@ -99,6 +103,22 @@ script = ExtResource("11_xq7ws")
 [node name="SpawnParticlesAction2" type="Node" parent="EffectContainer/DeathActionsEffect"]
 script = ExtResource("12_tsjf7")
 particles = ExtResource("13_dseqh")
+
+[node name="OnGetHit" type="Node" parent="EffectContainer"]
+script = ExtResource("13_t4g6t")
+event_type = 4
+
+[node name="PlayHitSound" type="Node" parent="EffectContainer/OnGetHit"]
+script = ExtResource("14_p6is2")
+sound = ExtResource("15_vki1l")
+
+[node name="OnDeath" type="Node" parent="EffectContainer"]
+script = ExtResource("13_t4g6t")
+event_type = 8
+
+[node name="PlayDeathSound" type="Node" parent="EffectContainer/OnDeath"]
+script = ExtResource("14_p6is2")
+sound = ExtResource("16_wi4d2")
 
 [node name="FloorDropperComponent" parent="." instance=ExtResource("11_45m8e")]
 position = Vector2(0, 6)

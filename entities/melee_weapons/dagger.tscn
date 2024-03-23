@@ -1,10 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://boqhwrbssha6p"]
+[gd_scene load_steps=13 format=3 uid="uid://boqhwrbssha6p"]
 
 [ext_resource type="Script" path="res://base_classes/entity.gd" id="1_3fgt5"]
 [ext_resource type="Texture2D" uid="uid://c8ab30em77b1c" path="res://assets/dungeon/weapon_knife.png" id="2_ep7xq"]
 [ext_resource type="Script" path="res://components/hitbox_component.gd" id="3_7u72h"]
 [ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="4_kp0cn"]
 [ext_resource type="PackedScene" uid="uid://b3c3vg8q6e5k7" path="res://components/effect_container.tscn" id="5_rtj30"]
+[ext_resource type="Script" path="res://effects/on_hit_actions.gd" id="6_2m6f1"]
+[ext_resource type="Script" path="res://actions/play_sound.gd" id="7_rgp0a"]
+[ext_resource type="AudioStream" uid="uid://ddsn0ulfml6ni" path="res://assets/sounds/cut.wav" id="8_b2a80"]
+[ext_resource type="Script" path="res://effects/on_spawn_actions.gd" id="9_bv814"]
+[ext_resource type="AudioStream" uid="uid://dt6mmv80bd2l0" path="res://assets/sounds/thump.wav" id="10_vqwsp"]
 
 [sub_resource type="Resource" id="Resource_6fuaf"]
 script = ExtResource("4_kp0cn")
@@ -35,3 +40,17 @@ position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_op7hv")
 
 [node name="EffectContainer" parent="." instance=ExtResource("5_rtj30")]
+
+[node name="OnSpawnActionsEffect" type="Node" parent="EffectContainer"]
+script = ExtResource("9_bv814")
+
+[node name="PlaySoundAction" type="Node" parent="EffectContainer/OnSpawnActionsEffect"]
+script = ExtResource("7_rgp0a")
+sound = ExtResource("10_vqwsp")
+
+[node name="HitActionsEffect" type="Node" parent="EffectContainer"]
+script = ExtResource("6_2m6f1")
+
+[node name="PlaySoundAction" type="Node" parent="EffectContainer/HitActionsEffect"]
+script = ExtResource("7_rgp0a")
+sound = ExtResource("8_b2a80")
