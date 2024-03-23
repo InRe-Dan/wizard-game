@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EntityResource" load_steps=3 format=3 uid="uid://b3nl473altp88"]
+
+[ext_resource type="Script" path="res://resources/custom_bases/entity_resource.gd" id="1_b53ce"]
+[ext_resource type="PackedScene" uid="uid://cs5yefcn05smc" path="res://entities/projectiles/ice_shard.tscn" id="1_wkx6p"]
+
+[resource]
+script = ExtResource("1_b53ce")
+entity_name = "Ice Shard"
+_entity_scene = ExtResource("1_wkx6p")
+starting_health = 1
+spawn_velocity = 500
+type = 3
+inherit_team = true
+default_team = 0
+element = 2

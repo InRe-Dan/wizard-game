@@ -1,4 +1,4 @@
-extends Action
+class_name CooldownAction extends Action
 
 @export var cooldown_time : float = 0.3
 

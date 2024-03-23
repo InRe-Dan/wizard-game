@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cu4jaf5f1nlxo"]
+[gd_scene load_steps=28 format=3 uid="uid://cu4jaf5f1nlxo"]
 
 [ext_resource type="Script" path="res://entities/player.gd" id="1_e1iir"]
 [ext_resource type="PackedScene" uid="uid://dfdt5bke0tcu6" path="res://components/player_input_component.tscn" id="2_uw8o3"]
@@ -8,6 +8,7 @@
 [ext_resource type="Resource" uid="uid://comxxliqq6s8g" path="res://resources/items/firebolt.tres" id="6_mpvsc"]
 [ext_resource type="Resource" uid="uid://bnuiiw0qvuwwn" path="res://resources/items/knife.tres" id="7_e710y"]
 [ext_resource type="Resource" uid="uid://hy23133r1yhg" path="res://resources/items/ice_wall.tres" id="8_3jban"]
+[ext_resource type="Resource" uid="uid://06bg80hhgrh7" path="res://resources/items/shard_burst.tres" id="9_te0ri"]
 [ext_resource type="PackedScene" uid="uid://c867pju6atw7e" path="res://components/hurtbox_component.tscn" id="11_hxc8l"]
 [ext_resource type="PackedScene" uid="uid://uag18b8s0jg4" path="res://components/dialogue_component.tscn" id="12_7vj67"]
 [ext_resource type="Resource" uid="uid://dbaliilxi5nod" path="res://resources/passives/vampirism.tres" id="13_5t7u7"]
@@ -86,7 +87,7 @@ one_shot = true
 explosiveness = 0.83
 
 [node name="Inventory" parent="." instance=ExtResource("5_m6tg5")]
-starting_items = Array[Resource("res://resources/custom_bases/item_resource.gd")]([ExtResource("7_e710y"), ExtResource("6_mpvsc"), ExtResource("8_3jban")])
+starting_items = Array[Resource("res://resources/custom_bases/item_resource.gd")]([ExtResource("7_e710y"), ExtResource("6_mpvsc"), ExtResource("8_3jban"), ExtResource("9_te0ri")])
 
 [node name="HurtboxComponent" parent="." instance=ExtResource("11_hxc8l")]
 

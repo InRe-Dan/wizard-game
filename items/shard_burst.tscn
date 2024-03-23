@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://dl6d547yac27g"]
+
+[ext_resource type="Script" path="res://base_classes/inventory_item.gd" id="1_owsmk"]
+[ext_resource type="Script" path="res://actions/burst_fire.gd" id="2_2nctj"]
+[ext_resource type="Resource" uid="uid://b3nl473altp88" path="res://resources/entities/ice_shard.tres" id="3_rl16y"]
+[ext_resource type="Script" path="res://actions/cooldown.gd" id="4_jry0v"]
+
+[node name="ShardBurst" type="Node"]
+script = ExtResource("1_owsmk")
+
+[node name="BurstFireAction" type="Node" parent="."]
+script = ExtResource("2_2nctj")
+projectile_resource = ExtResource("3_rl16y")
+delay = 0.067
+
+[node name="CooldownAction" type="Node" parent="."]
+script = ExtResource("4_jry0v")
+cooldown_time = 0.4

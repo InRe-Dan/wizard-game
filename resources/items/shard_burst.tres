@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=4 format=3 uid="uid://06bg80hhgrh7"]
+
+[ext_resource type="PackedScene" uid="uid://dl6d547yac27g" path="res://items/shard_burst.tscn" id="1_0tgu4"]
+[ext_resource type="Texture2D" uid="uid://x15b7y2g8ert" path="res://assets/ice_icon.png" id="2_7crda"]
+[ext_resource type="Script" path="res://resources/custom_bases/item_resource.gd" id="3_3evs2"]
+
+[resource]
+script = ExtResource("3_3evs2")
+item_name = "Shard Burst"
+element = 1
+type = 0
+limited_use = false
+item_durability = 10
+inventory_icon = ExtResource("2_7crda")
+glow = Color(0.447059, 1, 1, 1)
+_item_scene = ExtResource("1_0tgu4")

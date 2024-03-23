@@ -6,6 +6,7 @@ var team : EntityResource.EntityTeam
 
 var health : float = 1000
 
+var looking_at : Vector2
 var last_move_input : Vector2
 var knocked_back_by : Entity = null
 var knockback_time : float
