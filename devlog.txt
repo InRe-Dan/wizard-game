@@ -802,3 +802,18 @@ First thing I will do it tear out code from the monolithic level generation func
 22/3/24
 
 Godot said it doesnt know what FireEffect is. I restarted the editor. No dice. I renamed it to F**kEffect, and back to FireEffect. Now it works. Happy days.
+
+23/3/24
+
+With most of the frameworky stuff out of the way, its time to crack down hard on game design, so I need to first establish my design objectives:
+    Players must have a lot of choice in how they approach an encounter, which would generally come from the spells that they are currently holding.
+    Spells should have straightforward offensive traits that get much stronger when used in combination with other spells that deny space, inflict debuffs or control crowds.
+    Enemies should be easily readable but powerful relative to the player, so that they player must keep them under control at any given time
+    The player should be encouraged to get rid of spells as fast as possible rather than saving them for some opportunity. Spells shouldn't remain with them for longer than a couple of encounters.
+    Choices of which spells to use must be interesting and lead to powerful combinations suggested by the player's loadout and passives, as well as enemy placement and types. 
+    Choices of which way to go should be interesting, both on the level scale and on a room scale. 
+
+I will attempt to approximate these objectives with a whole load of features which I will develop over the next few days, and then I will assess which are met, which are not, which are rubbish and how to improve them.
+
+I am going to design a whole host of spells and enemy types, as well as a range of passives, and conduct playtesting of my own to see which combinations and runs are most fun, but first I need to decide how the player's inventory and offensive options will be structured.
+

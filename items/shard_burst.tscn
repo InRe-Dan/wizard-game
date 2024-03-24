@@ -11,8 +11,7 @@ script = ExtResource("1_owsmk")
 [node name="BurstFireAction" type="Node" parent="."]
 script = ExtResource("2_2nctj")
 projectile_resource = ExtResource("3_rl16y")
-delay = 0.067
+delay = 0.033
 
 [node name="CooldownAction" type="Node" parent="."]
 script = ExtResource("4_jry0v")
-cooldown_time = 0.4

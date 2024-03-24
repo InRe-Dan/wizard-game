@@ -3,8 +3,9 @@ class_name Level extends Node2D
 @export_category("Room settings")
 @export var level_min_size : Vector2i = Vector2i(30, 30)
 @export var level_max_size : Vector2i = Vector2i(60, 60)
-@export var level_splits : int = 2
 @export var hallway_width : int = 3
+@export var room_min_size : Vector2i
+@export var room_max_size : Vector2i
 @export var path_randomness : float = 0.2
 @export_category("Enemy generation")
 @export var enemy_list : Array[EntityResource]
@@ -38,15 +39,35 @@ class Room extends RefCounted:
 	
 class Partition extends RefCounted:
 	enum SplitDir {Horizontal, Vertical}
-	func _init(rect : Rect2i, level : int) -> void:
+	func _init(rect : Rect2i, max : Vector2i, min : Vector2i, level : int = 0) -> void:
 		self.rect = rect
 		self.level = level
-		var string : String = ""
-		
-		if level == 0:
+	
+		# Firstly, see if we do need to split.
+		var split_required : bool = true if rect.size.x > max.x \
+									and rect.size.y > max.y \
+							else false
+		if not split_required:
 			return
+	
+		# Determine if there is enough room to split in each direction
+		var can_split_h : bool = true
+		var can_split_v : bool = true
+		if rect.size.x < min.x * 2 or rect.size.y < max.y:
+			can_split_v = false
+		if rect.size.y < min.y * 2 or rect.size.x < max.x:
+			can_split_h = false
 
-		split_dir = SplitDir.values().pick_random()
+		var split_dir : SplitDir
+		if can_split_h and can_split_v:
+			split_dir = SplitDir.values().pick_random()
+		elif can_split_h:
+			split_dir = SplitDir.Horizontal
+		elif can_split_v:
+			split_dir = SplitDir.Vertical
+		else:
+			push_error("Could not create a room with these constraints")
+			return
 		if split_dir == SplitDir.Horizontal:
 			var one_height : int = rect.size.y / 2 + randi_range(-3, 3)
 			var y : int = rect.position.y + one_height
@@ -54,8 +75,8 @@ class Partition extends RefCounted:
 			var one_size : Vector2i = Vector2i(rect.size.x, one_height)
 			var two_pos : Vector2i = Vector2i(rect.position.x, y)
 			var two_size : Vector2i = Vector2i(rect.size.x, rect.size.y - one_height)
-			one = Partition.new(Rect2i(one_pos, one_size), level - 1)
-			two = Partition.new(Rect2i(two_pos, two_size), level - 1)
+			one = Partition.new(Rect2i(one_pos, one_size), min, max, level + 1)
+			two = Partition.new(Rect2i(two_pos, two_size), min, max, level + 1)
 		elif split_dir == SplitDir.Vertical:
 			var one_width : int = rect.size.x / 2 + randi_range(-3, 3)
 			var x : int = rect.position.x + one_width
@@ -63,8 +84,8 @@ class Partition extends RefCounted:
 			var one_size : Vector2i = Vector2i(one_width, (rect.size.y))
 			var two_pos : Vector2i = Vector2i(x, rect.position.y)
 			var two_size : Vector2i = Vector2i(rect.size.x - one_width, rect.size.y)
-			one = Partition.new(Rect2i(one_pos, one_size), level - 1)
-			two = Partition.new(Rect2i(two_pos, two_size), level - 1)
+			one = Partition.new(Rect2i(one_pos, one_size), min, max, level + 1)
+			two = Partition.new(Rect2i(two_pos, two_size), min, max, level + 1)
 		assert(not one.rect.intersects(two.rect))
 		assert(one.rect.get_area() + two.rect.get_area() == rect.get_area())
 				
@@ -177,7 +198,7 @@ func generate_bsp() -> void:
 	var rect : Rect2i = Rect2i(Vector2i.ZERO - size / 2, size)
 	floor.clear()
 	walls.clear()
-	var part : Partition = Partition.new(rect, level_splits)
+	var part : Partition = Partition.new(rect, room_min_size, room_max_size)
 	var rooms : Array[Room] = part.make_rooms()
 	current_rooms = rooms
 	put_rooms_on_tilemap(rooms)

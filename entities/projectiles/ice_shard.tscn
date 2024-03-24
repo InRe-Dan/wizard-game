@@ -56,9 +56,9 @@ lifetime = 0.3
 [node name="OnHit" type="Node" parent="EffectContainer"]
 script = ExtResource("6_37u3y")
 
-[node name="Node" type="Node" parent="EffectContainer/OnHit"]
+[node name="Freeze" type="Node" parent="EffectContainer/OnHit"]
 script = ExtResource("7_f2w83")
-buildup = 0.5
+buildup = 0.33
 
 [node name="PlaySoundAction" type="Node" parent="EffectContainer/OnHit"]
 script = ExtResource("8_kofyt")

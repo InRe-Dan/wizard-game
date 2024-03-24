@@ -30,6 +30,8 @@ script = ExtResource("1_jl44l")
 texture_filter = 1
 
 [node name="level" parent="." instance=ExtResource("1_pf5qg")]
+room_min_size = Vector2i(5, 5)
+room_max_size = Vector2i(20, 20)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
