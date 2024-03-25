@@ -193,9 +193,6 @@ func attempt_to_use_templates(rooms : Array[Room]) -> void:
 			continue
 		var template : RoomLayout = possible_templates.pick_random()
 		var offset : Vector2i = room.rect.get_center() - template.get_used_rect().get_center()
-		print(room.rect)
-		print(template.get_used_rect())
-		print(offset)
 		var template_rect : Rect2i = template.get_used_rect()
 		room.rect = Rect2i(template_rect.position + offset, template_rect.size)
 		for i : int in range(template_rect.position.y, template_rect.position.y + template_rect.size.y):
@@ -203,6 +200,20 @@ func attempt_to_use_templates(rooms : Array[Room]) -> void:
 				if template.get_cell_tile_data(0, Vector2i(j, i)):
 					assert(room.rect.has_point(Vector2i(j, i) + offset))
 					set_floor(Vector2i(j, i) + offset)
+		
+		var possible_enemies : int = template.enemy_locations.size()
+		var shuffled : Array = template.enemy_locations.duplicate()
+		shuffled.shuffle()
+		for i : int in range(randi_range(0, possible_enemies)):
+			var pos : Vector2 = (shuffled.pop_front() as Marker2D).global_position
+			var enemy : Entity = enemy_list.pick_random().make_entity()
+			enemy.global_position = pos + Vector2(offset) * 16
+			add_child(enemy)
+		if template.item_locations:
+			var pos : Vector2 = template.item_locations.pick_random().global_position
+			var item : Entity = item_list.pick_random().make_item_pickup()
+			item.global_position = pos + Vector2(offset) * 16
+			add_child(item)
 
 func generate_bsp() -> void:
 	var size : Vector2i = level_min_size + Vector2i((level_max_size - level_min_size) * (randf()))

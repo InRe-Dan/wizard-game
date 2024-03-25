@@ -817,3 +817,10 @@ I will attempt to approximate these objectives with a whole load of features whi
 
 I am going to design a whole host of spells and enemy types, as well as a range of passives, and conduct playtesting of my own to see which combinations and runs are most fun, but first I need to decide how the player's inventory and offensive options will be structured.
 
+25/3/24
+
+Remarks on levelgen: 
+    Immediately some of the abilities become more interesting since area denial is much more powerful in cramped spaces where enemies already struggle to navigate
+    Choke points are incredibly powerful
+    Some items are less useful since they are only powerful in large open spaces (like circle of fire)
+    It is much more difficult to navigate again, since walls that are part of level templates are difficult to tell from the floor. May be solveable in a postprocessing pass.
