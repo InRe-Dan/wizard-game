@@ -7,13 +7,17 @@ class_name FloorEffectsHandler extends Node2D
 
 @onready var effects : Sprite2D = $Effects
 @onready var lighting : Sprite2D = $Lighting
+@onready var fog : Sprite2D = $Fog
 
 var ice_array : Array[Array]
 var fire_array : Array[Array]
 var water_array : Array[Array]
 var floor_mask_array : Array[Array]
+var fog_array : Array[Array]
 var image : Image
 var texture : ImageTexture
+var fog_image : Image
+var fog_texture : ImageTexture
 var array_size : Vector2i
 var floor_map : TileMap
 
@@ -43,6 +47,8 @@ func _process(delta: float) -> void:
 	texture.update(image)
 	effects.texture = texture
 	lighting.texture = texture
+	fog_texture.update(fog_image)
+	fog.texture = fog_texture
 	
 func is_point_in_map(point : Vector2, map : Array[Array]) -> bool:
 	var converted_point : Vector2i = convert_global_to_map(point)
@@ -114,6 +120,16 @@ func melt_ice(point : Vector2, radius : float) -> void:
 				ice_array[i][j] -= pow(1 - (distance / radius), 2)
 				image.set_pixel(j, i, Color(fire_array[i][j], ice_array[i][j], water_array[i][j]))
 
+func clear_fog(point : Vector2, radius : float) -> void:
+	var converted_point : Vector2i = convert_global_to_map(point)
+	radius = (radius / floor_map.tile_set.tile_size.x) * resolution_factor
+	for i : int in range(max(0, floor(converted_point.y - radius)), min(array_size.y, ceil(converted_point.y + radius))):
+		for j : int in range(max(0, floor(converted_point.x - radius)), min(array_size.x, ceil(converted_point.x + radius))):
+			var distance : float = Vector2(converted_point.x - j, converted_point.y - i).length()
+			if distance <= radius:
+				fog_array[i][j] = max(pow(1 - (distance / radius), 0.3), fog_array[i][j])
+				fog_image.set_pixel(j, i, Color(1, 1, 1, clamp(1 - fog_array[i][j], 0, 1)))
+
 func init_for_room() -> void:
 	var level_node : Node2D = get_tree().get_first_node_in_group("level")
 	floor_map = level_node.get_node("Floor") as TileMap
@@ -121,19 +137,25 @@ func init_for_room() -> void:
 	array_size = rect.size * resolution_factor
 	image = Image.create(array_size.x, array_size.y, false, Image.FORMAT_RGB8)
 	texture = ImageTexture.create_from_image(image)
+	fog_image = Image.create(array_size.x, array_size.y, false, Image.FORMAT_RGBA8)
+	fog_texture = ImageTexture.create_from_image(fog_image)
 	ice_array.clear()
 	fire_array.clear()
 	water_array.clear()
+	fog_array.clear()
 	floor_mask_array.clear()
 	for i : int in range(array_size.y):
 		ice_array.append([])
 		fire_array.append([])
 		water_array.append([])
+		fog_array.append([])
 		floor_mask_array.append([])
 		for j : int in range(array_size.x):
 			ice_array[i].append(0)
 			fire_array[i].append(0)
 			water_array[i].append(0)
+			fog_array[i].append(0)
+			fog_image.set_pixel(j, i, Color(1, 1, 1, 1))
 			if floor_map.get_cell_tile_data(0, rect.position + Vector2i(j, i) / resolution_factor):
 				floor_mask_array[i].append(1)
 			else:
@@ -143,4 +165,6 @@ func init_for_room() -> void:
 	effects.global_position = floor_map.to_global(floor_map.map_to_local(floor_map.get_used_rect().position)) - Vector2(floor_map.tile_set.tile_size / 2)
 	lighting.scale = floor_map.tile_set.tile_size / resolution_factor
 	lighting.global_position = floor_map.to_global(floor_map.map_to_local(floor_map.get_used_rect().position)) - Vector2(floor_map.tile_set.tile_size / 2)
+	fog.scale = floor_map.tile_set.tile_size / resolution_factor
+	fog.global_position = floor_map.to_global(floor_map.map_to_local(floor_map.get_used_rect().position)) - Vector2(floor_map.tile_set.tile_size / 2)
 	
