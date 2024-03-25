@@ -113,10 +113,10 @@ metadata/_edit_use_anchors_ = true
 
 [node name="DebugMenu" parent="UI" instance=ExtResource("7_a1mme")]
 anchors_preset = -1
-anchor_left = 0.75
+anchor_left = 0.704167
 anchor_top = 0.404
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_right = 1.00417
+anchor_bottom = 1.00741
 offset_left = -4.00003
 offset_top = -2.08
 offset_right = -2.0

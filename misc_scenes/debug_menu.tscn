@@ -53,10 +53,23 @@ icon_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-min_value = 0.1
+min_value = 0.063
 max_value = 3.0
 step = 0.0
 value = 1.0
+
+[node name="Freecam" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Freecam" type="CheckButton" parent="ScrollContainer/VBoxContainer/Freecam"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Freecam"
+alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -77,6 +90,9 @@ size_flags_horizontal = 3
 text = "Player pause
 override"
 alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -110,6 +126,7 @@ size_flags_horizontal = 3
 allow_reselect = true
 
 [node name="Tab" type="Button" parent="."]
+custom_minimum_size = Vector2(17, 0)
 layout_mode = 2
 tooltip_text = "Debug Menu"
 toggle_mode = true
@@ -121,6 +138,7 @@ text = "<"
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer4/Fullscreen" to="." method="_on_fullscreen_pressed"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer7/Reset" to="." method="_on_reset_pressed"]
 [connection signal="value_changed" from="ScrollContainer/VBoxContainer/HBoxContainer7/Zoom" to="." method="_on_h_slider_value_changed"]
+[connection signal="toggled" from="ScrollContainer/VBoxContainer/Freecam/Freecam" to="." method="_on_freecam_toggled"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer5/Pause" to="." method="_on_pause_pressed"]
 [connection signal="toggled" from="ScrollContainer/VBoxContainer/HBoxContainer6/Override" to="." method="_on_override_toggled"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/HBoxContainer/RegenButton" to="." method="_on_regen_button_pressed"]

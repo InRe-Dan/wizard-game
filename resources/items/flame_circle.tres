@@ -12,5 +12,5 @@ type = 0
 limited_use = true
 item_durability = 1
 inventory_icon = ExtResource("2_68tkg")
-glow = Color(1, 1, 1, 1)
+glow = Color(1, 0.572549, 0, 1)
 _item_scene = ExtResource("1_cmdcs")

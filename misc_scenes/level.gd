@@ -6,7 +6,6 @@ class_name Level extends Node2D
 @export var hallway_width : int = 3
 @export var room_min_size : Vector2i
 @export var room_max_size : Vector2i
-@export var path_randomness : float = 0.2
 @export_category("Enemy generation")
 @export var enemy_list : Array[EntityResource]
 @export var min_enemies_per_room : int = 0
@@ -21,6 +20,7 @@ class_name Level extends Node2D
 @onready var walls : TileMap = $Walls
 
 var current_rooms : Array[Room]
+var layouts : Array[RoomLayout]
 
 class Connection extends RefCounted:
 	func _init(one : Room, two : Room) -> void:
@@ -43,20 +43,13 @@ class Partition extends RefCounted:
 		self.rect = rect
 		self.level = level
 	
-		# Firstly, see if we do need to split.
-		var split_required : bool = true if rect.size.x > max.x \
-									and rect.size.y > max.y \
-							else false
-		if not split_required:
-			return
-	
 		# Determine if there is enough room to split in each direction
-		var can_split_h : bool = true
-		var can_split_v : bool = true
-		if rect.size.x < min.x * 2 or rect.size.y < max.y:
-			can_split_v = false
-		if rect.size.y < min.y * 2 or rect.size.x < max.x:
-			can_split_h = false
+		var can_split_h : bool = false
+		var can_split_v : bool = false
+		if rect.size.x > max.x:
+			can_split_v = true
+		if rect.size.y > max.y:
+			can_split_h = true
 
 		var split_dir : SplitDir
 		if can_split_h and can_split_v:
@@ -66,7 +59,6 @@ class Partition extends RefCounted:
 		elif can_split_v:
 			split_dir = SplitDir.Vertical
 		else:
-			push_error("Could not create a room with these constraints")
 			return
 		if split_dir == SplitDir.Horizontal:
 			var one_height : int = rect.size.y / 2 + randi_range(-3, 3)
@@ -91,7 +83,7 @@ class Partition extends RefCounted:
 				
 	func make_rooms(array : Array[Room] = []) -> Array[Room]:
 		if not one:
-			room = Room.new(Rect2i(rect.position + 3 * Vector2i.ONE, rect.size - 3 * Vector2i.ONE))
+			room = Room.new(Rect2i(rect.position + Vector2i.ONE, rect.size - Vector2i.ONE))
 			array.append(room)
 		else:
 			one.make_rooms(array)
@@ -110,37 +102,17 @@ class Partition extends RefCounted:
 	var level : int
 
 func _ready() -> void:
+	var files : PackedStringArray = DirAccess.get_files_at("res://room_blueprints/")
+	for file : String in files:
+		layouts.append(load("res://room_blueprints/" + file).instantiate())
 	generate_bsp()
 
-func populate_room(room : Room) -> void:
-	var enemies : int = randi_range(min_enemies_per_room, max_enemies_per_room)
-	var items : int = randi_range(min_items_per_room, max_items_per_room)
-	var positions : Array[Vector2i] = []
-	while positions.size() < enemies + items + 1:
-		var x : int = randi_range(room.rect.position.x + 1, room.rect.position.x + room.rect.size.x - 1)
-		var y : int = randi_range(room.rect.position.y + 1, room.rect.position.y + room.rect.size.y - 1)
-		positions.append(Vector2i(x, y))
-	while enemies > 0:
-		var pos : Vector2i = positions.pop_front()
-		var enemy : Entity = (enemy_list.pick_random() as EntityResource).make_entity()
-		enemy.global_position = floor.to_global(floor.map_to_local(pos))
-		add_child(enemy)
-		enemies -= 1
-	while items > 0:
-		var pos : Vector2i = positions.pop_front()
-		var pickup : ItemPickupEntity = (item_list.pick_random() as ItemResource).make_item_pickup()
-		pickup.global_position = floor.to_global(floor.map_to_local(pos))
-		add_child(pickup)
-		items -= 1
-	var pos : Vector2i = positions.pop_front()
-	var pickup : EffectPickupEntity = (passive_list.pick_random() as PassiveResource).make_item_pickup()
-	pickup.global_position = floor.to_global(floor.map_to_local(pos))
-	add_child(pickup)
-
 func set_floor(v : Vector2i) -> void:
-	floor.set_cell(0, v, 58, Vector2i(range(0, 8).pick_random(), 0))
+	if not floor.get_cell_tile_data(0, v):
+		floor.set_cell(0, v, 58, Vector2i(range(0, 8).pick_random(), 0))
 func set_wall(v : Vector2i) -> void:
-	walls.set_cell(0, v, 0, Vector2i(range(4, 8).pick_random(), 4))
+	if not walls.get_cell_tile_data(0, v):
+		walls.set_cell(0, v, 0, Vector2i(range(4, 8).pick_random(), 4))
 
 func put_rooms_on_tilemap(rooms : Array[Room]) -> void:
 	for room : Room in rooms:
@@ -168,31 +140,42 @@ func put_connections_on_tilemap(rooms : Array[Room]) -> void:
 			if connection.connected:
 				continue
 			connection.connected = true
-			var going_horizontally : bool = true
-			var pos : Vector2i = connection.one.rect.get_center()
+			var going_horizontally : bool = true if randf() > 0.5 else false
+			var pos : Vector2i = connection.one.rect.get_center() 
 			var end : Vector2i = connection.two.rect.get_center()
 			while (pos - end).length() != 0:
 				for i : int in range(hallway_width):
 					for j : int in range(hallway_width):
 						set_floor(pos + Vector2i(i - hallway_width / 2, j - hallway_width / 2))
-				if path_randomness > randf():
-					going_horizontally = not going_horizontally
 				if going_horizontally:
 					if end.x > pos.x:
 						pos += Vector2i(1, 0)
 					elif end.x < pos.x:
 						pos -= Vector2i(1, 0)
+					else:
+						going_horizontally = false
 				else:
 					if end.y > pos.y:
 						pos += Vector2i(0, 1)
 					elif end.y < pos.y:
 						pos -= Vector2i(0, 1)
+					else:
+						going_horizontally = true
 			
 				
 	
 func move_player(entity : Entity) -> void:
 	entity.global_position = floor.to_global(floor.map_to_local(current_rooms.front().rect.get_center()))
-	
+
+func shrink_rooms(rooms : Array[Room], amount : int) -> void:
+	for room : Room in rooms:
+		room.rect.position += amount * Vector2i.ONE
+		room.rect.size -= amount * Vector2i.ONE
+
+func attempt_to_use_templates(rooms : Array[Room]) -> void:
+	for room : Room in rooms:
+		pass
+
 func generate_bsp() -> void:
 	var size : Vector2i = level_min_size + Vector2i((level_max_size - level_min_size) * (randf()))
 	var rect : Rect2i = Rect2i(Vector2i.ZERO - size / 2, size)
@@ -200,12 +183,12 @@ func generate_bsp() -> void:
 	walls.clear()
 	var part : Partition = Partition.new(rect, room_min_size, room_max_size)
 	var rooms : Array[Room] = part.make_rooms()
+	shrink_rooms(rooms, 2)
+	attempt_to_use_templates(rooms)
 	current_rooms = rooms
 	put_rooms_on_tilemap(rooms)
 	put_connections_on_tilemap(rooms)
 	fill_with_walls()
-	for room : Room in rooms:
-		populate_room(room)
 	var player : Entity = get_tree().get_first_node_in_group("players")
 	if player:
 		move_player(player)

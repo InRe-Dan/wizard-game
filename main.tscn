@@ -30,8 +30,12 @@ script = ExtResource("1_jl44l")
 texture_filter = 1
 
 [node name="level" parent="." instance=ExtResource("1_pf5qg")]
+hallway_width = 2
 room_min_size = Vector2i(5, 5)
-room_max_size = Vector2i(20, 20)
+room_max_size = Vector2i(30, 30)
+max_enemies_per_room = 0
+min_items_per_room = 1
+max_items_per_room = 1
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 

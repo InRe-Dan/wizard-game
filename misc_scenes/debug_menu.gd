@@ -76,3 +76,7 @@ func _on_h_slider_value_changed(value: float) -> void:
 func _on_reset_pressed() -> void:
 	get_tree().get_first_node_in_group("camera").zoom = Vector2.ONE
 	$ScrollContainer/VBoxContainer/HBoxContainer7/Zoom.value = 1
+
+
+func _on_freecam_toggled(toggled_on: bool) -> void:
+		get_tree().get_first_node_in_group("camera").freecam = toggled_on

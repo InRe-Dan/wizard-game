@@ -23,6 +23,8 @@ script = ExtResource("1_lfbs0")
 [node name="Shards" type="Node" parent="."]
 script = ExtResource("2_f2tps")
 projectile = SubResource("Resource_0ndrm")
+side_projectiles = 1
+spread = 15.0
 
 [node name="Cooldown" type="Node" parent="."]
 script = ExtResource("3_5r6cy")
