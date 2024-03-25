@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bbwrd3v7gvwa7"]
+[gd_scene load_steps=24 format=3 uid="uid://bbwrd3v7gvwa7"]
 
 [ext_resource type="Script" path="res://base_classes/entity.gd" id="1_j23d0"]
 [ext_resource type="PackedScene" uid="uid://c03pfmwpgtofc" path="res://components/simple_graphics_component.tscn" id="2_2quqi"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" path="res://effects/fire.gd" id="16_22jub"]
 [ext_resource type="AudioStream" uid="uid://dosjuvfa2igba" path="res://assets/sounds/death.wav" id="16_lmhrm"]
 [ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="17_eyouo"]
+[ext_resource type="PackedScene" uid="uid://db8b4lwo0gdvi" path="res://components/health_bar.tscn" id="18_4c1in"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sunu4"]
 radius = 9.0
@@ -110,3 +111,6 @@ sound = ExtResource("16_lmhrm")
 [node name="PhysicsHandlerComponent" parent="." instance=ExtResource("14_4u08n")]
 base_acceleration = 200.0
 base_damping = 2.0
+
+[node name="HealthBar" parent="." instance=ExtResource("18_4c1in")]
+position = Vector2(0, -12)

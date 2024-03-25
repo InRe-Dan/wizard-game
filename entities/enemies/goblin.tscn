@@ -1,10 +1,11 @@
-[gd_scene load_steps=25 format=3 uid="uid://bent3fo2kwsvd"]
+[gd_scene load_steps=26 format=3 uid="uid://bent3fo2kwsvd"]
 
 [ext_resource type="Script" path="res://base_classes/entity.gd" id="1_oen2d"]
 [ext_resource type="PackedScene" uid="uid://c03pfmwpgtofc" path="res://components/simple_graphics_component.tscn" id="2_nino7"]
 [ext_resource type="SpriteFrames" uid="uid://cji80pbog0li5" path="res://resources/goblin_sprite_frames.tres" id="3_pb825"]
 [ext_resource type="PackedScene" uid="uid://dm7txjk84pxhw" path="res://components/enemy_seeker_ai_component.tscn" id="4_acww5"]
 [ext_resource type="PackedScene" uid="uid://c867pju6atw7e" path="res://components/hurtbox_component.tscn" id="5_gqail"]
+[ext_resource type="PackedScene" uid="uid://db8b4lwo0gdvi" path="res://components/health_bar.tscn" id="6_4k2ei"]
 [ext_resource type="PackedScene" uid="uid://uag18b8s0jg4" path="res://components/dialogue_component.tscn" id="6_topu3"]
 [ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="7_h4u4r"]
 [ext_resource type="PackedScene" uid="uid://b3c3vg8q6e5k7" path="res://components/effect_container.tscn" id="8_t1y8k"]
@@ -125,3 +126,6 @@ knockback_damage_min_speed = null
 ice_acceleration_multiplier = null
 ice_damping_multiplier = null
 water_damping_multiplier = null
+
+[node name="HealthBar" parent="." instance=ExtResource("6_4k2ei")]
+position = Vector2(0, -11)

@@ -127,8 +127,9 @@ func clear_fog(point : Vector2, radius : float) -> void:
 		for j : int in range(max(0, floor(converted_point.x - radius)), min(array_size.x, ceil(converted_point.x + radius))):
 			var distance : float = Vector2(converted_point.x - j, converted_point.y - i).length()
 			if distance <= radius:
-				fog_array[i][j] = max(pow(1 - (distance / radius), 0.3), fog_array[i][j])
-				fog_image.set_pixel(j, i, Color(1, 1, 1, clamp(1 - fog_array[i][j], 0, 1)))
+				if true or floor_mask_array[i][j]:
+					fog_array[i][j] = max(pow(1 - (distance / radius), 0.1), fog_array[i][j])
+					fog_image.set_pixel(j, i, Color(1, 1, 1, clamp(1 - fog_array[i][j], 0, 1)))
 
 func init_for_room() -> void:
 	var level_node : Node2D = get_tree().get_first_node_in_group("level")

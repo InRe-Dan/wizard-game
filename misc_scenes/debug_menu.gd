@@ -80,3 +80,4 @@ func _on_reset_pressed() -> void:
 
 func _on_freecam_toggled(toggled_on: bool) -> void:
 		get_tree().get_first_node_in_group("camera").freecam = toggled_on
+		FloorHandler.fog.visible = not toggled_on
