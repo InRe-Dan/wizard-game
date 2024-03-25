@@ -39,7 +39,7 @@ class Room extends RefCounted:
 	
 class Partition extends RefCounted:
 	enum SplitDir {Horizontal, Vertical}
-	func _init(rect : Rect2i, max : Vector2i, min : Vector2i, level : int = 0) -> void:
+	func _init(rect : Rect2i, min : Vector2i, max : Vector2i, level : int = 0) -> void:
 		self.rect = rect
 		self.level = level
 	
@@ -146,7 +146,9 @@ func put_connections_on_tilemap(rooms : Array[Room]) -> void:
 			while (pos - end).length() != 0:
 				for i : int in range(hallway_width):
 					for j : int in range(hallway_width):
-						set_floor(pos + Vector2i(i - hallway_width / 2, j - hallway_width / 2))
+						var tile_pos : Vector2i = pos + Vector2i(i - hallway_width / 2, j - hallway_width / 2)
+						if not (connection.one.rect.has_point(tile_pos) or connection.two.rect.has_point(tile_pos)):
+							set_floor(tile_pos)
 				if going_horizontally:
 					if end.x > pos.x:
 						pos += Vector2i(1, 0)
@@ -174,30 +176,33 @@ func shrink_rooms(rooms : Array[Room], amount : int) -> void:
 
 func attempt_to_use_templates(rooms : Array[Room]) -> void:
 	var lambda : Callable = func(template : RoomLayout, room : Room) -> bool:
-		if template.get_used_rect().size.x > room.rect.size.x:
+		if template.get_used_rect().size.x >= room.rect.size.x:
 			return false
-		if template.get_used_rect().size.y > room.rect.size.y:
+		if template.get_used_rect().size.y >= room.rect.size.y:
 			return false
 		return true
 
-	var sort_function : Callable = func(a : RoomLayout, b : RoomLayout) -> bool:
-		if a.get_used_rect().get_area() > b.get_used_rect().get_area():
-			return true
-		return false
-
 	for room : Room in rooms:
-		lambda.bind(room)
-		var possible_templates : Array = layouts.filter(lambda)
-		lambda.unbind(1)
-		possible_templates.sort_custom(sort_function)
-		var largest_template : RoomLayout = possible_templates.front()
-		if not largest_template:
+		var temp_lambda : Callable = lambda.bind(room)
+		var possible_templates : Array = layouts.filter(temp_lambda)
+		if not possible_templates:
+			# Fall back on an empty room
+			for i : int in range(room.rect.size.y):
+				for j : int in range(room.rect.size.x):
+					set_floor(room.rect.position + Vector2i(j, i))
 			continue
-		var offset : Vector2i = room.rect.get_center() - largest_template.get_used_rect().get_center()
-		for i : int in range(largest_template.get_used_rect().size.y):
-			for j : int in range(largest_template.get_used_rect().size.x):
-				if largest_template.get_cell_tile_data(0, Vector2i(j, i)):
-					set_floor(Vector2i(j, i) - offset)
+		var template : RoomLayout = possible_templates.pick_random()
+		var offset : Vector2i = room.rect.get_center() - template.get_used_rect().get_center()
+		print(room.rect)
+		print(template.get_used_rect())
+		print(offset)
+		var template_rect : Rect2i = template.get_used_rect()
+		room.rect = Rect2i(template_rect.position + offset, template_rect.size)
+		for i : int in range(template_rect.position.y, template_rect.position.y + template_rect.size.y):
+			for j : int in range(template_rect.position.x, template_rect.position.x + template_rect.size.x):
+				if template.get_cell_tile_data(0, Vector2i(j, i)):
+					assert(room.rect.has_point(Vector2i(j, i) + offset))
+					set_floor(Vector2i(j, i) + offset)
 
 func generate_bsp() -> void:
 	var size : Vector2i = level_min_size + Vector2i((level_max_size - level_min_size) * (randf()))
@@ -209,7 +214,7 @@ func generate_bsp() -> void:
 	shrink_rooms(rooms, 2)
 	attempt_to_use_templates(rooms)
 	current_rooms = rooms
-	# put_rooms_on_tilemap(rooms)
+	# put_rooms_on_tilemap(rooms)da
 	put_connections_on_tilemap(rooms)
 	fill_with_walls()
 	var player : Entity = get_tree().get_first_node_in_group("players")
