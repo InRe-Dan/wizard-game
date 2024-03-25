@@ -173,8 +173,31 @@ func shrink_rooms(rooms : Array[Room], amount : int) -> void:
 		room.rect.size -= amount * Vector2i.ONE
 
 func attempt_to_use_templates(rooms : Array[Room]) -> void:
+	var lambda : Callable = func(template : RoomLayout, room : Room) -> bool:
+		if template.get_used_rect().size.x > room.rect.size.x:
+			return false
+		if template.get_used_rect().size.y > room.rect.size.y:
+			return false
+		return true
+
+	var sort_function : Callable = func(a : RoomLayout, b : RoomLayout) -> bool:
+		if a.get_used_rect().get_area() > b.get_used_rect().get_area():
+			return true
+		return false
+
 	for room : Room in rooms:
-		pass
+		lambda.bind(room)
+		var possible_templates : Array = layouts.filter(lambda)
+		lambda.unbind(1)
+		possible_templates.sort_custom(sort_function)
+		var largest_template : RoomLayout = possible_templates.front()
+		if not largest_template:
+			continue
+		var offset : Vector2i = room.rect.get_center() - largest_template.get_used_rect().get_center()
+		for i : int in range(largest_template.get_used_rect().size.y):
+			for j : int in range(largest_template.get_used_rect().size.x):
+				if largest_template.get_cell_tile_data(0, Vector2i(j, i)):
+					set_floor(Vector2i(j, i) - offset)
 
 func generate_bsp() -> void:
 	var size : Vector2i = level_min_size + Vector2i((level_max_size - level_min_size) * (randf()))
@@ -186,7 +209,7 @@ func generate_bsp() -> void:
 	shrink_rooms(rooms, 2)
 	attempt_to_use_templates(rooms)
 	current_rooms = rooms
-	put_rooms_on_tilemap(rooms)
+	# put_rooms_on_tilemap(rooms)
 	put_connections_on_tilemap(rooms)
 	fill_with_walls()
 	var player : Entity = get_tree().get_first_node_in_group("players")
