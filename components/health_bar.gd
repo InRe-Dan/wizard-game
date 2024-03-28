@@ -2,7 +2,7 @@ extends EntityComponent
 
 @export var show_duration : float = 0.5
 @export var fade_duration : float = 0.2
-@export var change_speed : float = 1
+@export var change_speed : float = 2
 
 @onready var bar : TextureProgressBar = $TextureProgressBar
 
@@ -18,7 +18,11 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	global_position = round(parent.global_position + offset_to_parent)
-	bar.value = bar.value + (1 if bar.value < target_value else -1) * change_speed * delta
+	target_value = parent.health / parent.resource.starting_health
+	var change : float = (change_speed * -1 * delta if bar.value > target_value else change_speed * 1 * delta)
+	if abs(change) < 0.01:
+		change = 0
+	bar.value += change
 	if visible:
 		time_since_hit += delta
 		if time_since_hit > show_duration:
@@ -28,7 +32,7 @@ func _process(delta: float) -> void:
 				visible = false
 func receive_signal(event : Event) -> Event:
 	if event is TakeDamageEvent or event is HealedEvent:
-		target_value = parent.health / parent.resource.starting_health
+		print(parent.health)
 		visible = true
 		time_since_hit = 0
 		modulate = Color.WHITE

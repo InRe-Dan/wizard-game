@@ -29,6 +29,6 @@ offset_top = -1.0
 offset_right = 6.0
 offset_bottom = 1.0
 max_value = 1.0
-step = 0.01
+step = 0.0
 value = 1.0
 texture_progress = SubResource("GradientTexture2D_4f5no")

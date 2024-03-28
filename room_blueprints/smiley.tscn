@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://5t6h6i5htvev"]
+[gd_scene load_steps=3 format=3 uid="uid://ccdhr2avm02oj"]
 
 [ext_resource type="TileSet" uid="uid://cisej55ipbwm0" path="res://resources/levels.tres" id="1_wh5sr"]
 [ext_resource type="Script" path="res://misc_scripts/room_blueprint.gd" id="2_hoqxr"]
