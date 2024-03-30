@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EntityResource" load_steps=3 format=3 uid="uid://de7n7lcvkywgn"]
+
+[ext_resource type="Script" path="res://resources/custom_bases/entity_resource.gd" id="1_oloir"]
+[ext_resource type="PackedScene" uid="uid://dane5ahvkmy3o" path="res://entities/projectiles/whirlpool.tscn" id="1_ys2g5"]
+
+[resource]
+script = ExtResource("1_oloir")
+entity_name = "Whirlpool"
+_entity_scene = ExtResource("1_ys2g5")
+starting_health = 1
+spawn_velocity = 50
+type = 3
+inherit_team = true
+default_team = 2
+element = 3

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=4 format=3 uid="uid://c8xm13fwdo8xo"]
+
+[ext_resource type="Script" path="res://resources/custom_bases/item_resource.gd" id="1_dewaw"]
+[ext_resource type="PackedScene" uid="uid://c8wbxku4oj0y" path="res://items/whirlpool.tscn" id="1_nullw"]
+[ext_resource type="Texture2D" uid="uid://dvwbuayyrbcye" path="res://assets/water_icon.png" id="1_r4t5p"]
+
+[resource]
+script = ExtResource("1_dewaw")
+item_name = "Whirlpool"
+element = 2
+type = 0
+limited_use = false
+item_durability = 10
+inventory_icon = ExtResource("1_r4t5p")
+glow = Color(0, 0.486275, 1, 1)
+_item_scene = ExtResource("1_nullw")

@@ -1,0 +1,133 @@
+[gd_scene load_steps=16 format=3 uid="uid://dane5ahvkmy3o"]
+
+[ext_resource type="Script" path="res://components/effect_container.gd" id="2_yhp2u"]
+[ext_resource type="Script" path="res://components/physics_handler_component.gd" id="3_ipit3"]
+[ext_resource type="Script" path="res://components/hitbox_component.gd" id="4_qkan3"]
+[ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="5_ls8s5"]
+[ext_resource type="Script" path="res://components/projectile_despawner_component.gd" id="6_crupc"]
+
+[sub_resource type="GDScript" id="GDScript_4ve72"]
+resource_name = "whirlpool"
+script/source = "extends Entity
+
+@onready var suck_area : Area2D = $Suck
+
+func _ready() -> void:
+	super()
+
+func _physics_process(delta: float) -> void:
+	for entity : Entity in suck_area.get_overlapping_bodies():
+		if entity.team != team:
+			var vector : Vector2 = global_position - entity.global_position
+			entity.velocity += vector.normalized() * delta * 500 * (1 - vector.length() / 64)
+
+func distribute_signal(event : Event) -> void:
+	super(event)
+
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_svnvy"]
+radius = 7.0
+
+[sub_resource type="Curve" id="Curve_h6x7p"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.659176, 0.879444), 0.0, 0.0, 0, 0, Vector2(0.857678, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_jtd37"]
+curve = SubResource("Curve_h6x7p")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dh7tf"]
+particle_flag_disable_z = true
+angle_min = -720.0
+angle_max = 720.0
+inherit_velocity_ratio = 1.0
+spread = 180.0
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, 0, 0)
+radial_accel_min = -300.0
+radial_accel_max = -300.0
+tangential_accel_min = 200.0
+tangential_accel_max = 200.0
+scale_over_velocity_max = 100.0
+scale_over_velocity_curve = SubResource("CurveTexture_jtd37")
+
+[sub_resource type="Gradient" id="Gradient_cijxj"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.723247, 0.907749)
+colors = PackedColorArray(0.184314, 0.427451, 1, 0.533333, 0, 0.764706, 1, 0.52549, 0, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4h3fe"]
+gradient = SubResource("Gradient_cijxj")
+width = 4
+height = 4
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Resource" id="Resource_35u6d"]
+script = ExtResource("5_ls8s5")
+damage = 1.0
+damage_type = 2
+knockback_type = 1
+knockback_velocity = 0.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5qr50"]
+radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gl3ru"]
+radius = 64.0
+
+[node name="Whirlpool" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 2
+motion_mode = 1
+script = SubResource("GDScript_4ve72")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_svnvy")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+z_index = 1
+z_as_relative = false
+amount = 200
+process_material = SubResource("ParticleProcessMaterial_dh7tf")
+texture = SubResource("GradientTexture2D_4h3fe")
+lifetime = 2.0
+trail_enabled = true
+
+[node name="EffectContainerComponent" type="Node2D" parent="."]
+script = ExtResource("2_yhp2u")
+
+[node name="Hitbox" type="Node2D" parent="."]
+script = ExtResource("4_qkan3")
+damage = SubResource("Resource_35u6d")
+
+[node name="Area2D" type="Area2D" parent="Hitbox"]
+collision_layer = 16
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox/Area2D"]
+shape = SubResource("CircleShape2D_5qr50")
+
+[node name="ProjectileDespawnerComponent" type="Node2D" parent="."]
+script = ExtResource("6_crupc")
+despawn_after_interval = true
+lifetime = 5.0
+piercing = true
+kill_on_collision = false
+
+[node name="PhysicsHandlingComponent" type="Node2D" parent="."]
+script = ExtResource("3_ipit3")
+base_acceleration = 0.0
+base_damping = 1.0
+take_collision_damage = false
+ice_acceleration_multiplier = 1.0
+ice_damping_multiplier = 1.0
+water_damping_multiplier = 0.5
+
+[node name="Suck" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Suck"]
+shape = SubResource("CircleShape2D_gl3ru")

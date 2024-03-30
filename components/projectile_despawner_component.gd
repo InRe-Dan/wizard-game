@@ -1,8 +1,10 @@
-extends EntityComponent
+class_name ProjectileDespawnerComponent extends EntityComponent
 
 @export var despawn_on_standstill : bool = false
 @export var despawn_after_interval : bool = false
 @export var lifetime : float = 1
+@export var piercing : bool = false
+@export var kill_on_collision : bool = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -22,7 +24,9 @@ func _process(delta: float) -> void:
 func receive_signal(event : Event) -> Event:
 	match event.type:
 		Event.types.collision:
-			parent.distribute_signal(DeathEvent.new())
+			if kill_on_collision:
+				parent.distribute_signal(DeathEvent.new())
 		Event.types.dealt_damage:
-			parent.distribute_signal(DeathEvent.new())
+			if not piercing:
+				parent.distribute_signal(DeathEvent.new())
 	return event

@@ -60,7 +60,7 @@ func distribute_signal(event : Event) -> void:
 						say("-" + str(damage) + "HP", Color.SKY_BLUE * 0.5 + Color.WHITE * 0.5)
 					DamageData.DamageTypes.kinetic:
 						say("-" + str(damage) + "HP", Color.LIGHT_STEEL_BLUE)
-			if hit.damage.knockback_velocity > 0.0:
+			if abs(hit.damage.knockback_velocity) > 0.01:
 				knockback_time = Time.get_ticks_msec()
 				velocity += hit.direction.normalized() * hit.damage.knockback_velocity
 			if health <= 0:

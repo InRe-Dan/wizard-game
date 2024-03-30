@@ -2,36 +2,41 @@ class_name HitboxComponent extends EntityComponent
 
 @export var immunity_duration : float = 0.5
 	
-var immunity_times : Dictionary
+var entities_hit : Array[Entity]
+var immunity_durations : Array[float]
 
 @export var damage : DamageData = DamageData.new()
 
-func _ready() -> void:
-	for child : Area2D in get_children():
-		child.area_entered.connect(_on_area_entered)
-
 func _process(delta : float) -> void:
-	for entity : WeakRef in immunity_times:
-		if immunity_times[entity] > 0.0:
-			immunity_times[entity] -= delta
-		if immunity_times[entity] < 0.0:
-			immunity_times.erase(entity)
+	# awful stuff
+	var i : int = 0
+	while i < entities_hit.size():
+		if not is_instance_valid(entities_hit[i]):
+			entities_hit.remove_at(i)
+			immunity_durations.remove_at(i)
+			continue
+		var entity : Entity = entities_hit[i]
+		if immunity_durations[i] > 0.0:
+			immunity_durations[i] -= delta
+		if immunity_durations[i] < 0.0:
+			entities_hit.remove_at(i)
+			immunity_durations.remove_at(i)
+		i += 1
+	for child : Area2D in get_children():
+		for area : Area2D in child.get_overlapping_areas():
+			var entity_hit : Entity = area.get_parent().get_parent() as Entity
+			if not entity_hit:
+				push_error("Hitbox hit something weird!")
+			if entity_hit.team == (get_parent() as Entity).team and parent.team != EntityResource.EntityTeam.Any:
+				return
+			parent.distribute_signal(HasHitEvent.new(entity_hit, damage))
 
 func receive_signal(event : Event) -> Event:
 	match event.type:
 		Event.types.has_hit:
 			var hEvent : HasHitEvent = event as HasHitEvent
-			if immunity_times.has(weakref(hEvent.target)):
-				if immunity_times[weakref(hEvent.target)] > 0.0:
-					return DamageNullifiedEvent.new()
-			immunity_times[weakref(hEvent.target)] = immunity_duration
+			if entities_hit.has(hEvent.target):
+				return DamageNullifiedEvent.new()
+			entities_hit.append(hEvent.target)
+			immunity_durations.append(immunity_duration)
 	return event
-
-	
-func _on_area_entered(area : Area2D) -> void:
-	var entity_hit : Entity = area.get_parent().get_parent() as Entity
-	if not entity_hit:
-		push_error("Hitbox hit something weird!")
-	if entity_hit.team == (get_parent() as Entity).team and parent.team != EntityResource.EntityTeam.Any:
-		return
-	parent.distribute_signal(HasHitEvent.new(entity_hit, damage))

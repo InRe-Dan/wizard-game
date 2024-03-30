@@ -1,4 +1,4 @@
-extends EntityComponent
+class_name PhysicsHandlingComponent extends EntityComponent
 
 @export var base_acceleration : float = 500
 @export var base_damping : float = 5
