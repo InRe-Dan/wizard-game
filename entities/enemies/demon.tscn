@@ -1,0 +1,127 @@
+[gd_scene load_steps=26 format=3 uid="uid://75tet7awypfy"]
+
+[ext_resource type="Script" path="res://base_classes/entity.gd" id="1_w1f5l"]
+[ext_resource type="PackedScene" uid="uid://c03pfmwpgtofc" path="res://components/simple_graphics_component.tscn" id="2_fxbb1"]
+[ext_resource type="SpriteFrames" uid="uid://y8nu8bbai2li" path="res://resources/big_demon_sprite_frames.tres" id="3_h2l3u"]
+[ext_resource type="PackedScene" uid="uid://dm7txjk84pxhw" path="res://components/enemy_seeker_ai_component.tscn" id="4_5ro5c"]
+[ext_resource type="PackedScene" uid="uid://c867pju6atw7e" path="res://components/hurtbox_component.tscn" id="5_2k5ni"]
+[ext_resource type="PackedScene" uid="uid://uag18b8s0jg4" path="res://components/dialogue_component.tscn" id="6_dg0np"]
+[ext_resource type="PackedScene" uid="uid://b3c3vg8q6e5k7" path="res://components/effect_container.tscn" id="7_dtj5v"]
+[ext_resource type="Script" path="res://effects/fire.gd" id="8_54cuo"]
+[ext_resource type="Resource" uid="uid://comxxliqq6s8g" path="res://resources/items/firebolt.tres" id="8_q5pg0"]
+[ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="9_hf02o"]
+[ext_resource type="Script" path="res://effects/death_actions.gd" id="10_jdprp"]
+[ext_resource type="Script" path="res://actions/spawn_particles.gd" id="11_xniy3"]
+[ext_resource type="PackedScene" uid="uid://drax5ptymlccj" path="res://particles/death_particles.tscn" id="12_scoa3"]
+[ext_resource type="Script" path="res://effects/actions_on_event.gd" id="13_cw0nq"]
+[ext_resource type="Script" path="res://actions/play_sound.gd" id="14_6bl2y"]
+[ext_resource type="AudioStream" uid="uid://d854rjj6wqdj" path="res://assets/sounds/ouch.wav" id="15_dajqk"]
+[ext_resource type="AudioStream" uid="uid://dosjuvfa2igba" path="res://assets/sounds/death.wav" id="16_mhan3"]
+[ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="17_61u0t"]
+[ext_resource type="PackedScene" uid="uid://db8b4lwo0gdvi" path="res://components/health_bar.tscn" id="18_e4wrw"]
+[ext_resource type="PackedScene" uid="uid://uajwl8rwegui" path="res://components/inventory.tscn" id="19_0qd4u"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sunu4"]
+radius = 9.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bemnm"]
+radius = 15.0333
+
+[sub_resource type="Gradient" id="Gradient_knxxt"]
+offsets = PackedFloat32Array(0, 0.318182, 0.603896, 0.785714)
+colors = PackedColorArray(1, 1, 1, 0.733333, 1, 1, 1, 0.584146, 1, 1, 1, 0.239216, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qpxde"]
+gradient = SubResource("Gradient_knxxt")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Resource" id="Resource_86q0u"]
+script = ExtResource("9_hf02o")
+damage = 0.0
+damage_type = 1
+knockback_type = 1
+knockback_velocity = 0.0
+
+[node name="AngelEntity" type="CharacterBody2D" groups=["enemies", "npcs"]]
+collision_layer = 4
+collision_mask = 6
+script = ExtResource("1_w1f5l")
+
+[node name="SimpleGraphics" parent="." instance=ExtResource("2_fxbb1")]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SimpleGraphics"]
+position = Vector2(0, -3)
+sprite_frames = ExtResource("3_h2l3u")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_sunu4")
+
+[node name="AIComponent" parent="." instance=ExtResource("4_5ro5c")]
+detection_radius = 92.0
+attack_range = 92.0
+attack_cooldown = 2.0
+desired_distance = 24.0
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("area") instance=ExtResource("5_2k5ni")]
+area = NodePath("Area2D")
+
+[node name="Area2D" type="Area2D" parent="HurtboxComponent"]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent/Area2D"]
+shape = SubResource("CircleShape2D_bemnm")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.5
+texture = SubResource("GradientTexture2D_qpxde")
+
+[node name="DialogueComponent" parent="." instance=ExtResource("6_dg0np")]
+lifetime = 3.0
+
+[node name="EffectContainer" parent="." instance=ExtResource("7_dtj5v")]
+
+[node name="FireVulnerability" type="Node" parent="EffectContainer"]
+script = ExtResource("8_54cuo")
+apply_immunity = true
+seconds_threshold = 0.2
+immunity = 0.25
+tick_damage = SubResource("Resource_86q0u")
+
+[node name="DeathActionsEffect" type="Node" parent="EffectContainer"]
+script = ExtResource("10_jdprp")
+
+[node name="SpawnParticlesAction2" type="Node" parent="EffectContainer/DeathActionsEffect"]
+script = ExtResource("11_xniy3")
+particles = ExtResource("12_scoa3")
+
+[node name="OnGetHit" type="Node" parent="EffectContainer"]
+script = ExtResource("13_cw0nq")
+event_type = 4
+
+[node name="PlayHitSound" type="Node" parent="EffectContainer/OnGetHit"]
+script = ExtResource("14_6bl2y")
+sound = ExtResource("15_dajqk")
+
+[node name="OnDeath" type="Node" parent="EffectContainer"]
+script = ExtResource("13_cw0nq")
+event_type = 8
+
+[node name="PlayDeathSound" type="Node" parent="EffectContainer/OnDeath"]
+script = ExtResource("14_6bl2y")
+sound = ExtResource("16_mhan3")
+
+[node name="PhysicsHandlerComponent" parent="." instance=ExtResource("17_61u0t")]
+base_acceleration = 200.0
+base_damping = 10.0
+
+[node name="HealthBar" parent="." instance=ExtResource("18_e4wrw")]
+position = Vector2(0, -19)
+
+[node name="Inventory" parent="." instance=ExtResource("19_0qd4u")]
+starting_items = Array[Resource("res://resources/custom_bases/item_resource.gd")]([ExtResource("8_q5pg0")])

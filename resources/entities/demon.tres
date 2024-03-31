@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EntityResource" load_steps=3 format=3 uid="uid://cf6a3xhyhls3a"]
+
+[ext_resource type="PackedScene" uid="uid://75tet7awypfy" path="res://entities/enemies/demon.tscn" id="1_j5p46"]
+[ext_resource type="Script" path="res://resources/custom_bases/entity_resource.gd" id="1_sv1bs"]
+
+[resource]
+script = ExtResource("1_sv1bs")
+entity_name = "Archdemon"
+_entity_scene = ExtResource("1_j5p46")
+starting_health = 20
+spawn_velocity = 0
+type = 1
+inherit_team = true
+default_team = 1
+element = 1
