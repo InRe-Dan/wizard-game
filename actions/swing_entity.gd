@@ -31,6 +31,7 @@ func _process(delta : float) -> void:
 		if time_passed > swing_time:
 			swinging = false
 			remove_child(entity)
+			entity.queue_free()
 			finished.emit()
 
 func do(target : Entity, secondary : Entity = null, direction : Vector2 = Vector2.ZERO) -> void:

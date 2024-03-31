@@ -838,6 +838,3 @@ This is all a lot to do, and ideally I would be able to have most of it done by 
 
 First spell idea that I had this morning was for a summonable elemental that fired projectiles at any entities in range, but while making particle effects to serve as that entity, I ended up creating something that looked more like a watery whirlpool, which also fits equally well with the idea of zoning. It also can combo with water (going further on water as it has a 0.5 damp factor) and ice (enemies will struggle to escape the whirlpool even more)
 For implementing the suction effect, I wanted to use 0 damage and negative knockback hitboxes, but these didn't really feel very smooth and needed some adjustments in other components to make them behave properly, so I went for custom code on the entity instead. Suction is dependent on distance from the whirlpool, so it feels quite "realistic" to use.
-
-backbuffercopy?
-node does not inherit refcounted, ruh roh

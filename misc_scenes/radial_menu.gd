@@ -20,6 +20,7 @@ func _process(delta : float) -> void:
 		return
 	for child : Node in get_children():
 		remove_child(child)
+		child.queue_free()
 	
 	var inventory : InventoryComponent = null
 	for node : Node in player.get_children():
