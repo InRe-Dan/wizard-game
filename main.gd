@@ -12,3 +12,4 @@ func _ready() -> void:
 func _process(delta : float) -> void:
 	if not get_tree().get_first_node_in_group("players"):
 		add_child(player_resource.make_entity())
+	print_orphan_nodes()

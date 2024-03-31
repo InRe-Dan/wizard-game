@@ -21,6 +21,8 @@ func handle_event(event : Event) -> Event:
 			effect_name = resource.passive_name + " x" + str(stacks)
 			effect_description = "Fire attacks deal " + str(round(bonus_per_stack * stacks * 100)) + "% more damage!"
 			updated.emit(self)
+			effect_event.effect.queue_free()
+			effect_event.queue_free()
 			return null
 
 	if event is CreatedProjectileEvent:

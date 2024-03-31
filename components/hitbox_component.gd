@@ -36,6 +36,7 @@ func receive_signal(event : Event) -> Event:
 		Event.types.has_hit:
 			var hEvent : HasHitEvent = event as HasHitEvent
 			if entities_hit.has(hEvent.target):
+				event.queue_free()
 				return DamageNullifiedEvent.new()
 			entities_hit.append(hEvent.target)
 			immunity_durations.append(immunity_duration)

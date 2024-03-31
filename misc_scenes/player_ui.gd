@@ -33,6 +33,7 @@ func populate_icons(effects : Array) -> void:
 			var effect : Effect = keys[i]
 			if not effects.has(effect):
 				effect_icons.remove_child(effect_to_rect[effect])
+				effect_to_rect[effect].queue_free()
 				effect_to_rect.erase(effect)
 		else:
 			effect_to_rect[keys[i]].queue_free()

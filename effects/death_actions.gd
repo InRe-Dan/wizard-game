@@ -15,6 +15,8 @@ func handle_event(event : Event) -> Event:
 			for child : Node in effect.get_children():
 				child.reparent(self)
 			updated.emit(self)
+			add_event.effect.queue_free()
+			add_event.queue_free()
 			return null
 
 	return event
