@@ -824,3 +824,20 @@ Remarks on levelgen:
     Choke points are incredibly powerful
     Some items are less useful since they are only powerful in large open spaces (like circle of fire)
     It is much more difficult to navigate again, since walls that are part of level templates are difficult to tell from the floor. May be solveable in a postprocessing pass.
+
+30/3/24
+
+Finally able to get back to consistent work now, I hope. My priorities are as follows:
+    Implement as many items and passives as possible, mostly taking ideas from other roguelikes
+    Use my generated rooms and connection as a graph to determine maximally distant points and off-route rooms to put loot into. Also adapt level generation based on how far into a level the player is and how many levels they have cleared
+    Optimize floor effects to support larger levels
+    Create an enemy AI which can cater to all basic enemy types, simply having a desired range from the player and using an item when in that range.
+    Polish everything and add in required features like UI and menus
+
+This is all a lot to do, and ideally I would be able to have most of it done by the 10th of april for some more beta testing, and almost all of it done by the 17th for further testing on the poster day. 
+
+First spell idea that I had this morning was for a summonable elemental that fired projectiles at any entities in range, but while making particle effects to serve as that entity, I ended up creating something that looked more like a watery whirlpool, which also fits equally well with the idea of zoning. It also can combo with water (going further on water as it has a 0.5 damp factor) and ice (enemies will struggle to escape the whirlpool even more)
+For implementing the suction effect, I wanted to use 0 damage and negative knockback hitboxes, but these didn't really feel very smooth and needed some adjustments in other components to make them behave properly, so I went for custom code on the entity instead. Suction is dependent on distance from the whirlpool, so it feels quite "realistic" to use.
+
+backbuffercopy?
+node does not inherit refcounted, ruh roh

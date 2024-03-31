@@ -2,11 +2,12 @@ extends EntityComponent
 
 @export var detection_radius : float = 96
 @export var attack_range : float = 16
+@export var attack_windup : float = 0.5
 @export var attack_cooldown : float = 1
 @export var show_states : bool = false
+@export var desired_distance : float = 48
 
 @onready var navigation_agent : NavigationAgent2D = $NavigationAgent2D
-@onready var avoidance_vision : AvoidanceVision = $AvoidanceVision
 @onready var los : RayCast2D = $LineOfSight
 @onready var state_chart : StateChart = $StateChart
 @onready var state_label : Label = $Label
@@ -17,13 +18,19 @@ var bored_timer : float
 var walk_direction : Vector2
 var target : Entity
 var time_since_attacked : float
+var time_since_in_range : float
+var last_objective_position : Vector2
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+func receive_signal(event : Event) -> Event:
+	if event is BeenHitEvent:
+		if event.dealer.team == EntityResource.EntityTeam.Player:
+			state_chart.send_event("got_hit")
+			los.target_position = (event.dealer.global_position - global_position).normalized() * 1000
+			last_target_position = los.get_collision_point()
+	return event
 
 func attack(target_global_position : Vector2) -> void:
-	if time_since_attacked > attack_cooldown:
+	if time_since_attacked > attack_cooldown and time_since_in_range > attack_windup:
 		time_since_attacked = 0
 		parent.distribute_signal(InputCommand.new(InputCommand.Commands.use, parent.global_position.direction_to(target_global_position)))
 
@@ -47,19 +54,18 @@ func _process(delta: float) -> void:
 
 
 func find_direction_to(global_pos : Vector2) -> Vector2:
-	if (global_pos - last_target_position).length() < 16:	
+	if (global_pos - last_target_position).length() < 16 or true:	
 		navigation_agent.target_position = global_pos
-		last_target_position = global_pos
+		last_objective_position = global_pos
 
 	var next_path_position: Vector2 = navigation_agent.get_next_path_position()
 	var navigation_direction : Vector2 = parent.global_position.direction_to(next_path_position)
 	# Working out where to actually go
-	return (0.5 * navigation_direction + 0.5 * avoidance_vision.sum)
+	return navigation_direction
 
 func has_los_to(global_pos : Vector2) -> bool:
 	los.target_position = to_local(global_pos)
 	return not los.is_colliding()
-
 
 func _on_walking_state_entered() -> void:
 	bored_timer = 0.1 + 0.4 * randf()
@@ -83,10 +89,15 @@ func _on_standing_state_entered() -> void:
 
 
 func _on_following_state_physics_processing(delta: float) -> void:
-	var dir : Vector2 = find_direction_to(target.global_position).normalized()
+	var to_target : Vector2 = target.global_position - global_position
+	var desired_position : Vector2 = global_position + (to_target - desired_distance * Vector2.ONE)
+	var dir : Vector2 = find_direction_to(desired_position).normalized()
 	parent.distribute_signal(InputMoveEvent.new(dir))
 	if parent.global_position.distance_to(target.global_position) < attack_range:
+		time_since_in_range += delta
 		attack(target.global_position)
+	else:
+		time_since_in_range = 0
 
 
 func _on_seeking_state_physics_processing(delta: float) -> void:
@@ -103,3 +114,6 @@ func _on_searching_state_physics_processing(delta: float) -> void:
 	if global_position.distance_to(last_target_position) < 16:
 		state_chart.send_event("reached_target")
 
+
+func _on_following_state_entered() -> void:
+	time_since_in_range = 0

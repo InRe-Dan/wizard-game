@@ -59,7 +59,6 @@ autoplay = "idle"
 shape = SubResource("CapsuleShape2D_sunu4")
 
 [node name="AIComponent" parent="." instance=ExtResource("11_76e7k")]
-show_states = false
 
 [node name="HurtboxComponent" parent="." instance=ExtResource("12_scnas")]
 
