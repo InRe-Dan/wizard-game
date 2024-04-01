@@ -1,0 +1,179 @@
+[gd_scene load_steps=19 format=3 uid="uid://clncaxcqx6vp"]
+
+[ext_resource type="Script" path="res://base_classes/entity.gd" id="1_k3md0"]
+[ext_resource type="Script" path="res://components/hitbox_component.gd" id="2_gytxb"]
+[ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="3_jnlc4"]
+[ext_resource type="PackedScene" uid="uid://bueaitn7te0q1" path="res://components/projectile_despawner_component.tscn" id="4_eraea"]
+[ext_resource type="PackedScene" uid="uid://b3c3vg8q6e5k7" path="res://components/effect_container.tscn" id="5_2mh1t"]
+[ext_resource type="Script" path="res://effects/on_spawn_actions.gd" id="11_r5bcm"]
+[ext_resource type="Script" path="res://actions/play_sound.gd" id="12_qk2yi"]
+[ext_resource type="AudioStream" uid="uid://btklr1o52eh7" path="res://assets/sounds/laserShoot.wav" id="13_qmtwu"]
+[ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="14_fenal"]
+
+[sub_resource type="GDScript" id="GDScript_gilg8"]
+resource_name = "script"
+script/source = "extends EntityComponent
+
+@onready var los : RayCast2D = $Los
+
+@export var detection_area : Area2D
+@export var rotation_speed : float = TAU
+
+var target_queue : Array[Entity]
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	detection_area.area_entered.connect(new_target)
+	detection_area.area_exited.connect(remove_target)
+
+func new_target(area : Area2D) -> void:
+	var target : Entity = area.get_parent().parent as Entity
+	# Only players and enemies can be targete
+	if not target.resource.type in [EntityResource.EntityType.Player, EntityResource.EntityType.Enemy]:
+		return
+	# Must be on different teams if not on team Any
+	if parent.team == target.team and not parent.team == EntityResource.EntityTeam.Any:
+		return
+	# Not sure if this one will even trip
+	if parent == target:
+		return
+	
+	target_queue.append(target)
+
+func remove_target(area : Area2D) -> void:
+	if target_queue.has(area.get_parent().parent):
+		target_queue.erase(area.get_parent().parent)
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	if not target_queue:
+		return
+	var target : Entity
+	var index : int = 0
+	while not target:
+		if index >= target_queue.size():
+			break
+		if not is_instance_valid(target_queue[index]):
+			target_queue.pop_at(index)
+			continue
+		var possible_target : Entity = target_queue[index]
+		los.target_position = los.to_local(possible_target.global_position)
+		if not los.is_colliding():
+			target = possible_target
+			break
+		index += 1
+
+	if not target:
+		return
+	var angle_to : float = parent.velocity.angle_to(parent.global_position.direction_to(target.global_position))
+	print(angle_to)
+	if angle_to > 0:
+		parent.velocity = parent.velocity.rotated(rotation_speed * delta)
+	elif angle_to < 0:
+		parent.velocity = parent.velocity.rotated(- rotation_speed * delta)
+		
+
+func receive_signal(event : Event) -> Event:
+	return event
+
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hi2b0"]
+radius = 73.0069
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kru3q"]
+radius = 5.0
+
+[sub_resource type="Gradient" id="Gradient_8b8ag"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.493421, 0.631579)
+colors = PackedColorArray(0, 0.109804, 1, 1, 0, 0.556863, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wkjva"]
+gradient = SubResource("Gradient_8b8ag")
+width = 12
+height = 12
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Resource" id="Resource_2njig"]
+script = ExtResource("3_jnlc4")
+damage = 1.0
+damage_type = 2
+knockback_type = 1
+knockback_velocity = 200.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vyw0l"]
+radius = 6.08276
+
+[sub_resource type="Gradient" id="Gradient_65cim"]
+offsets = PackedFloat32Array(0, 0.116883, 0.655844)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_agrek"]
+gradient = SubResource("Gradient_65cim")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="Water Sprit" type="CharacterBody2D" groups=["npcs"]]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_k3md0")
+
+[node name="RotationalHoming" type="Node2D" parent="." node_paths=PackedStringArray("detection_area")]
+script = SubResource("GDScript_gilg8")
+detection_area = NodePath("Area2D")
+
+[node name="Los" type="RayCast2D" parent="RotationalHoming"]
+collision_mask = 2
+collide_with_areas = true
+
+[node name="Area2D" type="Area2D" parent="RotationalHoming"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RotationalHoming/Area2D"]
+shape = SubResource("CircleShape2D_hi2b0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_kru3q")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_wkjva")
+
+[node name="HitboxComponent" type="Node2D" parent="."]
+script = ExtResource("2_gytxb")
+damage = SubResource("Resource_2njig")
+
+[node name="Area2D" type="Area2D" parent="HitboxComponent"]
+collision_layer = 16
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent/Area2D"]
+shape = SubResource("CircleShape2D_vyw0l")
+
+[node name="ProjectileDespawner" parent="." instance=ExtResource("4_eraea")]
+
+[node name="EffectContainer" parent="." instance=ExtResource("5_2mh1t")]
+
+[node name="OnSpawnActionsEffect" type="Node" parent="EffectContainer"]
+script = ExtResource("11_r5bcm")
+
+[node name="PlaySoundAction" type="Node" parent="EffectContainer/OnSpawnActionsEffect"]
+script = ExtResource("12_qk2yi")
+sound = ExtResource("13_qmtwu")
+
+[node name="PhysicsHandler" parent="." instance=ExtResource("14_fenal")]
+base_acceleration = 0.0
+base_damping = 0.0
+take_collision_damage = false
+ice_acceleration_multiplier = 0.0
+ice_damping_multiplier = 0.0
+water_damping_multiplier = 1.0
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0, 0.54902, 0.803922, 1)
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_agrek")

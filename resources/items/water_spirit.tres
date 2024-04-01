@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=4 format=3 uid="uid://dnmychjlaxph0"]
+
+[ext_resource type="PackedScene" uid="uid://cr2q7jhqtm5er" path="res://items/water_spirit.tscn" id="1_8ulpc"]
+[ext_resource type="Texture2D" uid="uid://dvwbuayyrbcye" path="res://assets/water_icon.png" id="2_2coi7"]
+[ext_resource type="Script" path="res://resources/custom_bases/item_resource.gd" id="3_cfw6r"]
+
+[resource]
+script = ExtResource("3_cfw6r")
+item_name = "Water Spirit"
+element = 2
+type = 0
+limited_use = false
+item_durability = 10
+inventory_icon = ExtResource("2_2coi7")
+glow = Color(0, 0.686275, 1, 1)
+_item_scene = ExtResource("1_8ulpc")

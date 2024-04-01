@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EntityResource" load_steps=3 format=3 uid="uid://c2ali3krpylxe"]
+
+[ext_resource type="PackedScene" uid="uid://clncaxcqx6vp" path="res://entities/projectiles/water_spirit.tscn" id="1_enr2y"]
+[ext_resource type="Script" path="res://resources/custom_bases/entity_resource.gd" id="2_kkk8h"]
+
+[resource]
+script = ExtResource("2_kkk8h")
+entity_name = "Water Sprit"
+_entity_scene = ExtResource("1_enr2y")
+starting_health = 1
+spawn_velocity = 200
+type = 3
+inherit_team = true
+default_team = 2
+element = 3

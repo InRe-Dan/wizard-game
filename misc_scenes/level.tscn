@@ -19,8 +19,8 @@
 
 [node name="Level" type="Node2D" groups=["level"]]
 script = ExtResource("1_dod73")
-level_min_size = Vector2i(80, 80)
-level_max_size = Vector2i(100, 100)
+level_min_size = Vector2i(100, 100)
+level_max_size = Vector2i(150, 150)
 enemy_list = Array[Resource("res://resources/custom_bases/entity_resource.gd")]([ExtResource("2_vthdy"), ExtResource("3_tvi7y"), ExtResource("4_1qtmx"), ExtResource("5_i6waq")])
 item_list = Array[Resource("res://resources/custom_bases/item_resource.gd")]([ExtResource("5_jsrx3"), ExtResource("6_gjijd"), ExtResource("7_i1ey6"), ExtResource("8_voof8"), ExtResource("9_v2ant"), ExtResource("10_ba4jq"), ExtResource("11_nbup2")])
 passive_list = Array[Resource("res://resources/custom_bases/passive_resource.gd")]([ExtResource("10_8r3u0"), ExtResource("11_68d5o")])
