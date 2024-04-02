@@ -22,7 +22,7 @@ void decay(ivec2 coords, vec4 mask) {
 	sum += length(imageLoad(i, ivec2(1, 0) + coords) * mask);
 	sum += length(imageLoad(i, ivec2(1, 1) + coords) * mask);
 	if (sum < 5) {
-		imageStore(o, coords, pixel - vec4(vec3(0.005), 0.0));
+		imageStore(o, coords, pixel - vec4(vec3(0.01), 0.0));
 	} else {
 		imageStore(o, coords, pixel);
 	}

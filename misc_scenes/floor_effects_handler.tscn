@@ -5,8 +5,8 @@
 [ext_resource type="Shader" path="res://shaders/floor_effects_handler.gdshader" id="3_x41kc"]
 
 [sub_resource type="Gradient" id="Gradient_swshv"]
-offsets = PackedFloat32Array(0, 0.509225, 0.708487)
-colors = PackedColorArray(1, 0, 0, 1, 0.952096, 0, 0, 1, 0, 0, 0, 1)
+offsets = PackedFloat32Array(0, 0.560886, 0.708487)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 0.864583, 1, 0, 0, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_81iry"]
 gradient = SubResource("Gradient_swshv")
@@ -133,10 +133,8 @@ visibility_layer = 2
 z_index = 1
 z_as_relative = false
 script = ExtResource("1_o44qe")
-decay_rate = 0.01
+decay_rate = 0.5
 resolution_factor = 4
-decay_amount = 0.2
-zero_threshold = 0.5
 circle = SubResource("GradientTexture2D_81iry")
 
 [node name="Effects" type="Sprite2D" parent="."]
