@@ -1,15 +1,33 @@
-[gd_scene load_steps=29 format=3 uid="uid://d2gefhko3sbry"]
+[gd_scene load_steps=33 format=3 uid="uid://d2gefhko3sbry"]
 
 [ext_resource type="Script" path="res://misc_scenes/floor_effects_handler.gd" id="1_o44qe"]
 [ext_resource type="Shader" path="res://shaders/elements.gdshader" id="2_a5i2d"]
 [ext_resource type="Shader" path="res://shaders/floor_effects_handler.gdshader" id="3_x41kc"]
 
-[sub_resource type="Gradient" id="Gradient_swshv"]
-offsets = PackedFloat32Array(0, 0.560886, 0.708487)
-colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 0.864583, 1, 0, 0, 0)
+[sub_resource type="Gradient" id="Gradient_kev11"]
+offsets = PackedFloat32Array(0, 0.291513, 0.501845, 0.671587)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 0.945098, 0.988235, 0, 0, 0.72549, 1, 0, 0, 0)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_81iry"]
-gradient = SubResource("Gradient_swshv")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_up77o"]
+gradient = SubResource("Gradient_kev11")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_g3rkp"]
+offsets = PackedFloat32Array(0, 0.291513, 0.501845, 0.671587)
+colors = PackedColorArray(0, 0, 1, 1, 0, 0, 1, 0.945098, 0, 0, 1, 0.72549, 0, 0, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ucnh3"]
+gradient = SubResource("Gradient_g3rkp")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_qkism"]
+offsets = PackedFloat32Array(0, 0.291513, 0.501845, 0.671587)
+colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0, 0.945098, 0, 1, 0, 0.72549, 0, 1, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bixus"]
+gradient = SubResource("Gradient_qkism")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
@@ -135,7 +153,9 @@ z_as_relative = false
 script = ExtResource("1_o44qe")
 decay_rate = 0.5
 resolution_factor = 4
-circle = SubResource("GradientTexture2D_81iry")
+red_circle = SubResource("GradientTexture2D_up77o")
+blue_circle = SubResource("GradientTexture2D_ucnh3")
+green_circle = SubResource("GradientTexture2D_bixus")
 
 [node name="Effects" type="Sprite2D" parent="."]
 y_sort_enabled = true
