@@ -7,7 +7,6 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	dash_cooldown_timer -= delta
-	FloorHandler.clear_fog(global_position, 128)
 
 func distribute_signal(event : Event) -> void:
 	if event.type == event.types.take_damage:

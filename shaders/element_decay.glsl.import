@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://cxkuyc2obgdbi"
+path="res://.godot/imported/element_decay.glsl-fc2bb667313740395d490351b9b005a2.res"
+
+[deps]
+
+source_file="res://shaders/element_decay.glsl"
+dest_files=["res://.godot/imported/element_decay.glsl-fc2bb667313740395d490351b9b005a2.res"]
+
+[params]
+

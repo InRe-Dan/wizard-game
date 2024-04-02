@@ -101,6 +101,7 @@ shape = SubResource("CircleShape2D_4s2ka")
 [node name="PointLight2D" type="PointLight2D" parent="."]
 z_index = 1
 energy = 0.5
+range_item_cull_mask = 3
 shadow_enabled = true
 shadow_filter_smooth = 28.1
 texture = SubResource("GradientTexture2D_mfdbb")

@@ -1,8 +1,17 @@
-[gd_scene load_steps=27 format=3 uid="uid://d2gefhko3sbry"]
+[gd_scene load_steps=29 format=3 uid="uid://d2gefhko3sbry"]
 
 [ext_resource type="Script" path="res://misc_scenes/floor_effects_handler.gd" id="1_o44qe"]
 [ext_resource type="Shader" path="res://shaders/elements.gdshader" id="2_a5i2d"]
 [ext_resource type="Shader" path="res://shaders/floor_effects_handler.gdshader" id="3_x41kc"]
+
+[sub_resource type="Gradient" id="Gradient_swshv"]
+offsets = PackedFloat32Array(0, 0.509225, 0.708487)
+colors = PackedColorArray(1, 0, 0, 1, 0.952096, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_81iry"]
+gradient = SubResource("Gradient_swshv")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_owj2b"]
 
@@ -128,6 +137,7 @@ decay_rate = 0.01
 resolution_factor = 4
 decay_amount = 0.2
 zero_threshold = 0.5
+circle = SubResource("GradientTexture2D_81iry")
 
 [node name="Effects" type="Sprite2D" parent="."]
 y_sort_enabled = true
@@ -146,6 +156,7 @@ texture = SubResource("GradientTexture2D_qvylg")
 centered = false
 
 [node name="Fog" type="Sprite2D" parent="."]
+visible = false
 z_index = 10
 texture_filter = 2
 material = SubResource("CanvasItemMaterial_y237a")
