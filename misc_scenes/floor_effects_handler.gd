@@ -21,6 +21,8 @@ var fog_texture : ImageTexture
 var array_size : Vector2i
 var floor_map : TileMap
 
+var thread : Thread = Thread.new()
+
 func try_decay(i : int, j : int, grid : Array[Array]) -> void:
 	var neighbours : int = 0
 	neighbours += 1 if grid[max(i - 1, 0)][j] else 0
@@ -33,8 +35,7 @@ func try_decay(i : int, j : int, grid : Array[Array]) -> void:
 		# TODO remove neighbours if they have no remaining neighbours, even if they havent been rolled
 		grid[i][j] = 0
 	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func decay() -> void:
 	for i : int in range(decay_rate * array_size.x * array_size.y):
 		var decay_x : int = round(randf() * (array_size.x - 1))
 		var decay_y : int = round(randf() * (array_size.y - 1))
@@ -44,11 +45,17 @@ func _process(delta: float) -> void:
 		var new_col : Color = Color(fire_array[decay_y][decay_x], ice_array[decay_y][decay_x], water_array[decay_y][decay_x])
 		image.set_pixel(decay_x, decay_y, new_col)
 	
+	
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	if thread.is_alive:
+		thread.wait_to_finish()
 	texture.update(image)
 	effects.texture = texture
 	lighting.texture = texture
 	fog_texture.update(fog_image)
 	fog.texture = fog_texture
+	thread.start(decay)
 	
 func is_point_in_map(point : Vector2, map : Array[Array]) -> bool:
 	var converted_point : Vector2i = convert_global_to_map(point)
