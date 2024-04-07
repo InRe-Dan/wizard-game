@@ -17,6 +17,7 @@ class Room extends RefCounted:
 	
 	var rect : Rect2i
 	var connections : Array[Connection]
+	var id : int = -1
 	
 class Partition extends RefCounted:
 	enum SplitDir {Horizontal, Vertical}
@@ -81,3 +82,83 @@ class Partition extends RefCounted:
 	var two : Partition = null
 	var room : Room = null
 	var level : int
+	
+class GraphData extends RefCounted:
+	var dist : Array[Array]
+	var prev : Array[Array]
+	var rooms : Array[Room]
+	
+	func _init(rooms : Array[Room]) -> void:
+		dist = []
+		prev = []
+		for i : int in range(rooms.size()):
+			dist.append([])
+			prev.append([])
+			for j : int in range(rooms.size()):
+				dist[i].append(99)
+				prev[i].append(null)
+		floyd_warshall(rooms)
+
+	func floyd_warshall(rooms : Array[Room]) -> void:
+		# preprocessing for edges and giving rooms IDs
+		var edges : Array[Connection] = []
+		var id : int = 0
+		self.rooms = rooms
+		for room : Room in rooms:
+			room.id = id
+			id += 1
+			edges.append_array(room.connections)
+		for i : int in range(edges.size()):
+			print(edges[i].one.id, " ", edges[i].two.id)
+			var u : Room = edges[i].one
+			var v : Room = edges[i].two
+			dist[u.id][v.id] = 1
+			dist[v.id][u.id] = 1
+			prev[u.id][v.id] = u
+			prev[v.id][u.id] = v
+		for i : int in range(rooms.size()):
+			dist[rooms[i].id][rooms[i].id] = 0
+			prev[rooms[i].id][rooms[i].id] = rooms[i]
+		
+		var room_count : int = rooms.size()
+		for k : int in range(room_count):
+			for i : int in range(room_count):
+				for j : int in range(room_count):
+					if dist[i][j] > dist[i][k] + dist[k][j]:
+						dist[i][j] = dist[i][k] + dist[k][j]
+						prev[i][j] = prev[k][j]
+
+	func path(start : Room, end : Room) -> Array[Room]:
+		var array : Array[Room] = []
+		if prev[start.id][end.id] == null:
+			return array
+		array.append(end)
+		while end != start:
+			end = prev[start.id][end.id]
+			array.push_front(end)
+		return array
+	
+	func get_longest_path() -> Array[Room]:
+		var coordinates : Vector2i = get_longest_path_coordinates()
+		print(coordinates)
+		print(dist[coordinates.x][coordinates.y])
+		return path(rooms[coordinates.x], rooms[coordinates.y])
+
+	func get_longest_path_coordinates() -> Vector2i:
+		var largest : Vector2i = - Vector2.ONE
+		var largest_value : int = 0
+		for i : int in range(dist.size()):
+			for j : int in range(dist.size()):
+				var value : int = dist[i][j]
+				if value > largest_value:
+					largest_value = value
+					largest = Vector2i(j, i)
+		assert(largest != - Vector2i.ZERO)
+		return largest
+	
+	func print_dist() -> void:
+		for i : int in range(dist.size()):
+			var string : String = ""
+			for j : int in range(dist.size()):
+				string += str(dist[i][j]) + " "
+			print(string)

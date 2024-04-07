@@ -136,6 +136,17 @@ func attempt_to_use_templates(rooms : Array[LevelUtilities.Room]) -> void:
 			item.global_position = pos + Vector2(offset) * 16
 			add_child(item)
 
+func draw_connections() -> void:
+	for room : LevelUtilities.Room in current_rooms:
+		for connection : LevelUtilities.Connection in room.connections:
+			var line : Line2D = Line2D.new()
+			line.z_index = 100
+			var points : PackedVector2Array = PackedVector2Array()
+			points.append(floor.to_global(floor.map_to_local(connection.one.rect.get_center())))
+			points.append(floor.to_global(floor.map_to_local(connection.two.rect.get_center())))
+			line.points = points
+			add_child(line)
+
 func generate_bsp() -> void:
 	var size : Vector2i = level_min_size + Vector2i((level_max_size - level_min_size) * (randf()))
 	var rect : Rect2i = Rect2i(Vector2i.ZERO - size / 2, size)
@@ -152,4 +163,9 @@ func generate_bsp() -> void:
 	var player : Entity = get_tree().get_first_node_in_group("players")
 	if player:
 		move_player(player)
+	var graph_data : LevelUtilities.GraphData = LevelUtilities.GraphData.new(rooms)
+	var longest_path : Array[LevelUtilities.Room] = graph_data.get_longest_path()
+	graph_data.print_dist()
+	print(longest_path.size())
+	draw_connections()
 	FloorHandler.init_for_room()
