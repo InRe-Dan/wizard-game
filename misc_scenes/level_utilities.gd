@@ -21,9 +21,14 @@ class Room extends RefCounted:
 	
 class Partition extends RefCounted:
 	enum SplitDir {Horizontal, Vertical}
-	func _init(rect : Rect2i, min : Vector2i, max : Vector2i, level : int = 0) -> void:
+	enum SplitHalf {First, Second}
+	var split_type : SplitDir
+	var split_half : SplitHalf
+	func _init(rect : Rect2i, min : Vector2i, max : Vector2i, type : SplitDir, half : SplitHalf, level : int = 0) -> void:
 		self.rect = rect
 		self.level = level
+		self.split_type = type
+		self.split_half = half
 	
 		# Determine if there is enough room to split in each direction
 		var can_split_h : bool = false
@@ -49,8 +54,8 @@ class Partition extends RefCounted:
 			var one_size : Vector2i = Vector2i(rect.size.x, one_height)
 			var two_pos : Vector2i = Vector2i(rect.position.x, y)
 			var two_size : Vector2i = Vector2i(rect.size.x, rect.size.y - one_height)
-			one = Partition.new(Rect2i(one_pos, one_size), min, max, level + 1)
-			two = Partition.new(Rect2i(two_pos, two_size), min, max, level + 1)
+			one = Partition.new(Rect2i(one_pos, one_size), min, max, split_dir, SplitHalf.First, level + 1)
+			two = Partition.new(Rect2i(two_pos, two_size), min, max, split_dir, SplitHalf.Second, level + 1)
 		elif split_dir == SplitDir.Vertical:
 			var one_width : int = rect.size.x / 2 + randi_range(-3, 3)
 			var x : int = rect.position.x + one_width
@@ -58,8 +63,8 @@ class Partition extends RefCounted:
 			var one_size : Vector2i = Vector2i(one_width, (rect.size.y))
 			var two_pos : Vector2i = Vector2i(x, rect.position.y)
 			var two_size : Vector2i = Vector2i(rect.size.x - one_width, rect.size.y)
-			one = Partition.new(Rect2i(one_pos, one_size), min, max, level + 1)
-			two = Partition.new(Rect2i(two_pos, two_size), min, max, level + 1)
+			one = Partition.new(Rect2i(one_pos, one_size), min, max, split_dir, SplitHalf.First, level + 1)
+			two = Partition.new(Rect2i(two_pos, two_size),  min, max, split_dir, SplitHalf.Second, level + 1)
 		assert(not one.rect.intersects(two.rect))
 		assert(one.rect.get_area() + two.rect.get_area() == rect.get_area())
 				
@@ -73,7 +78,10 @@ class Partition extends RefCounted:
 			var conn : Connection = Connection.new(one.room, two.room)
 			one.room.connections.append(conn)
 			two.room.connections.append(conn)
-			room = [one.room, two.room].pick_random()
+			if split_half == SplitHalf.First:
+				room = two.room
+			else:
+				room = one.room
 		return array
 
 	var rect : Rect2i
