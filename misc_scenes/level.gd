@@ -54,22 +54,42 @@ func fill_with_walls() -> void:
 					place = place or floor.get_cell_tile_data(0, walls_corner + Vector2i(x, y) + offset)
 				if place:
 					set_wall(walls_corner + Vector2i(x, y))
-	
+
 func put_connections_on_tilemap(rooms : Array[LevelUtilities.Room]) -> void:
+	var new_connections : Array[LevelUtilities.Connection] = []
+	
 	for room : LevelUtilities.Room in rooms:
 		for connection : LevelUtilities.Connection in room.connections:
+			# Establish rooms visited while making this connection
+			var last_room_visited : LevelUtilities.Room = room
+			# Check if this connection has already been handled.
 			if connection.connected:
 				continue
 			connection.connected = true
+			# Choose whether or not to go horizontally
 			var going_horizontally : bool = true if randf() > 0.5 else false
 			var pos : Vector2i = connection.one.rect.get_center() 
 			var end : Vector2i = connection.two.rect.get_center()
+			# While we haven't conencted the rooms
 			while (pos - end).length() != 0:
+				# Draw the corridor on the tilemap
 				for i : int in range(hallway_width):
 					for j : int in range(hallway_width):
 						var tile_pos : Vector2i = pos + Vector2i(i - hallway_width / 2, j - hallway_width / 2)
 						if not (connection.one.rect.has_point(tile_pos) or connection.two.rect.has_point(tile_pos)):
 							set_floor(tile_pos)
+				# Determine if we are drawing a hallway in a room
+				var in_room : LevelUtilities.Room = null
+				for possible_visit : LevelUtilities.Room in rooms:
+					if possible_visit.rect.has_point(pos):
+						in_room = possible_visit
+				if in_room:
+					if not last_room_visited == in_room:
+						new_connections.append(LevelUtilities.Connection.new(in_room, last_room_visited))
+						new_connections.back().connected = true
+						last_room_visited = in_room
+				
+				# Determine next position
 				if going_horizontally:
 					if end.x > pos.x:
 						pos += Vector2i(1, 0)
@@ -84,7 +104,13 @@ func put_connections_on_tilemap(rooms : Array[LevelUtilities.Room]) -> void:
 						pos -= Vector2i(0, 1)
 					else:
 						going_horizontally = true
-			
+		# Get rid of these connections as they will be replaced
+		room.connections.clear()
+
+	# Finally, reassign connections
+	for connection : LevelUtilities.Connection in new_connections:
+		connection.one.connections.append(connection)
+		connection.two.connections.append(connection)
 				
 	
 func move_player(entity : Entity) -> void:
@@ -167,5 +193,5 @@ func generate_bsp() -> void:
 	var longest_path : Array[LevelUtilities.Room] = graph_data.get_longest_path()
 	# graph_data.print_dist()
 	# print(longest_path.size())
-	# draw_connections()
+	draw_connections()
 	FloorHandler.init_for_room()

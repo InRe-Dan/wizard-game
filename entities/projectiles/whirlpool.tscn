@@ -40,7 +40,6 @@ curve = SubResource("Curve_h6x7p")
 particle_flag_disable_z = true
 angle_min = -720.0
 angle_max = 720.0
-inherit_velocity_ratio = 1.0
 spread = 180.0
 initial_velocity_min = 10.0
 initial_velocity_max = 10.0
@@ -89,10 +88,13 @@ shape = SubResource("CircleShape2D_svnvy")
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 z_index = 1
 z_as_relative = false
-amount = 200
+amount = 300
 process_material = SubResource("ParticleProcessMaterial_dh7tf")
 texture = SubResource("GradientTexture2D_4h3fe")
 lifetime = 2.0
+preprocess = 5.0
+fixed_fps = 200
+local_coords = true
 trail_enabled = true
 
 [node name="EffectContainerComponent" type="Node2D" parent="."]

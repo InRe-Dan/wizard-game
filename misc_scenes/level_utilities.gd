@@ -48,21 +48,21 @@ class Partition extends RefCounted:
 		else:
 			return
 		if split_dir == SplitDir.Horizontal:
-			var one_height : int = rect.size.y / 2 + randi_range(-3, 3)
+			var one_height : int = rect.size.y / 2 + randi_range(-5, 5)
 			var y : int = rect.position.y + one_height
 			var one_pos : Vector2i = Vector2i(rect.position.x, rect.position.y)
-			var one_size : Vector2i = Vector2i(rect.size.x, one_height)
+			var one_size : Vector2i = Vector2i(rect.size.x, y - rect.position.y)
 			var two_pos : Vector2i = Vector2i(rect.position.x, y)
-			var two_size : Vector2i = Vector2i(rect.size.x, rect.size.y - one_height)
+			var two_size : Vector2i = Vector2i(rect.size.x, rect.size.y - (y - rect.position.y))
 			one = Partition.new(Rect2i(one_pos, one_size), min, max, split_dir, SplitHalf.First, level + 1)
 			two = Partition.new(Rect2i(two_pos, two_size), min, max, split_dir, SplitHalf.Second, level + 1)
 		elif split_dir == SplitDir.Vertical:
-			var one_width : int = rect.size.x / 2 + randi_range(-3, 3)
+			var one_width : int = rect.size.x / 2 + randi_range(-5, 5)
 			var x : int = rect.position.x + one_width
 			var one_pos : Vector2i = Vector2i(rect.position.x, rect.position.y)
-			var one_size : Vector2i = Vector2i(one_width, (rect.size.y))
+			var one_size : Vector2i = Vector2i(x - rect.position.x, (rect.size.y))
 			var two_pos : Vector2i = Vector2i(x, rect.position.y)
-			var two_size : Vector2i = Vector2i(rect.size.x - one_width, rect.size.y)
+			var two_size : Vector2i = Vector2i(rect.size.x - (x - rect.position.x), rect.size.y)
 			one = Partition.new(Rect2i(one_pos, one_size), min, max, split_dir, SplitHalf.First, level + 1)
 			two = Partition.new(Rect2i(two_pos, two_size),  min, max, split_dir, SplitHalf.Second, level + 1)
 		assert(not one.rect.intersects(two.rect))

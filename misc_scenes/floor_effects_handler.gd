@@ -48,7 +48,7 @@ func decay() -> void:
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if thread.is_alive:
+	if thread.is_started():
 		thread.wait_to_finish()
 	texture.update(image)
 	effects.texture = texture
