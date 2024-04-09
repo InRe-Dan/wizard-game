@@ -18,15 +18,15 @@ class_name Level extends Node2D
 
 @onready var floor : TileMap = $Floor
 @onready var walls : TileMap = $Walls
+var stairs_res : EntityResource = preload("res://resources/entities/stairs.tres")
 
 var current_rooms : Array[LevelUtilities.Room]
-var layouts : Array[RoomLayout]
+var layouts : Array[TileMap]
 
 func _ready() -> void:
 	var files : PackedStringArray = DirAccess.get_files_at("res://room_blueprints/")
 	for file : String in files:
 		layouts.append(load("res://room_blueprints/" + file).instantiate())
-	generate_bsp()
 
 func set_floor(v : Vector2i) -> void:
 	if not floor.get_cell_tile_data(0, v):
@@ -113,8 +113,8 @@ func put_connections_on_tilemap(rooms : Array[LevelUtilities.Room]) -> void:
 		connection.two.connections.append(connection)
 				
 	
-func move_player(entity : Entity) -> void:
-	entity.global_position = floor.to_global(floor.map_to_local(current_rooms.front().rect.get_center()))
+func move_player(entity : Entity, room : LevelUtilities.Room) -> void:
+	entity.global_position = floor.to_global(floor.map_to_local(room.rect.get_center()))
 
 func shrink_rooms(rooms : Array[LevelUtilities.Room], amount : int) -> void:
 	for room : LevelUtilities.Room in rooms:
@@ -122,7 +122,7 @@ func shrink_rooms(rooms : Array[LevelUtilities.Room], amount : int) -> void:
 		room.rect.size -= amount * Vector2i.ONE
 
 func attempt_to_use_templates(rooms : Array[LevelUtilities.Room]) -> void:
-	var lambda : Callable = func(template : RoomLayout, room : LevelUtilities.Room) -> bool:
+	var lambda : Callable = func(template : TileMap, room : LevelUtilities.Room) -> bool:
 		if template.get_used_rect().size.x >= room.rect.size.x:
 			return false
 		if template.get_used_rect().size.y >= room.rect.size.y:
@@ -138,7 +138,7 @@ func attempt_to_use_templates(rooms : Array[LevelUtilities.Room]) -> void:
 				for j : int in range(room.rect.size.x):
 					set_floor(room.rect.position + Vector2i(j, i))
 			continue
-		var template : RoomLayout = possible_templates.pick_random()
+		var template : TileMap = possible_templates.pick_random()
 		var offset : Vector2i = room.rect.get_center() - template.get_used_rect().get_center()
 		var template_rect : Rect2i = template.get_used_rect()
 		room.rect = Rect2i(template_rect.position + offset, template_rect.size)
@@ -148,19 +148,7 @@ func attempt_to_use_templates(rooms : Array[LevelUtilities.Room]) -> void:
 					assert(room.rect.has_point(Vector2i(j, i) + offset))
 					set_floor(Vector2i(j, i) + offset)
 		
-		var possible_enemies : int = template.enemy_locations.size()
-		var shuffled : Array = template.enemy_locations.duplicate()
-		shuffled.shuffle()
-		for i : int in range(randi_range(0, possible_enemies)):
-			var pos : Vector2 = (shuffled.pop_front() as Marker2D).global_position
-			var enemy : Entity = enemy_list.pick_random().make_entity()
-			enemy.global_position = pos + Vector2(offset) * 16
-			add_child(enemy)
-		if template.item_locations:
-			var pos : Vector2 = template.item_locations.pick_random().global_position
-			var item : Entity = item_list.pick_random().make_item_pickup()
-			item.global_position = pos + Vector2(offset) * 16
-			add_child(item)
+		room.marker_global_positions.append_array(template.get_children().map(func x(a): return a.global_position + Vector2(offset) * 16))
 
 func draw_connections() -> void:
 	for room : LevelUtilities.Room in current_rooms:
@@ -186,12 +174,16 @@ func generate_bsp() -> void:
 	# put_rooms_on_tilemap(rooms)
 	put_connections_on_tilemap(rooms)
 	fill_with_walls()
-	var player : Entity = get_tree().get_first_node_in_group("players")
-	if player:
-		move_player(player)
 	var graph_data : LevelUtilities.GraphData = LevelUtilities.GraphData.new(rooms)
 	var longest_path : Array[LevelUtilities.Room] = graph_data.get_longest_path()
+	var player : Entity = get_tree().get_first_node_in_group("players")
+	if player:
+		move_player(player, longest_path.front())
+	var exit : Entity = stairs_res.make_entity()
+	var exit_room : LevelUtilities.Room = longest_path.back()
+	add_child(exit)
+	exit.global_position = exit_room.marker_global_positions.pop_front()
 	# graph_data.print_dist()
 	# print(longest_path.size())
-	draw_connections()
+	# draw_connections()
 	FloorHandler.init_for_room()

@@ -24,6 +24,7 @@ buses/default_bus_layout="res://resources/default_bus_layout.tres"
 
 FloorHandler="*res://misc_scenes/floor_effects_handler.tscn"
 AudioHandler="*res://misc_scenes/audio_handler.tscn"
+Global="*res://misc_scenes/global.tscn"
 
 [debug]
 

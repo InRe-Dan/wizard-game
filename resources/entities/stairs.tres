@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EntityResource" load_steps=3 format=3 uid="uid://hun8y2cngo4r"]
+
+[ext_resource type="Script" path="res://resources/custom_bases/entity_resource.gd" id="1_2gapa"]
+[ext_resource type="PackedScene" uid="uid://oudgb6ygi5ud" path="res://entities/exit_stairs.tscn" id="1_ugqpk"]
+
+[resource]
+script = ExtResource("1_2gapa")
+entity_name = "Exit"
+_entity_scene = ExtResource("1_ugqpk")
+starting_health = 1
+spawn_velocity = 0
+type = 6
+inherit_team = false
+default_team = 2
+element = 0

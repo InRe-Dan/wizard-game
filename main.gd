@@ -6,9 +6,12 @@ var player_resource : EntityResource = preload("res://resources/entities/player.
 func _ready() -> void:
 	var player : Entity = player_resource.make_entity()
 	add_child(player)
-	$level.move_player(player)
-
+	$level.generate_bsp()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta : float) -> void:
 	if not get_tree().get_first_node_in_group("players"):
 		add_child(player_resource.make_entity())
+
+
+func next_level() -> void:
+	$level.generate_bsp()

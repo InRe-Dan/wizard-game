@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://oudgb6ygi5ud"]
+
+[ext_resource type="Texture2D" uid="uid://dlydxq2ep2gmb" path="res://assets/dungeon/floor_stairs.png" id="2_f4k8b"]
+[ext_resource type="PackedScene" uid="uid://dwqy3vhl4qyw1" path="res://components/interactable_component.tscn" id="2_pfrfv"]
+
+[sub_resource type="GDScript" id="GDScript_1u817"]
+script/source = "extends Entity
+
+func _ready() -> void:
+	super()
+	z_index = 1
+
+
+func distribute_signal(event : Event) -> void:
+	var interaction : BeenInteractedEvent = event as BeenInteractedEvent
+	if interaction:
+		if interaction.interacter.is_in_group(\"players\"):
+			Global.main.next_level()
+	super(event)
+
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oopxx"]
+size = Vector2(16, 16)
+
+[sub_resource type="Gradient" id="Gradient_w8v6o"]
+offsets = PackedFloat32Array(0, 0.619926)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_awmy2"]
+gradient = SubResource("Gradient_w8v6o")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="ExitStairs" type="CharacterBody2D"]
+script = SubResource("GDScript_1u817")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_f4k8b")
+
+[node name="InteractableComponent" parent="." instance=ExtResource("2_pfrfv")]
+
+[node name="Area2D" type="Area2D" parent="InteractableComponent"]
+collision_layer = 64
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent/Area2D"]
+shape = SubResource("RectangleShape2D_oopxx")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+texture = SubResource("GradientTexture2D_awmy2")

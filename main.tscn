@@ -30,7 +30,8 @@ script = ExtResource("1_jl44l")
 texture_filter = 1
 
 [node name="level" parent="." instance=ExtResource("1_pf5qg")]
-level_max_size = Vector2i(110, 110)
+level_min_size = Vector2i(50, 50)
+level_max_size = Vector2i(50, 50)
 hallway_width = 2
 room_min_size = Vector2i(5, 5)
 room_max_size = Vector2i(40, 40)

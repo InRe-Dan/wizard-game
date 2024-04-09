@@ -17,6 +17,7 @@ class Room extends RefCounted:
 	
 	var rect : Rect2i
 	var connections : Array[Connection]
+	var marker_global_positions : Array[Vector2]
 	var id : int = -1
 	
 class Partition extends RefCounted:
