@@ -22,6 +22,7 @@ var stairs_res : EntityResource = preload("res://resources/entities/stairs.tres"
 
 var current_rooms : Array[LevelUtilities.Room]
 var layouts : Array[TileMap]
+var path_length : int
 
 func _ready() -> void:
 	var files : PackedStringArray = DirAccess.get_files_at("res://room_blueprints/")
@@ -166,7 +167,7 @@ func generate_bsp() -> void:
 	var rect : Rect2i = Rect2i(Vector2i.ZERO - size / 2, size)
 	floor.clear()
 	walls.clear()
-	var part : LevelUtilities.Partition = LevelUtilities.Partition.new(rect, room_min_size, room_max_size, 0, 0)
+	var part : LevelUtilities.Partition = LevelUtilities.Partition.new(rect, room_min_size, room_max_size)
 	var rooms : Array[LevelUtilities.Room] = part.make_rooms()
 	shrink_rooms(rooms, 2)
 	attempt_to_use_templates(rooms)
@@ -175,15 +176,21 @@ func generate_bsp() -> void:
 	put_connections_on_tilemap(rooms)
 	fill_with_walls()
 	var graph_data : LevelUtilities.GraphData = LevelUtilities.GraphData.new(rooms)
-	var longest_path : Array[LevelUtilities.Room] = graph_data.get_longest_path()
+	var longest_path : Array[LevelUtilities.Room] = graph_data.longest_path
+	path_length = longest_path.size()
 	var player : Entity = get_tree().get_first_node_in_group("players")
 	if player:
 		move_player(player, longest_path.front())
 	var exit : Entity = stairs_res.make_entity()
 	var exit_room : LevelUtilities.Room = longest_path.back()
+	for i in [1, 2, 3]:
+		graph_data.assign_reward_room()
+		var pos : Vector2 = graph_data.reward_rooms.back().marker_global_positions.back()
+		var thing : Sprite2D = Sprite2D.new()
+		thing.texture = GradientTexture2D.new()
+		thing.global_position = pos
+		add_child(thing)
 	add_child(exit)
+	draw_connections()
 	exit.global_position = exit_room.marker_global_positions.pop_front()
-	# graph_data.print_dist()
-	# print(longest_path.size())
-	# draw_connections()
 	FloorHandler.init_for_room()

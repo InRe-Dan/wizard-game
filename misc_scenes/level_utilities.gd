@@ -19,17 +19,15 @@ class Room extends RefCounted:
 	var connections : Array[Connection]
 	var marker_global_positions : Array[Vector2]
 	var id : int = -1
+	var is_key_room : bool = false
+	var distance_from_key_rooms : int = 100
 	
 class Partition extends RefCounted:
 	enum SplitDir {Horizontal, Vertical}
 	enum SplitHalf {First, Second}
-	var split_type : SplitDir
-	var split_half : SplitHalf
-	func _init(rect : Rect2i, min : Vector2i, max : Vector2i, type : SplitDir, half : SplitHalf, level : int = 0) -> void:
+	func _init(rect : Rect2i, min : Vector2i, max : Vector2i, level : int = 0) -> void:
 		self.rect = rect
 		self.level = level
-		self.split_type = type
-		self.split_half = half
 	
 		# Determine if there is enough room to split in each direction
 		var can_split_h : bool = false
@@ -55,8 +53,8 @@ class Partition extends RefCounted:
 			var one_size : Vector2i = Vector2i(rect.size.x, y - rect.position.y)
 			var two_pos : Vector2i = Vector2i(rect.position.x, y)
 			var two_size : Vector2i = Vector2i(rect.size.x, rect.size.y - (y - rect.position.y))
-			one = Partition.new(Rect2i(one_pos, one_size), min, max, split_dir, SplitHalf.First, level + 1)
-			two = Partition.new(Rect2i(two_pos, two_size), min, max, split_dir, SplitHalf.Second, level + 1)
+			one = Partition.new(Rect2i(one_pos, one_size), min, max, level + 1)
+			two = Partition.new(Rect2i(two_pos, two_size), min, max, level + 1)
 		elif split_dir == SplitDir.Vertical:
 			var one_width : int = rect.size.x / 2 + randi_range(-5, 5)
 			var x : int = rect.position.x + one_width
@@ -64,8 +62,8 @@ class Partition extends RefCounted:
 			var one_size : Vector2i = Vector2i(x - rect.position.x, (rect.size.y))
 			var two_pos : Vector2i = Vector2i(x, rect.position.y)
 			var two_size : Vector2i = Vector2i(rect.size.x - (x - rect.position.x), rect.size.y)
-			one = Partition.new(Rect2i(one_pos, one_size), min, max, split_dir, SplitHalf.First, level + 1)
-			two = Partition.new(Rect2i(two_pos, two_size),  min, max, split_dir, SplitHalf.Second, level + 1)
+			one = Partition.new(Rect2i(one_pos, one_size), min, max, level + 1)
+			two = Partition.new(Rect2i(two_pos, two_size),  min, max, level + 1)
 		assert(not one.rect.intersects(two.rect))
 		assert(one.rect.get_area() + two.rect.get_area() == rect.get_area())
 				
@@ -79,10 +77,7 @@ class Partition extends RefCounted:
 			var conn : Connection = Connection.new(one.room, two.room)
 			one.room.connections.append(conn)
 			two.room.connections.append(conn)
-			if split_half == SplitHalf.First:
-				room = two.room
-			else:
-				room = one.room
+			room = [one.room, two.room].pick_random()
 		return array
 
 	var rect : Rect2i
@@ -96,6 +91,8 @@ class GraphData extends RefCounted:
 	var dist : Array[Array]
 	var prev : Array[Array]
 	var rooms : Array[Room]
+	var longest_path : Array[Room]
+	var reward_rooms : Array[Room]
 	
 	func _init(rooms : Array[Room]) -> void:
 		dist = []
@@ -107,6 +104,8 @@ class GraphData extends RefCounted:
 				dist[i].append(99)
 				prev[i].append(null)
 		floyd_warshall(rooms)
+		make_longest_path()
+		recompute_key_distances()
 
 	func floyd_warshall(rooms : Array[Room]) -> void:
 		# preprocessing for edges and giving rooms IDs
@@ -147,11 +146,31 @@ class GraphData extends RefCounted:
 			array.push_front(end)
 		return array
 	
-	func get_longest_path() -> Array[Room]:
+	func recompute_key_distances() -> void:
+		for room in rooms:
+			for secondary_room in rooms:
+				if secondary_room.is_key_room:
+					room.distance_from_key_rooms = min(path(room, secondary_room).size(), room.distance_from_key_rooms)
+
+	func assign_reward_room() -> void:
+		var candidate : Room = null
+		var best_distance = 0
+		for room in rooms:
+			if room.distance_from_key_rooms > best_distance:
+				candidate = room
+				best_distance = room.distance_from_key_rooms
+		if candidate:
+			print(candidate)
+			reward_rooms.append(candidate)
+			candidate.is_key_room = true
+			recompute_key_distances()
+	
+	func make_longest_path() -> void:
 		var coordinates : Vector2i = get_longest_path_coordinates()
-		print(coordinates)
-		print(dist[coordinates.x][coordinates.y])
-		return path(rooms[coordinates.x], rooms[coordinates.y])
+		longest_path = path(rooms[coordinates.x], rooms[coordinates.y])
+		for room : Room in longest_path:
+			room.is_key_room = true
+		recompute_key_distances()
 
 	func get_longest_path_coordinates() -> Vector2i:
 		var largest : Vector2i = - Vector2.ONE
