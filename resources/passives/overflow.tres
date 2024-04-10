@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PassiveResource" load_steps=4 format=3 uid="uid://cka851w5tb771"]
+
+[ext_resource type="Script" path="res://effects/discard_explosion.gd" id="1_0cfi6"]
+[ext_resource type="Script" path="res://resources/custom_bases/passive_resource.gd" id="1_c3ubb"]
+[ext_resource type="Texture2D" uid="uid://beta740l86jnj" path="res://assets/fire_icon.png" id="2_hdulj"]
+
+[resource]
+script = ExtResource("1_c3ubb")
+passive_name = "Mana Overflow"
+passive_menu_description = "Discarding spells causes you to emit a flame explosion. Stacks increase damage and knockback."
+icon = ExtResource("2_hdulj")
+glow = Color(1, 0.513726, 0, 1)
+_effect_script = ExtResource("1_0cfi6")

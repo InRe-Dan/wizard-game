@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b85ijfyowcx7n"]
+[gd_scene load_steps=20 format=3 uid="uid://b85ijfyowcx7n"]
 
 [ext_resource type="TileSet" uid="uid://p8b656ms37q" path="res://resources/floor.tres" id="1_1cp4m"]
 [ext_resource type="Script" path="res://misc_scenes/level.gd" id="1_dod73"]
@@ -16,6 +16,7 @@
 [ext_resource type="Resource" uid="uid://q26t08cme7jm" path="res://resources/items/waterbolt.tres" id="10_ba4jq"]
 [ext_resource type="Resource" uid="uid://dbaliilxi5nod" path="res://resources/passives/vampirism.tres" id="11_68d5o"]
 [ext_resource type="Resource" uid="uid://c86lxyknu8xrs" path="res://resources/items/flame_blast.tres" id="11_nbup2"]
+[ext_resource type="Resource" uid="uid://cka851w5tb771" path="res://resources/passives/overflow.tres" id="15_gd3rv"]
 [ext_resource type="Shader" path="res://shaders/floor.gdshader" id="16_s4jjq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2mfka"]
@@ -27,7 +28,7 @@ level_min_size = Vector2i(100, 100)
 level_max_size = Vector2i(150, 150)
 enemy_list = Array[Resource("res://resources/custom_bases/entity_resource.gd")]([ExtResource("2_vthdy"), ExtResource("3_tvi7y"), ExtResource("4_1qtmx"), ExtResource("5_i6waq")])
 item_list = Array[Resource("res://resources/custom_bases/item_resource.gd")]([ExtResource("5_jsrx3"), ExtResource("6_gjijd"), ExtResource("7_i1ey6"), ExtResource("8_voof8"), ExtResource("9_v2ant"), ExtResource("10_ba4jq"), ExtResource("11_nbup2")])
-passive_list = Array[Resource("res://resources/custom_bases/passive_resource.gd")]([ExtResource("10_8r3u0"), ExtResource("11_68d5o")])
+passive_list = Array[Resource("res://resources/custom_bases/passive_resource.gd")]([ExtResource("10_8r3u0"), ExtResource("11_68d5o"), ExtResource("15_gd3rv")])
 
 [node name="Floor" type="TileMap" parent="."]
 z_as_relative = false

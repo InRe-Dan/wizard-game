@@ -12,7 +12,7 @@ func _ready() -> void:
 		description = "Shoot a spread of " + projectile.entity_name + "s"
 
 func do(target : Entity, secondary : Entity = null, direction : Vector2 = Vector2.ZERO) -> void:
-	var team : EntityResource.EntityTeam= target.team
+	var team : EntityResource.EntityTeam = target.team
 	if not projectile.inherit_team:
 		team = projectile.default_team
 	var entity_instance : Entity = projectile.make_entity() as Entity

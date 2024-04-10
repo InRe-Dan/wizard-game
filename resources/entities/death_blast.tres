@@ -10,5 +10,6 @@ _entity_scene = ExtResource("1_3huj6")
 starting_health = 50
 spawn_velocity = 0
 type = 6
+inherit_team = true
 default_team = 2
 element = 1

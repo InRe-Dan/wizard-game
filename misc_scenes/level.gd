@@ -186,14 +186,7 @@ func generate_bsp() -> void:
 		move_player(player, longest_path.front())
 	var exit : Entity = stairs_res.make_entity()
 	var exit_room : LevelUtilities.Room = longest_path.back()
-	for i in [1, 2, 3]:
-		graph_data.assign_reward_room()
-		var pos : Vector2 = graph_data.reward_rooms.back().marker_global_positions.back()
-		var thing : Sprite2D = Sprite2D.new()
-		thing.texture = GradientTexture2D.new()
-		thing.global_position = pos
-		add_child(thing)
 	add_child(exit)
-	draw_connections()
+	# draw_connections()
 	exit.global_position = exit_room.marker_global_positions.pop_front()
 	FloorHandler.init_for_room()
