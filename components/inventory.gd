@@ -1,6 +1,7 @@
 class_name InventoryComponent extends EntityComponent
 
 @export var starting_items : Array[ItemResource]
+@export var default_item : ItemResource
 
 var selected : int = 0
 
@@ -9,8 +10,14 @@ var selected : int = 0
 
 var slots : Array[InventoryItem] = [null, null, null, null, null, null, null, null]
 var slot_times : Array[float] = [0, 0, 0, 0, 0, 0, 0, 0]
+var default : InventoryItem
 
 func _ready() -> void:
+	if default_item:
+		default = default_item.make_item()
+		default.resource = default.resource.duplicate()
+		default.resource.limited_use = false
+		add_child(default)
 	var i : int = 0
 	for resource : ItemResource in starting_items:
 		var item : InventoryItem = resource.make_item()
@@ -21,9 +28,8 @@ func _ready() -> void:
 func _process(delta : float) -> void:
 	for slot : float in slot_times:
 		slot += delta
+
 func get_selected() -> InventoryItem:
-	if active.get_child_count() == 0:
-		return null
 	return slots[selected]
 
 func use(direction : Vector2) -> void:
@@ -33,7 +39,12 @@ func use(direction : Vector2) -> void:
 			if item.use(parent, direction):
 				active.remove_child(item)
 				consumed.add_child(item)
+				slots[selected] = null
 				cycleItems(-1)
+	else:
+		if default.is_ready():
+			print("used")
+			default.use(parent, direction)
 
 func use_any_attack() -> void:
 	pass
