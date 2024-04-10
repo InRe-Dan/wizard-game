@@ -117,7 +117,6 @@ class GraphData extends RefCounted:
 			id += 1
 			edges.append_array(room.connections)
 		for i : int in range(edges.size()):
-			print(edges[i].one.id, " ", edges[i].two.id)
 			var u : Room = edges[i].one
 			var v : Room = edges[i].two
 			dist[u.id][v.id] = 1
@@ -160,7 +159,6 @@ class GraphData extends RefCounted:
 				candidate = room
 				best_distance = room.distance_from_key_rooms
 		if candidate:
-			print(candidate)
 			reward_rooms.append(candidate)
 			candidate.is_key_room = true
 			recompute_key_distances()

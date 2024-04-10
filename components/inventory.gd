@@ -7,17 +7,24 @@ var selected : int = 0
 @onready var active : Node = $Active
 @onready var consumed : Node = $Consumed
 
-func _ready() -> void:
-	for resource : ItemResource in starting_items:
-		active.add_child(resource.make_item())
+var slots : Array[InventoryItem] = [null, null, null, null, null, null, null, null]
+var slot_times : Array[float] = [0, 0, 0, 0, 0, 0, 0, 0]
 
+func _ready() -> void:
+	var i : int = 0
+	for resource : ItemResource in starting_items:
+		var item : InventoryItem = resource.make_item()
+		active.add_child(item)
+		slots[i] = item
+		i += 1
+	
+func _process(delta : float) -> void:
+	for slot : float in slot_times:
+		slot += delta
 func get_selected() -> InventoryItem:
 	if active.get_child_count() == 0:
 		return null
-	return active.get_children()[selected] as InventoryItem
-
-func get_items() -> Array:
-	return active.get_children()
+	return slots[selected]
 
 func use(direction : Vector2) -> void:
 	var item : InventoryItem = get_selected()
@@ -45,8 +52,31 @@ func get_item_cooldown_progress() -> float:
 		return min(1, item.time_since_used / item.expected_cooldown)
 	return 0
 
+func discard(slot : int) -> void:
+	var item : InventoryItem = slots[slot]
+	if item:
+		item.queue_free()
+		slots[slot] = null
+		slot_times[slot] = 0
+
+func get_items() -> Array[InventoryItem]:
+	return slots.duplicate()
+
 func add_item(item : InventoryItem) -> void:
+	var usable_slot : int = slots.find(null)
+	if usable_slot == -1:
+		var longest_time : float = 0
+		for i : int in range(slots.size()):
+			if longest_time < slot_times[i]:
+				usable_slot = i
+				longest_time = slot_times[i]
+		discard(usable_slot)
 	active.add_child(item)
+	slots[usable_slot] = item
+	slot_times[usable_slot] = 0
+
+func select(slot : int) -> void:
+	selected = slot
 
 func cycleItems(amount : int) -> void:
 	selected += amount

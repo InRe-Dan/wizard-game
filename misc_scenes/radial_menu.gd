@@ -3,6 +3,10 @@ class_name RadialMenu extends Control
 @export var unselected_texture : Texture2D
 @export var selected_textrure : Texture2D
 
+@export var time_slow_capacity : float = 1.0
+
+var time_slow_juice : float = 0
+
 # https://forum.godotengine.org/t/equivalent-of-gamemakerss-function-angle-difference/27163
 func angle_difference(angle1 : float, angle2 : float) -> float:
 	var diff : float = angle2 - angle1
@@ -12,8 +16,19 @@ func angle_difference(angle1 : float, angle2 : float) -> float:
 func _process(delta : float) -> void:
 	if Input.is_action_pressed("openmenu"):
 		visible = true
+		time_slow_juice -= delta
+		if time_slow_juice < 0:
+			time_slow_juice = 0
+		if time_slow_juice > 0:
+			Engine.time_scale = 0.5
+		else:
+			Engine.time_scale = 1
 	else:
+		Engine.time_scale = 1
 		visible = false
+		time_slow_juice += delta
+		if time_slow_juice > time_slow_capacity:
+			time_slow_juice = time_slow_capacity
 		return
 	var player : Entity = get_tree().get_first_node_in_group("players")
 	if not player:
@@ -27,14 +42,19 @@ func _process(delta : float) -> void:
 		if node is InventoryComponent:
 			inventory = node as InventoryComponent
 			break
-	
-	var items : Array[Node] = inventory.get_items()
+	assert(inventory)
+
+	var items : Array[InventoryItem] = inventory.get_items()
 	var selected : int = 0
 	for i : int in range(items.size()):
+		var item : InventoryItem = items[i]
 		var rect : TextureRect = TextureRect.new()
 		var background_rect : TextureRect = TextureRect.new()
 		var angle : float = TAU * float(i) / items.size()
-		rect.texture = (items[i] as InventoryItem).resource.inventory_icon
+		if item:
+			rect.texture = item.resource.inventory_icon
+		else:
+			rect.texture = null
 		add_child(background_rect)
 		add_child(rect)
 		rect.global_position = get_viewport_rect().get_center() + Vector2.from_angle(angle) * 50

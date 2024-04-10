@@ -148,9 +148,10 @@ func attempt_to_use_templates(rooms : Array[LevelUtilities.Room]) -> void:
 				if template.get_cell_tile_data(0, Vector2i(j, i)):
 					assert(room.rect.has_point(Vector2i(j, i) + offset))
 					set_floor(Vector2i(j, i) + offset)
-		
+		print(template.get_children().size())
 		room.marker_global_positions.append_array(template.get_children().map(func x(a): return a.global_position + Vector2(offset) * 16))
-
+		print(room.marker_global_positions.size())
+	
 func draw_connections() -> void:
 	for room : LevelUtilities.Room in current_rooms:
 		for connection : LevelUtilities.Connection in room.connections:
@@ -160,6 +161,8 @@ func draw_connections() -> void:
 			points.append(floor.to_global(floor.map_to_local(connection.one.rect.get_center())))
 			points.append(floor.to_global(floor.map_to_local(connection.two.rect.get_center())))
 			line.points = points
+			line.antialiased = true
+			line.width = 5
 			add_child(line)
 
 func generate_bsp() -> void:
