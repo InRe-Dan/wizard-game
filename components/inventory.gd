@@ -41,6 +41,7 @@ func use(direction : Vector2) -> void:
 				consumed.add_child(item)
 				slots[selected] = null
 				cycleItems(-1)
+				parent.distribute_signal(ItemConsumedEvent.new(item))
 	else:
 		if default.is_ready():
 			print("used")
@@ -69,6 +70,7 @@ func discard(slot : int) -> void:
 		item.queue_free()
 		slots[slot] = null
 		slot_times[slot] = 0
+		parent.distribute_signal(ItemConsumedEvent.new(item))
 
 func get_items() -> Array[InventoryItem]:
 	return slots.duplicate()
