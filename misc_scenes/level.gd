@@ -186,6 +186,12 @@ func generate_bsp() -> void:
 		move_player(player, longest_path.front())
 	var exit : Entity = stairs_res.make_entity()
 	var exit_room : LevelUtilities.Room = longest_path.back()
+	var chest_res : EntityResource = preload("res://resources/entities/chest.tres")
+	for i : int in range(5):
+		graph_data.assign_reward_room()
+		var chest : Entity = chest_res.make_entity(1)
+		add_child(chest)
+		chest.global_position = graph_data.reward_rooms.back().marker_global_positions.back()
 	add_child(exit)
 	# draw_connections()
 	exit.global_position = exit_room.marker_global_positions.pop_front()

@@ -12,7 +12,7 @@ class_name PassiveResource extends Resource
 # Script must be of type Effect
 @export var _effect_script : Script
 
-var effect_giver_resource : EntityResource = preload("res://resources/entities/passive_pickup.tres")
+var effect_giver_resource : EntityResource = load("res://resources/entities/passive_pickup.tres")
 
 func make_effect() -> Effect:
 	if _effect_script:

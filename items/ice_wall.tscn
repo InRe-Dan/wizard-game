@@ -16,6 +16,7 @@ type = 3
 inherit_team = false
 default_team = 2
 element = 2
+loot_table = {}
 
 [node name="IceWall" type="Node"]
 script = ExtResource("1_bl7iu")

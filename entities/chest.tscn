@@ -1,0 +1,94 @@
+[gd_scene load_steps=9 format=3 uid="uid://3ktj7vqa2nxo"]
+
+[ext_resource type="Texture2D" uid="uid://c5q1gggkgrud5" path="res://assets/dungeon/chest_full_open_anim_f2.png" id="1_v00qg"]
+[ext_resource type="Texture2D" uid="uid://bbjsdwt3jqk5y" path="res://assets/dungeon/chest_full_open_anim_f0.png" id="2_657wp"]
+[ext_resource type="Texture2D" uid="uid://dtaum2pm5qtdy" path="res://assets/dungeon/chest_full_open_anim_f1.png" id="3_rui6t"]
+[ext_resource type="PackedScene" uid="uid://dwqy3vhl4qyw1" path="res://components/interactable_component.tscn" id="4_5i86n"]
+
+[sub_resource type="GDScript" id="GDScript_ydbu8"]
+resource_name = "Chest"
+script/source = "class_name Chest extends Entity
+
+@onready var sprite : AnimatedSprite2D = $AnimatedSprite2D
+
+var flash_speed : float = 1
+var is_opened : bool = false
+var flash_time : float = 0
+
+var items : Array[ItemResource]
+
+func _ready() -> void:
+	super()
+
+func _process(delta: float) -> void:
+	if is_opened:
+		flash_time += delta
+		if flash_time > 1 / flash_speed:
+			if modulate.v > 5:
+				modulate.v = 1
+			else:
+				modulate.v = 15
+			flash_time = 0
+		
+func open() -> void:
+	sprite.play()
+	await get_tree().create_timer(2).timeout
+	is_opened = true
+	get_tree().create_tween().tween_property(self, \"flash_speed\", 15, 3)
+	await get_tree().create_timer(3).timeout
+	distribute_signal(DeathEvent.new())
+
+func distribute_signal(event : Event) -> void:
+	if event is BeenInteractedEvent:
+		open()
+	super(event)
+
+"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iolst"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_657wp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_rui6t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_v00qg")
+}],
+"loop": false,
+"name": &"open",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bwhbu"]
+size = Vector2(16, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tvi4r"]
+size = Vector2(16, 14)
+
+[node name="Chest" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 6
+motion_mode = 1
+script = SubResource("GDScript_ydbu8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_iolst")
+animation = &"open"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_bwhbu")
+
+[node name="InteractableComponent" parent="." node_paths=PackedStringArray("detection_area") instance=ExtResource("4_5i86n")]
+detection_area = NodePath("Area2D")
+
+[node name="Area2D" type="Area2D" parent="InteractableComponent"]
+collision_layer = 64
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent/Area2D"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_tvi4r")
