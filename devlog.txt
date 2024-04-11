@@ -850,3 +850,10 @@ Pseudocode found here
 
 https://benjatk.github.io/Gaea/#/
 Also may want to address why this wasn't used
+
+Spelunky key paths 
+
+Particle and glow effects based on the overflow passive
+Put weaknesses in evaluation
+Cite GDC similarly to confrences
+{GDC} rather than GDC in the .bib file

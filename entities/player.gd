@@ -1,4 +1,4 @@
-extends Entity
+class_name Player extends Entity
 
 var dash_cooldown_timer : float = 0.0
 

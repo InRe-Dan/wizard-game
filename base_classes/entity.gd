@@ -19,6 +19,9 @@ var dead : bool = false
 func _ready() -> void:
 	z_as_relative = false
 	z_index = 2
+	add_to_group("entities")
+	if not self is Player:
+		add_to_group("npcs")
 	
 func distribute_signal(event : Event) -> void:
 	for child : Node in get_children():

@@ -71,7 +71,7 @@ script = ExtResource("1_67e48")
 offset_scale = 0.135
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.321569, 0.321569, 0.321569, 1)
+color = Color(0.321728, 0.321728, 0.321728, 1)
 
 [node name="Postprocess" type="CanvasLayer" parent="."]
 

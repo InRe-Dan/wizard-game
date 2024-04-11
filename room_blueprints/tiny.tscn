@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlsid6dusmi5t"]
+
+[ext_resource type="TileSet" uid="uid://cisej55ipbwm0" path="res://resources/levels.tres" id="1_ri61v"]
+
+[node name="ItemSquare" type="TileMap"]
+tile_set = ExtResource("1_ri61v")
+format = 2
+layer_0/tile_data = PackedInt32Array(-131075, 0, 0, -65539, 0, 0, -2, 0, 0, 65535, 0, 0, 65536, 0, 0, 65537, 0, 0, -65540, 0, 0, -4, 0, 0, -3, 0, 0, 65533, 0, 0, -196610, 0, 0, 65534, 0, 0, 131070, 0, 0, -196609, 0, 0, -131073, 0, 0, -65537, 0, 0, -1, 0, 0, 131071, 0, 0, -262144, 0, 0, -196608, 0, 0, -131072, 0, 0, -65536, 0, 0, 0, 0, 0, -262143, 0, 0, -65535, 0, 0, 1, 0, 0, -196606, 0, 0, -131070, 0, 0, -65534, 0, 0, 2, 0, 0, -131069, 0, 0, -65533, 0, 0, -131074, 0, 0, -131071, 0, 0, -196607, 0, 0, -65538, 0, 0)
+
+[node name="Item" type="Marker2D" parent="."]
+gizmo_extents = 8.0

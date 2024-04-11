@@ -146,6 +146,7 @@ texture = SubResource("GradientTexture2D_qvylg")
 centered = false
 
 [node name="Fog" type="Sprite2D" parent="."]
+visible = false
 z_index = 10
 texture_filter = 2
 material = SubResource("CanvasItemMaterial_y237a")

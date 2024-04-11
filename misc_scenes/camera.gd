@@ -24,7 +24,7 @@ func _physics_process(delta: float) -> void:
 	if target and not freecam:
 		var vector_to_mouse : Vector2 = get_global_mouse_position() - target.global_position
 		destination_position = target.global_position + offset_scale * vector_to_mouse
-	elif freecam:
+	elif freecam and Input.is_action_pressed("interact"):
 		var vector_to_mouse : Vector2 = get_global_mouse_position() - global_position 
 		destination_position = global_position + 5 * offset_scale * vector_to_mouse
 	current_position += Vector2(destination_position.x - current_position.x, destination_position.y - current_position.y) / SMOOTHING_DURATION * delta

@@ -126,23 +126,30 @@ func shrink_rooms(rooms : Array[LevelUtilities.Room], amount : int) -> void:
 		room.rect.size -= amount * Vector2i.ONE
 
 func attempt_to_use_templates(rooms : Array[LevelUtilities.Room]) -> void:
-	var lambda : Callable = func(template : TileMap, room : LevelUtilities.Room) -> bool:
+	var first_filter : Callable = func(template : TileMap, room : LevelUtilities.Room) -> bool:
 		if template.get_used_rect().size.x >= room.rect.size.x:
 			return false
 		if template.get_used_rect().size.y >= room.rect.size.y:
 			return false
 		return true
+	var second_filter : Callable = func(template : TileMap, room : LevelUtilities.Room) -> bool:
+		if template.get_used_rect().get_area() < 0.5 * room.rect.get_area():
+			return false
+		return true
 
 	for room : LevelUtilities.Room in rooms:
-		var temp_lambda : Callable = lambda.bind(room)
+		var temp_lambda : Callable = first_filter.bind(room)
+		var temp_lambda_second : Callable = second_filter.bind(room)
 		var possible_templates : Array = layouts.filter(temp_lambda)
+		var preferred_templates : Array = possible_templates.filter(temp_lambda_second)
+		var template : TileMap
 		if not possible_templates:
-			# Fall back on an empty room
-			for i : int in range(room.rect.size.y):
-				for j : int in range(room.rect.size.x):
-					set_floor(room.rect.position + Vector2i(j, i))
-			continue
-		var template : TileMap = possible_templates.pick_random()
+			template = layouts.pick_random()
+			push_error("Failed to use templates within constraits.")
+		elif preferred_templates:
+			template = preferred_templates.pick_random()
+		else:
+			template = possible_templates.pick_random()
 		var offset : Vector2i = room.rect.get_center() - template.get_used_rect().get_center()
 		var template_rect : Rect2i = template.get_used_rect()
 		room.rect = Rect2i(template_rect.position + offset, template_rect.size)
@@ -151,9 +158,7 @@ func attempt_to_use_templates(rooms : Array[LevelUtilities.Room]) -> void:
 				if template.get_cell_tile_data(0, Vector2i(j, i)):
 					assert(room.rect.has_point(Vector2i(j, i) + offset))
 					set_floor(Vector2i(j, i) + offset)
-		print(template.get_children().size())
 		room.marker_global_positions.append_array(template.get_children().map(func x(a): return a.global_position + Vector2(offset) * 16))
-		print(room.marker_global_positions.size())
 	
 func draw_connections() -> void:
 	for room : LevelUtilities.Room in current_rooms:
@@ -166,9 +171,11 @@ func draw_connections() -> void:
 			line.points = points
 			line.antialiased = true
 			line.width = 5
+			line.add_to_group("connection")
 			add_child(line)
 
 func generate_bsp() -> void:
+	get_tree().call_group("connection", "queue_free")
 	var size : Vector2i = level_min_size + Vector2i((level_max_size - level_min_size) * (randf()))
 	var rect : Rect2i = Rect2i(Vector2i.ZERO - size / 2, size)
 	floor.clear()
@@ -194,7 +201,9 @@ func generate_bsp() -> void:
 		graph_data.assign_reward_room()
 		var chest : Entity = chest_res.make_entity(1)
 		add_child(chest)
-		chest.global_position = graph_data.reward_rooms.back().marker_global_positions.back()
+		var r : LevelUtilities.Room = graph_data.reward_rooms.back()
+		var poss : Array[Vector2] = r.marker_global_positions
+		chest.global_position = poss.back()
 	add_child(exit)
 	# draw_connections()
 	exit.global_position = exit_room.marker_global_positions.pop_front()

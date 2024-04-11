@@ -22,6 +22,7 @@ var array_size : Vector2i
 var floor_map : TileMap
 
 var thread : Thread = Thread.new()
+var wait : bool = true
 
 func try_decay(i : int, j : int, grid : Array[Array]) -> void:
 	var neighbours : int = 0
@@ -44,18 +45,21 @@ func decay() -> void:
 		try_decay(decay_y, decay_x, water_array)
 		var new_col : Color = Color(fire_array[decay_y][decay_x], ice_array[decay_y][decay_x], water_array[decay_y][decay_x])
 		image.set_pixel(decay_x, decay_y, new_col)
-	
-	
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if thread.is_started():
+	if thread.is_started() and not wait:
 		thread.wait_to_finish()
+	if wait:
+		wait = false
 	texture.update(image)
 	effects.texture = texture
 	lighting.texture = texture
 	fog_texture.update(fog_image)
 	fog.texture = fog_texture
-	thread.start(decay)
+	if not thread.is_started():
+		thread.start(decay)
+		wait = true
 	
 func is_point_in_map(point : Vector2, map : Array[Array]) -> bool:
 	var converted_point : Vector2i = convert_global_to_map(point)
