@@ -84,6 +84,7 @@ shape = SubResource("RectangleShape2D_bwhbu")
 
 [node name="InteractableComponent" parent="." node_paths=PackedStringArray("detection_area") instance=ExtResource("4_5i86n")]
 detection_area = NodePath("Area2D")
+one_shot = true
 
 [node name="Area2D" type="Area2D" parent="InteractableComponent"]
 collision_layer = 64

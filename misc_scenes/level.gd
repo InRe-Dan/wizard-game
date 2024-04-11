@@ -23,6 +23,7 @@ var stairs_res : EntityResource = preload("res://resources/entities/stairs.tres"
 var current_rooms : Array[LevelUtilities.Room]
 var layouts : Array[TileMap]
 var path_length : int
+var graph_data : LevelUtilities.GraphData
 
 func _ready() -> void:
 	var files : PackedStringArray = DirAccess.get_files_at("res://room_blueprints/")
@@ -114,9 +115,11 @@ func put_connections_on_tilemap(rooms : Array[LevelUtilities.Room]) -> void:
 		connection.two.connections.append(connection)
 				
 	
-func move_player(entity : Entity, room : LevelUtilities.Room) -> void:
-	entity.global_position = floor.to_global(floor.map_to_local(room.rect.get_center()))
-
+func move_player(entity : Entity, room : LevelUtilities.Room = null) -> void:
+	if room:
+		entity.global_position = floor.to_global(floor.map_to_local(room.rect.get_center()))
+	else:
+		entity.global_position = floor.to_global(floor.map_to_local(graph_data.longest_path.front().rect.get_center()))
 func shrink_rooms(rooms : Array[LevelUtilities.Room], amount : int) -> void:
 	for room : LevelUtilities.Room in rooms:
 		room.rect.position += amount * Vector2i.ONE
@@ -178,7 +181,7 @@ func generate_bsp() -> void:
 	# put_rooms_on_tilemap(rooms)
 	put_connections_on_tilemap(rooms)
 	fill_with_walls()
-	var graph_data : LevelUtilities.GraphData = LevelUtilities.GraphData.new(rooms)
+	graph_data = LevelUtilities.GraphData.new(rooms)
 	var longest_path : Array[LevelUtilities.Room] = graph_data.longest_path
 	path_length = longest_path.size()
 	var player : Entity = get_tree().get_first_node_in_group("players")

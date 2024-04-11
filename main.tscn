@@ -34,7 +34,6 @@ level_max_size = Vector2i(100, 100)
 hallway_width = 2
 room_min_size = Vector2i(5, 5)
 room_max_size = Vector2i(30, 30)
-min_enemies_per_room = null
 max_enemies_per_room = 0
 min_items_per_room = 1
 max_items_per_room = 1
