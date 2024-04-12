@@ -38,7 +38,7 @@ func make_entity(max_loot : int = 0) -> Entity:
 				if item:
 					component.items.append(item)
 				elif passive:
-					component.passives.append(item)
+					component.passives.append(passive)
 			entity.add_child(component)
 		return entity
 	push_error("Failed to create an entity.")

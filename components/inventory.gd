@@ -43,8 +43,9 @@ func use(direction : Vector2) -> void:
 				cycleItems(-1)
 				parent.distribute_signal(ItemConsumedEvent.new(item))
 	else:
-		if default.is_ready():
-			print("used")
+		if not default:
+			pass
+		elif default.is_ready():
 			default.use(parent, direction)
 
 func use_any_attack() -> void:

@@ -155,7 +155,7 @@ class GraphData extends RefCounted:
 		var candidate : Room = null
 		var best_distance = 0
 		for room in rooms:
-			if room.distance_from_key_rooms > best_distance:
+			if room.distance_from_key_rooms > best_distance and not room.is_key_room:
 				candidate = room
 				best_distance = room.distance_from_key_rooms
 		if candidate:
@@ -188,3 +188,50 @@ class GraphData extends RefCounted:
 			for j : int in range(dist.size()):
 				string += str(dist[i][j]) + " "
 			print(string)
+			
+	func populate_reward_room(room : Room) -> void:
+		var chest_res : EntityResource = preload("res://resources/entities/chest.tres")
+		var positions : Array[Vector2] = room.marker_global_positions
+		var chest_position : Vector2 = positions.pop_back()
+		var chest : Entity = chest_res.make_entity(5)
+		chest.global_position = chest_position
+		Global.level.add_child(chest)
+		while positions:
+			var position : Vector2 = positions.pop_back()
+			var entity : Entity = (Global.level as Level).enemy_list.pick_random().make_entity()
+			entity.global_position = position
+			Global.level.add_child(entity)
+		
+	func populate_exit(room : Room) -> void:
+		var exit_res : EntityResource = preload("res://resources/entities/stairs.tres")
+		var position : Vector2 = room.marker_global_positions.pick_random()
+		var exit : Entity = exit_res.make_entity()
+		exit.global_position = position
+		Global.level.add_child(exit)
+	
+	func populate_entrance(room : Room) -> void:
+		pass
+	
+	func populate_path(room : Room) -> void:
+		populate_other(room)
+		
+	func populate_other(room : Room) -> void:
+		var positions : Array[Vector2] = room.marker_global_positions
+		while positions:
+			var position : Vector2 = positions.pop_back()
+			var entity : Entity = (Global.level as Level).enemy_list.pick_random().make_entity()
+			entity.global_position = position
+			Global.level.add_child(entity)
+
+	func populate_rooms() -> void:
+		for room : Room in rooms:
+			if room == longest_path.front():
+				populate_entrance(room)
+			elif room == longest_path.back():
+				populate_exit(room)
+			elif reward_rooms.has(room):
+				populate_reward_room(room)
+			elif longest_path.has(room):
+				populate_path(room)
+			else:
+				populate_other(room)

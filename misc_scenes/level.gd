@@ -159,6 +159,7 @@ func attempt_to_use_templates(rooms : Array[LevelUtilities.Room]) -> void:
 					assert(room.rect.has_point(Vector2i(j, i) + offset))
 					set_floor(Vector2i(j, i) + offset)
 		room.marker_global_positions.append_array(template.get_children().map(func x(a): return a.global_position + Vector2(offset) * 16))
+		room.marker_global_positions.shuffle()
 	
 func draw_connections() -> void:
 	for room : LevelUtilities.Room in current_rooms:
@@ -175,6 +176,8 @@ func draw_connections() -> void:
 			add_child(line)
 
 func generate_bsp() -> void:
+	for child : Node in get_tree().get_nodes_in_group("npcs"):
+		child.queue_free()
 	get_tree().call_group("connection", "queue_free")
 	var size : Vector2i = level_min_size + Vector2i((level_max_size - level_min_size) * (randf()))
 	var rect : Rect2i = Rect2i(Vector2i.ZERO - size / 2, size)
@@ -194,17 +197,8 @@ func generate_bsp() -> void:
 	var player : Entity = get_tree().get_first_node_in_group("players")
 	if player:
 		move_player(player, longest_path.front())
-	var exit : Entity = stairs_res.make_entity()
-	var exit_room : LevelUtilities.Room = longest_path.back()
-	var chest_res : EntityResource = preload("res://resources/entities/chest.tres")
 	for i : int in range(5):
 		graph_data.assign_reward_room()
-		var chest : Entity = chest_res.make_entity(1)
-		add_child(chest)
-		var r : LevelUtilities.Room = graph_data.reward_rooms.back()
-		var poss : Array[Vector2] = r.marker_global_positions
-		chest.global_position = poss.back()
-	add_child(exit)
+	graph_data.populate_rooms()
 	# draw_connections()
-	exit.global_position = exit_room.marker_global_positions.pop_front()
 	FloorHandler.init_for_room()

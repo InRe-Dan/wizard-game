@@ -13,12 +13,15 @@ func _process(delta: float) -> void:
 	pass
 
 func throw(entity : Entity, direction : int) -> void:
+	print("Threw ", entity.resource.entity_name)
 	Global.level.add_child(entity)
 	var dir : Vector2 = Vector2.from_angle((floor(randf() * direction) / direction) * TAU)
 	entity.global_position = global_position + 12 * dir
-	entity.velocity = 50 * dir
+	entity.velocity = 100 * dir
 
 func drop_loot() -> void:
+	print(items)
+	print(passives)
 	if not looted:
 		var divisions : Array = range(items.size() * 2 + passives.size() * 2)
 		divisions.shuffle()
