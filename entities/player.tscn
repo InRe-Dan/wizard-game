@@ -105,8 +105,6 @@ shadow_filter_smooth = 28.1
 texture = SubResource("GradientTexture2D_mfdbb")
 
 [node name="DialogueComponent" parent="." instance=ExtResource("12_7vj67")]
-lifetime = 1.0
-speed = 2.0
 
 [node name="CanInteractComponent" parent="." node_paths=PackedStringArray("detection_area") instance=ExtResource("13_lp353")]
 detection_area = NodePath("Area2D")
