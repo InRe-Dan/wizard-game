@@ -92,7 +92,6 @@ amount = 300
 process_material = SubResource("ParticleProcessMaterial_dh7tf")
 texture = SubResource("GradientTexture2D_4h3fe")
 lifetime = 2.0
-preprocess = 5.0
 fixed_fps = 200
 local_coords = true
 trail_enabled = true

@@ -193,7 +193,7 @@ class GraphData extends RefCounted:
 		var chest_res : EntityResource = preload("res://resources/entities/chest.tres")
 		var positions : Array[Vector2] = room.marker_global_positions.slice(0, 5)
 		var chest_position : Vector2 = positions.pop_back()
-		var chest : Entity = chest_res.make_entity(5)
+		var chest : Entity = chest_res.make_entity()
 		chest.global_position = chest_position
 		Global.level.add_child(chest)
 		

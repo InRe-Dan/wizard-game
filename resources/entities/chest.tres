@@ -16,6 +16,8 @@ type = 6
 inherit_team = false
 default_team = 2
 element = 0
+min_loot = 1
+max_loot = 5
 loot_table = {
 ExtResource("2_eofvt"): 0.5,
 ExtResource("3_liliv"): 0.5,

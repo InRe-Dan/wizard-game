@@ -1,11 +1,14 @@
-[gd_scene load_steps=27 format=3 uid="uid://cu4jaf5f1nlxo"]
+[gd_scene load_steps=31 format=3 uid="uid://cu4jaf5f1nlxo"]
 
 [ext_resource type="Script" path="res://entities/player.gd" id="1_e1iir"]
 [ext_resource type="PackedScene" uid="uid://dfdt5bke0tcu6" path="res://components/player_input_component.tscn" id="2_uw8o3"]
 [ext_resource type="PackedScene" uid="uid://c03pfmwpgtofc" path="res://components/simple_graphics_component.tscn" id="3_xynmr"]
 [ext_resource type="SpriteFrames" uid="uid://xdt74tl0fgn7" path="res://resources/player_sprite_frames.tres" id="4_sm4xv"]
 [ext_resource type="PackedScene" uid="uid://uajwl8rwegui" path="res://components/inventory.tscn" id="5_m6tg5"]
+[ext_resource type="PackedScene" uid="uid://bx4g4qr1x100s" path="res://items/water_ball.tscn" id="6_e2hdp"]
 [ext_resource type="Resource" uid="uid://bnuiiw0qvuwwn" path="res://resources/items/knife.tres" id="7_e710y"]
+[ext_resource type="Texture2D" uid="uid://dvwbuayyrbcye" path="res://assets/water_icon.png" id="7_uxr0k"]
+[ext_resource type="Script" path="res://resources/custom_bases/item_resource.gd" id="8_m34lq"]
 [ext_resource type="PackedScene" uid="uid://c867pju6atw7e" path="res://components/hurtbox_component.tscn" id="11_hxc8l"]
 [ext_resource type="PackedScene" uid="uid://uag18b8s0jg4" path="res://components/dialogue_component.tscn" id="12_7vj67"]
 [ext_resource type="Resource" uid="uid://cka851w5tb771" path="res://resources/passives/overflow.tres" id="12_i1dyv"]
@@ -38,6 +41,17 @@ gravity = Vector3(0, 0, 0)
 damping_min = 2.273
 damping_max = 6.818
 turbulence_enabled = true
+
+[sub_resource type="Resource" id="Resource_eqkie"]
+script = ExtResource("8_m34lq")
+item_name = "Water Bolt"
+element = 2
+type = 0
+limited_use = false
+item_durability = 10
+inventory_icon = ExtResource("7_uxr0k")
+glow = Color(0, 0.498039, 1, 1)
+_item_scene = ExtResource("6_e2hdp")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4s2ka"]
 
@@ -86,6 +100,7 @@ one_shot = true
 explosiveness = 0.83
 
 [node name="Inventory" parent="." instance=ExtResource("5_m6tg5")]
+starting_items = Array[ExtResource("8_m34lq")]([SubResource("Resource_eqkie")])
 default_item = ExtResource("7_e710y")
 
 [node name="HurtboxComponent" parent="." instance=ExtResource("11_hxc8l")]

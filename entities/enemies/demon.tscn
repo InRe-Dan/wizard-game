@@ -63,10 +63,10 @@ autoplay = "idle"
 shape = SubResource("CapsuleShape2D_sunu4")
 
 [node name="AIComponent" parent="." instance=ExtResource("4_5ro5c")]
-detection_radius = 92.0
-attack_range = 92.0
+detection_radius = 128.0
+attack_range = 128.0
 attack_cooldown = 2.0
-desired_distance = 24.0
+desired_distance = 64.0
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("area") instance=ExtResource("5_2k5ni")]
 area = NodePath("Area2D")

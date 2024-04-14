@@ -61,6 +61,8 @@ autoplay = "idle"
 shape = SubResource("CapsuleShape2D_sunu4")
 
 [node name="AIComponent" parent="." instance=ExtResource("11_76e7k")]
+attack_range = 64.0
+attack_windup = 0.1
 
 [node name="HurtboxComponent" parent="." instance=ExtResource("12_scnas")]
 
@@ -108,8 +110,7 @@ event_type = 8
 script = ExtResource("14_wk3ko")
 sound = ExtResource("16_lmhrm")
 
-[node name="PhysicsHandlerComponent" parent="." instance=ExtResource("14_4u08n")]
-base_acceleration = 200.0
+[node name="Physics" parent="." instance=ExtResource("14_4u08n")]
 
 [node name="HealthBar" parent="." instance=ExtResource("18_4c1in")]
 position = Vector2(0, -12)

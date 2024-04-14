@@ -63,8 +63,9 @@ autoplay = "idle"
 shape = SubResource("CircleShape2D_krkv8")
 
 [node name="EnemySeekerAiComponent" parent="." instance=ExtResource("4_acww5")]
-attack_range = 36.0
-desired_distance = 12.0
+attack_range = 24.0
+attack_windup = 0.1
+desired_distance = 1.0
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("area") instance=ExtResource("5_gqail")]
 area = NodePath("Area2D")
@@ -82,7 +83,6 @@ energy = 0.5
 texture = SubResource("GradientTexture2D_536dq")
 
 [node name="DialogueComponent" parent="." instance=ExtResource("6_topu3")]
-lifetime = 3.0
 
 [node name="Inventory" parent="." instance=ExtResource("13_d7ps5")]
 starting_items = Array[Resource("res://resources/custom_bases/item_resource.gd")]([ExtResource("14_5d0en")])
@@ -119,13 +119,6 @@ script = ExtResource("16_qr7hb")
 sound = ExtResource("17_hsobn")
 
 [node name="PhysicsHandlerComponent" parent="." instance=ExtResource("7_h4u4r")]
-base_acceleration = null
-base_damping = null
-take_collision_damage = null
-knockback_damage_min_speed = null
-ice_acceleration_multiplier = null
-ice_damping_multiplier = null
-water_damping_multiplier = null
 
 [node name="HealthBar" parent="." instance=ExtResource("6_4k2ei")]
 position = Vector2(0, -11)
