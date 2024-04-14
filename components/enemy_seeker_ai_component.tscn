@@ -80,6 +80,11 @@ script = ExtResource("6_oeadc")
 to = NodePath("../../../Idle/Standing")
 event = &"reached_target"
 
+[node name="Got Hit" type="Node" parent="StateChart/Main/Seeking/Searching"]
+script = ExtResource("6_oeadc")
+to = NodePath("..")
+event = &"got_hit"
+
 [node name="Following" type="Node" parent="StateChart/Main/Seeking"]
 script = ExtResource("5_8d8u7")
 

@@ -66,6 +66,7 @@ shape = SubResource("CapsuleShape2D_sunu4")
 detection_radius = 128.0
 attack_range = 128.0
 attack_cooldown = 2.0
+show_states = false
 desired_distance = 64.0
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("area") instance=ExtResource("5_2k5ni")]

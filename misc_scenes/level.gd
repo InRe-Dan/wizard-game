@@ -179,7 +179,7 @@ func generate_bsp() -> void:
 	for child : Node in get_tree().get_nodes_in_group("npcs"):
 		child.queue_free()
 	get_tree().call_group("connection", "queue_free")
-	var size : Vector2i = level_min_size + Vector2i((level_max_size - level_min_size) * (randf()))
+	var size : Vector2i = Vector2i(lerp(level_min_size.x, level_max_size.x, randf()), lerp(level_min_size.y, level_max_size.y, randf()))
 	var rect : Rect2i = Rect2i(Vector2i.ZERO - size / 2, size)
 	floor.clear()
 	walls.clear()

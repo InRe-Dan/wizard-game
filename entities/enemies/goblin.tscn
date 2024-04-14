@@ -65,6 +65,7 @@ shape = SubResource("CircleShape2D_krkv8")
 [node name="EnemySeekerAiComponent" parent="." instance=ExtResource("4_acww5")]
 attack_range = 24.0
 attack_windup = 0.1
+show_states = false
 desired_distance = 1.0
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("area") instance=ExtResource("5_gqail")]

@@ -18,14 +18,17 @@ curve = SubResource("Curve_tq44c")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pqbc7"]
 particle_flag_disable_z = true
+particle_flag_damping_as_friction = true
 emission_shape = 1
 emission_sphere_radius = 16.0
+spread = 70.0
 initial_velocity_max = 258.43
 gravity = Vector3(0, 0, 0)
-damping_min = 22.472
-damping_max = 22.472
+damping_min = 2.0
+damping_max = 5.081
 scale_min = 0.0
 scale_max = 1.5
+scale_over_velocity_max = 30.0
 scale_over_velocity_curve = SubResource("CurveTexture_51yon")
 color = Color(0, 0.568627, 1, 1)
 hue_variation_min = -0.11
@@ -78,8 +81,6 @@ collision_mask = 2
 script = ExtResource("1_riigk")
 particle_material = SubResource("ParticleProcessMaterial_pqbc7")
 particle_texture = SubResource("GradientTexture2D_2bswa")
-entity_name = "Waterbolt"
-spawn_velocity = 200.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("GradientTexture2D_ku6a4")

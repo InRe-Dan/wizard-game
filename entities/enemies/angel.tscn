@@ -63,6 +63,7 @@ shape = SubResource("CapsuleShape2D_sunu4")
 [node name="AIComponent" parent="." instance=ExtResource("11_76e7k")]
 attack_range = 64.0
 attack_windup = 0.1
+show_states = false
 
 [node name="HurtboxComponent" parent="." instance=ExtResource("12_scnas")]
 

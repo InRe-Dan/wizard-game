@@ -3,9 +3,13 @@ extends Entity
 var sound : AudioStream = preload("res://assets/sounds/splash.wav")
 @export var particle_material : ParticleProcessMaterial
 @export var particle_texture : Texture2D
+var collision_vel : Vector2
+
 
 func distribute_signal(event : Event) -> void:
-	if event.type == Event.types.death:
+	if event is CollisionEvent:
+		collision_vel = - (event as CollisionEvent).velocity
+	if event is DeathEvent:
 		AudioHandler.play_sound(sound, global_position)
 		var particles : GPUParticles2D = GPUParticles2D.new()
 		particles.one_shot = true
@@ -14,7 +18,7 @@ func distribute_signal(event : Event) -> void:
 		particles.amount = 400
 		particles.lifetime = 2
 		particles.finished.connect(particles.queue_free)
-		particle_material.direction = Vector3(velocity.normalized().x, velocity.normalized().y, 0)
+		particle_material.direction = Vector3(collision_vel.normalized().x, collision_vel.normalized().y, 0)
 		particles.process_material = particle_material
 		particles.texture = particle_texture
 		particles.material = CanvasItemMaterial.new()
