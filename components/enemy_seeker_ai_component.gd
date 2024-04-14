@@ -90,7 +90,7 @@ func _on_standing_state_entered() -> void:
 
 func _on_following_state_physics_processing(delta: float) -> void:
 	var to_target : Vector2 = target.global_position - global_position
-	var desired_position : Vector2 = global_position + (to_target - desired_distance * Vector2.ONE)
+	var desired_position : Vector2 = target.global_position - to_target.normalized() * desired_distance
 	var dir : Vector2 = find_direction_to(desired_position).normalized()
 	parent.distribute_signal(InputMoveEvent.new(dir))
 	if parent.global_position.distance_to(target.global_position) < attack_range:

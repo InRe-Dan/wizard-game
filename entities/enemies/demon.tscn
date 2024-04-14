@@ -22,7 +22,8 @@
 [ext_resource type="PackedScene" uid="uid://uajwl8rwegui" path="res://components/inventory.tscn" id="19_0qd4u"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sunu4"]
-radius = 9.0
+radius = 8.0
+height = 18.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bemnm"]
 radius = 15.0333
@@ -45,7 +46,7 @@ damage_type = 1
 knockback_type = 1
 knockback_velocity = 0.0
 
-[node name="AngelEntity" type="CharacterBody2D" groups=["enemies", "npcs"]]
+[node name="Demon" type="CharacterBody2D" groups=["enemies", "npcs"]]
 collision_layer = 4
 collision_mask = 6
 script = ExtResource("1_w1f5l")
@@ -82,7 +83,6 @@ energy = 0.5
 texture = SubResource("GradientTexture2D_qpxde")
 
 [node name="DialogueComponent" parent="." instance=ExtResource("6_dg0np")]
-lifetime = 3.0
 
 [node name="EffectContainer" parent="." instance=ExtResource("7_dtj5v")]
 
@@ -124,4 +124,4 @@ base_damping = 10.0
 position = Vector2(0, -19)
 
 [node name="Inventory" parent="." instance=ExtResource("19_0qd4u")]
-starting_items = Array[Resource("res://resources/custom_bases/item_resource.gd")]([ExtResource("8_q5pg0")])
+default_item = ExtResource("8_q5pg0")

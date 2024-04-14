@@ -191,11 +191,12 @@ class GraphData extends RefCounted:
 			
 	func populate_reward_room(room : Room) -> void:
 		var chest_res : EntityResource = preload("res://resources/entities/chest.tres")
-		var positions : Array[Vector2] = room.marker_global_positions
+		var positions : Array[Vector2] = room.marker_global_positions.slice(0, 5)
 		var chest_position : Vector2 = positions.pop_back()
 		var chest : Entity = chest_res.make_entity(5)
 		chest.global_position = chest_position
 		Global.level.add_child(chest)
+		
 		while positions:
 			var position : Vector2 = positions.pop_back()
 			var entity : Entity = (Global.level as Level).enemy_list.pick_random().make_entity()
@@ -216,7 +217,7 @@ class GraphData extends RefCounted:
 		populate_other(room)
 		
 	func populate_other(room : Room) -> void:
-		var positions : Array[Vector2] = room.marker_global_positions
+		var positions : Array[Vector2] = room.marker_global_positions.slice(0, 5)
 		while positions:
 			var position : Vector2 = positions.pop_back()
 			var entity : Entity = (Global.level as Level).enemy_list.pick_random().make_entity()

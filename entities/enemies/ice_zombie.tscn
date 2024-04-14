@@ -68,7 +68,7 @@ position = Vector2(0, -1)
 shape = SubResource("CapsuleShape2D_huuuy")
 
 [node name="EnemySeekerAiComponent" parent="." instance=ExtResource("4_nbfvx")]
-attack_range = 48.0
+attack_range = 96.0
 attack_windup = 0.1
 attack_cooldown = 0.4
 show_states = false
@@ -92,10 +92,9 @@ energy = 0.5
 texture = SubResource("GradientTexture2D_536dq")
 
 [node name="DialogueComponent" parent="." instance=ExtResource("6_s8xix")]
-lifetime = 3.0
 
 [node name="Inventory" parent="." instance=ExtResource("7_0wscr")]
-starting_items = Array[Resource("res://resources/custom_bases/item_resource.gd")]([ExtResource("21_0v0ry")])
+default_item = ExtResource("21_0v0ry")
 
 [node name="EffectContainer" parent="." instance=ExtResource("8_3e7oh")]
 

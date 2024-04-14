@@ -857,3 +857,15 @@ Particle and glow effects based on the overflow passive
 Put weaknesses in evaluation
 Cite GDC similarly to confrences
 {GDC} rather than GDC in the .bib file
+
+14/4/24
+
+To-do ahead of the poster day demo:
+	Itch.io page
+	Proper support for controller
+	More enemies
+	Clean up enemy AI
+	Clean up inventory logic 
+	Item and passive discard
+	Lots more items and passives
+
