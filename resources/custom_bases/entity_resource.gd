@@ -30,10 +30,13 @@ func make_entity() -> Entity:
 			keys.shuffle()
 			var loot_given : int = 0
 			var i : int = 0
-			while min_loot > loot_given and loot_given < max_loot:
+			while loot_given < max_loot:
 				if loot_table[keys[i % keys.size()]] < randf():
+					if loot_given >= min_loot:
+						break
 					continue
 				loot_given += 1
+				i += 1
 				var item : ItemResource = keys[i % keys.size()] as ItemResource
 				var passive : PassiveResource = keys[i % keys.size()] as PassiveResource
 				if item:

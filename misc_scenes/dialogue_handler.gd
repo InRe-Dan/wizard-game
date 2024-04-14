@@ -20,7 +20,6 @@ class ThrownLabel extends LabelManager:
 		l.global_position = entity.global_position - (l.size / 2)
 		velocity = 30 * Vector2.UP.rotated((randf() - 0.5) * PI)
 	func process(delta : float) -> bool:
-		print(l.global_position)
 		lifetime -= delta
 		velocity += Vector2(0, gravity * delta)
 		l.global_position += velocity * delta

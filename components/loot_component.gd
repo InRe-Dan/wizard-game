@@ -12,25 +12,24 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func throw(entity : Entity, direction : int) -> void:
+func throw(entity : Entity, direction : float) -> void:
 	print("Threw ", entity.resource.entity_name)
 	Global.level.add_child(entity)
-	var dir : Vector2 = Vector2.from_angle((floor(randf() * direction) / direction) * TAU)
+	print(direction)
+	var dir : Vector2 = Vector2.from_angle(direction * TAU)
 	entity.global_position = global_position + 12 * dir
-	entity.velocity = 100 * dir
+	print(entity.global_position)
+	entity.velocity = 50 * dir
+	print()
 
 func drop_loot() -> void:
-	print(items)
-	print(passives)
 	if not looted:
-		var divisions : Array = range(items.size() * 2 + passives.size() * 2)
-		divisions.shuffle()
 		for item : ItemResource in items:
 			var entity : Entity = item.make_item_pickup()
-			throw(entity, divisions.pop_front())
+			throw(entity, randf())
 		for passive : PassiveResource in passives:
 			var entity : Entity = passive.make_item_pickup()
-			throw(entity, divisions.pop_front())
+			throw(entity, randf())
 	looted = true
 
 func receive_signal(event : Event) -> Event:

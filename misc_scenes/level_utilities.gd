@@ -211,7 +211,13 @@ class GraphData extends RefCounted:
 		Global.level.add_child(exit)
 	
 	func populate_entrance(room : Room) -> void:
-		pass
+		var chest_res : EntityResource = preload("res://resources/entities/chest.tres")
+		var positions : Array[Vector2] = room.marker_global_positions.slice(0, 5)
+		while positions:
+			var chest_position : Vector2 = positions.pop_back()
+			var chest : Entity = chest_res.make_entity()
+			chest.global_position = chest_position
+			Global.level.add_child(chest)
 	
 	func populate_path(room : Room) -> void:
 		populate_other(room)

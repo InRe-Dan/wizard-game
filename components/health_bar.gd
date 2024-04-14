@@ -32,7 +32,6 @@ func _process(delta: float) -> void:
 				visible = false
 func receive_signal(event : Event) -> Event:
 	if event is TakeDamageEvent or event is HealedEvent:
-		print(parent.health)
 		visible = true
 		time_since_hit = 0
 		modulate = Color.WHITE

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://3ktj7vqa2nxo"]
+[gd_scene load_steps=11 format=3 uid="uid://3ktj7vqa2nxo"]
 
 [ext_resource type="Texture2D" uid="uid://c5q1gggkgrud5" path="res://assets/dungeon/chest_full_open_anim_f2.png" id="1_v00qg"]
 [ext_resource type="Texture2D" uid="uid://bbjsdwt3jqk5y" path="res://assets/dungeon/chest_full_open_anim_f0.png" id="2_657wp"]
@@ -68,6 +68,15 @@ size = Vector2(16, 14)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tvi4r"]
 size = Vector2(16, 14)
 
+[sub_resource type="Gradient" id="Gradient_d65ei"]
+offsets = PackedFloat32Array(0, 0.552795)
+colors = PackedColorArray(1, 1, 1, 0.572549, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_c4hfe"]
+gradient = SubResource("Gradient_d65ei")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
 [node name="Chest" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 6
@@ -93,3 +102,6 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent/Area2D"]
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_tvi4r")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+texture = SubResource("GradientTexture2D_c4hfe")
