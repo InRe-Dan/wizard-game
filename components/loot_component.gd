@@ -19,21 +19,39 @@ func throw(entity : Entity, direction : float) -> void:
 	entity.global_position = global_position + 12 * dir
 	entity.velocity = 50 * dir
 
+func slow_drop() -> void:
+	var dropped : int = 0
+	while max_loot > dropped:
+		for res : LootEntry in loot_table:
+			if res.rate > randf():
+				throw(res.item.make_item_pickup(), randf())
+				await get_tree().create_timer(0.1).timeout
+				dropped += 1
+			elif dropped >= min_loot:
+				return
+
+func instant_drop() -> void:
+	var dropped : int = 0
+	while max_loot > dropped:
+		for res : LootEntry in loot_table:
+			if res.rate > randf():
+				throw(res.item.make_item_pickup(), randf())
+				dropped += 1
+			elif dropped >= min_loot:
+				return
+
 func drop_loot() -> void:
-	if not looted:
-		var dropped : int = 0
-		while dropped < min_loot and max_loot > dropped:
-			for res : LootEntry in loot_table:
-				if res.rate > randf():
-					throw(res.item.make_item_pickup(), randf())
-					dropped += 1
-					if dropped >= max_loot:
-						break
+	if looted:
+		return
 	looted = true
+	if parent.resource.type == EntityResource.EntityType.Chest:
+		await get_tree().create_timer(0.5).timeout
+		slow_drop()
+	else:
+		instant_drop()
+		
 
 func receive_signal(event : Event) -> Event:
-	if event is DeathEvent:
-		drop_loot()
-	if event is BeenInteractedEvent:
+	if event is DeathEvent or event is BeenInteractedEvent:
 		drop_loot()
 	return event

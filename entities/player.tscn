@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://cu4jaf5f1nlxo"]
+[gd_scene load_steps=32 format=3 uid="uid://cu4jaf5f1nlxo"]
 
 [ext_resource type="Script" path="res://entities/player.gd" id="1_e1iir"]
 [ext_resource type="PackedScene" uid="uid://dfdt5bke0tcu6" path="res://components/player_input_component.tscn" id="2_uw8o3"]
@@ -20,10 +20,8 @@
 [ext_resource type="PackedScene" uid="uid://b3c3vg8q6e5k7" path="res://components/effect_container.tscn" id="15_csrq8"]
 [ext_resource type="Script" path="res://actions/play_sound.gd" id="15_vojiu"]
 [ext_resource type="AudioStream" uid="uid://tf11vprywdnr" path="res://assets/sounds/player_hurt.wav" id="16_2xikm"]
-[ext_resource type="Script" path="res://effects/headstone.gd" id="16_kveio"]
+[ext_resource type="Resource" uid="uid://dvk1ntlc7sypn" path="res://resources/passives/headstone.tres" id="16_xljrl"]
 [ext_resource type="Script" path="res://effects/fire.gd" id="17_126sm"]
-[ext_resource type="Texture2D" uid="uid://x15b7y2g8ert" path="res://assets/ice_icon.png" id="17_yeeqe"]
-[ext_resource type="Script" path="res://resources/custom_bases/passive_resource.gd" id="18_anxrl"]
 [ext_resource type="PackedScene" uid="uid://db8b4lwo0gdvi" path="res://components/health_bar.tscn" id="19_8py24"]
 [ext_resource type="AudioStream" uid="uid://dosjuvfa2igba" path="res://assets/sounds/death.wav" id="19_yvff5"]
 
@@ -71,14 +69,6 @@ fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b1i4r"]
 radius = 33.0
-
-[sub_resource type="Resource" id="Resource_cirj7"]
-script = ExtResource("18_anxrl")
-passive_name = "Headstone"
-passive_menu_description = "Kills using Ice have a chance to turn enemies to Ice Blocks."
-icon = ExtResource("17_yeeqe")
-glow = Color(0, 1, 1, 1)
-_effect_script = ExtResource("16_kveio")
 
 [node name="PlayerEntity" type="CharacterBody2D" groups=["players"]]
 collision_layer = 4
@@ -143,7 +133,7 @@ collision_mask = 64
 shape = SubResource("CircleShape2D_b1i4r")
 
 [node name="EffectContainer" parent="." instance=ExtResource("15_csrq8")]
-initial_effects = Array[ExtResource("18_anxrl")]([ExtResource("13_5t7u7"), ExtResource("12_i1dyv"), SubResource("Resource_cirj7")])
+initial_effects = Array[Resource("res://resources/custom_bases/passive_resource.gd")]([ExtResource("13_5t7u7"), ExtResource("12_i1dyv"), ExtResource("16_xljrl")])
 
 [node name="OnGetHit" type="Node" parent="EffectContainer"]
 script = ExtResource("14_tlggt")

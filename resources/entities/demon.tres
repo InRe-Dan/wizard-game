@@ -1,7 +1,26 @@
-[gd_resource type="Resource" script_class="EntityResource" load_steps=3 format=3 uid="uid://cf6a3xhyhls3a"]
+[gd_resource type="Resource" script_class="EntityResource" load_steps=10 format=3 uid="uid://cf6a3xhyhls3a"]
 
 [ext_resource type="PackedScene" uid="uid://75tet7awypfy" path="res://entities/enemies/demon.tscn" id="1_j5p46"]
 [ext_resource type="Script" path="res://resources/custom_bases/entity_resource.gd" id="1_sv1bs"]
+[ext_resource type="Resource" uid="uid://comxxliqq6s8g" path="res://resources/items/firebolt.tres" id="2_102ws"]
+[ext_resource type="Script" path="res://resources/custom_bases/loot_entry.gd" id="3_07wpu"]
+[ext_resource type="Resource" uid="uid://c86lxyknu8xrs" path="res://resources/items/flame_blast.tres" id="4_1kxwl"]
+[ext_resource type="Resource" uid="uid://du08ic7x2a6a8" path="res://resources/items/flame_circle.tres" id="5_m3au8"]
+
+[sub_resource type="Resource" id="Resource_axg5a"]
+script = ExtResource("3_07wpu")
+item = ExtResource("2_102ws")
+rate = 0.33
+
+[sub_resource type="Resource" id="Resource_vhgpg"]
+script = ExtResource("3_07wpu")
+item = ExtResource("4_1kxwl")
+rate = 0.33
+
+[sub_resource type="Resource" id="Resource_7yqhh"]
+script = ExtResource("3_07wpu")
+item = ExtResource("5_m3au8")
+rate = 0.33
 
 [resource]
 script = ExtResource("1_sv1bs")
@@ -13,3 +32,6 @@ type = 1
 inherit_team = true
 default_team = 1
 element = 1
+min_loot = 0
+max_loot = 1
+loot_table = Array[ExtResource("3_07wpu")]([SubResource("Resource_axg5a"), SubResource("Resource_vhgpg"), SubResource("Resource_7yqhh")])

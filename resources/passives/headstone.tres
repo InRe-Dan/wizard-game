@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PassiveResource" load_steps=4 format=3 uid="uid://dvk1ntlc7sypn"]
+
+[ext_resource type="Script" path="res://effects/headstone.gd" id="1_2m1nu"]
+[ext_resource type="Texture2D" uid="uid://x15b7y2g8ert" path="res://assets/ice_icon.png" id="2_vdh75"]
+[ext_resource type="Script" path="res://resources/custom_bases/passive_resource.gd" id="3_btvfv"]
+
+[resource]
+script = ExtResource("3_btvfv")
+passive_name = "Headstone"
+passive_menu_description = "Kills using Ice have a chance to turn enemies to Ice Blocks."
+icon = ExtResource("2_vdh75")
+glow = Color(0, 1, 1, 1)
+_effect_script = ExtResource("1_2m1nu")

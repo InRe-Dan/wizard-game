@@ -1,6 +1,6 @@
 class_name EntityResource extends Resource
 
-enum EntityType {Player, Enemy, Melee, Projectile, ItemPickup, PassivePickup, StaticProjectile}
+enum EntityType {Player, Enemy, Melee, Projectile, ItemPickup, PassivePickup, StaticProjectile, Chest}
 enum EntityTeam {Player, Enemy, Any}
 enum EntityElement {None, Fire, Ice, Water}
 
