@@ -63,12 +63,6 @@ layout_mode = 2
 text = "HP: "
 label_settings = SubResource("LabelSettings_pb07d")
 
-[node name="Prompt" type="Label" parent="VBoxContainer"]
-layout_mode = 2
-text = "Press F to interact
-"
-label_settings = SubResource("LabelSettings_pb07d")
-
 [node name="ItemInfo" type="Label" parent="VBoxContainer"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2

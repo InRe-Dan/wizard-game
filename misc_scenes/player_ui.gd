@@ -2,7 +2,6 @@ extends Control
 
 @onready var item_info : Label = $VBoxContainer/ItemInfo
 @onready var health_label : Label = $VBoxContainer/HBoxContainer/Health
-@onready var prompt_label : Label = $VBoxContainer/Prompt
 @onready var cooldown : TextureProgressBar = $VBoxContainer/HBoxContainer/VBoxContainer/ItemCooldown
 @onready var effect_icons : HBoxContainer = $VBoxContainer/EffectIcons
 
@@ -59,9 +58,6 @@ func _process(delta: float) -> void:
 			cooldown.value = inventory.get_item_cooldown_progress()
 		else:
 			item_info.text = "Item: No inventory!"
-		var interact_component : CanInteractComponent = player.get_children().filter(func f(x : Node) -> bool: return x is CanInteractComponent).front()
-		if interact_component:
-			prompt_label.visible = interact_component.interactable_found()
 		var effect_component : EffectContainerComponent = player.get_children().filter(func f(x : Node) -> bool: return x is EffectContainerComponent).front()
 		populate_icons(effect_component.get_children())
 	else:

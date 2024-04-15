@@ -1,6 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://b6byd7ixvxc8n"]
+[gd_scene load_steps=4 format=3 uid="uid://b6byd7ixvxc8n"]
 
 [ext_resource type="Script" path="res://components/can_interact_component.gd" id="1_yg3mf"]
+[ext_resource type="Texture2D" uid="uid://du436jkuxg0ah" path="res://assets/ui/keyboard_keys.png" id="2_pvsg2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oia2k"]
+atlas = ExtResource("2_pvsg2")
+region = Rect2(79.3385, 31.759, 16.3265, 16.1581)
 
 [node name="CanInteractComponent" type="Node2D"]
 script = ExtResource("1_yg3mf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+z_index = 10
+z_as_relative = false
+texture = SubResource("AtlasTexture_oia2k")
