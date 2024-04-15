@@ -98,7 +98,7 @@ offset_left = 453.0
 offset_top = -4.0
 offset_right = 588.0
 offset_bottom = 9.0
-text = "ver 0.1"
+text = "ver 0.2"
 label_settings = SubResource("LabelSettings_emds3")
 
 [node name="FrameCounter" type="Label" parent="UI"]

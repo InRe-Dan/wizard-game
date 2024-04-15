@@ -115,4 +115,6 @@ func receive_signal(event : Event) -> Event:
 					cycleItems(1)
 				commandevent.Commands.cycleb:
 					cycleItems(-1)
+				commandevent.Commands.consume:
+					discard(selected)
 	return event

@@ -17,7 +17,6 @@ func _process(delta: float) -> void:
 	if area:
 		entity = area.get_parent().get_parent() as Entity
 		if entity:
-			print("Hello")
 			sprite.visible = true
 			sprite.global_position = entity.global_position + Vector2(0, 16)
 		else:

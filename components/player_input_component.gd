@@ -18,8 +18,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	move = Input.get_vector("left", "right", "up", "down").normalized();
 	var aim_dir : Vector2 = (get_global_mouse_position() - global_position).normalized()
 	if event.is_pressed() or (event is InputEventMouseButton):
-		if event.is_action_pressed("shoot"):
-			parent.distribute_signal(InputCommand.new(InputCommand.Commands.use, aim_dir))
+		if event.is_action_pressed("discard"):
+			parent.distribute_signal(InputCommand.new(InputCommand.Commands.consume, aim_dir))
 		if event.is_action_pressed("cycleforward"):
 			parent.distribute_signal(InputCommand.new(InputCommand.Commands.cyclef, aim_dir))
 		if event.is_action_pressed("cyclebackward"):
