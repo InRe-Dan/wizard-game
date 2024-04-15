@@ -17,8 +17,8 @@ func _ready() -> void:
 		expected_cooldown = max(action.expected_cooldown, expected_cooldown)
 		if description != "":
 			description += action.description + ". "
-	
-	
+
+
 func _process(delta: float) -> void:
 	time_since_used += delta
 

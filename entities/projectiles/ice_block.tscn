@@ -16,7 +16,7 @@
 [ext_resource type="Script" path="res://effects/frozen.gd" id="10_ckvq1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yli8y"]
-radius = 7.0
+radius = 3.0
 
 [sub_resource type="Resource" id="Resource_uyknv"]
 script = ExtResource("5_w20jb")
@@ -28,6 +28,9 @@ type = 3
 inherit_team = true
 default_team = 2
 element = 2
+min_loot = 0
+max_loot = 0
+loot_table = Array[Resource("res://resources/custom_bases/loot_entry.gd")]([])
 
 [sub_resource type="Resource" id="Resource_04n34"]
 script = ExtResource("9_3vxlj")

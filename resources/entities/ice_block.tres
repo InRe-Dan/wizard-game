@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="EntityResource" load_steps=3 format=3 uid="uid://c0y15776aak33"]
+
+[ext_resource type="PackedScene" uid="uid://h7de1n8frdwv" path="res://entities/projectiles/ice_block.tscn" id="1_jthm1"]
+[ext_resource type="Script" path="res://resources/custom_bases/entity_resource.gd" id="1_xwibr"]
+
+[resource]
+script = ExtResource("1_xwibr")
+entity_name = "Ice Wall"
+_entity_scene = ExtResource("1_jthm1")
+starting_health = 5
+spawn_velocity = 0
+type = 3
+inherit_team = false
+default_team = 2
+element = 2
+min_loot = 0
+max_loot = 0
+loot_table = Array[Resource("res://resources/custom_bases/loot_entry.gd")]([])
