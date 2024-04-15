@@ -26,8 +26,14 @@ func _unhandled_input(event: InputEvent) -> void:
 			parent.distribute_signal(InputCommand.new(InputCommand.Commands.cycleb, aim_dir))
 		if event.is_action_pressed("ability"):
 			parent.distribute_signal(InputCommand.new(InputCommand.Commands.dash, aim_dir))
-		if event.is_action_pressed ("interact"):
+		if event.is_action_pressed("interact"):
 			parent.distribute_signal(InputCommand.new(InputCommand.Commands.interact, aim_dir))
+
+func _process(delta : float) -> void:
+	move = Input.get_vector("left", "right", "up", "down").normalized();
+	var aim_dir : Vector2 = (get_global_mouse_position() - global_position).normalized()
+	if Input.is_action_pressed("shoot"):
+		parent.distribute_signal(InputCommand.new(InputCommand.Commands.use, aim_dir))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:

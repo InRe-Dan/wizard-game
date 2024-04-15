@@ -21,7 +21,7 @@ func handle_event(event : Event) -> Event:
 
 	var creation : CreatedProjectileEvent = event as CreatedProjectileEvent
 	if creation:
-		var new_effect : HeadstoneEffect = HeadstoneEffect.new()
+		var new_effect : HeadstoneEffect = HeadstoneEffect.new(stacks)
 		creation.proj.distribute_signal(AddEffectEvent.new(new_effect))
 	var addition : AddEffectEvent = event as AddEffectEvent
 	if addition:
