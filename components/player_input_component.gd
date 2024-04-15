@@ -3,6 +3,11 @@ class_name PlayerInputComponent extends EntityComponent
 var focus : bool = true
 var move : Vector2
 
+var keyboard_controls = false
+@onready var reticle : Sprite2D = $Reticle
+var last_controller_direction : Vector2
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -15,9 +20,33 @@ func _notification(what : Variant) -> void:
 			focus = false
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		keyboard_controls = true
+	elif event is InputEventMouseMotion:
+		if (event as InputEventMouseMotion).velocity.length() > 0.1:
+			keyboard_controls = true
+	elif event is InputEventJoypadButton:
+		keyboard_controls = false
+	elif event is InputEventJoypadMotion:
+		if (event as InputEventJoypadMotion).axis_value > 0.9:
+			keyboard_controls = false
+
 	move = Input.get_vector("left", "right", "up", "down").normalized();
 	var aim_dir : Vector2 = (get_global_mouse_position() - global_position).normalized()
+	if not keyboard_controls:
+		aim_dir = Input.get_vector("aimleft", "aimright", "aimup", "aimdown")
+		if aim_dir.length() < 0.1:
+			aim_dir = move
+			if aim_dir.length() < 0.1:
+				aim_dir = last_controller_direction
+				if aim_dir.length() < 0.1:
+					aim_dir = Vector2.UP
+		aim_dir = aim_dir.normalized()
+		last_controller_direction = aim_dir
+		
 	if event.is_pressed() or (event is InputEventMouseButton):
+		if Input.is_action_pressed("shoot"):
+			parent.distribute_signal(InputCommand.new(InputCommand.Commands.use, aim_dir))
 		if event.is_action_pressed("discard"):
 			parent.distribute_signal(InputCommand.new(InputCommand.Commands.consume, aim_dir))
 		if event.is_action_pressed("cycleforward"):
@@ -30,10 +59,20 @@ func _unhandled_input(event: InputEvent) -> void:
 			parent.distribute_signal(InputCommand.new(InputCommand.Commands.interact, aim_dir))
 
 func _process(delta : float) -> void:
-	move = Input.get_vector("left", "right", "up", "down").normalized();
-	var aim_dir : Vector2 = (get_global_mouse_position() - global_position).normalized()
-	if Input.is_action_pressed("shoot"):
-		parent.distribute_signal(InputCommand.new(InputCommand.Commands.use, aim_dir))
+	if keyboard_controls:
+		DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_VISIBLE)
+		reticle.visible = true
+		parent.looking_at = get_global_mouse_position()
+		reticle.global_position = global_position + global_position.direction_to(parent.looking_at).normalized() * 24
+	else:
+		DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED_HIDDEN)
+		var aim_vec : Vector2 = Input.get_vector("aimleft", "aimright", "aimup", "aimdown");
+		parent.looking_at = global_position + 180 * aim_vec
+		if parent.looking_at.distance_to(global_position) < 24:
+			reticle.visible = false
+		else:
+			reticle.visible = true
+		reticle.position = aim_vec * 24
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:

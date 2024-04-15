@@ -1,6 +1,29 @@
-[gd_scene load_steps=2 format=3 uid="uid://dfdt5bke0tcu6"]
+[gd_scene load_steps=6 format=3 uid="uid://dfdt5bke0tcu6"]
 
 [ext_resource type="Script" path="res://components/player_input_component.gd" id="1_rhhed"]
+[ext_resource type="Shader" path="res://shaders/reticle.gdshader" id="2_afr07"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gbyeu"]
+shader = ExtResource("2_afr07")
+
+[sub_resource type="Gradient" id="Gradient_1qpok"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.162338, 0.519481, 0.714286)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0.160784, 0.160784, 0.160784, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_426ju"]
+gradient = SubResource("Gradient_1qpok")
+width = 7
+height = 7
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [node name="PlayerInputComponent" type="Node2D"]
 script = ExtResource("1_rhhed")
+
+[node name="Reticle" type="Sprite2D" parent="."]
+z_index = 10
+z_as_relative = false
+material = SubResource("ShaderMaterial_gbyeu")
+position = Vector2(54, 0)
+texture = SubResource("GradientTexture2D_426ju")

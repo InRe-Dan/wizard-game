@@ -2,9 +2,6 @@ class_name Player extends Entity
 
 var dash_cooldown_timer : float = 0.0
 
-func _process(delta: float) -> void:
-	looking_at = get_global_mouse_position()
-
 func _physics_process(delta: float) -> void:
 	dash_cooldown_timer -= delta
 	FloorHandler.clear_fog(global_position, 128)
