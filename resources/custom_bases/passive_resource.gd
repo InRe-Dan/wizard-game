@@ -1,4 +1,4 @@
-class_name PassiveResource extends Resource
+class_name PassiveResource extends LootResource
 
 # Overrides the Effect's name
 @export var passive_name : String = "Unnamed Passive Effect"

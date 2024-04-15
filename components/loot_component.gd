@@ -1,7 +1,8 @@
 class_name LootComponent extends EntityComponent
 
-var items : Array[ItemResource]
-var passives : Array[PassiveResource]
+var loot_table : Array[LootEntry]
+var min_loot = 0
+var max_loot = 0
 var looted : bool = false
 
 # Called when the node enters the scene tree for the first time.
@@ -13,23 +14,21 @@ func _process(delta: float) -> void:
 	pass
 
 func throw(entity : Entity, direction : float) -> void:
-	print("Threw ", entity.resource.entity_name)
 	Global.level.add_child(entity)
-	print(direction)
 	var dir : Vector2 = Vector2.from_angle(direction * TAU)
 	entity.global_position = global_position + 12 * dir
-	print(entity.global_position)
 	entity.velocity = 50 * dir
-	print()
 
 func drop_loot() -> void:
 	if not looted:
-		for item : ItemResource in items:
-			var entity : Entity = item.make_item_pickup()
-			throw(entity, randf())
-		for passive : PassiveResource in passives:
-			var entity : Entity = passive.make_item_pickup()
-			throw(entity, randf())
+		var dropped : int = 0
+		while dropped < min_loot and max_loot > dropped:
+			for res : LootEntry in loot_table:
+				if res.rate > randf():
+					throw(res.item.make_item_pickup(), randf())
+					dropped += 1
+					if dropped >= max_loot:
+						break
 	looted = true
 
 func receive_signal(event : Event) -> Event:

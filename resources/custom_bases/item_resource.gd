@@ -1,4 +1,4 @@
-class_name ItemResource extends Resource
+class_name ItemResource extends LootResource
 
 enum Elements {FIRE, ICE, WATER, KINETIC}
 enum ItemTypes {RANGED, MELEE, BUFF, SUMMON}

@@ -1,10 +1,38 @@
-[gd_resource type="Resource" script_class="EntityResource" load_steps=6 format=3 uid="uid://j17ul3aaxbif"]
+[gd_resource type="Resource" script_class="EntityResource" load_steps=14 format=3 uid="uid://j17ul3aaxbif"]
 
 [ext_resource type="Script" path="res://resources/custom_bases/entity_resource.gd" id="1_p8q25"]
 [ext_resource type="PackedScene" uid="uid://3ktj7vqa2nxo" path="res://entities/chest.tscn" id="1_sqad4"]
-[ext_resource type="Resource" uid="uid://comxxliqq6s8g" path="res://resources/items/firebolt.tres" id="2_eofvt"]
-[ext_resource type="Resource" uid="uid://06bg80hhgrh7" path="res://resources/items/shard_burst.tres" id="3_liliv"]
-[ext_resource type="Resource" uid="uid://dbaliilxi5nod" path="res://resources/passives/vampirism.tres" id="4_3ntrl"]
+[ext_resource type="Resource" uid="uid://comxxliqq6s8g" path="res://resources/items/firebolt.tres" id="2_ucjl3"]
+[ext_resource type="Script" path="res://resources/custom_bases/loot_entry.gd" id="3_cbfhp"]
+[ext_resource type="Resource" uid="uid://dbaliilxi5nod" path="res://resources/passives/vampirism.tres" id="4_42hcm"]
+[ext_resource type="Resource" uid="uid://rw34krfqyx5s" path="res://resources/items/ice_shards.tres" id="5_37hbu"]
+[ext_resource type="Resource" uid="uid://du08ic7x2a6a8" path="res://resources/items/flame_circle.tres" id="6_n6rga"]
+[ext_resource type="Resource" uid="uid://q26t08cme7jm" path="res://resources/items/waterbolt.tres" id="7_tq1ov"]
+
+[sub_resource type="Resource" id="Resource_h2x54"]
+script = ExtResource("3_cbfhp")
+item = ExtResource("2_ucjl3")
+rate = 0.1
+
+[sub_resource type="Resource" id="Resource_bmmw8"]
+script = ExtResource("3_cbfhp")
+item = ExtResource("4_42hcm")
+rate = 0.1
+
+[sub_resource type="Resource" id="Resource_6x0pj"]
+script = ExtResource("3_cbfhp")
+item = ExtResource("5_37hbu")
+rate = 0.1
+
+[sub_resource type="Resource" id="Resource_e5488"]
+script = ExtResource("3_cbfhp")
+item = ExtResource("6_n6rga")
+rate = 0.1
+
+[sub_resource type="Resource" id="Resource_hyh3o"]
+script = ExtResource("3_cbfhp")
+item = ExtResource("7_tq1ov")
+rate = 0.1
 
 [resource]
 script = ExtResource("1_p8q25")
@@ -18,8 +46,4 @@ default_team = 2
 element = 0
 min_loot = 1
 max_loot = 5
-loot_table = {
-ExtResource("2_eofvt"): 0.5,
-ExtResource("3_liliv"): 0.5,
-ExtResource("4_3ntrl"): 0.5
-}
+loot_table = Array[ExtResource("3_cbfhp")]([SubResource("Resource_h2x54"), SubResource("Resource_bmmw8"), SubResource("Resource_6x0pj"), SubResource("Resource_e5488"), SubResource("Resource_hyh3o")])
