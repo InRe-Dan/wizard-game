@@ -908,3 +908,6 @@ Still wanted for tomorrow:
 	Win screen after arbitrary floors
 	Popup for passives picked up
 	Maybe fix up fog of war
+	Raycasts on hitboxes
+
+Fun idea: explosion of projectiles that adjust their velocitities to be towards the cast direction (most useful in open spaces, less so in closed ones)

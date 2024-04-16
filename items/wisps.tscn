@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://d3bvgcey5cmrf"]
+
+[ext_resource type="Script" path="res://base_classes/inventory_item.gd" id="1_hacyi"]
+[ext_resource type="Script" path="res://actions/burst_fire.gd" id="2_kdyn0"]
+[ext_resource type="Resource" uid="uid://crol43i5fcb2g" path="res://resources/entities/fire_wisp.tres" id="3_f610t"]
+[ext_resource type="Script" path="res://actions/cooldown.gd" id="4_eujws"]
+
+[node name="Wisps" type="Node"]
+script = ExtResource("1_hacyi")
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("2_kdyn0")
+projectile_resource = ExtResource("3_f610t")
+shots = 5
+delay = 0.05
+
+[node name="CooldownAction" type="Node" parent="."]
+script = ExtResource("4_eujws")
+cooldown_time = 0.5

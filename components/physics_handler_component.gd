@@ -1,5 +1,7 @@
 class_name PhysicsHandlingComponent extends EntityComponent
 
+@export var instant_velocity : bool = false
+@export var velocity_magnitude : float = 100
 @export var base_acceleration : float = 500
 @export var base_damping : float = 5
 @export var take_collision_damage : bool = true
@@ -24,6 +26,8 @@ func _physics_process(delta : float) -> void:
 	if not last_move_processed:
 		last_move_processed = true
 		parent.velocity += last_move_direction * acceleration_factor
+		if instant_velocity:
+			parent.velocity = last_move_direction * velocity_magnitude
 	parent.velocity = parent.velocity / (1 + damp_factor)
 	var collision : KinematicCollision2D = parent.move_and_collide(parent.velocity * delta)
 	

@@ -1,0 +1,177 @@
+[gd_scene load_steps=25 format=3 uid="uid://dp4nrpk7lws44"]
+
+[ext_resource type="PackedScene" uid="uid://7neyiej0xx17" path="res://components/hitbox_component.tscn" id="2_6yrp5"]
+[ext_resource type="PackedScene" uid="uid://bn1kf1pq2gcxx" path="res://components/turning_graphics_component.tscn" id="2_xaxyh"]
+[ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="3_q8kgp"]
+[ext_resource type="PackedScene" uid="uid://bueaitn7te0q1" path="res://components/projectile_despawner_component.tscn" id="3_wqbeg"]
+[ext_resource type="PackedScene" uid="uid://b3c3vg8q6e5k7" path="res://components/effect_container.tscn" id="4_65n5g"]
+[ext_resource type="Script" path="res://effects/on_hit_actions.gd" id="5_ymdga"]
+[ext_resource type="Script" path="res://actions/play_sound.gd" id="6_vfmos"]
+[ext_resource type="AudioStream" uid="uid://ddsn0ulfml6ni" path="res://assets/sounds/cut.wav" id="7_af81q"]
+[ext_resource type="Script" path="res://effects/on_spawn_actions.gd" id="8_vi36i"]
+[ext_resource type="AudioStream" uid="uid://btklr1o52eh7" path="res://assets/sounds/laserShoot.wav" id="9_e3bts"]
+[ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="10_6t788"]
+
+[sub_resource type="GDScript" id="GDScript_xv4it"]
+script/source = "extends Entity
+
+@onready var left : RayCast2D = $TurningGraphicsComponent/AClockwise
+@onready var right : RayCast2D = $TurningGraphicsComponent/Clockwise
+var rotation_speed : float = 0
+var turning_right : bool = [false, true].pick_random()
+
+func _ready() -> void:
+	super()
+
+func _process(delta: float) -> void:
+	var l : bool = left.is_colliding()
+	var r : bool = right.is_colliding()
+	if l and not r:
+		turning_right = false
+	if r and not l:
+		turning_right = true
+	if not r and not l:
+		if randf() > 0.95:
+			turning_right = not turning_right
+	if turning_right:
+		rotation_speed += delta * 2
+	else:
+		rotation_speed -= delta * 2
+	rotation_speed = clamp(rotation_speed, -4, 4)
+	velocity = velocity.rotated(rotation_speed * delta)
+
+func distribute_signal(event : Event) -> void:
+	super(event)
+
+"
+
+[sub_resource type="Gradient" id="Gradient_1yrmr"]
+offsets = PackedFloat32Array(0, 0.558442, 0.844156)
+colors = PackedColorArray(1, 0.792157, 0, 1, 1, 0.438854, 0, 0.892308, 1, 0.533333, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_678dy"]
+gradient = SubResource("Gradient_1yrmr")
+width = 8
+height = 8
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_c4sm8"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_7nc7n"]
+offsets = PackedFloat32Array(0, 0.0491803, 0.827869, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.868852, 1, 1, 1, 0.531798, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3qysv"]
+gradient = SubResource("Gradient_7nc7n")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uh5kf"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 3.0
+gravity = Vector3(0, 0, 0)
+color = Color(1, 0.458824, 0, 1)
+color_ramp = SubResource("GradientTexture1D_3qysv")
+hue_variation_min = -0.04
+hue_variation_max = 0.05
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1irl2"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_cl4kq"]
+offsets = PackedFloat32Array(0, 0.61039)
+colors = PackedColorArray(1, 0.427451, 0, 0.160784, 1, 0.533333, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mvtto"]
+gradient = SubResource("Gradient_cl4kq")
+width = 40
+height = 40
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dipal"]
+radius = 3.16228
+
+[sub_resource type="Resource" id="Resource_jjwe2"]
+script = ExtResource("3_q8kgp")
+damage = 0.5
+damage_type = 1
+knockback_type = 1
+knockback_velocity = 30.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x5p0b"]
+radius = 7.0
+
+[node name="Wisp" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 2
+script = SubResource("GDScript_xv4it")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_678dy")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_c4sm8")
+amount = 40
+process_material = SubResource("ParticleProcessMaterial_uh5kf")
+lifetime = 0.5
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_1irl2")
+texture = SubResource("GradientTexture2D_mvtto")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_dipal")
+
+[node name="HitboxComponent" parent="." instance=ExtResource("2_6yrp5")]
+damage = SubResource("Resource_jjwe2")
+
+[node name="Area2D" type="Area2D" parent="HitboxComponent"]
+collision_layer = 16
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent/Area2D"]
+shape = SubResource("CircleShape2D_x5p0b")
+
+[node name="TurningGraphicsComponent" parent="." instance=ExtResource("2_xaxyh")]
+
+[node name="AClockwise" type="RayCast2D" parent="TurningGraphicsComponent"]
+target_position = Vector2(50, 20)
+collision_mask = 2
+
+[node name="Clockwise" type="RayCast2D" parent="TurningGraphicsComponent"]
+target_position = Vector2(50, -20)
+collision_mask = 2
+
+[node name="ProjectileDespawner" parent="." instance=ExtResource("3_wqbeg")]
+despawn_on_standstill = true
+despawn_after_interval = true
+lifetime = 10.0
+
+[node name="EffectContainer" parent="." instance=ExtResource("4_65n5g")]
+
+[node name="OnHit" type="Node" parent="EffectContainer"]
+script = ExtResource("5_ymdga")
+
+[node name="PlaySoundAction" type="Node" parent="EffectContainer/OnHit"]
+script = ExtResource("6_vfmos")
+sound = ExtResource("7_af81q")
+
+[node name="OnSpawnActionsEffect" type="Node" parent="EffectContainer"]
+script = ExtResource("8_vi36i")
+
+[node name="PlaySoundAction" type="Node" parent="EffectContainer/OnSpawnActionsEffect"]
+script = ExtResource("6_vfmos")
+sound = ExtResource("9_e3bts")
+
+[node name="PhysicsHandler" parent="." instance=ExtResource("10_6t788")]
+velocity_magnitude = 75.0
+base_acceleration = 0.0
+base_damping = 0.0
+take_collision_damage = false
+ice_acceleration_multiplier = 1.0
+ice_damping_multiplier = 1.0
+water_damping_multiplier = 1.0

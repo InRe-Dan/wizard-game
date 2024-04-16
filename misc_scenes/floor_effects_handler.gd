@@ -141,7 +141,7 @@ func clear(point : Vector2, radius : float) -> void:
 				ice_array[i][j] -= 0
 				water_array[i][j] = 0
 				fire_array[i][j] = 0
-				image.set_pixel(j, i, Color.BLACK)
+				image.set_pixel(j, i, Color(fire_array[i][j], ice_array[i][j], water_array[i][j]))
 
 func clear_fog(point : Vector2, radius : float) -> void:
 	var converted_point : Vector2i = convert_global_to_map(point)

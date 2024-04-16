@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=4 format=3 uid="uid://b2va7dwqlsr5a"]
+
+[ext_resource type="Script" path="res://resources/custom_bases/item_resource.gd" id="1_053ne"]
+[ext_resource type="PackedScene" uid="uid://d3bvgcey5cmrf" path="res://items/wisps.tscn" id="1_786oo"]
+[ext_resource type="Texture2D" uid="uid://beta740l86jnj" path="res://assets/fire_icon.png" id="2_f5q6e"]
+
+[resource]
+script = ExtResource("1_053ne")
+item_name = "Flame Wisps"
+element = 0
+type = 0
+limited_use = true
+item_durability = 10
+inventory_icon = ExtResource("2_f5q6e")
+glow = Color(1, 0.545098, 0, 1)
+_item_scene = ExtResource("1_786oo")

@@ -20,6 +20,8 @@ func _process(delta : float) -> void:
 	var required_shots : int = ceil(timer / delay)
 	for i : int in range(required_shots - shots_fired):
 		var projectile : Entity = projectile_resource.make_entity()
+		if projectile.resource.inherit_team:
+			projectile.team = caller.team
 		projectile.global_position = caller.global_position
 		projectile.velocity = projectile_resource.spawn_velocity * (caller.looking_at - caller.global_position).normalized()
 		caller.distribute_signal(CreatedProjectileEvent.new(projectile))

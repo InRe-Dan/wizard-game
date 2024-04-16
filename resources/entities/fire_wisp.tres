@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="EntityResource" load_steps=3 format=3 uid="uid://crol43i5fcb2g"]
+
+[ext_resource type="PackedScene" uid="uid://dp4nrpk7lws44" path="res://entities/projectiles/fire_wisp.tscn" id="1_5xk6s"]
+[ext_resource type="Script" path="res://resources/custom_bases/entity_resource.gd" id="1_8lgwv"]
+
+[resource]
+script = ExtResource("1_8lgwv")
+entity_name = "Fire Wisp"
+_entity_scene = ExtResource("1_5xk6s")
+starting_health = 1
+spawn_velocity = 75
+type = 3
+inherit_team = true
+default_team = 2
+element = 1
+min_loot = 0
+max_loot = 0
+loot_table = Array[Resource("res://resources/custom_bases/loot_entry.gd")]([])
