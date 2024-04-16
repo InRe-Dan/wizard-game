@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dw572lgh0rs8"]
+
+[ext_resource type="Script" path="res://base_classes/inventory_item.gd" id="1_bra2s"]
+[ext_resource type="Script" path="res://actions/floor_spread.gd" id="2_gmqed"]
+[ext_resource type="Script" path="res://actions/cooldown.gd" id="3_1hau8"]
+
+[node name="Purify" type="Node"]
+script = ExtResource("1_bra2s")
+
+[node name="Cleanse" type="Node" parent="."]
+script = ExtResource("2_gmqed")
+mode = 5
+radius = 64.0
+
+[node name="CooldownAction" type="Node" parent="."]
+script = ExtResource("3_1hau8")
+cooldown_time = 1.0

@@ -901,3 +901,10 @@ Attacks to add:
 	Minion spell (enchanted sword)
 	Spell that splits after some time
 
+16/4/24
+
+Still wanted for tomorrow:
+	Scoring system with high scores
+	Win screen after arbitrary floors
+	Popup for passives picked up
+	Maybe fix up fog of war

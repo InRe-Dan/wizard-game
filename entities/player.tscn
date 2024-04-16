@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://cu4jaf5f1nlxo"]
+[gd_scene load_steps=39 format=3 uid="uid://cu4jaf5f1nlxo"]
 
 [ext_resource type="Script" path="res://entities/player.gd" id="1_e1iir"]
 [ext_resource type="PackedScene" uid="uid://dfdt5bke0tcu6" path="res://components/player_input_component.tscn" id="2_uw8o3"]
@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://bnuiiw0qvuwwn" path="res://resources/items/knife.tres" id="7_e710y"]
 [ext_resource type="Texture2D" uid="uid://dvwbuayyrbcye" path="res://assets/water_icon.png" id="7_uxr0k"]
 [ext_resource type="Script" path="res://resources/custom_bases/item_resource.gd" id="8_m34lq"]
+[ext_resource type="Resource" uid="uid://dcnmpb6f0es47" path="res://resources/items/purify.tres" id="9_13dj0"]
 [ext_resource type="PackedScene" uid="uid://c867pju6atw7e" path="res://components/hurtbox_component.tscn" id="11_hxc8l"]
 [ext_resource type="PackedScene" uid="uid://uag18b8s0jg4" path="res://components/dialogue_component.tscn" id="12_7vj67"]
 [ext_resource type="Resource" uid="uid://cka851w5tb771" path="res://resources/passives/overflow.tres" id="12_i1dyv"]
@@ -23,11 +24,12 @@
 [ext_resource type="Resource" uid="uid://dvk1ntlc7sypn" path="res://resources/passives/headstone.tres" id="16_xljrl"]
 [ext_resource type="Script" path="res://effects/fire.gd" id="17_126sm"]
 [ext_resource type="Resource" uid="uid://w15yo43gwkdc" path="res://resources/passives/extra_life.tres" id="17_njild"]
-[ext_resource type="Script" path="res://effects/steelmancy.gd" id="18_r56j4"]
 [ext_resource type="PackedScene" uid="uid://db8b4lwo0gdvi" path="res://components/health_bar.tscn" id="19_8py24"]
-[ext_resource type="Texture2D" uid="uid://oqquf1nowupv" path="res://assets/sword.png" id="19_42yv0"]
 [ext_resource type="Script" path="res://resources/custom_bases/passive_resource.gd" id="19_kgryb"]
+[ext_resource type="Resource" uid="uid://clkg8i6mrbx2m" path="res://resources/passives/sword_upgrade.tres" id="19_q8bjk"]
 [ext_resource type="AudioStream" uid="uid://dosjuvfa2igba" path="res://assets/sounds/death.wav" id="19_yvff5"]
+[ext_resource type="Script" path="res://effects/cleanse_on_hit.gd" id="20_iqklr"]
+[ext_resource type="Texture2D" uid="uid://ci5kk84h6xvuc" path="res://assets/cleanse.png" id="21_f5r71"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qptjs"]
 radius = 6.0
@@ -74,13 +76,13 @@ fill_from = Vector2(0.5, 0.5)
 [sub_resource type="CircleShape2D" id="CircleShape2D_b1i4r"]
 radius = 33.0
 
-[sub_resource type="Resource" id="Resource_ikjeb"]
+[sub_resource type="Resource" id="Resource_3b7ld"]
 script = ExtResource("19_kgryb")
-passive_name = "Metalmancy"
-passive_menu_description = "Your dagger is much more powerful!"
-icon = ExtResource("19_42yv0")
-glow = Color(0.701961, 0.847059, 0.882353, 1)
-_effect_script = ExtResource("18_r56j4")
+passive_name = "Divine Blood"
+passive_menu_description = "Cleanse elemental effects around you when taking damage."
+icon = ExtResource("21_f5r71")
+glow = Color(1, 1, 1, 1)
+_effect_script = ExtResource("20_iqklr")
 
 [node name="PlayerEntity" type="CharacterBody2D" groups=["players"]]
 collision_layer = 4
@@ -113,7 +115,7 @@ one_shot = true
 explosiveness = 0.83
 
 [node name="Inventory" parent="." instance=ExtResource("5_m6tg5")]
-starting_items = Array[ExtResource("8_m34lq")]([SubResource("Resource_eqkie")])
+starting_items = Array[ExtResource("8_m34lq")]([SubResource("Resource_eqkie"), ExtResource("9_13dj0")])
 default_item = ExtResource("7_e710y")
 
 [node name="HurtboxComponent" parent="." instance=ExtResource("11_hxc8l")]
@@ -145,7 +147,7 @@ collision_mask = 64
 shape = SubResource("CircleShape2D_b1i4r")
 
 [node name="EffectContainer" parent="." instance=ExtResource("15_csrq8")]
-initial_effects = Array[ExtResource("19_kgryb")]([ExtResource("13_5t7u7"), ExtResource("12_i1dyv"), ExtResource("16_xljrl"), ExtResource("17_njild"), SubResource("Resource_ikjeb")])
+initial_effects = Array[ExtResource("19_kgryb")]([ExtResource("13_5t7u7"), ExtResource("12_i1dyv"), ExtResource("16_xljrl"), ExtResource("17_njild"), ExtResource("19_q8bjk"), SubResource("Resource_3b7ld")])
 
 [node name="OnGetHit" type="Node" parent="EffectContainer"]
 script = ExtResource("14_tlggt")

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=3 format=3 uid="uid://dcnmpb6f0es47"]
+
+[ext_resource type="Script" path="res://resources/custom_bases/item_resource.gd" id="1_gwm2i"]
+[ext_resource type="PackedScene" uid="uid://dw572lgh0rs8" path="res://items/purify.tscn" id="1_hdxsc"]
+
+[resource]
+script = ExtResource("1_gwm2i")
+item_name = "Purify"
+element = 3
+type = 2
+limited_use = true
+item_durability = 10
+glow = Color(1, 1, 0.380392, 1)
+_item_scene = ExtResource("1_hdxsc")

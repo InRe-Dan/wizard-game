@@ -131,6 +131,18 @@ func melt_ice(point : Vector2, radius : float) -> void:
 				ice_array[i][j] -= pow(1 - (distance / radius), 2)
 				image.set_pixel(j, i, Color(fire_array[i][j], ice_array[i][j], water_array[i][j]))
 
+func clear(point : Vector2, radius : float) -> void:
+	var converted_point : Vector2i = convert_global_to_map(point)
+	radius = (radius / floor_map.tile_set.tile_size.x) * resolution_factor
+	for i : int in range(max(0, floor(converted_point.y - radius)), min(array_size.y, ceil(converted_point.y + radius))):
+		for j : int in range(max(0, floor(converted_point.x - radius)), min(array_size.x, ceil(converted_point.x + radius))):
+			var distance : float = Vector2(converted_point.x - j, converted_point.y - i).length()
+			if distance <= radius:
+				ice_array[i][j] -= 0
+				water_array[i][j] = 0
+				fire_array[i][j] = 0
+				image.set_pixel(j, i, Color.BLACK)
+
 func clear_fog(point : Vector2, radius : float) -> void:
 	var converted_point : Vector2i = convert_global_to_map(point)
 	radius = (radius / floor_map.tile_set.tile_size.x) * resolution_factor

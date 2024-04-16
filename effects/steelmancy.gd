@@ -29,6 +29,7 @@ func handle_event(event : Event) -> Event:
 		return null
 	if event is AddEffectEvent:
 		if (event as AddEffectEvent).effect is MetalmancyEffect:
+			event.queue_free()
 			return null
 	return event
 

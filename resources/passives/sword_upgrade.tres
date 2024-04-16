@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PassiveResource" load_steps=4 format=3 uid="uid://clkg8i6mrbx2m"]
+
+[ext_resource type="Script" path="res://effects/steelmancy.gd" id="1_58bey"]
+[ext_resource type="Texture2D" uid="uid://oqquf1nowupv" path="res://assets/sword.png" id="2_hvsol"]
+[ext_resource type="Script" path="res://resources/custom_bases/passive_resource.gd" id="3_8pw1o"]
+
+[resource]
+script = ExtResource("3_8pw1o")
+passive_name = "Metalmancy"
+passive_menu_description = "Your dagger is much more powerful!"
+icon = ExtResource("2_hvsol")
+glow = Color(0.701961, 0.847059, 0.882353, 1)
+_effect_script = ExtResource("1_58bey")
