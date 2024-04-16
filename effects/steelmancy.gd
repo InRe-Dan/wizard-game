@@ -1,4 +1,4 @@
-MetalmancyEffect extends Effect
+class_name MetalmancyEffect extends Effect
 
 var sword : EntityResource = preload("res://resources/entities/sword.tres")
 
