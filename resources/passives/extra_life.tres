@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PassiveResource" load_steps=4 format=3 uid="uid://w15yo43gwkdc"]
+
+[ext_resource type="Script" path="res://effects/extra_life.gd" id="1_xofbj"]
+[ext_resource type="Texture2D" uid="uid://dw8x0f2bp5237" path="res://assets/extra_life.png" id="2_iv2qq"]
+[ext_resource type="Script" path="res://resources/custom_bases/passive_resource.gd" id="3_d0srn"]
+
+[resource]
+script = ExtResource("3_d0srn")
+passive_name = "Extra life"
+passive_menu_description = "Gain one extra life!"
+icon = ExtResource("2_iv2qq")
+glow = Color(1, 1, 0, 1)
+_effect_script = ExtResource("1_xofbj")

@@ -1,9 +1,14 @@
-extends Action
+class_name RadialShootAction extends Action
 
-@export var projectile : EntityResource
+@export var projectile : EntityResource = null
 @export var shot_delay : float = 0.03
 @export var shot_count : int = 15
 @export var cast_distance : float = 36
+
+var init_projectile : EntityResource
+var init_delay : float
+var init_count : int
+var init_distance : float
 
 var angle_change : float
 var time_elapsed : float
@@ -14,7 +19,21 @@ var shots_fired : int
 var caster : Entity
 var start_angle : float
 
+func _init(projectile : EntityResource = null, shot_delay : float = -1, shot_count : int = -1, cast_distance : float = -01):
+	init_projectile = projectile
+	init_delay = shot_delay
+	init_count = shot_count
+	init_distance = cast_distance
+
 func _ready() -> void:
+	if init_projectile:
+		projectile = init_projectile
+	if init_delay >= 0:
+		shot_delay = init_delay
+	if init_count >= 0:
+		shot_count = init_count
+	if init_distance >= 0:
+		cast_distance = init_distance
 	description = "Cast " + projectile.entity_name + " all around you"
 
 func _process(delta : float) -> void:

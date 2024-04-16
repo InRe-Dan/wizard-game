@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cu4jaf5f1nlxo"]
+[gd_scene load_steps=33 format=3 uid="uid://cu4jaf5f1nlxo"]
 
 [ext_resource type="Script" path="res://entities/player.gd" id="1_e1iir"]
 [ext_resource type="PackedScene" uid="uid://dfdt5bke0tcu6" path="res://components/player_input_component.tscn" id="2_uw8o3"]
@@ -22,6 +22,7 @@
 [ext_resource type="AudioStream" uid="uid://tf11vprywdnr" path="res://assets/sounds/player_hurt.wav" id="16_2xikm"]
 [ext_resource type="Resource" uid="uid://dvk1ntlc7sypn" path="res://resources/passives/headstone.tres" id="16_xljrl"]
 [ext_resource type="Script" path="res://effects/fire.gd" id="17_126sm"]
+[ext_resource type="Resource" uid="uid://w15yo43gwkdc" path="res://resources/passives/extra_life.tres" id="17_njild"]
 [ext_resource type="PackedScene" uid="uid://db8b4lwo0gdvi" path="res://components/health_bar.tscn" id="19_8py24"]
 [ext_resource type="AudioStream" uid="uid://dosjuvfa2igba" path="res://assets/sounds/death.wav" id="19_yvff5"]
 
@@ -133,7 +134,7 @@ collision_mask = 64
 shape = SubResource("CircleShape2D_b1i4r")
 
 [node name="EffectContainer" parent="." instance=ExtResource("15_csrq8")]
-initial_effects = Array[Resource("res://resources/custom_bases/passive_resource.gd")]([ExtResource("13_5t7u7"), ExtResource("12_i1dyv"), ExtResource("16_xljrl")])
+initial_effects = Array[Resource("res://resources/custom_bases/passive_resource.gd")]([ExtResource("13_5t7u7"), ExtResource("12_i1dyv"), ExtResource("16_xljrl"), ExtResource("17_njild")])
 
 [node name="OnGetHit" type="Node" parent="EffectContainer"]
 script = ExtResource("14_tlggt")
