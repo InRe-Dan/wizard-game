@@ -66,7 +66,9 @@ func _process(delta : float) -> void:
 		reticle.global_position = global_position + global_position.direction_to(parent.looking_at).normalized() * 24
 	else:
 		DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED_HIDDEN)
-		var aim_vec : Vector2 = Input.get_vector("aimleft", "aimright", "aimup", "aimdown");
+		var aim_vec : Vector2 = Input.get_vector("aimleft", "aimright", "aimup", "aimdown")
+		if aim_vec.length() < 0.2:
+			aim_vec = Input.get_vector("left", "right", "up", "down")
 		parent.looking_at = global_position + 180 * aim_vec
 		if parent.looking_at.distance_to(global_position) < 24:
 			reticle.visible = false

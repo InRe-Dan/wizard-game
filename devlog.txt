@@ -873,15 +873,15 @@ To-do ahead of the poster day demo:
 
 Passives to add:
 	Regenerate some percentage of missing health on room exit
-	Sword: Upgrades any knives into swords. Increase damage/swing speed with stacks
+	> Sword: Upgrades any knives into swords. Increase damage/swing speed with stacks
 	Imbue: Melee attacks gain elemental properties
 	General damage bonuses to all projectile types and elements
 	Thorns, but also potentailly applying status effects in an area.
 	Projectile speed modifier
 		Negative modifier which increases damage
 	Slight homing
-	Cleanse: Clear floor effects in an area 
-	Extra life: Respawn in start room with full HP
+	> Cleanse: Clear floor effects in an area 
+	> Extra life: Respawn in start room with full HP
 	Double shot: Fire two projectiles at once
 		Derivative: reduce damage and shoot in random directions
 	Revenge bullets: Fire projectiles towards enemies that harm you
@@ -894,7 +894,7 @@ Passives to add:
 
 Attacks to add:
 	Accelerating firebolt
-	Wavey/zigzagging firebolt
+	> Wavey/zigzagging firebolt
 	Bouncing fireball
 	Fused explosive
 	Frost storm AoE
