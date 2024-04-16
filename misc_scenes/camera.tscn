@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://dkfutwmsr2tli"]
+[gd_scene load_steps=30 format=3 uid="uid://dkfutwmsr2tli"]
 
 [ext_resource type="Script" path="res://misc_scenes/camera.gd" id="1_67e48"]
 [ext_resource type="Shader" path="res://shaders/screen.gdshader" id="2_gcgr3"]
@@ -44,6 +44,10 @@ font_color = Color(0.980392, 0.980392, 0.980392, 0.196078)
 [sub_resource type="LabelSettings" id="LabelSettings_1xakj"]
 font = ExtResource("3_cgkpt")
 font_color = Color(0.980392, 0.980392, 0.980392, 0.196078)
+
+[sub_resource type="LabelSettings" id="LabelSettings_d3ktp"]
+font = ExtResource("3_cgkpt")
+font_color = Color(0.980392, 0.980392, 0.980392, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_rbcjx"]
 font = ExtResource("3_cgkpt")
@@ -117,6 +121,7 @@ label_settings = SubResource("LabelSettings_0fvr4")
 horizontal_alignment = 1
 
 [node name="Description" type="Label" parent="UI/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "Congratulations!"
 label_settings = SubResource("LabelSettings_mwirp")
@@ -139,12 +144,21 @@ label_settings = SubResource("LabelSettings_emds3")
 
 [node name="FrameCounter" type="Label" parent="UI"]
 offset_left = 2.0
-offset_top = -4.0
+offset_top = 7.0
 offset_right = 137.0
-offset_bottom = 9.0
+offset_bottom = 20.0
 text = "fps: err"
 label_settings = SubResource("LabelSettings_1xakj")
 script = ExtResource("4_dqccr")
+metadata/_edit_use_anchors_ = true
+
+[node name="Score" type="Label" parent="UI" groups=["scorelabel"]]
+offset_left = 2.0
+offset_top = -2.0
+offset_right = 137.0
+offset_bottom = 11.0
+text = "Score: 0"
+label_settings = SubResource("LabelSettings_d3ktp")
 metadata/_edit_use_anchors_ = true
 
 [node name="DebugMenu" parent="UI" instance=ExtResource("7_a1mme")]

@@ -31,6 +31,7 @@ spawn_velocity = 0
 type = 1
 inherit_team = true
 default_team = 1
+death_score_value = 20
 element = 1
 min_loot = 0
 max_loot = 1

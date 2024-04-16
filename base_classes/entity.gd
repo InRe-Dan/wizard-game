@@ -72,6 +72,7 @@ func distribute_signal(event : Event) -> void:
 			if last_hit_by:
 				if is_instance_valid(last_hit_by):
 					last_hit_by.distribute_signal(HasKilledEvent.new(self))
+			Global.add_score(resource.death_score_value, self)
 			queue_free()
 		event.types.try_heal:
 			var heal_event : TryHealEvent = event as TryHealEvent

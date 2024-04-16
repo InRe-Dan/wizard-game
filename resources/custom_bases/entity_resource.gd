@@ -11,6 +11,7 @@ enum EntityElement {None, Fire, Ice, Water}
 @export var type : EntityType
 @export var inherit_team : bool = true
 @export var default_team : EntityTeam
+@export var death_score_value : int = 0
 @export var element : EntityElement
 @export var min_loot : int = 0
 @export var max_loot : int = 0

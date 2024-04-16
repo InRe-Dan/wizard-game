@@ -35,7 +35,7 @@ func open() -> void:
 	await get_tree().create_timer(2).timeout
 	is_opened = true
 	get_tree().create_tween().tween_property(self, \"flash_speed\", 15, 3)
-	await get_tree().create_timer(3).timeout
+	await get_tree().create_timer(1).timeout
 	distribute_signal(DeathEvent.new())
 
 func distribute_signal(event : Event) -> void:

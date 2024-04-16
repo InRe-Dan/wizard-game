@@ -2,6 +2,10 @@ class_name Player extends Entity
 
 var dash_cooldown_timer : float = 0.0
 
+func _ready() -> void:
+	super()
+	Global.clear_score()
+
 func _physics_process(delta: float) -> void:
 	dash_cooldown_timer -= delta
 	FloorHandler.clear_fog(global_position, 128)
