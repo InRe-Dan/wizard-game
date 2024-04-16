@@ -61,7 +61,9 @@ fill_to = Vector2(0.782407, 0.203704)
 [node name="ExplosionEntity" type="CharacterBody2D" groups=["npcs"]]
 script = ExtResource("1_2d4i0")
 
-[node name="HitboxComponent" parent="." instance=ExtResource("2_qlgqq")]
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("hitbox", "raycast") instance=ExtResource("2_qlgqq")]
+hitbox = NodePath("Area2D")
+raycast = NodePath("RayCast2D")
 damage = SubResource("Resource_x0s8p")
 
 [node name="Area2D" type="Area2D" parent="HitboxComponent"]
@@ -70,6 +72,9 @@ collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent/Area2D"]
 shape = SubResource("CircleShape2D_u5xm2")
+
+[node name="RayCast2D" type="RayCast2D" parent="HitboxComponent"]
+collision_mask = 2
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_8v2rw")

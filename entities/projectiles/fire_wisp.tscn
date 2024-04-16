@@ -126,7 +126,8 @@ texture = SubResource("GradientTexture2D_mvtto")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_dipal")
 
-[node name="HitboxComponent" parent="." instance=ExtResource("2_6yrp5")]
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("hitbox") instance=ExtResource("2_6yrp5")]
+hitbox = NodePath("Area2D")
 damage = SubResource("Resource_jjwe2")
 
 [node name="Area2D" type="Area2D" parent="HitboxComponent"]

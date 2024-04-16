@@ -85,9 +85,10 @@ particle_texture = SubResource("GradientTexture2D_2bswa")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("GradientTexture2D_ku6a4")
 
-[node name="HitboxComponent" type="Node2D" parent="."]
+[node name="HitboxComponent" type="Node2D" parent="." node_paths=PackedStringArray("hitbox")]
 scale = Vector2(-1.7852, 1.87583)
 script = ExtResource("3_0t2jv")
+hitbox = NodePath("Area2D")
 damage = SubResource("Resource_qwe1d")
 
 [node name="Area2D" type="Area2D" parent="HitboxComponent"]

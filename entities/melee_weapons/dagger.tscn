@@ -27,8 +27,10 @@ script = ExtResource("1_3fgt5")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_ep7xq")
 
-[node name="HitboxComponent" type="Node2D" parent="."]
+[node name="HitboxComponent" type="Node2D" parent="." node_paths=PackedStringArray("hitbox", "raycast")]
 script = ExtResource("3_7u72h")
+hitbox = NodePath("Area2D")
+raycast = NodePath("RayCast2D")
 damage = SubResource("Resource_6fuaf")
 
 [node name="Area2D" type="Area2D" parent="HitboxComponent"]
@@ -38,6 +40,9 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent/Area2D"]
 position = Vector2(0, -1)
 shape = SubResource("CircleShape2D_8v21f")
+
+[node name="RayCast2D" type="RayCast2D" parent="HitboxComponent"]
+collision_mask = 2
 
 [node name="EffectContainer" parent="." instance=ExtResource("5_rtj30")]
 

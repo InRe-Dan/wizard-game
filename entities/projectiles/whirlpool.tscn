@@ -11,6 +11,7 @@ resource_name = "whirlpool"
 script/source = "extends Entity
 
 @onready var suck_area : Area2D = $Suck
+@onready var suck_ray : RayCast2D = $RayCast2D
 
 func _ready() -> void:
 	super()
@@ -18,8 +19,10 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	for entity : Entity in suck_area.get_overlapping_bodies():
 		if entity.team != team:
-			var vector : Vector2 = global_position - entity.global_position
-			entity.velocity += vector.normalized() * delta * 500 * (1 - vector.length() / 64)
+			suck_ray.target_position = suck_ray.to_local(entity.global_position)
+			if not suck_ray.is_colliding():
+				var vector : Vector2 = global_position - entity.global_position
+				entity.velocity += vector.normalized() * delta * 500 * (1 - vector.length() / 64)
 
 func distribute_signal(event : Event) -> void:
 	super(event)
@@ -99,8 +102,9 @@ trail_enabled = true
 [node name="EffectContainerComponent" type="Node2D" parent="."]
 script = ExtResource("2_yhp2u")
 
-[node name="Hitbox" type="Node2D" parent="."]
+[node name="Hitbox" type="Node2D" parent="." node_paths=PackedStringArray("hitbox")]
 script = ExtResource("4_qkan3")
+hitbox = NodePath("Area2D")
 damage = SubResource("Resource_35u6d")
 
 [node name="Area2D" type="Area2D" parent="Hitbox"]
@@ -132,3 +136,5 @@ collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Suck"]
 shape = SubResource("CircleShape2D_gl3ru")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]

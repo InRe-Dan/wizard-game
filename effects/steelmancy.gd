@@ -16,9 +16,7 @@ func handle_event(event : Event) -> Event:
 		if not proj_e.proj.resource.entity_name == "Knife":
 			return event
 		var entity : Entity = sword.make_entity()
-		print(proj_e.proj.get_parent())
 		var action : SwingAction = proj_e.proj.get_parent() as SwingAction
-		assert(action)
 		action.remove_child(proj_e.proj)
 		action.add_child(entity)
 		action.entity = entity

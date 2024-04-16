@@ -147,8 +147,9 @@ shape = SubResource("CircleShape2D_kru3q")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("GradientTexture2D_wkjva")
 
-[node name="HitboxComponent" type="Node2D" parent="."]
+[node name="HitboxComponent" type="Node2D" parent="." node_paths=PackedStringArray("hitbox")]
 script = ExtResource("2_gytxb")
+hitbox = NodePath("Area2D")
 damage = SubResource("Resource_2njig")
 
 [node name="Area2D" type="Area2D" parent="HitboxComponent"]

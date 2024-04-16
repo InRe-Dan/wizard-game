@@ -35,8 +35,9 @@ script = ExtResource("1_2kmof")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_ue3li")
 
-[node name="HitboxComponent" type="Node2D" parent="."]
+[node name="HitboxComponent" type="Node2D" parent="." node_paths=PackedStringArray("hitbox")]
 script = ExtResource("2_ocv26")
+hitbox = NodePath("Area2D")
 damage = SubResource("Resource_crfkm")
 
 [node name="Area2D" type="Area2D" parent="HitboxComponent"]

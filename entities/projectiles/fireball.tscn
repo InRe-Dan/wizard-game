@@ -62,8 +62,10 @@ shape = SubResource("CircleShape2D_08qk3")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("GradientTexture2D_ku6a4")
 
-[node name="HitboxComponent" type="Node2D" parent="."]
+[node name="HitboxComponent" type="Node2D" parent="." node_paths=PackedStringArray("hitbox", "raycast")]
 script = ExtResource("2_6h7iu")
+hitbox = NodePath("Area2D")
+raycast = NodePath("")
 damage = SubResource("Resource_qwe1d")
 
 [node name="Area2D" type="Area2D" parent="HitboxComponent"]
