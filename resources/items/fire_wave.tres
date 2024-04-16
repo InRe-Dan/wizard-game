@@ -10,6 +10,7 @@ item_name = "Fire Wave"
 element = 0
 type = 0
 limited_use = true
+flavor_text = "Cover the ground in front of you in flames!"
 item_durability = 5
 inventory_icon = ExtResource("2_2xo4t")
 glow = Color(1, 0.266667, 0, 1)

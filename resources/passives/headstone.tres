@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("3_btvfv")
 passive_name = "Headstone"
-passive_menu_description = "Kills using Ice have a chance to turn enemies to Ice Blocks."
+passive_menu_description = "Kills using ice have an increasing chance to turn enemies to ice blocks!"
 icon = ExtResource("2_vdh75")
 glow = Color(0, 1, 1, 1)
 _effect_script = ExtResource("1_2m1nu")

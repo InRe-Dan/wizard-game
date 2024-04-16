@@ -14,4 +14,8 @@ func distribute_signal(event : Event) -> void:
 		if input.command == input.Commands.dash and dash_cooldown_timer <= 0.01:
 			dash_cooldown_timer = 0.6
 			velocity += last_move_input * 200
+	if event is AddEffectEvent:
+		var effect : Effect = (event as AddEffectEvent).effect
+		if effect.resource:
+			Global.announce_passive(effect.resource)
 	super(event)

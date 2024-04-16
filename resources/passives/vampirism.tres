@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("1_p1ymr")
 passive_name = "Life Drain"
-passive_description = "Heal for 1HP on kill"
+passive_menu_description = "Gain increasing amounts of health when killing enemies!"
 icon = ExtResource("1_cnrru")
 glow = Color(0.34902, 1, 0, 1)
 _effect_script = ExtResource("1_gvpup")

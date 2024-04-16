@@ -10,6 +10,7 @@ item_name = "Angel Spawner"
 element = 3
 type = 3
 limited_use = false
+flavor_text = "Dev item!"
 item_durability = 10
 inventory_icon = ExtResource("2_1rtqj")
 glow = Color(1, 1, 1, 1)

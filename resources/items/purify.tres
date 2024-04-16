@@ -9,6 +9,7 @@ item_name = "Purify"
 element = 3
 type = 2
 limited_use = true
+flavor_text = "Cleanse your surroundings from any magic effects."
 item_durability = 10
 glow = Color(1, 1, 0.380392, 1)
 _item_scene = ExtResource("1_hdxsc")

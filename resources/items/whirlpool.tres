@@ -10,6 +10,7 @@ item_name = "Whirlpool"
 element = 2
 type = 0
 limited_use = false
+flavor_text = "Summon a slow-moving vortex which drags in nearby enemies!"
 item_durability = 10
 inventory_icon = ExtResource("1_r4t5p")
 glow = Color(0, 0.486275, 1, 1)

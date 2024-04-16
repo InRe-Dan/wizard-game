@@ -10,6 +10,7 @@ item_name = "Water Wave"
 element = 2
 type = 0
 limited_use = true
+flavor_text = "Cover the ground in front of you in water!"
 item_durability = 5
 inventory_icon = ExtResource("2_rqygv")
 glow = Color(0, 0.337255, 1, 1)

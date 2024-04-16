@@ -10,6 +10,7 @@ item_name = "Flame Wisps"
 element = 0
 type = 0
 limited_use = true
+flavor_text = "Cast a burst of meandering fire spirits!"
 item_durability = 10
 inventory_icon = ExtResource("2_f5q6e")
 glow = Color(1, 0.545098, 0, 1)

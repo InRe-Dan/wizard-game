@@ -10,6 +10,7 @@ item_name = "Shard Burst"
 element = 1
 type = 0
 limited_use = false
+flavor_text = "Fire a burst of freezing ice!"
 item_durability = 10
 inventory_icon = ExtResource("2_7crda")
 glow = Color(0.447059, 1, 1, 1)

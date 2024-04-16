@@ -15,5 +15,7 @@ func distribute_signal(event : Event) -> void:
 		var interaction : BeenInteractedEvent = event as BeenInteractedEvent
 		if item_to_give:
 			interaction.interacter.give(item_to_give)
+			if interaction.interacter is Player:
+				Global.announce_item(item_to_give.resource)
 		queue_free()
 	super(event)

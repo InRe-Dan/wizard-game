@@ -10,6 +10,7 @@ item_name = "Water Spirit"
 element = 2
 type = 0
 limited_use = false
+flavor_text = "Fire a vengeful water spirit which seeks nearby enemies."
 item_durability = 10
 inventory_icon = ExtResource("2_2coi7")
 glow = Color(0, 0.686275, 1, 1)

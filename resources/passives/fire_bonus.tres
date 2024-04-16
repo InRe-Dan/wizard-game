@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("3_63f1s")
 passive_name = "Flame Empowered"
-passive_menu_description = "Deal 10% bonus fire damage per stack!"
+passive_menu_description = "Deal 10% bonus fire damage for each stack!"
 icon = ExtResource("2_ekwun")
 glow = Color(1, 0.301961, 0, 1)
 _effect_script = ExtResource("1_5pw2d")

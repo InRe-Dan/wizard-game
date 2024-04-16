@@ -10,6 +10,7 @@ item_name = "Circle of Flame"
 element = 0
 type = 0
 limited_use = true
+flavor_text = "Surround yourself with flames!"
 item_durability = 1
 inventory_icon = ExtResource("2_68tkg")
 glow = Color(1, 0.572549, 0, 1)

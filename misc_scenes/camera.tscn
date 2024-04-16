@@ -1,10 +1,13 @@
-[gd_scene load_steps=24 format=3 uid="uid://dkfutwmsr2tli"]
+[gd_scene load_steps=29 format=3 uid="uid://dkfutwmsr2tli"]
 
 [ext_resource type="Script" path="res://misc_scenes/camera.gd" id="1_67e48"]
 [ext_resource type="Shader" path="res://shaders/screen.gdshader" id="2_gcgr3"]
+[ext_resource type="Script" path="res://misc_scenes/pop_up.gd" id="3_0y7qk"]
+[ext_resource type="FontFile" uid="uid://3a1yljy87wup" path="res://assets/fonts/m6x11plus.ttf" id="3_bkmx6"]
 [ext_resource type="FontFile" uid="uid://byo6fct4u77e6" path="res://assets/fonts/m3x6.ttf" id="3_cgkpt"]
 [ext_resource type="PackedScene" uid="uid://cdem0qwd86q7t" path="res://misc_scenes/player_ui.tscn" id="3_v6rg3"]
 [ext_resource type="Script" path="res://misc_scripts/frame_counter.gd" id="4_dqccr"]
+[ext_resource type="FontFile" uid="uid://b30np4mu23j85" path="res://assets/fonts/m5x7.ttf" id="4_rs6hj"]
 [ext_resource type="Texture2D" uid="uid://du436jkuxg0ah" path="res://assets/ui/keyboard_keys.png" id="5_nlf4r"]
 [ext_resource type="Texture2D" uid="uid://0yo7q0qi576d" path="res://assets/ui/keyboard_extras.png" id="6_l88bi"]
 [ext_resource type="PackedScene" uid="uid://cnmm04jdtxbiy" path="res://misc_scenes/debug_menu.tscn" id="7_a1mme"]
@@ -25,6 +28,14 @@ shader = ExtResource("2_gcgr3")
 shader_parameter/quantizationSteps = 16.0
 shader_parameter/vignetteExponent = 0.78
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_qgabh")
+
+[sub_resource type="LabelSettings" id="LabelSettings_0fvr4"]
+font = ExtResource("3_bkmx6")
+font_size = 18
+shadow_color = Color(1, 0.0823529, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_mwirp"]
+font = ExtResource("4_rs6hj")
 
 [sub_resource type="LabelSettings" id="LabelSettings_emds3"]
 font = ExtResource("3_cgkpt")
@@ -86,6 +97,31 @@ mouse_filter = 2
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI" groups=["popup"]]
+anchors_preset = -1
+anchor_left = 0.35
+anchor_top = 0.663
+anchor_right = 0.617
+anchor_bottom = 0.948
+offset_left = -32.0
+offset_top = -172.01
+offset_right = 26.84
+offset_bottom = -171.96
+script = ExtResource("3_0y7qk")
+
+[node name="Title" type="Label" parent="UI/VBoxContainer"]
+layout_mode = 2
+text = "Achievment Unlocked!"
+label_settings = SubResource("LabelSettings_0fvr4")
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="UI/VBoxContainer"]
+layout_mode = 2
+text = "Congratulations!"
+label_settings = SubResource("LabelSettings_mwirp")
+horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="PlayerUI" parent="UI" instance=ExtResource("3_v6rg3")]
 offset_left = 25.0

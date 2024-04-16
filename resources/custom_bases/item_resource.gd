@@ -7,6 +7,7 @@ enum ItemTypes {RANGED, MELEE, BUFF, SUMMON}
 @export_enum("Fire", "Ice", "Water", "Kinetic") var element : int = Elements.KINETIC
 @export_enum("Ranged", "Melee", "Buff", "Summon") var type : int = ItemTypes.RANGED
 @export var limited_use : bool = true
+@export_multiline var flavor_text : String = "Not sure what this does!"
 @export var item_durability : int = 10
 @export var inventory_icon : Texture2D = PlaceholderTexture2D.new()
 @export var glow : Color = Color.WHITE

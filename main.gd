@@ -10,6 +10,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta : float) -> void:
 	if not get_tree().get_first_node_in_group("players"):
+		return
 		var player : Entity = player_resource.make_entity()
 		add_child(player)
 		($level as Level).move_player(player)

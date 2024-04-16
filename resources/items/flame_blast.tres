@@ -10,6 +10,7 @@ item_name = "Flame Blast"
 element = 0
 type = 0
 limited_use = true
+flavor_text = "Summon multiple explosions in front of you!"
 item_durability = 1
 inventory_icon = ExtResource("1_htjdc")
 glow = Color(1, 0.313726, 0, 1)

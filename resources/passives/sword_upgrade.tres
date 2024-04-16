@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("3_8pw1o")
 passive_name = "Metalmancy"
-passive_menu_description = "Your dagger is much more powerful!"
+passive_menu_description = "Your dagger is turned into an increasingly dangerous massive sword!"
 icon = ExtResource("2_hvsol")
 glow = Color(0.701961, 0.847059, 0.882353, 1)
 _effect_script = ExtResource("1_58bey")

@@ -10,6 +10,7 @@ item_name = "Knife"
 element = 3
 type = 1
 limited_use = false
+flavor_text = "Slash at your foes with a deadly weapon!"
 item_durability = 10
 inventory_icon = ExtResource("1_fd6xu")
 glow = Color(1, 1, 1, 1)

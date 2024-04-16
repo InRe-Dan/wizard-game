@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("1_c3ubb")
 passive_name = "Mana Overflow"
-passive_menu_description = "Discarding spells causes you to emit a flame explosion. Stacks increase damage and knockback."
+passive_menu_description = "Discarding or consuming spells causes you to explode!"
 icon = ExtResource("2_hdulj")
 glow = Color(1, 0.513726, 0, 1)
 _effect_script = ExtResource("1_0cfi6")

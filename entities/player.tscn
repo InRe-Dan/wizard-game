@@ -56,6 +56,7 @@ item_name = "Water Bolt"
 element = 2
 type = 0
 limited_use = false
+flavor_text = "Not sure what this does!"
 item_durability = 10
 inventory_icon = ExtResource("7_uxr0k")
 glow = Color(0, 0.498039, 1, 1)

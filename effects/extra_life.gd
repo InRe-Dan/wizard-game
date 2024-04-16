@@ -18,6 +18,7 @@ func handle_event(event : Event) -> Event:
 		event.free()
 		parent.health = round(parent.resource.starting_health * 0.3)
 		protect()
+		Global.queue_announcement("Second chance!", "Do better!", Color.DARK_GREEN)
 		return null
 	return event
 
