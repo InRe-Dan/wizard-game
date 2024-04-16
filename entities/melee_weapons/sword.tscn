@@ -1,0 +1,57 @@
+[gd_scene load_steps=13 format=3 uid="uid://dqbw3k8cqmfce"]
+
+[ext_resource type="Script" path="res://base_classes/entity.gd" id="1_o2ele"]
+[ext_resource type="Texture2D" uid="uid://bjspvsbm3ycvi" path="res://assets/dungeon/weapon_anime_sword.png" id="2_ccc7t"]
+[ext_resource type="Script" path="res://components/hitbox_component.gd" id="3_1ufnw"]
+[ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="4_qb31g"]
+[ext_resource type="PackedScene" uid="uid://b3c3vg8q6e5k7" path="res://components/effect_container.tscn" id="5_oj2nb"]
+[ext_resource type="Script" path="res://effects/on_spawn_actions.gd" id="6_ww6v3"]
+[ext_resource type="Script" path="res://actions/play_sound.gd" id="7_r638x"]
+[ext_resource type="AudioStream" uid="uid://dt6mmv80bd2l0" path="res://assets/sounds/thump.wav" id="8_6af3m"]
+[ext_resource type="Script" path="res://effects/on_hit_actions.gd" id="9_w503a"]
+[ext_resource type="AudioStream" uid="uid://ddsn0ulfml6ni" path="res://assets/sounds/cut.wav" id="10_rqo2d"]
+
+[sub_resource type="Resource" id="Resource_vci8s"]
+script = ExtResource("4_qb31g")
+damage = 2.0
+damage_type = 0
+knockback_type = 0
+knockback_velocity = 100.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bq6v2"]
+size = Vector2(8, 22)
+
+[node name="Sword" type="CharacterBody2D" groups=["npcs"]]
+script = ExtResource("1_o2ele")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -9)
+texture = ExtResource("2_ccc7t")
+
+[node name="HitboxComponent" type="Node2D" parent="."]
+script = ExtResource("3_1ufnw")
+damage = SubResource("Resource_vci8s")
+
+[node name="Area2D" type="Area2D" parent="HitboxComponent"]
+collision_layer = 16
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent/Area2D"]
+position = Vector2(0, -13)
+shape = SubResource("RectangleShape2D_bq6v2")
+
+[node name="EffectContainer" parent="." instance=ExtResource("5_oj2nb")]
+
+[node name="OnSpawnActionsEffect" type="Node" parent="EffectContainer"]
+script = ExtResource("6_ww6v3")
+
+[node name="PlaySoundAction" type="Node" parent="EffectContainer/OnSpawnActionsEffect"]
+script = ExtResource("7_r638x")
+sound = ExtResource("8_6af3m")
+
+[node name="HitActionsEffect" type="Node" parent="EffectContainer"]
+script = ExtResource("9_w503a")
+
+[node name="PlaySoundAction" type="Node" parent="EffectContainer/HitActionsEffect"]
+script = ExtResource("7_r638x")
+sound = ExtResource("10_rqo2d")

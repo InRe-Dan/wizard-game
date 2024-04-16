@@ -36,7 +36,7 @@ collision_layer = 16
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent/Area2D"]
-position = Vector2(0, -3)
+position = Vector2(0, -1)
 shape = SubResource("CircleShape2D_8v21f")
 
 [node name="EffectContainer" parent="." instance=ExtResource("5_rtj30")]

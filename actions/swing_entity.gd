@@ -1,4 +1,4 @@
-extends Action
+class_name SwingAction extends Action
 
 @export var entity_resource : EntityResource
 @export var swing_angle : float = 90
@@ -37,6 +37,8 @@ func _process(delta : float) -> void:
 func do(target : Entity, secondary : Entity = null, direction : Vector2 = Vector2.ZERO) -> void:
 	if not swinging:
 		entity = entity_resource.make_entity() as Entity
+		add_child(entity)
+		print(entity.get_parent())
 		target.distribute_signal(CreatedProjectileEvent.new(entity))
 		orbit_entity = target
 		entity.team = orbit_entity.team
@@ -48,5 +50,4 @@ func do(target : Entity, secondary : Entity = null, direction : Vector2 = Vector
 		swinging = true
 		time_passed = 0
 		swing_time = swing_angle / swing_angular_speed
-		add_child(entity)
 

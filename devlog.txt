@@ -898,6 +898,6 @@ Attacks to add:
 	Bouncing fireball
 	Fused explosive
 	Frost storm AoE
-	Minion spell
+	Minion spell (enchanted sword)
 	Spell that splits after some time
 
