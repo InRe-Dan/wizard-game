@@ -13,7 +13,8 @@ var knockback_time : float
 const knockback_valid_timer : float = 0.1
 
 var last_hit_by : Entity = null
-var dead : bool = false
+
+signal died 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -73,6 +74,7 @@ func distribute_signal(event : Event) -> void:
 				if is_instance_valid(last_hit_by):
 					last_hit_by.distribute_signal(HasKilledEvent.new(self))
 			Global.add_score(resource.death_score_value, self)
+			died.emit()
 			queue_free()
 		event.types.try_heal:
 			var heal_event : TryHealEvent = event as TryHealEvent

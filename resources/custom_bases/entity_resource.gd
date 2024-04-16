@@ -36,3 +36,6 @@ func make_entity() -> Entity:
 		return entity
 	push_error("Failed to create an entity.")
 	return null
+	
+func make_spawner(delay : float = 0.5) -> Entity:
+	return make_entity()

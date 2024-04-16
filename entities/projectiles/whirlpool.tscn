@@ -138,3 +138,5 @@ collision_mask = 4
 shape = SubResource("CircleShape2D_gl3ru")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
+collision_mask = 2
+hit_from_inside = true

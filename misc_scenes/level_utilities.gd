@@ -14,13 +14,22 @@ class Connection extends RefCounted:
 class Room extends RefCounted:
 	func _init(rect : Rect2i) -> void:
 		self.rect = rect
-	
+
+	signal cleared(room : Room)
 	var rect : Rect2i
 	var connections : Array[Connection]
 	var marker_global_positions : Array[Vector2]
 	var id : int = -1
 	var is_key_room : bool = false
 	var distance_from_key_rooms : int = 100
+	var enemies : int = 0
+	var wave : int = 1
+	var wave_goal : int = 1
+	
+	func decrement_enemies() -> void:
+		enemies -= 1
+		if enemies == 0:
+			cleared.emit(self)
 	
 class Partition extends RefCounted:
 	enum SplitDir {Horizontal, Vertical}
@@ -168,6 +177,8 @@ class GraphData extends RefCounted:
 		longest_path = path(rooms[coordinates.x], rooms[coordinates.y])
 		for room : Room in longest_path:
 			room.is_key_room = true
+			var progress : float = longest_path.find(room) / longest_path.size()
+			room.wave_goal = 1 + int(randf() < progress - 0.1) + int(randf() < progress - 0.4) + (randf() - progress - 0.8)
 		recompute_key_distances()
 
 	func get_longest_path_coordinates() -> Vector2i:
@@ -198,9 +209,11 @@ class GraphData extends RefCounted:
 		Global.level.add_child(chest)
 		
 		while positions:
+			room.enemies += 1
 			var position : Vector2 = positions.pop_back()
 			var entity : Entity = (Global.level as Level).enemy_list.pick_random().make_entity()
 			entity.global_position = position
+			entity.died.connect(room.decrement_enemies)
 			Global.level.add_child(entity)
 		
 	func populate_exit(room : Room) -> void:
@@ -225,9 +238,11 @@ class GraphData extends RefCounted:
 	func populate_other(room : Room) -> void:
 		var positions : Array[Vector2] = room.marker_global_positions.slice(0, 5)
 		while positions:
+			room.enemies += 1
 			var position : Vector2 = positions.pop_back()
 			var entity : Entity = (Global.level as Level).enemy_list.pick_random().make_entity()
 			entity.global_position = position
+			entity.died.connect(room.decrement_enemies)
 			Global.level.add_child(entity)
 
 	func populate_rooms() -> void:

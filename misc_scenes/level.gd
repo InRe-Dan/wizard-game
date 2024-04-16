@@ -20,6 +20,8 @@ class_name Level extends Node2D
 @onready var walls : TileMap = $Walls
 var stairs_res : EntityResource = preload("res://resources/entities/stairs.tres")
 
+signal regenerated
+
 var current_rooms : Array[LevelUtilities.Room]
 var layouts : Array[TileMap]
 var path_length : int
@@ -202,3 +204,4 @@ func generate_bsp() -> void:
 	graph_data.populate_rooms()
 	# draw_connections()
 	FloorHandler.init_for_room()
+	regenerated.emit()
