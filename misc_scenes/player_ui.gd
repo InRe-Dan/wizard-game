@@ -3,7 +3,7 @@ extends Control
 @onready var item_info : Label = $VBoxContainer/ItemInfo
 @onready var health_label : Label = $VBoxContainer/HBoxContainer/Health
 @onready var cooldown : TextureProgressBar = $VBoxContainer/HBoxContainer/VBoxContainer/ItemCooldown
-@onready var effect_icons : HBoxContainer = $VBoxContainer/EffectIcons
+@onready var effect_icons : GridContainer = $VBoxContainer/EffectIcons
 
 var effect_to_rect : Dictionary = {}
 

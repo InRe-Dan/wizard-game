@@ -64,13 +64,14 @@ text = "HP: "
 label_settings = SubResource("LabelSettings_pb07d")
 
 [node name="ItemInfo" type="Label" parent="VBoxContainer"]
-custom_minimum_size = Vector2(80, 80)
+custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 text = "Item: Item Name
-Uses: 3/3
-This is where the description goes, but it hopefully won't use this much space."
+Uses: 3/3"
 label_settings = SubResource("LabelSettings_aq4ru")
 autowrap_mode = 3
 
-[node name="EffectIcons" type="HBoxContainer" parent="VBoxContainer"]
+[node name="EffectIcons" type="GridContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(80, 30)
 layout_mode = 2
+columns = 5

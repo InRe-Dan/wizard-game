@@ -103,6 +103,7 @@ mouse_filter = 2
 layer = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI" groups=["popup"]]
+modulate = Color(1, 1, 1, 0.647059)
 anchors_preset = -1
 anchor_left = 0.35
 anchor_top = 0.663
@@ -129,10 +130,10 @@ horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="PlayerUI" parent="UI" instance=ExtResource("3_v6rg3")]
-offset_left = 25.0
-offset_top = 95.0
-offset_right = 65.0
-offset_bottom = 135.0
+offset_left = 20.0
+offset_top = 185.0
+offset_right = 60.0
+offset_bottom = 225.0
 
 [node name="VersionNumber" type="Label" parent="UI"]
 offset_left = 453.0
