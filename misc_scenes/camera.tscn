@@ -226,16 +226,10 @@ modulate = Color(0.996078, 1, 1, 0.545098)
 position = Vector2(328, 259.5)
 texture = SubResource("AtlasTexture_v6fyo")
 
-[node name="CenterContainer" type="CenterContainer" parent="UI"]
-anchors_preset = -1
-anchor_left = 0.356
-anchor_top = 0.356
-anchor_right = 0.565
-anchor_bottom = 0.722
-offset_left = 0.119995
-offset_top = -0.120003
-offset_right = -0.200012
-offset_bottom = 1.05998
-
-[node name="RadialMenu" parent="UI/CenterContainer" instance=ExtResource("9_0rdqt")]
-layout_mode = 2
+[node name="RadialMenu" parent="UI" instance=ExtResource("9_0rdqt")]
+offset_left = 200.0
+offset_top = 131.0
+offset_right = 200.0
+offset_bottom = 131.0
+grow_horizontal = 1
+grow_vertical = 1

@@ -1,5 +1,7 @@
 class_name RadialMenu extends Control
 
+@onready var time_bar : TextureProgressBar = $TextureProgressBar
+
 @export var unselected_texture : Texture2D
 @export var selected_textrure : Texture2D
 
@@ -34,6 +36,8 @@ func _process(delta : float) -> void:
 	if not player:
 		return
 	for child : Node in get_children():
+		if child is TextureProgressBar:
+			continue
 		remove_child(child)
 		child.queue_free()
 	
@@ -43,6 +47,9 @@ func _process(delta : float) -> void:
 			inventory = node as InventoryComponent
 			break
 	assert(inventory)
+
+	time_bar.global_position = get_viewport_rect().get_center() - Vector2.ONE * time_bar.texture_progress.get_size().x / 2
+	time_bar.value = time_slow_juice / time_slow_capacity
 
 	var items : Array[InventoryItem] = inventory.get_items()
 	var selected : int = 0
@@ -57,8 +64,9 @@ func _process(delta : float) -> void:
 			rect.texture = null
 		add_child(background_rect)
 		add_child(rect)
-		rect.global_position = get_viewport_rect().get_center() + Vector2.from_angle(angle) * 50
-		background_rect.global_position = get_viewport_rect().get_center() + Vector2.from_angle(angle) * 50
+		rect.size *= 2
+		rect.global_position = get_viewport_rect().get_center() - Vector2.ONE * 8 + Vector2.from_angle(angle) * 50
+		background_rect.global_position = get_viewport_rect().get_center() - Vector2.ONE * 15 + Vector2.from_angle(angle) * 50
 		
 		var centre : Vector2 = get_viewport_rect().get_center()
 		var to_mouse : float = (centre - get_global_mouse_position()).angle()

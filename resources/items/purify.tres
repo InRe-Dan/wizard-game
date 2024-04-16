@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="ItemResource" load_steps=3 format=3 uid="uid://dcnmpb6f0es47"]
+[gd_resource type="Resource" script_class="ItemResource" load_steps=4 format=3 uid="uid://dcnmpb6f0es47"]
 
 [ext_resource type="Script" path="res://resources/custom_bases/item_resource.gd" id="1_gwm2i"]
 [ext_resource type="PackedScene" uid="uid://dw572lgh0rs8" path="res://items/purify.tscn" id="1_hdxsc"]
+[ext_resource type="Texture2D" uid="uid://ci5kk84h6xvuc" path="res://assets/cleanse.png" id="2_m7vo6"]
 
 [resource]
 script = ExtResource("1_gwm2i")
@@ -11,5 +12,6 @@ type = 2
 limited_use = true
 flavor_text = "Cleanse your surroundings from any magic effects."
 item_durability = 10
+inventory_icon = ExtResource("2_m7vo6")
 glow = Color(1, 1, 0.380392, 1)
 _item_scene = ExtResource("1_hdxsc")

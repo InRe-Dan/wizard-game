@@ -1,24 +1,39 @@
-[gd_scene load_steps=6 format=3 uid="uid://ctvyx6fxdx3mx"]
+[gd_scene load_steps=8 format=3 uid="uid://ctvyx6fxdx3mx"]
 
 [ext_resource type="Script" path="res://misc_scenes/radial_menu.gd" id="1_60xxn"]
 
-[sub_resource type="Gradient" id="Gradient_nquon"]
-offsets = PackedFloat32Array(1)
-colors = PackedColorArray(1, 1, 1, 0.188235)
+[sub_resource type="Gradient" id="Gradient_8ln1q"]
+offsets = PackedFloat32Array(0, 0.532468, 0.571429, 0.655844)
+colors = PackedColorArray(0, 0, 0, 0.0705882, 0.0909091, 0.0909091, 0.0909091, 0.15508, 1, 1, 1, 0.509804, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_fm8og"]
-gradient = SubResource("Gradient_nquon")
-width = 8
-height = 8
+gradient = SubResource("Gradient_8ln1q")
+width = 30
+height = 30
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
-[sub_resource type="Gradient" id="Gradient_838yx"]
-offsets = PackedFloat32Array(1)
-colors = PackedColorArray(1, 1, 1, 0.556863)
+[sub_resource type="Gradient" id="Gradient_0ntrm"]
+offsets = PackedFloat32Array(0, 0.532468, 0.571429, 0.655844)
+colors = PackedColorArray(0, 0, 0, 0.0705882, 0.0909091, 0.0909091, 0.0909091, 0.15508, 1, 1, 1, 0.772549, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_bc86i"]
-gradient = SubResource("Gradient_838yx")
-width = 8
-height = 8
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yot5b"]
+gradient = SubResource("Gradient_0ntrm")
+width = 30
+height = 30
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_y8mmt"]
+offsets = PackedFloat32Array(0.633803, 0.647887, 0.65493)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.494118, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wfw08"]
+gradient = SubResource("Gradient_y8mmt")
+width = 150
+height = 150
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [node name="RadialMenu" type="Control"]
 layout_mode = 3
@@ -29,4 +44,13 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_60xxn")
 unselected_texture = SubResource("GradientTexture2D_fm8og")
-selected_textrure = SubResource("GradientTexture2D_bc86i")
+selected_textrure = SubResource("GradientTexture2D_yot5b")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+max_value = 1.0
+step = 0.0
+fill_mode = 4
+texture_progress = SubResource("GradientTexture2D_wfw08")
