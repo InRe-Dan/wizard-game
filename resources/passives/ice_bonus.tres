@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PassiveResource" load_steps=4 format=3 uid="uid://b04gqu1ihw8g2"]
+
+[ext_resource type="Script" path="res://effects/ice_bonus.gd" id="1_yq7mh"]
+[ext_resource type="Texture2D" uid="uid://x15b7y2g8ert" path="res://assets/ice_icon.png" id="2_4bv3c"]
+[ext_resource type="Script" path="res://resources/custom_bases/passive_resource.gd" id="3_3s2xc"]
+
+[resource]
+script = ExtResource("3_3s2xc")
+passive_name = "Frost Empowered"
+passive_menu_description = "Deal 20% bonus ice damage for each stack!"
+icon = ExtResource("2_4bv3c")
+glow = Color(0.215686, 0.882353, 0.741176, 1)
+_effect_script = ExtResource("1_yq7mh")

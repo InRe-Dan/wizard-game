@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ctvyx6fxdx3mx"]
+[gd_scene load_steps=10 format=3 uid="uid://ctvyx6fxdx3mx"]
 
 [ext_resource type="Script" path="res://misc_scenes/radial_menu.gd" id="1_60xxn"]
 
@@ -24,6 +24,17 @@ height = 30
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
+[sub_resource type="Gradient" id="Gradient_1wybf"]
+offsets = PackedFloat32Array(0, 0.506494, 0.74026)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.840708, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_spot0"]
+gradient = SubResource("Gradient_1wybf")
+width = 4
+height = 4
+fill = 1
+fill_from = Vector2(0.513761, 0.490826)
+
 [sub_resource type="Gradient" id="Gradient_y8mmt"]
 offsets = PackedFloat32Array(0.633803, 0.647887, 0.65493)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.494118, 1, 1, 1, 0)
@@ -45,6 +56,7 @@ size_flags_vertical = 3
 script = ExtResource("1_60xxn")
 unselected_texture = SubResource("GradientTexture2D_fm8og")
 selected_textrure = SubResource("GradientTexture2D_yot5b")
+dot_texture = SubResource("GradientTexture2D_spot0")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="."]
 layout_mode = 0

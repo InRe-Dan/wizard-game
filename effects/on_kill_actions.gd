@@ -6,9 +6,10 @@ func _init(action : Action = null) -> void:
 	
 func handle_event(event : Event) -> Event:
 	if event.type == event.types.has_killed:
-		for child : Action in get_children():
-			var kill_event : HasKilledEvent = event as HasKilledEvent
-			child.do(get_parent().parent, kill_event.target)
+		if (event as HasKilledEvent).target.resource.type == EntityResource.EntityType.Enemy:
+			for child : Action in get_children():
+				var kill_event : HasKilledEvent = event as HasKilledEvent
+				child.do(get_parent().parent, kill_event.target)
 	if event.type == event.types.add_effect:
 		var add_event : AddEffectEvent = event as AddEffectEvent
 		if add_event.effect is KillActionsEffect:

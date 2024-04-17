@@ -5,7 +5,7 @@ class_name TextPopup extends VBoxContainer
 @onready var title : Label = $Title
 @onready var description : Label = $Description
 
-@export var default_timings : Array[float] = [0.3, 3, 0.1]
+@export var default_timings : Array[float] = [0.3, 3, 0.2]
 
 var queue : Array[QueueItem] = []
 var current : QueueItem = null

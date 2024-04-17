@@ -3,7 +3,7 @@ class_name PassiveResource extends LootResource
 # Overrides the Effect's name
 @export var passive_name : String = "Unnamed Passive Effect"
 # Real description is maintained by the Effect
-@export var passive_menu_description : String = "Unknown Behaviour"
+@export_multiline var passive_menu_description : String = "Unknown Behaviour"
 # Overrides the effect's icon
 @export var icon : Texture2D = PlaceholderTexture2D.new()
 # Used for items and for the inventory
