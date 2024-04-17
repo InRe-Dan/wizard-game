@@ -22,7 +22,6 @@ func handle_event(event : Event) -> Event:
 		action.entity = entity
 		entity.team = parent.team
 		var new_event : CreatedProjectileEvent = CreatedProjectileEvent.new(entity)
-		
 		parent.distribute_signal(new_event)
 		return null
 	if event is AddEffectEvent:

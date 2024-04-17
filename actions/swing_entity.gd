@@ -23,6 +23,7 @@ func _ready() -> void:
 	var entity : Entity = entity_resource.make_entity() as Entity
 	description = "Swing " + a_or_an(entity.resource.entity_name) + " in front of you"
 	expected_cooldown = swing_angle / swing_angular_speed
+	entity.queue_free()
 
 func _process(delta : float) -> void:
 	if swinging:
@@ -38,12 +39,12 @@ func do(target : Entity, secondary : Entity = null, direction : Vector2 = Vector
 	if not swinging:
 		entity = entity_resource.make_entity() as Entity
 		add_child(entity)
-		print(entity.get_parent())
 		target.distribute_signal(CreatedProjectileEvent.new(entity))
 		orbit_entity = target
 		entity.team = orbit_entity.team
 		if alternate:
 			modifier *= -1
+			entity.get_node("Sprite2D").flip_h = false if modifier > 0 else true
 		else:
 			modifier = -1 if abs(direction.angle_to(Vector2.LEFT)) < PI/2 else 1
 		start_angle = rad_to_deg(direction.angle()) + -1 * modifier * swing_angle / 2

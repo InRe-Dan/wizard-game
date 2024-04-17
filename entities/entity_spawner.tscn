@@ -1,0 +1,79 @@
+[gd_scene load_steps=10 format=3 uid="uid://cece4muup60o"]
+
+[ext_resource type="Script" path="res://entities/entity_spawner.gd" id="1_86qdx"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_eqnac"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="Curve" id="Curve_k3447"]
+min_value = -10.0
+max_value = 10.0
+_data = [Vector2(0, 0.769231), 0.0, 0.0, 0, 0, Vector2(0.506667, 2.74725), 0.0, 0.0, 0, 0, Vector2(1, 0.989011), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_3f38f"]
+curve = SubResource("Curve_k3447")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_g2pnu"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 15.0
+emission_ring_inner_radius = 12.0
+gravity = Vector3(0, 0, 0)
+tangential_accel_min = 10.0
+tangential_accel_max = 10.0
+tangential_accel_curve = SubResource("CurveTexture_3f38f")
+color = Color(1, 0.34902, 0, 1)
+sub_emitter_mode = 2
+sub_emitter_amount_at_end = 1
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jaax0"]
+particle_flag_disable_z = true
+gravity = Vector3(0, -30, 0)
+color = Color(1, 0.34902, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_gnhys"]
+offsets = PackedFloat32Array(0, 0.614754, 0.893443)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.811475, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_tm2nf"]
+gradient = SubResource("Gradient_gnhys")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ylkkh"]
+particle_flag_disable_z = true
+particle_flag_damping_as_friction = true
+emission_shape = 1
+emission_sphere_radius = 3.0
+spread = 180.0
+initial_velocity_min = 56.18
+initial_velocity_max = 146.07
+gravity = Vector3(0, 30, 0)
+damping_min = 1.0
+damping_max = 1.0
+color = Color(1, 0.34902, 0, 1)
+color_ramp = SubResource("GradientTexture1D_tm2nf")
+collision_mode = 2
+
+[node name="EntitySpawner" type="CharacterBody2D"]
+script = ExtResource("1_86qdx")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_eqnac")
+amount = 40
+sub_emitter = NodePath("../GPUParticles2D2")
+process_material = SubResource("ParticleProcessMaterial_g2pnu")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_jaax0")
+
+[node name="Flourish" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 200
+process_material = SubResource("ParticleProcessMaterial_ylkkh")
+one_shot = true
+explosiveness = 1.0
+randomness = 0.5

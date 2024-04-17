@@ -17,7 +17,8 @@ enum EntityElement {None, Fire, Ice, Water}
 @export var max_loot : int = 0
 @export var loot_table : Array[LootEntry]
 
-var loot_component = load("res://components/loot_component.tscn")
+var loot_component : PackedScene = load("res://components/loot_component.tscn")
+var spawner : PackedScene = load("res://entities/entity_spawner.tscn")
 
 func make_entity() -> Entity:
 	var entity : Entity = _entity_scene.instantiate()
@@ -38,4 +39,7 @@ func make_entity() -> Entity:
 	return null
 	
 func make_spawner(delay : float = 0.5) -> Entity:
-	return make_entity()
+	var spawner_instance : EntitySpawner = spawner.instantiate()
+	spawner_instance.entity = self
+	spawner_instance.delay = delay
+	return spawner_instance

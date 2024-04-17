@@ -13,7 +13,7 @@
 
 [sub_resource type="Resource" id="Resource_6fuaf"]
 script = ExtResource("4_kp0cn")
-damage = 1
+damage = 0.5
 damage_type = 0
 knockback_type = 0
 knockback_velocity = 60.0
