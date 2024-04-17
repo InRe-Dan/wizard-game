@@ -12,7 +12,7 @@ type = 0
 limited_use = false
 flavor_text = "Fire a short-range spread of freezing ice!
 "
-item_durability = 10
+item_durability = 50
 inventory_icon = ExtResource("2_vvk1w")
 glow = Color(0, 1, 1, 1)
 _item_scene = ExtResource("1_qojvr")

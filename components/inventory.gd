@@ -61,8 +61,13 @@ func get_item_cooldown_progress() -> float:
 	var item : InventoryItem = get_selected()
 	if item:
 		if item.expected_cooldown == 0:
-			return 0
+			return 1
 		return min(1, item.time_since_used / item.expected_cooldown)
+	else:
+		if default:
+			if default.expected_cooldown == 0:
+				return 1
+			return min(1, default.time_since_used / default.expected_cooldown)
 	return 0
 
 func discard(slot : int) -> void:

@@ -1,7 +1,32 @@
-[gd_resource type="Resource" script_class="EntityResource" load_steps=3 format=3 uid="uid://de3xho4ihfqg3"]
+[gd_resource type="Resource" script_class="EntityResource" load_steps=12 format=3 uid="uid://de3xho4ihfqg3"]
 
 [ext_resource type="PackedScene" uid="uid://bbwrd3v7gvwa7" path="res://entities/enemies/angel.tscn" id="1_xeype"]
 [ext_resource type="Script" path="res://resources/custom_bases/entity_resource.gd" id="2_4wgfv"]
+[ext_resource type="Script" path="res://resources/custom_bases/loot_entry.gd" id="2_6myx2"]
+[ext_resource type="Resource" uid="uid://hy23133r1yhg" path="res://resources/items/ice_wall.tres" id="2_tejw1"]
+[ext_resource type="Resource" uid="uid://rw34krfqyx5s" path="res://resources/items/ice_shards.tres" id="4_7k661"]
+[ext_resource type="Resource" uid="uid://06bg80hhgrh7" path="res://resources/items/shard_burst.tres" id="5_ov58w"]
+[ext_resource type="Resource" uid="uid://q26t08cme7jm" path="res://resources/items/waterbolt.tres" id="6_isroh"]
+
+[sub_resource type="Resource" id="Resource_d71lh"]
+script = ExtResource("2_6myx2")
+item = ExtResource("2_tejw1")
+rate = 0.2
+
+[sub_resource type="Resource" id="Resource_0q4rm"]
+script = ExtResource("2_6myx2")
+item = ExtResource("4_7k661")
+rate = 0.11
+
+[sub_resource type="Resource" id="Resource_3ynss"]
+script = ExtResource("2_6myx2")
+item = ExtResource("5_ov58w")
+rate = 0.1
+
+[sub_resource type="Resource" id="Resource_f7xyu"]
+script = ExtResource("2_6myx2")
+item = ExtResource("6_isroh")
+rate = 0.1
 
 [resource]
 script = ExtResource("2_4wgfv")
@@ -15,5 +40,5 @@ default_team = 1
 death_score_value = 10
 element = 0
 min_loot = 0
-max_loot = 0
-loot_table = Array[Resource("res://resources/custom_bases/loot_entry.gd")]([])
+max_loot = 1
+loot_table = Array[ExtResource("2_6myx2")]([SubResource("Resource_d71lh"), SubResource("Resource_0q4rm"), SubResource("Resource_3ynss"), SubResource("Resource_f7xyu")])

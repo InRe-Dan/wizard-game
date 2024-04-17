@@ -5,6 +5,7 @@ var move : Vector2
 
 var keyboard_controls = false
 @onready var reticle : Sprite2D = $Reticle
+@onready var cooldown : TextureProgressBar = $Reticle/TextureProgressBar
 var last_controller_direction : Vector2
 
 
@@ -59,11 +60,14 @@ func _unhandled_input(event: InputEvent) -> void:
 			parent.distribute_signal(InputCommand.new(InputCommand.Commands.interact, aim_dir))
 
 func _process(delta : float) -> void:
+	var inventory : InventoryComponent = parent.get_children().filter(func f(x : Node) -> bool: return x is InventoryComponent).front()
+	if inventory:
+		cooldown.value = inventory.get_item_cooldown_progress()
 	if keyboard_controls:
 		DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_VISIBLE)
 		reticle.visible = true
 		parent.looking_at = get_global_mouse_position()
-		reticle.global_position = global_position + global_position.direction_to(parent.looking_at).normalized() * 24
+		reticle.global_position = global_position + global_position.direction_to(parent.looking_at).normalized() * 48
 	else:
 		DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED_HIDDEN)
 		var aim_vec : Vector2 = Input.get_vector("aimleft", "aimright", "aimup", "aimdown")
@@ -74,7 +78,8 @@ func _process(delta : float) -> void:
 			reticle.visible = false
 		else:
 			reticle.visible = true
-		reticle.position = aim_vec * 24
+		reticle.position = aim_vec * 48
+	reticle.global_position = round(reticle.global_position)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:

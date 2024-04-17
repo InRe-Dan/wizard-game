@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EntityResource" load_steps=14 format=3 uid="uid://j17ul3aaxbif"]
+[gd_resource type="Resource" script_class="EntityResource" load_steps=40 format=3 uid="uid://j17ul3aaxbif"]
 
 [ext_resource type="Script" path="res://resources/custom_bases/entity_resource.gd" id="1_p8q25"]
 [ext_resource type="PackedScene" uid="uid://3ktj7vqa2nxo" path="res://entities/chest.tscn" id="1_sqad4"]
@@ -7,32 +7,110 @@
 [ext_resource type="Resource" uid="uid://dbaliilxi5nod" path="res://resources/passives/vampirism.tres" id="4_42hcm"]
 [ext_resource type="Resource" uid="uid://rw34krfqyx5s" path="res://resources/items/ice_shards.tres" id="5_37hbu"]
 [ext_resource type="Resource" uid="uid://du08ic7x2a6a8" path="res://resources/items/flame_circle.tres" id="6_n6rga"]
+[ext_resource type="Resource" uid="uid://b34wl3rb20hbn" path="res://resources/items/fire_wave.tres" id="7_fxv5c"]
 [ext_resource type="Resource" uid="uid://q26t08cme7jm" path="res://resources/items/waterbolt.tres" id="7_tq1ov"]
+[ext_resource type="Resource" uid="uid://mdkyn70fnjfe" path="res://resources/passives/divine_blood.tres" id="8_vrbqh"]
+[ext_resource type="Resource" uid="uid://c86lxyknu8xrs" path="res://resources/items/flame_blast.tres" id="9_07gpd"]
+[ext_resource type="Resource" uid="uid://dcnmpb6f0es47" path="res://resources/items/purify.tres" id="10_hpq3p"]
+[ext_resource type="Resource" uid="uid://c8xm13fwdo8xo" path="res://resources/items/whirlpool.tres" id="11_e8786"]
+[ext_resource type="Resource" uid="uid://dnmychjlaxph0" path="res://resources/items/water_spirit.tres" id="12_kbu8m"]
+[ext_resource type="Resource" uid="uid://w15yo43gwkdc" path="res://resources/passives/extra_life.tres" id="13_5xvxg"]
+[ext_resource type="Resource" uid="uid://dqnhoup1cex12" path="res://resources/passives/fire_bonus.tres" id="14_tvgb0"]
+[ext_resource type="Resource" uid="uid://dvk1ntlc7sypn" path="res://resources/passives/headstone.tres" id="15_igvxd"]
+[ext_resource type="Resource" uid="uid://b04gqu1ihw8g2" path="res://resources/passives/ice_bonus.tres" id="16_4koym"]
+[ext_resource type="Resource" uid="uid://cka851w5tb771" path="res://resources/passives/overflow.tres" id="17_5p6q4"]
+[ext_resource type="Resource" uid="uid://clkg8i6mrbx2m" path="res://resources/passives/sword_upgrade.tres" id="18_buwv2"]
+[ext_resource type="Resource" uid="uid://camyyi8fqc6la" path="res://resources/passives/water_bonus.tres" id="19_p5vb1"]
 
 [sub_resource type="Resource" id="Resource_h2x54"]
 script = ExtResource("3_cbfhp")
 item = ExtResource("2_ucjl3")
-rate = 0.1
+rate = 0.05
 
 [sub_resource type="Resource" id="Resource_bmmw8"]
 script = ExtResource("3_cbfhp")
 item = ExtResource("4_42hcm")
-rate = 0.1
+rate = 0.05
 
 [sub_resource type="Resource" id="Resource_6x0pj"]
 script = ExtResource("3_cbfhp")
 item = ExtResource("5_37hbu")
-rate = 0.1
+rate = 0.05
 
 [sub_resource type="Resource" id="Resource_e5488"]
 script = ExtResource("3_cbfhp")
 item = ExtResource("6_n6rga")
-rate = 0.1
+rate = 0.05
 
 [sub_resource type="Resource" id="Resource_hyh3o"]
 script = ExtResource("3_cbfhp")
+item = ExtResource("7_fxv5c")
+rate = 0.05
+
+[sub_resource type="Resource" id="Resource_jygng"]
+script = ExtResource("3_cbfhp")
+item = ExtResource("8_vrbqh")
+rate = 0.05
+
+[sub_resource type="Resource" id="Resource_noqgf"]
+script = ExtResource("3_cbfhp")
+item = ExtResource("9_07gpd")
+rate = 0.05
+
+[sub_resource type="Resource" id="Resource_n5pmy"]
+script = ExtResource("3_cbfhp")
+item = ExtResource("10_hpq3p")
+rate = 0.05
+
+[sub_resource type="Resource" id="Resource_f33qv"]
+script = ExtResource("3_cbfhp")
+item = ExtResource("11_e8786")
+rate = 0.05
+
+[sub_resource type="Resource" id="Resource_ybbff"]
+script = ExtResource("3_cbfhp")
+item = ExtResource("12_kbu8m")
+rate = 0.05
+
+[sub_resource type="Resource" id="Resource_3hv0a"]
+script = ExtResource("3_cbfhp")
+item = ExtResource("13_5xvxg")
+rate = 0.05
+
+[sub_resource type="Resource" id="Resource_ib4rl"]
+script = ExtResource("3_cbfhp")
+item = ExtResource("14_tvgb0")
+rate = 0.05
+
+[sub_resource type="Resource" id="Resource_2gt8f"]
+script = ExtResource("3_cbfhp")
+item = ExtResource("15_igvxd")
+rate = 0.05
+
+[sub_resource type="Resource" id="Resource_q3iks"]
+script = ExtResource("3_cbfhp")
+item = ExtResource("16_4koym")
+rate = 0.05
+
+[sub_resource type="Resource" id="Resource_fkp02"]
+script = ExtResource("3_cbfhp")
+item = ExtResource("17_5p6q4")
+rate = 0.05
+
+[sub_resource type="Resource" id="Resource_m7i32"]
+script = ExtResource("3_cbfhp")
+item = ExtResource("18_buwv2")
+rate = 0.05
+
+[sub_resource type="Resource" id="Resource_16pi8"]
+script = ExtResource("3_cbfhp")
+item = ExtResource("19_p5vb1")
+rate = 0.05
+
+[sub_resource type="Resource" id="Resource_s4q3p"]
+script = ExtResource("3_cbfhp")
 item = ExtResource("7_tq1ov")
-rate = 0.1
+rate = 0.05
 
 [resource]
 script = ExtResource("1_p8q25")
@@ -47,4 +125,4 @@ death_score_value = 50
 element = 0
 min_loot = 1
 max_loot = 5
-loot_table = Array[ExtResource("3_cbfhp")]([SubResource("Resource_h2x54"), SubResource("Resource_bmmw8"), SubResource("Resource_6x0pj"), SubResource("Resource_e5488"), SubResource("Resource_hyh3o")])
+loot_table = Array[ExtResource("3_cbfhp")]([SubResource("Resource_h2x54"), SubResource("Resource_bmmw8"), SubResource("Resource_6x0pj"), SubResource("Resource_e5488"), SubResource("Resource_hyh3o"), SubResource("Resource_jygng"), SubResource("Resource_noqgf"), SubResource("Resource_n5pmy"), SubResource("Resource_f33qv"), SubResource("Resource_ybbff"), SubResource("Resource_3hv0a"), SubResource("Resource_ib4rl"), SubResource("Resource_2gt8f"), SubResource("Resource_q3iks"), SubResource("Resource_fkp02"), SubResource("Resource_m7i32"), SubResource("Resource_16pi8"), SubResource("Resource_s4q3p")])
