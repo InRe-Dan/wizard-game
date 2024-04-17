@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PassiveResource" load_steps=4 format=3 uid="uid://mdkyn70fnjfe"]
+
+[ext_resource type="Script" path="res://effects/cleanse_on_hit.gd" id="1_4pg5o"]
+[ext_resource type="Texture2D" uid="uid://ci5kk84h6xvuc" path="res://assets/cleanse.png" id="2_0g300"]
+[ext_resource type="Script" path="res://resources/custom_bases/passive_resource.gd" id="3_wu1j7"]
+
+[resource]
+script = ExtResource("3_wu1j7")
+passive_name = "Divine Blood"
+passive_menu_description = "Cleanse elemental effects around you when taking damage."
+icon = ExtResource("2_0g300")
+glow = Color(1, 1, 1, 1)
+_effect_script = ExtResource("1_4pg5o")

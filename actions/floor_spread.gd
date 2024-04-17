@@ -4,6 +4,7 @@ enum Mode {UNDEFINED, ICE, FIRE, WATER, MELT, CLEANSE}
 
 @export var mode : Mode
 @export var radius : float = -1
+var purify_particles : PackedScene = preload("res://particles/purify.tscn")
 
 var init_mode : Mode
 var init_rad : float
@@ -59,4 +60,9 @@ func do(target : Entity, secondary : Entity = null, direction : Vector2 = Vector
 	pos = target.global_position
 	runtime = 0
 	going = true
-
+	if mode == Mode.CLEANSE:
+		var particles : GPUParticles2D = purify_particles.instantiate()
+		particles.finished.connect(particles.queue_free)
+		particles.emitting = true
+		particles.global_position = pos
+		add_child(particles)

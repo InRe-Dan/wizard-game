@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://c56sakydptsxr"]
+
+[sub_resource type="Curve" id="Curve_cwot1"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.310861, 0.969861), 0.0, 0.0, 0, 0, Vector2(0.333333, 0.487635), 0.0, 0.0, 0, 0, Vector2(0.71161, 0.477589), 0.0, 0.0, 0, 0, Vector2(0.734082, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 6
+
+[sub_resource type="CurveTexture" id="CurveTexture_rqds5"]
+curve = SubResource("Curve_cwot1")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3v82l"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 8.0
+gravity = Vector3(0, -10, 0)
+alpha_curve = SubResource("CurveTexture_rqds5")
+hue_variation_min = -0.05
+hue_variation_max = 0.3
+
+[sub_resource type="Gradient" id="Gradient_f2cjb"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.357143, 1)
+colors = PackedColorArray(1, 0.403922, 0, 1, 1, 0.529412, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ve70r"]
+gradient = SubResource("Gradient_f2cjb")
+width = 3
+height = 3
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="Fireparticles" type="GPUParticles2D"]
+z_index = 10
+z_as_relative = false
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_3v82l")
+texture = SubResource("GradientTexture2D_ve70r")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://cu4jaf5f1nlxo"]
+[gd_scene load_steps=31 format=3 uid="uid://cu4jaf5f1nlxo"]
 
 [ext_resource type="Script" path="res://entities/player.gd" id="1_e1iir"]
 [ext_resource type="PackedScene" uid="uid://dfdt5bke0tcu6" path="res://components/player_input_component.tscn" id="2_uw8o3"]
@@ -13,8 +13,6 @@
 [ext_resource type="Resource" uid="uid://b2va7dwqlsr5a" path="res://resources/items/wisps.tres" id="10_7t1fw"]
 [ext_resource type="PackedScene" uid="uid://c867pju6atw7e" path="res://components/hurtbox_component.tscn" id="11_hxc8l"]
 [ext_resource type="PackedScene" uid="uid://uag18b8s0jg4" path="res://components/dialogue_component.tscn" id="12_7vj67"]
-[ext_resource type="Resource" uid="uid://cka851w5tb771" path="res://resources/passives/overflow.tres" id="12_i1dyv"]
-[ext_resource type="Resource" uid="uid://dbaliilxi5nod" path="res://resources/passives/vampirism.tres" id="13_5t7u7"]
 [ext_resource type="PackedScene" uid="uid://b6byd7ixvxc8n" path="res://components/can_interact_component.tscn" id="13_lp353"]
 [ext_resource type="Script" path="res://effects/show_heal_particles.gd" id="14_3i7el"]
 [ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="14_ljjej"]
@@ -22,15 +20,9 @@
 [ext_resource type="PackedScene" uid="uid://b3c3vg8q6e5k7" path="res://components/effect_container.tscn" id="15_csrq8"]
 [ext_resource type="Script" path="res://actions/play_sound.gd" id="15_vojiu"]
 [ext_resource type="AudioStream" uid="uid://tf11vprywdnr" path="res://assets/sounds/player_hurt.wav" id="16_2xikm"]
-[ext_resource type="Resource" uid="uid://dvk1ntlc7sypn" path="res://resources/passives/headstone.tres" id="16_xljrl"]
 [ext_resource type="Script" path="res://effects/fire.gd" id="17_126sm"]
-[ext_resource type="Resource" uid="uid://w15yo43gwkdc" path="res://resources/passives/extra_life.tres" id="17_njild"]
 [ext_resource type="PackedScene" uid="uid://db8b4lwo0gdvi" path="res://components/health_bar.tscn" id="19_8py24"]
-[ext_resource type="Script" path="res://resources/custom_bases/passive_resource.gd" id="19_kgryb"]
-[ext_resource type="Resource" uid="uid://clkg8i6mrbx2m" path="res://resources/passives/sword_upgrade.tres" id="19_q8bjk"]
 [ext_resource type="AudioStream" uid="uid://dosjuvfa2igba" path="res://assets/sounds/death.wav" id="19_yvff5"]
-[ext_resource type="Script" path="res://effects/cleanse_on_hit.gd" id="20_iqklr"]
-[ext_resource type="Texture2D" uid="uid://ci5kk84h6xvuc" path="res://assets/cleanse.png" id="21_f5r71"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qptjs"]
 radius = 6.0
@@ -77,14 +69,6 @@ fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b1i4r"]
 radius = 33.0
-
-[sub_resource type="Resource" id="Resource_3b7ld"]
-script = ExtResource("19_kgryb")
-passive_name = "Divine Blood"
-passive_menu_description = "Cleanse elemental effects around you when taking damage."
-icon = ExtResource("21_f5r71")
-glow = Color(1, 1, 1, 1)
-_effect_script = ExtResource("20_iqklr")
 
 [node name="PlayerEntity" type="CharacterBody2D" groups=["players"]]
 collision_layer = 4
@@ -149,7 +133,6 @@ collision_mask = 64
 shape = SubResource("CircleShape2D_b1i4r")
 
 [node name="EffectContainer" parent="." instance=ExtResource("15_csrq8")]
-initial_effects = Array[ExtResource("19_kgryb")]([ExtResource("13_5t7u7"), ExtResource("12_i1dyv"), ExtResource("16_xljrl"), ExtResource("17_njild"), ExtResource("19_q8bjk"), SubResource("Resource_3b7ld")])
 
 [node name="OnGetHit" type="Node" parent="EffectContainer"]
 script = ExtResource("14_tlggt")

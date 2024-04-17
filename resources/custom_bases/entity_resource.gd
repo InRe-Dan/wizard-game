@@ -38,7 +38,7 @@ func make_entity() -> Entity:
 	push_error("Failed to create an entity.")
 	return null
 	
-func make_spawner(delay : float = 0.5) -> Entity:
+func make_spawner(delay : float = 0.0) -> Entity:
 	var spawner_instance : EntitySpawner = spawner.instantiate()
 	spawner_instance.entity = self
 	spawner_instance.delay = delay
