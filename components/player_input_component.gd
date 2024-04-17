@@ -64,10 +64,11 @@ func _process(delta : float) -> void:
 	if inventory:
 		cooldown.value = inventory.get_item_cooldown_progress()
 	if keyboard_controls:
-		DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_VISIBLE)
+		DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_HIDDEN)
 		reticle.visible = true
 		parent.looking_at = get_global_mouse_position()
-		reticle.global_position = global_position + global_position.direction_to(parent.looking_at).normalized() * 48
+		# reticle.global_position = global_position + global_position.direction_to(parent.looking_at).normalized() * 48
+		reticle.global_position = get_global_mouse_position()
 	else:
 		DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CONFINED_HIDDEN)
 		var aim_vec : Vector2 = Input.get_vector("aimleft", "aimright", "aimup", "aimdown")

@@ -5,6 +5,7 @@ class_name RadialMenu extends Control
 @export var unselected_texture : Texture2D
 @export var selected_textrure : Texture2D
 @export var dot_texture : Texture2D
+@export var empty_dot_texture : Texture2D
 
 @export var time_slow_capacity : float = 1.0
 
@@ -28,9 +29,9 @@ func draw_small(inventory : InventoryComponent) -> void:
 			rect.texture = dot_texture
 			rect.modulate = item.resource.glow
 		else:
-			rect.texture = null
+			rect.texture = empty_dot_texture
 		add_child(rect)
-		rect.global_position = center - Vector2.ONE * 2 + Vector2.from_angle(angle) * 50
+		rect.global_position = center - Vector2.ONE * 4 + Vector2.from_angle(angle) * 50
 
 func draw_big(inventory : InventoryComponent) -> void:
 	var items : Array[InventoryItem] = inventory.get_items()
