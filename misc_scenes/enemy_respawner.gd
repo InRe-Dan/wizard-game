@@ -15,8 +15,10 @@ func room_clear(room : LevelUtilities.Room) -> void:
 	var spawns : int = room.marker_global_positions.size()
 	var positions : Array[Vector2] = room.marker_global_positions.duplicate()
 	positions.shuffle()
-	var to_spawn : int = randi_range(min(spawns, 3), spawns + 1)
+	var to_spawn : int = min(randi_range(min(spawns, 3), spawns + 1), spawns)
 	for i in range(to_spawn):
 		var spawner : Entity = Global.level.enemy_list.pick_random().make_spawner(0.5 + i * 0.1)
 		Global.level.add_child(spawner)
+		if not spawner:
+			return
 		spawner.global_position = positions.pop_back()
