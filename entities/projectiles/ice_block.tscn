@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://h7de1n8frdwv"]
+[gd_scene load_steps=19 format=3 uid="uid://h7de1n8frdwv"]
 
 [ext_resource type="Script" path="res://entities/projectiles/ice_block.gd" id="1_ocvix"]
 [ext_resource type="PackedScene" uid="uid://b3c3vg8q6e5k7" path="res://components/effect_container.tscn" id="2_k0l51"]
@@ -15,7 +15,7 @@
 [ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="9_3vxlj"]
 [ext_resource type="Script" path="res://effects/frozen.gd" id="10_ckvq1"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_yli8y"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_oca5m"]
 radius = 3.0
 
 [sub_resource type="Resource" id="Resource_uyknv"]
@@ -40,6 +40,9 @@ damage_type = 1
 knockback_type = 1
 knockback_velocity = 0.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_yli8y"]
+radius = 8.0
+
 [node name="IceBlock" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 6
@@ -50,7 +53,7 @@ min_speed = 50.0
 max_speed = 500.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_yli8y")
+shape = SubResource("CircleShape2D_oca5m")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 color = Color(0, 1, 1, 0.627451)
@@ -76,7 +79,7 @@ sound = ExtResource("8_yqo8g")
 [node name="Melt" type="Node" parent="EffectContainer"]
 script = ExtResource("7_j6grc")
 
-[node name="Node" type="Node" parent="EffectContainer"]
+[node name="Fire Vulnerability" type="Node" parent="EffectContainer"]
 script = ExtResource("8_sbah2")
 seconds_threshold = 0.1
 tick_damage = SubResource("Resource_04n34")

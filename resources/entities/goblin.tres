@@ -1,7 +1,26 @@
-[gd_resource type="Resource" script_class="EntityResource" load_steps=3 format=3 uid="uid://b0417rkfcoxqv"]
+[gd_resource type="Resource" script_class="EntityResource" load_steps=10 format=3 uid="uid://b0417rkfcoxqv"]
 
 [ext_resource type="PackedScene" uid="uid://bent3fo2kwsvd" path="res://entities/enemies/goblin.tscn" id="1_8oya4"]
 [ext_resource type="Script" path="res://resources/custom_bases/entity_resource.gd" id="2_7k5m7"]
+[ext_resource type="Resource" uid="uid://camyyi8fqc6la" path="res://resources/passives/water_bonus.tres" id="2_ibwjb"]
+[ext_resource type="Script" path="res://resources/custom_bases/loot_entry.gd" id="3_pd02e"]
+[ext_resource type="Resource" uid="uid://dqnhoup1cex12" path="res://resources/passives/fire_bonus.tres" id="4_uiglf"]
+[ext_resource type="Resource" uid="uid://b04gqu1ihw8g2" path="res://resources/passives/ice_bonus.tres" id="5_s01p6"]
+
+[sub_resource type="Resource" id="Resource_jjdcp"]
+script = ExtResource("3_pd02e")
+item = ExtResource("2_ibwjb")
+rate = 0.1
+
+[sub_resource type="Resource" id="Resource_wtkn5"]
+script = ExtResource("3_pd02e")
+item = ExtResource("4_uiglf")
+rate = 0.1
+
+[sub_resource type="Resource" id="Resource_xgvao"]
+script = ExtResource("3_pd02e")
+item = ExtResource("5_s01p6")
+rate = 0.1
 
 [resource]
 script = ExtResource("2_7k5m7")
@@ -16,4 +35,4 @@ death_score_value = 5
 element = 0
 min_loot = 0
 max_loot = 0
-loot_table = Array[Resource("res://resources/custom_bases/loot_entry.gd")]([])
+loot_table = Array[ExtResource("3_pd02e")]([SubResource("Resource_jjdcp"), SubResource("Resource_wtkn5"), SubResource("Resource_xgvao")])

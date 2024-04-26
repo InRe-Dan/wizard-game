@@ -83,9 +83,8 @@ func distribute_signal(event : Event) -> void:
 		_:
 			pass
 	if event is DeathEvent and self is Player:
-		Global.queue_announcement("You Died!", "Better luck next time...", Color.DARK_RED, [0.1, 10.0, 0.5])
-
-
+		Global.queue_announcement("You Died!", "Respawning...", Color.DARK_RED, [0.1, 5.0, 0.5])
+		Global.main.regen_after_delay()
 	# HACK stops memory leak?
 	event.queue_free()
 	

@@ -39,6 +39,7 @@ script = SubResource("GDScript_1u817")
 texture = ExtResource("2_f4k8b")
 
 [node name="InteractableComponent" parent="." instance=ExtResource("2_pfrfv")]
+one_shot = true
 
 [node name="Area2D" type="Area2D" parent="InteractableComponent"]
 collision_layer = 64

@@ -40,7 +40,6 @@ func make_entity() -> Entity:
 	
 func make_spawner(delay : float = 0.0) -> Entity:
 	var spawner_instance : EntitySpawner = spawner.instantiate()
-	print(spawner_instance)
 	spawner_instance.entity = self
 	spawner_instance.delay = delay
 	return spawner_instance

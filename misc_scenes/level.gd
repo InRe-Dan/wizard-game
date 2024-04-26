@@ -18,7 +18,7 @@ class_name Level extends Node2D
 
 @onready var floor : TileMap = $Floor
 @onready var walls : TileMap = $Walls
-var stairs_res : EntityResource = preload("res://resources/entities/stairs.tres")
+var stairs_res : EntityResource = load("res://resources/entities/stairs.tres")
 
 signal regenerated
 

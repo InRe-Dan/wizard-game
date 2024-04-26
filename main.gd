@@ -16,10 +16,43 @@ func _process(delta : float) -> void:
 		add_child(player)
 		($level as Level).move_player(player)
 
+func regen_after_delay() -> void:
+	await get_tree().create_timer(5).timeout
+	await transition()
+	Global.floor_number = 1
+	var player : Entity = player_resource.make_entity()
+	add_child(player)
+	$level.generate_bsp()
+	await get_tree().create_timer(1).timeout
+	detransition()
+
+func transition() -> void:
+	var rect : ColorRect = get_tree().get_first_node_in_group("postprocessrect")
+	var shader : ShaderMaterial = rect.material as ShaderMaterial
+	var tween = get_tree().create_tween()
+	var lambda = func a(x : float): shader.set_shader_parameter("quantizationSteps", x)
+	tween.tween_method(lambda, shader.get_shader_parameter("quantizationSteps"), 0, 3)
+	tween.tween_interval(1)
+	await tween.finished
+
+func detransition() -> void:
+	var rect : ColorRect = get_tree().get_first_node_in_group("postprocessrect")
+	var shader : ShaderMaterial = rect.material as ShaderMaterial
+	var tween = get_tree().create_tween()
+	var lambda = func a(x : float): shader.set_shader_parameter("quantizationSteps", x)
+	tween.tween_method(lambda, shader.get_shader_parameter("quantizationSteps"), 16, 1)
+	await tween.finished
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("discard"):
+		await transition()
+		detransition()
+
 func next_level() -> void:
 	Global.floor_number += 1
 	if Global.floor_number > 3:
-		Global.queue_announcement("YOU WIN!", "Did you get a high score?", Color.ORANGE_RED, [0.1, 15, 0.5])
-		get_tree().paused = true
-	else:
-		$level.generate_bsp()
+		Global.queue_announcement("YOU WIN!", "Keep going for a high score!", Color.DARK_GREEN, [0.1, 15, 0.5])
+	await get_tree().create_timer(5).timeout
+	await transition()
+	$level.generate_bsp()
+	detransition()

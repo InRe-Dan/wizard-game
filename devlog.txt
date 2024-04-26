@@ -1,3 +1,10 @@
+TAG_IMPORTANT
+TAG_JOHN
+TAG_COPYPASTE
+TAG_NARRATIVE
+TAG_EVALUATION
+TAG_IDEA
+
 12/31/23
 I'm only starting this devlog a couple of days into working on the first prototype of the ideas that I have for my game project, so here is a recap of the work I have done so far: 
     Read through good chunks of Godot's online documentation and some of the engine's weaknesses (None of which seemed to be too relevant to me - although I don't remember them)
@@ -13,13 +20,17 @@ I'm only starting this devlog a couple of days into working on the first prototy
     I've learned a lot about the structure of Godot's objects and various menus but it's going to be a while before I know about all the tools at my disposal and how they are best applied. I am very glad that the systems seem to be very compatible with ripping stuff out and restructuring things, because I still have no idea how to lay out the nodes in this game.
 
 I was planning on making a devlog when I started development, just to ramble about things that I know I will forget regarding my writeup or ideas for the game. It'll be nice to get a Trello board once the project is fully in motion, but for now I just wanted to note a few things:
+    NARRATIVE
     The first big feature that I'm going to want to prototype is a bunch of nicely encapsulated spellcasting nodes, and then I'll be wanting to find out how to give them to the player in a gameplay sense - I think limited use cards would be fun and unique, but I have yet to see how fun it is. There are already a lot of good ideas about this on Google Docs, but that document is probably going to be made obsolete by this one.
     I'm probably not going to be working on procedural generation until the gameplay loop is solid, but I do need ideas about how to transition from area to area. I want the game to have a room structure, and I think it would be fun to have rooms larger than a single screen. For transitioning between them, I could use simple "teleport" doors for simplicity, but a real level structure would be more fun... and harder to implement with procedural generation. While fiddling with shaders I stumbled on a very interesting way to do screen transitions, which is to turn the quantization levels way down to 0 on my shader, change the screen, and then turn the quantization back up. I'm not sure if I want to keep the graphics the same as they are right now, with the low bit depth, but it could be an easy way to add some style to the game. I'm looking forward to toying with lighting and shaders a lot more, but the built-in lighting system doesn't look to enable a lot of variety, so I might have a lot of learning ahead of me for that one. The built-in stuff is pretty good by itself though!
+    TAG_IDEA screen transition above!
 
 23/1/24
 
+TAG_JOHN
 I met with my supervisor yesterday, and we discussed due dates, deadlines, the self-imposed MVP deadline, referencing and where marks would come from in my dissertation. The outcome of the meeting was, expectedly, that I need to get to grips with Godot a little bit more, as well as create a detailed specification for my MVP as well as creating a timeline for when I would like to complete tasks by. 
 
+TAG_NARRATIVE
 In the last week or two, I have toyed around with restructuring my project to enable flexibility in development and prototyping, but I am not satisfied with what I've made so far.
 The basis for this work has been Godot's Resources, as suggested by members of the Godot discord. I tried to make a Projectile and Weapon resource file, derive different types of weapons and projectiles from those resources and use the resources to instantiate weapon and projectile scenes into the game. 
 This method falls short for modularity and fast prototyping because adding new attributes to resources is quite an involved process, and it is difficult to attach different behaviours to resources since they all need to be compatible with the same Projectile class. Having a different scene for each object seems to require less work and not much more repetition, since I don't plan on having that many different types of weapons or projectiles to begin with anyways. Fail fast!
@@ -28,8 +39,10 @@ I've done a little bit more work in understanding what a Godot class even is, so
 
 24/1/24
 
+TAG_IMPORTANT TAG_NARRATIVE TAG_JOHN
 In the meeting we discussed that work done, dissertation coverage and mark weight will be loosely proportional, so I wonder if there should be a section dedicated to explaining my process of learning Godot, and the lessons that I took away from it. So far I've found that I need to lean into Nodes more, and really obey single-responsibility rules, as well as "Keep it Simple, Stupid."
 
+TAG_NARRATIVE TAG_IMPORTANT
 I need to assess which elements would be a good foundation for synergistic mechanics in my game, so I'll start by looking at some other games' implementations of them:
     Spellbreak. Source: https://spellbreak.fandom.com/wiki/Spells_%26_Sorceries. Spellbreak prides itself on elements which interact with eachother and synergise with eachother, but actual interactions seem to be limited. Most of the synergy comes from setting up one move with another.
         Elements:
@@ -75,6 +88,8 @@ I need to assess which elements would be a good foundation for synergistic mecha
 
 At the moment I think it'd be good to implement a very simple Rock-Paper-Scissors element structure to the game, so that interactions are assured by the x beats y beats z beats x structure, and so that the interactions are easy to understand.
 
+
+TAG_NARRATIVE TAG_IMPORTANT
 I want elements capable of dealing damage over time, doing area denial, moving targets around (both for mobility and for concussive damage) and map layout manipulation. My first idea is then Fire > Ice > Water > Fire.
     Fire spells by themselves provide crowd control via area of effect and damage over time. Fire spells are also strong against ice based moves and can cause icy structures to explode into shards/steam. Fireballs melt ice along their path.
     Water spells by themselves allow for concussive damage through knocking targets into walls (similarly to Poseidon boons in Hades), and can serve as an intuitive mobilty option via self-knockback and surfing on water. Water can douse fires and block fire damage from enemies, but it can also freeze to allow for skating across ice.
@@ -97,11 +112,13 @@ In terms of how I would create the assets for all of this, I am heavily consider
 I've gotten to a point now where I really need to work out how to implement some basic combat mechanics in a sensible way, so I wanted to read through the introductory documentation again and take some notes on what might be useful. I want to figure out how to detect projectiles striking a target and applying damage to them. It seems that I should use Area2D to define hitboxes and to act on them accordinly, but the question remains over who should be responsible for dealing damage to a target: the projectile, or the victim?
 
 2/2/2024
+TAG_JOHN
 Meeting notes
   Air as an additional utility element to boost fire, knock ice around, spread water 
   Limited use and unlimited use cards
   unlimited cards cycle to a discard pile
   Potentially abilities to reshuffle or redraw
+  TAG_IDEA
   Cards imbue your dash
 
   Fire hurts you, but passive cards can:
@@ -116,8 +133,10 @@ Meeting notes
 
   Prepare consent forms and things for next meeting
 
+TAG_IDEA
 Note: want to switch to a f=ma based model for movement so that areas can apply forces when you are in them and so that enemies can have mass stopping them from being pushed
 
+TAG_NARRATIVE TAG_IMPORTANT
 Development notes for ice floors:
 First attempt was to completely remove friction as this is quite intuitive, but the current movement model relies on having damping to cap speed
 Added a hard speed limit, but there is some undesirable behaviour when hitting walls after sliding on ice: it is difficult to turn around the character's velocity does not get zeroed on collision, it simply gets prevented.
@@ -126,6 +145,7 @@ This issue is tempting me to use a custom entity class for the player and for en
 Brief tangent to try to get icy areas to add a blue tint under them via shaders, but Area2Ds refuse to render.
 
 3/2/2024
+TAG_NARRATIVE TAG_IMPORTANT
 Did a lot of thinking on how I would like the floor effects to look and function, but eventually I had to cut back on my requirements for the sake of getting a prototype working.
 I wanted to define them as arbitrarilty shaped Area2Ds, but due to concerns over how to program graphics for this (how do I work out which pixels are in the area in a performant way? how do I know how far from the edges are they?) I cut back to having only circular floor effects with ColorRects over them to be able to apply shaders. I am concerned over how this will work for transparent effects (since colorrects can overlap) and how it will work for effects like fire, but I am hoping that creative shader code will save me. Or a slight refactor.
 

@@ -22,4 +22,5 @@ func distribute_signal(event : Event) -> void:
 		var effect : Effect = (event as AddEffectEvent).effect
 		if effect.resource:
 			Global.announce_passive(effect.resource)
+
 	super(event)

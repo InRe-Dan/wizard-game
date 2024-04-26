@@ -8,7 +8,7 @@ extends Node
 
 var score : int = 0
 var last_score_time : float = 0
-var floor_number : int = 4
+var floor_number : int = 1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

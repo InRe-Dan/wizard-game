@@ -13,22 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://cnmm04jdtxbiy" path="res://misc_scenes/debug_menu.tscn" id="7_a1mme"]
 [ext_resource type="PackedScene" uid="uid://ctvyx6fxdx3mx" path="res://misc_scenes/radial_menu.tscn" id="9_0rdqt"]
 
-[sub_resource type="Gradient" id="Gradient_uhjsu"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_py0t1"]
-noise_type = 5
-frequency = 1.0
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qgabh"]
-color_ramp = SubResource("Gradient_uhjsu")
-noise = SubResource("FastNoiseLite_py0t1")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_n0wmh"]
-shader = ExtResource("2_gcgr3")
-shader_parameter/quantizationSteps = 16.0
-shader_parameter/vignetteExponent = 0.78
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_qgabh")
-
 [sub_resource type="LabelSettings" id="LabelSettings_0fvr4"]
 font = ExtResource("3_bkmx6")
 font_size = 18
@@ -80,6 +64,22 @@ region = Rect2(65, 34, 13, 12)
 atlas = ExtResource("6_l88bi")
 region = Rect2(2, 18, 28, 13)
 
+[sub_resource type="Gradient" id="Gradient_uhjsu"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_py0t1"]
+noise_type = 5
+frequency = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qgabh"]
+color_ramp = SubResource("Gradient_uhjsu")
+noise = SubResource("FastNoiseLite_py0t1")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n0wmh"]
+shader = ExtResource("2_gcgr3")
+shader_parameter/quantizationSteps = 16.0
+shader_parameter/vignetteExponent = 0.78
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_qgabh")
+
 [node name="Camera" type="Camera2D" groups=["camera"]]
 process_mode = 3
 script = ExtResource("1_67e48")
@@ -87,17 +87,6 @@ offset_scale = 0.135
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.321728, 0.321728, 0.321728, 1)
-
-[node name="Postprocess" type="CanvasLayer" parent="."]
-
-[node name="ColorRect" type="ColorRect" parent="Postprocess"]
-material = SubResource("ShaderMaterial_n0wmh")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 2
@@ -233,3 +222,15 @@ offset_right = 200.0
 offset_bottom = 131.0
 grow_horizontal = 1
 grow_vertical = 1
+
+[node name="Postprocess" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="ColorRect" type="ColorRect" parent="Postprocess" groups=["postprocessrect"]]
+material = SubResource("ShaderMaterial_n0wmh")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

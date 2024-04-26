@@ -8,11 +8,15 @@ class_name EntitySpawner extends Entity
 
 var entity : EntityResource
 var delay : float
+var room : LevelUtilities.Room
 
 func spawn() -> void:
 	var e : Entity = entity.make_entity()
 	e.global_position = global_position
 	add_sibling(e)
+	if room:
+		e.died.connect(room.decrement_enemies)
+		room = null
 	flourish.emitting = true
 	flourish.finished.connect(queue_free)
 	print(emitter_mat.emission_shape_scale)
@@ -30,8 +34,6 @@ func do() -> void:
 
 func _ready() -> void:
 	super()
-	if not entity:
-		push_error("Spawner made with no entity.")
 	do()
 
 func distribute_signal(event : Event) -> void:

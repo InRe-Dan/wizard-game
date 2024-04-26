@@ -39,13 +39,13 @@ min_items_per_room = 1
 max_items_per_room = 1
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-visible = false
+scroll_base_scale = Vector2(0.5, 0.5)
+scroll_ignore_camera_zoom = true
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(0.5, 0.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-modulate = Color(0.184314, 0.184314, 0.184314, 1)
+modulate = Color(0.233925, 0.233925, 0.233925, 1)
 texture_filter = 2
 texture_repeat = 2
 material = SubResource("CanvasItemMaterial_62fnj")
