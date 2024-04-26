@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EntityResource" load_steps=40 format=3 uid="uid://j17ul3aaxbif"]
+[gd_resource type="Resource" script_class="EntityResource" load_steps=42 format=3 uid="uid://j17ul3aaxbif"]
 
 [ext_resource type="Script" path="res://resources/custom_bases/entity_resource.gd" id="1_p8q25"]
 [ext_resource type="PackedScene" uid="uid://3ktj7vqa2nxo" path="res://entities/chest.tscn" id="1_sqad4"]
@@ -21,6 +21,7 @@
 [ext_resource type="Resource" uid="uid://cka851w5tb771" path="res://resources/passives/overflow.tres" id="17_5p6q4"]
 [ext_resource type="Resource" uid="uid://clkg8i6mrbx2m" path="res://resources/passives/sword_upgrade.tres" id="18_buwv2"]
 [ext_resource type="Resource" uid="uid://camyyi8fqc6la" path="res://resources/passives/water_bonus.tres" id="19_p5vb1"]
+[ext_resource type="Resource" uid="uid://b2va7dwqlsr5a" path="res://resources/items/wisps.tres" id="21_oh1nx"]
 
 [sub_resource type="Resource" id="Resource_h2x54"]
 script = ExtResource("3_cbfhp")
@@ -112,6 +113,11 @@ script = ExtResource("3_cbfhp")
 item = ExtResource("7_tq1ov")
 rate = 0.05
 
+[sub_resource type="Resource" id="Resource_cwd31"]
+script = ExtResource("3_cbfhp")
+item = ExtResource("21_oh1nx")
+rate = 0.05
+
 [resource]
 script = ExtResource("1_p8q25")
 entity_name = "chest"
@@ -125,4 +131,4 @@ death_score_value = 50
 element = 0
 min_loot = 1
 max_loot = 5
-loot_table = Array[ExtResource("3_cbfhp")]([SubResource("Resource_h2x54"), SubResource("Resource_bmmw8"), SubResource("Resource_6x0pj"), SubResource("Resource_e5488"), SubResource("Resource_hyh3o"), SubResource("Resource_jygng"), SubResource("Resource_noqgf"), SubResource("Resource_n5pmy"), SubResource("Resource_f33qv"), SubResource("Resource_ybbff"), SubResource("Resource_3hv0a"), SubResource("Resource_ib4rl"), SubResource("Resource_2gt8f"), SubResource("Resource_q3iks"), SubResource("Resource_fkp02"), SubResource("Resource_m7i32"), SubResource("Resource_16pi8"), SubResource("Resource_s4q3p")])
+loot_table = Array[ExtResource("3_cbfhp")]([SubResource("Resource_h2x54"), SubResource("Resource_bmmw8"), SubResource("Resource_6x0pj"), SubResource("Resource_e5488"), SubResource("Resource_hyh3o"), SubResource("Resource_jygng"), SubResource("Resource_noqgf"), SubResource("Resource_n5pmy"), SubResource("Resource_f33qv"), SubResource("Resource_ybbff"), SubResource("Resource_3hv0a"), SubResource("Resource_ib4rl"), SubResource("Resource_2gt8f"), SubResource("Resource_q3iks"), SubResource("Resource_fkp02"), SubResource("Resource_m7i32"), SubResource("Resource_16pi8"), SubResource("Resource_s4q3p"), SubResource("Resource_cwd31")])

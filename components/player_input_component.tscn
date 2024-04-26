@@ -33,19 +33,24 @@ fill_from = Vector2(0.5, 0.5)
 [node name="PlayerInputComponent" type="Node2D"]
 script = ExtResource("1_rhhed")
 
-[node name="Reticle" type="Sprite2D" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 128
+follow_viewport_enabled = true
+
+[node name="Reticle" type="Sprite2D" parent="CanvasLayer"]
 z_index = 10
 z_as_relative = false
 material = SubResource("ShaderMaterial_gbyeu")
 position = Vector2(54, 0)
 texture = SubResource("GradientTexture2D_426ju")
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="Reticle"]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/Reticle"]
 use_parent_material = true
 offset_left = -6.0
 offset_top = -6.0
 offset_right = 34.0
 offset_bottom = 34.0
+mouse_filter = 2
 max_value = 1.0
 step = 0.0
 value = 0.67

@@ -43,11 +43,6 @@ func detransition() -> void:
 	tween.tween_method(lambda, shader.get_shader_parameter("quantizationSteps"), 16, 1)
 	await tween.finished
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("discard"):
-		await transition()
-		detransition()
-
 func next_level() -> void:
 	Global.floor_number += 1
 	if Global.floor_number > 3:

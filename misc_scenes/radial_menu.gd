@@ -6,8 +6,10 @@ class_name RadialMenu extends Control
 @export var selected_textrure : Texture2D
 @export var dot_texture : Texture2D
 @export var empty_dot_texture : Texture2D
+@export var dot_selected_texture : Texture2D
+@export var label_settings : LabelSettings
 
-@export var time_slow_capacity : float = 1.0
+@export var time_slow_capacity : float = 3.0
 
 var time_slow_juice : float = 0
 var center : Vector2
@@ -31,7 +33,11 @@ func draw_small(inventory : InventoryComponent) -> void:
 		else:
 			rect.texture = empty_dot_texture
 		add_child(rect)
-		rect.global_position = center - Vector2.ONE * 4 + Vector2.from_angle(angle) * 50
+		rect.global_position = center - Vector2.ONE * 4 + Vector2.from_angle(angle) * 70
+		if i == inventory.selected:
+			background_rect.texture = dot_selected_texture
+			add_child(background_rect)
+			background_rect.global_position = center - Vector2.ONE * 6 + Vector2.from_angle(angle) * 70
 
 func draw_big(inventory : InventoryComponent) -> void:
 	var items : Array[InventoryItem] = inventory.get_items()
@@ -43,13 +49,26 @@ func draw_big(inventory : InventoryComponent) -> void:
 		var angle : float = TAU * float(i) / items.size()
 		if item:
 			rect.texture = item.resource.inventory_icon
+			var label : Label = Label.new()
+			label.text = item.resource.item_name + "\n"
+			if item.resource.limited_use:
+				label.text += str(item.uses) + "/" + str(item.resource.item_durability)
+			label.label_settings = label_settings
+			label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			label.size = Vector2(100, 50)
+			if i == inventory.selected:
+				label.modulate.a = 0.8
+			else:
+				label.modulate.a = 0.5
+			add_child(label)
+			label.global_position = (center - Vector2(50, 25) + Vector2.from_angle(angle) * 70) + Vector2.DOWN * 38
 		else:
 			rect.texture = null
 		add_child(background_rect)
 		add_child(rect)
 		rect.size *= 2
-		rect.global_position = center - Vector2.ONE * 8 + Vector2.from_angle(angle) * 50
-		background_rect.global_position = center - Vector2.ONE * 15 + Vector2.from_angle(angle) * 50
+		rect.global_position = center - Vector2.ONE * 8 + Vector2.from_angle(angle) * 70
+		background_rect.global_position = center - Vector2.ONE * 15 + Vector2.from_angle(angle) * 70
 		
 		var to_mouse : float = (center - get_global_mouse_position()).angle()
 		var to_item : float = (center - rect.global_position).angle()

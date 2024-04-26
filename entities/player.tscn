@@ -1,15 +1,13 @@
-[gd_scene load_steps=27 format=3 uid="uid://cu4jaf5f1nlxo"]
+[gd_scene load_steps=25 format=3 uid="uid://cu4jaf5f1nlxo"]
 
 [ext_resource type="Script" path="res://entities/player.gd" id="1_e1iir"]
 [ext_resource type="PackedScene" uid="uid://dfdt5bke0tcu6" path="res://components/player_input_component.tscn" id="2_uw8o3"]
 [ext_resource type="PackedScene" uid="uid://c03pfmwpgtofc" path="res://components/simple_graphics_component.tscn" id="3_xynmr"]
 [ext_resource type="SpriteFrames" uid="uid://xdt74tl0fgn7" path="res://resources/player_sprite_frames.tres" id="4_sm4xv"]
 [ext_resource type="PackedScene" uid="uid://uajwl8rwegui" path="res://components/inventory.tscn" id="5_m6tg5"]
-[ext_resource type="Resource" uid="uid://comxxliqq6s8g" path="res://resources/items/firebolt.tres" id="6_u1wlb"]
 [ext_resource type="Resource" uid="uid://bnuiiw0qvuwwn" path="res://resources/items/knife.tres" id="7_e710y"]
 [ext_resource type="PackedScene" uid="uid://c867pju6atw7e" path="res://components/hurtbox_component.tscn" id="11_hxc8l"]
 [ext_resource type="PackedScene" uid="uid://uag18b8s0jg4" path="res://components/dialogue_component.tscn" id="12_7vj67"]
-[ext_resource type="Resource" uid="uid://w15yo43gwkdc" path="res://resources/passives/extra_life.tres" id="12_q1t1l"]
 [ext_resource type="PackedScene" uid="uid://b6byd7ixvxc8n" path="res://components/can_interact_component.tscn" id="13_lp353"]
 [ext_resource type="Script" path="res://effects/show_heal_particles.gd" id="14_3i7el"]
 [ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="14_ljjej"]
@@ -86,7 +84,6 @@ one_shot = true
 explosiveness = 0.83
 
 [node name="Inventory" parent="." instance=ExtResource("5_m6tg5")]
-starting_items = Array[Resource("res://resources/custom_bases/item_resource.gd")]([ExtResource("6_u1wlb")])
 default_item = ExtResource("7_e710y")
 
 [node name="HurtboxComponent" parent="." instance=ExtResource("11_hxc8l")]
@@ -118,7 +115,6 @@ collision_mask = 64
 shape = SubResource("CircleShape2D_b1i4r")
 
 [node name="EffectContainer" parent="." instance=ExtResource("15_csrq8")]
-initial_effects = Array[Resource("res://resources/custom_bases/passive_resource.gd")]([ExtResource("12_q1t1l")])
 
 [node name="OnGetHit" type="Node" parent="EffectContainer"]
 script = ExtResource("14_tlggt")

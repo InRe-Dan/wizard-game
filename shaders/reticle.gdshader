@@ -1,6 +1,7 @@
 shader_type canvas_item;
+render_mode unshaded, blend_mix;
 
-uniform sampler2D screen : hint_screen_texture, repeat_disable, filter_nearest, source_color;
+uniform sampler2D screen : hint_screen_texture, repeat_disable, filter_nearest;
 
 void fragment() {
 	vec4 screen_col = texture(screen, SCREEN_UV);

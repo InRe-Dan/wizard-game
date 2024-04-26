@@ -4,8 +4,8 @@ var focus : bool = true
 var move : Vector2
 
 var keyboard_controls = false
-@onready var reticle : Sprite2D = $Reticle
-@onready var cooldown : TextureProgressBar = $Reticle/TextureProgressBar
+@onready var reticle : Sprite2D = $CanvasLayer/Reticle
+@onready var cooldown : TextureProgressBar = $CanvasLayer/Reticle/TextureProgressBar
 var last_controller_direction : Vector2
 
 

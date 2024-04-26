@@ -111,8 +111,8 @@ blend_mode = 1
 light_mode = 1
 
 [sub_resource type="Gradient" id="Gradient_65cim"]
-offsets = PackedFloat32Array(0, 0.116883, 0.655844)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+offsets = PackedFloat32Array(0, 0.655844)
+colors = PackedColorArray(1, 1, 1, 0.309804, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_agrek"]
 gradient = SubResource("Gradient_65cim")

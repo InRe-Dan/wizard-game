@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://ctvyx6fxdx3mx"]
+[gd_scene load_steps=16 format=3 uid="uid://ctvyx6fxdx3mx"]
 
 [ext_resource type="Script" path="res://misc_scenes/radial_menu.gd" id="1_60xxn"]
+[ext_resource type="FontFile" uid="uid://byo6fct4u77e6" path="res://assets/fonts/m3x6.ttf" id="2_relql"]
 
 [sub_resource type="Gradient" id="Gradient_8ln1q"]
-offsets = PackedFloat32Array(0, 0.532468, 0.571429, 0.655844)
-colors = PackedColorArray(0, 0, 0, 0.0705882, 0.0909091, 0.0909091, 0.0909091, 0.15508, 1, 1, 1, 0.509804, 1, 1, 1, 0)
+offsets = PackedFloat32Array(0.461039, 0.571429, 0.655844)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.25098, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_fm8og"]
 gradient = SubResource("Gradient_8ln1q")
@@ -13,12 +14,12 @@ height = 30
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
-[sub_resource type="Gradient" id="Gradient_0ntrm"]
-offsets = PackedFloat32Array(0, 0.532468, 0.571429, 0.655844)
-colors = PackedColorArray(0, 0, 0, 0.0705882, 0.0909091, 0.0909091, 0.0909091, 0.15508, 1, 1, 1, 0.772549, 1, 1, 1, 0)
+[sub_resource type="Gradient" id="Gradient_kivt7"]
+offsets = PackedFloat32Array(0.461039, 0.571429, 0.655844)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_yot5b"]
-gradient = SubResource("Gradient_0ntrm")
+gradient = SubResource("Gradient_kivt7")
 width = 30
 height = 30
 fill = 1
@@ -46,14 +47,29 @@ height = 8
 fill = 1
 fill_from = Vector2(0.513761, 0.490826)
 
+[sub_resource type="Gradient" id="Gradient_tqilw"]
+offsets = PackedFloat32Array(0.480519, 0.694805, 0.831169)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.321569, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_x0nlw"]
+gradient = SubResource("Gradient_tqilw")
+width = 12
+height = 12
+fill = 1
+fill_from = Vector2(0.513761, 0.490826)
+
+[sub_resource type="LabelSettings" id="LabelSettings_yxugk"]
+line_spacing = -3.0
+font = ExtResource("2_relql")
+
 [sub_resource type="Gradient" id="Gradient_y8mmt"]
-offsets = PackedFloat32Array(0.633803, 0.647887, 0.65493)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.494118, 1, 1, 1, 0)
+offsets = PackedFloat32Array(0.612676, 0.647887, 0.690141)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.101961, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_wfw08"]
 gradient = SubResource("Gradient_y8mmt")
-width = 150
-height = 150
+width = 75
+height = 75
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
@@ -69,6 +85,8 @@ unselected_texture = SubResource("GradientTexture2D_fm8og")
 selected_textrure = SubResource("GradientTexture2D_yot5b")
 dot_texture = SubResource("GradientTexture2D_c3r65")
 empty_dot_texture = SubResource("GradientTexture2D_spot0")
+dot_selected_texture = SubResource("GradientTexture2D_x0nlw")
+label_settings = SubResource("LabelSettings_yxugk")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="."]
 layout_mode = 0
