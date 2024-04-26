@@ -23,14 +23,21 @@ var stairs_res : EntityResource = load("res://resources/entities/stairs.tres")
 signal regenerated
 
 var current_rooms : Array[LevelUtilities.Room]
+var layout_scenes = [
+	preload("res://room_blueprints/horizontal_cover.tscn"),
+	preload("res://room_blueprints/maze.tscn"),
+	preload("res://room_blueprints/open_square.tscn"),
+	preload("res://room_blueprints/shrine.tscn"),
+	preload("res://room_blueprints/smiley.tscn"),
+	preload("res://room_blueprints/tiny.tscn")
+]
 var layouts : Array[TileMap]
 var path_length : int
 var graph_data : LevelUtilities.GraphData
 
 func _ready() -> void:
-	var files : PackedStringArray = DirAccess.get_files_at("res://room_blueprints/")
-	for file : String in files:
-		layouts.append(load("res://room_blueprints/" + file).instantiate())
+	for scene in layout_scenes:
+		layouts.append(scene.instantiate())
 
 func set_floor(v : Vector2i) -> void:
 	if not floor.get_cell_tile_data(0, v):
