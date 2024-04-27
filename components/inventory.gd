@@ -59,7 +59,7 @@ func use_random() -> void:
 	
 func get_item_cooldown_progress() -> float:
 	var item : InventoryItem = get_selected()
-	if item:
+	if item and is_instance_valid(item):
 		if item.expected_cooldown == 0:
 			return 1
 		return min(1, item.time_since_used / item.expected_cooldown)

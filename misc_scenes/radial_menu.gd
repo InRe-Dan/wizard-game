@@ -38,6 +38,8 @@ func draw_small(inventory : InventoryComponent) -> void:
 			background_rect.texture = dot_selected_texture
 			add_child(background_rect)
 			background_rect.global_position = center - Vector2.ONE * 6 + Vector2.from_angle(angle) * 70
+		else:
+			background_rect.queue_free()
 
 func draw_big(inventory : InventoryComponent) -> void:
 	var items : Array[InventoryItem] = inventory.get_items()
