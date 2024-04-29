@@ -1,9 +1,9 @@
-TAG_IMPORTANT
-TAG_JOHN
-TAG_COPYPASTE
-TAG_NARRATIVE
-TAG_EVALUATION
-TAG_IDEA
+TAG_IMPORTANT    : Info that should definetely be on the report
+TAG_JOHN         : Meeting notes
+TAG_COPYPASTE    : High enough quality to paste into the report
+TAG_NARRATIVE    : Iteration, progress or design thoughts
+TAG_EVALUATION   : Things that could go in the evaluation
+TAG_IDEA         : Things that could have been added with more time
 
 12/31/23
 I'm only starting this devlog a couple of days into working on the first prototype of the ideas that I have for my game project, so here is a recap of the work I have done so far: 
@@ -151,27 +151,33 @@ I wanted to define them as arbitrarilty shaped Area2Ds, but due to concerns over
 
 I also had a thought about how to do enemy pathfinding. For some reason I had it in my head that I had to immediately use navigation meshes, graphs and AStar, but it is far easier and more realistic (for most enemies) to use raycasts to check where enemies can go and have different wandering states for them. Also gives me room to make more creative enemy behaviours.
 
+TAG_NARRATIVE
 I will create an avoidance node that takes as input the direction that an entity would *like* to go in.
 First idea: shoot two rays, left and right, and angle the suggested direction away if those rays differ in distance to collision length. There are obvious problems with this, namely that this is a greedy approach and the enemy will NEVER turn away from the player to round a corner. It's also sensible to weight how much the entity cares about the suggestion.
 
 I can actually exactly in which direction the entity should go to be parallel to the surface that they are trying to avoid by making, since I have the points of collision - which are presumably on the same straight surface (bold assumption)
 
+TAG_NARRATIVE
 First attempt at this done, there are a lot of in-code comments on why certain decisions were made. This isn't too bad, but needs a lot of iteration. Still need to integrate this with a line of sight check, too. Also, we are not accounting for delta time, so our target direction changes quicker at higher framerates.
 
 Circling back to the floor effects, I did some more work on the ice shader to clean it up a bit for the new system. It's better than it was, but again, not too good yet since its clear that new areas get added at discrete time steps.
 
 4/2/24
 
+TAG_NARRATIVE TAG_IMPORTANT
 I did some more work on yesterday's ice effects, refactoring FloorEffects a little so that I can easily attach Area2Ds to them. I've started now to understand why everything should ideally be in the scene tree and how to create useful scene components - you can always add more children and extend scripts if you want an instanced scene to have more functionality.
 
 I added functionality to the player that multiplies their maximum velocity while sliding on ice, creating an already interesting system where you can skate on ice to drastically boost movement speed at the cost of maneuverability. It needs some more work as the immediate speed decrease when getting off ice is quite jarring. I also need to rework how the ice fades away so that its clearer which areas are icy and which are not. It would also be an idea to decrease the ice wave's area of effect as it travels, by making progressively smaller areas over its lifetime.
 
+TAG_NARRATIVE
 I realised while working on the ice wave that it might be desirable for a card to create multiple projectiles - for example an upgraded ice wave card would send multiple waves in an arc. Definetely something to look into by the prototype release.
 
 I also added a "say" method to the player that I plan on adding to most entities that gives them a little dialogue label for a short time - this doesn't really feel right at the moment, since I would probably want the position of the labels to be totally independent of the player (so that they stay where they were created). I also probably want a handler node for them, since I don't want players to say too much and too often, or for text to overlap. This system was inspired by Crypt of the Necrodancer's dialogue.
 
+TAG_NARRATIVE TAG_IMPORTANT
 I've decided that a fixed "max velocity" doesn't really apply to a physical system so I've decided to rely strictly on acceleration and damping to determine the player's neutral speed. There is still a maximum speed so that the player does not accelerate infinitely on ice, but it never changes (like when they would come off the ice). I had to decrease the damping of the player because I wanted them to slide more when coming down from a speed boost, but as a consequence I also had to reduce their acceleration so that they would not go too fast in a neutral state. I may have to reconsider this later, as the player is now less responsive, however sliding off ice feels "right".
 
+TAG_NARRATIVE
 Fire can now "melt" the ice on the floor by making it disasppear now, but I realise that I need to rethink the floor interactions that I wanted. Previously I wanted:
     Fire melts ice on the floor, turning it to water
     Water puts out fire on the floor, turning it to hot damaging steam
@@ -183,6 +189,7 @@ I now realise that I need to think about what happens to the player when they di
 
 5/2/24
 
+TAG_NARRATIVE TAG_IMPORTANT
 I had a good conversation on the Godot discord earlier about composition and inheritance - I asked how I could use the former to solve problems that I can already solve with the latter, since it seems that every game dev tutorial advises against over-using inheritance. If I want two enemies to have different attack patterns but be the same data type, typically I would have them both inherit from an Enemy class and implement their own behaviours - but I can instead have just the one enemy class with various controllers that the enemy class expects:
 Enemy
     - MeleeAttackingController
@@ -193,6 +200,7 @@ Enemy
     - RangedAI
     - Sprite2D
 
+TAG_NARRATIVE TAG_IMPORTANT
 Enemy could even be generalised to Entity, and Players could be entities with PlayerControllers instead of AI components. Certainly don't want to make a system this flexible for the prototype deadline, but it may be a good idea later down the run, to handle various elemental effects - and multiplayer, and giving enemies player abilities to scale difficulty!
 
 I can have one primary enemy scene which contains almost exactly the same code every time, and build up enemies from their core "components". I think this is the conclusion to the resource systems that I was trying to work out a couple of weeks ago. Time to rewrite the enemy class!
@@ -208,7 +216,7 @@ First result: Combining this sum with the enemy's preferred direction (towards t
 https://youtu.be/8uE6-vIi1rQ
 I watched a GDC talk on "Cursed Problems" in game design and it reminded me that I need to evaluate my own game's "player promises" and how I can both make sure they are met and that they don't conflict too heavily. Here is what I am seeking to provide the player: 
     An experience with lots of things to keep track of at any given time and some randomness is involved
-    An experience where the player constantly feels at their limit - you MUST use everything in your arsenal and more to progress\
+    An experience where the player constantly feels at their limit - you MUST use everything in your arsenal and more to progress
     An experience which gets the player feeling accomplished via skillful play
     An experience that is persistently fair - at no point will the game present a challenge that you can't realistically manage
     A goal of building a powerful character that is distinct in each run. Their power is measured by their score and/or stages cleared
