@@ -30,7 +30,6 @@ class Room extends RefCounted:
 		enemies -= 1
 		if enemies == 0:
 			wave += 1
-			print("wave ", wave, " of ", wave_goal)
 			cleared.emit(self)
 	
 class Partition extends RefCounted:
@@ -180,7 +179,7 @@ class GraphData extends RefCounted:
 		for room : Room in longest_path:
 			room.is_key_room = true
 			var progress : float = longest_path.find(room) / longest_path.size()
-			room.wave_goal = 1 + int(randf() < progress - 0.1) + int(randf() < progress - 0.4) + int(randf() - progress - 0.8)
+			room.wave_goal = 1 + int(randf() < progress - 0.1) + int(randf() < progress - 0.4) + int(randf() < progress - 0.8)
 		recompute_key_distances()
 
 	func get_longest_path_coordinates() -> Vector2i:
