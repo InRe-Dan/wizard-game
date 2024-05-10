@@ -29,7 +29,6 @@ func handle_event(event : Event) -> Event:
 		var effect : HeadstoneEffect = addition.effect as HeadstoneEffect
 		if effect:
 			stacks += effect.stacks
-			event.queue_free()
 			return null
 	return event
 

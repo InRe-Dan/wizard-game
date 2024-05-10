@@ -21,7 +21,6 @@ func handle_event(event : Event) -> Event:
 		var discard : DiscardExplosionEffect = add.effect as DiscardExplosionEffect
 		if discard:
 			stacks += discard.stacks
-			event.queue_free()
 			return null
 	var consumed : ItemConsumedEvent = event as ItemConsumedEvent
 	if consumed:

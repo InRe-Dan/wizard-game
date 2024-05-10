@@ -15,7 +15,6 @@ func protect() -> void:
 
 func handle_event(event : Event) -> Event:
 	if event is DeathEvent:
-		event.free()
 		parent.health = round(parent.resource.starting_health * 0.3)
 		protect()
 		Global.queue_announcement("Second chance!", "Do better!", Color.DARK_GREEN)

@@ -1,6 +1,6 @@
 @icon("res://assets/editor_icons/engine/StatusWarning.svg")
 
-class_name Event extends Node
+class_name Event extends RefCounted
 
 enum types {
 inputmove, inputcommand, collision, 

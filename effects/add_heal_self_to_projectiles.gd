@@ -15,8 +15,7 @@ func handle_event(event : Event) -> Event:
 			effect_name = resource.passive_name + " x" + str(stacks)
 			effect_description = "Heal for " + str(healing_amount) + "HP when killing enemies." 
 			updated.emit(self)
-			effect_event.effect.queue_free()
-			effect_event.effect.queue_free()
+			effect_event.effect.free()
 			return null
 
 	if event.type == event.types.created_projectile:

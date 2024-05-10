@@ -47,8 +47,7 @@ func handle_event(event : Event) -> Event:
 				apply_immunity = true
 			else:
 				buildup += effect.buildup
-			effect_event.effect.queue_free()
-			effect_event.queue_free()
+			effect_event.effect.free()
 			return null
 		elif effect_event.effect is FireEffect:
 			buildup -= (effect_event.event as FireEffect).buildup

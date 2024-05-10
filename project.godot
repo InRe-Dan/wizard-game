@@ -74,6 +74,10 @@ folder_colors={
 "res://shaders/": "orange"
 }
 
+[filesystem]
+
+import/blender/enabled=false
+
 [input]
 
 up={
