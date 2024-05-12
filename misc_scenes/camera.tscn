@@ -224,7 +224,7 @@ grow_horizontal = 1
 grow_vertical = 1
 
 [node name="Postprocess" type="CanvasLayer" parent="."]
-layer = 100
+layer = 3
 
 [node name="ColorRect" type="ColorRect" parent="Postprocess" groups=["postprocessrect"]]
 material = SubResource("ShaderMaterial_n0wmh")

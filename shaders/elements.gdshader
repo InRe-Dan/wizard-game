@@ -18,6 +18,7 @@ uniform float fire_subtract_speed;
 
 // Random noise
 uniform sampler2D snow_noise : filter_nearest, repeat_enable;
+uniform sampler2D snow_gradient : filter_nearest, repeat_enable;
 uniform sampler2D water_noise : filter_nearest, repeat_enable;
 uniform sampler2D water_noise_2 : filter_nearest, repeat_enable;
 uniform sampler2D fire_noise : filter_nearest, repeat_enable;
@@ -33,49 +34,62 @@ void vertex() {
 	world_pos = (MODEL_MATRIX * vec4(VERTEX, 0.0, 1.0)).xy + (UV / TEXTURE_PIXEL_SIZE).xy;
 }
 
-vec4 water(vec2 pos) {
+vec4 water(vec2 pos, vec4 col) {
 	vec2 uv = pos / vec2(textureSize(water_noise, 0));
-	vec4 wave = texture(water_noise, uv + TIME * vec2(sin(TIME * 0.01), cos(TIME * 0.01)) * wave_speed) * 1.0;
+	vec2 dir = normalize(vec2(sin(TIME * 0.01), cos(TIME * 0.01)));
+	vec2 offset = 0.03 * (mat2(vec2(0., -1.), vec2(1., 0.)) * dir) * sin(TIME * 1.5);
+	vec4 wave = texture(water_noise, uv + offset + TIME * dir * wave_speed);
 	wave -= texture(water_noise_2, uv + TIME * vec2(0.7, -0.7) * wave_subtract_speed) * 0.2;
+	vec4 returned;
 	if (wave_low_threshold < wave.r && wave_high_threshold > wave.r) {
-		return wave_colour;
+		returned = wave_colour;
 	} else if (wave.r > wave_low_threshold - transition_length  && wave.r < wave_low_threshold) {
-		return water_transition_colour;
+		returned = water_transition_colour;
 		
 	} else if (wave.r < wave_high_threshold + transition_length  && wave.r > wave_high_threshold) {
-		return water_transition_colour;
+		returned = water_transition_colour;
+	}else {
+		returned = water_colour;
 	}
-	return water_colour;
+	returned.a = pow(col.b, 0.5);
+	return returned;
 }
 
-vec4 ice(vec2 pos) {
-	return vec4(texture(snow_noise, pos / vec2(textureSize(snow_noise, 0).xy)).xyz, 0.3);
+vec4 ice(vec2 pos, vec4 col) {
+	vec4 returned = texture(snow_noise, pos / vec2(textureSize(snow_noise, 0).xy));
+	returned = texture(snow_gradient, returned.xy);
+	vec4 rand = texture(snow_noise, 20. * pos / vec2(textureSize(snow_noise, 0)));
+	returned.a = 0.5;
+	if (col.g < rand.r) {
+		returned.a = 0.;
+	}
+	// return returned;
+	return returned;
 }
 
-vec4 fire(vec2 pos) {
+vec4 fire(vec2 pos, vec4 col) {
 	vec2 uv = pos / vec2(textureSize(fire_noise, 0));
 	vec4 wave = texture(fire_noise, uv + TIME * vec2(0., 1.) * fire_speed) * 0.3;
-	wave += texture(fire_noise_2, uv + TIME * vec2(-0.7, -0.7) * fire_subtract_speed) * 0.3;
-	wave += texture(fire_noise_2, uv + 0.5 + TIME * vec2(0.7, -0.7) * fire_subtract_speed * 0.7) * 0.3;
-	return texture(fire_gradient, wave.rg);
+	wave /= pow(col.r, 1.);
+	wave += texture(fire_noise_2, uv + TIME * vec2(-0.7, 0.7) * fire_subtract_speed) * 0.3;
+	wave += texture(fire_noise_2, uv + 0.5 + TIME * vec2(0.7, 0.7) * fire_subtract_speed * 0.7) * 0.3;
+	vec4 returned = texture(fire_gradient, wave.rg);
+	return returned;
 }
 
 void fragment() {
-	if (COLOR.r > 0.01) {
-		COLOR = fire(world_pos);
-	} else if (COLOR.g > 0.01) {
-		COLOR = ice(world_pos);
-	} else if (COLOR.b > 0.01) {
-		COLOR = water(world_pos);
-	} else {
-		COLOR = vec4(0.);
-	}
+	vec4 f = fire(world_pos, COLOR);
+	vec4 i = ice(world_pos, COLOR);
+	vec4 w = water(world_pos, COLOR);
+	COLOR = (COLOR.r * f + i * COLOR.g + COLOR.b * w) / (COLOR.r + COLOR.g + COLOR.b);
 }
 
 void light() {
-	if (texture(elements, UV).b > 0.01 && COLOR.r > 0.9) {
-		LIGHT = vec4(LIGHT_COLOR.rgb * COLOR.rgb * LIGHT_ENERGY * 3., LIGHT_COLOR.a);
-	} else {
-		LIGHT = vec4(LIGHT_COLOR.rgb * COLOR.rgb * LIGHT_ENERGY, LIGHT_COLOR.a);
+	vec4 col = texture(elements, UV);
+	LIGHT = vec4(LIGHT_COLOR.rgb * COLOR.rgb * LIGHT_ENERGY, LIGHT_COLOR.a);
+	if ((col.b > 0.05) || (col.g > 0.05)) {
+		if (COLOR.r > 0.95) {
+			LIGHT = vec4(LIGHT_COLOR.rgb * COLOR.rgb * LIGHT_ENERGY * 1.5, LIGHT_COLOR.a);
+		}
 	}
 }
