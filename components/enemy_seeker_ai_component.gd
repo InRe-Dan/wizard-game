@@ -21,6 +21,7 @@ var time_since_attacked : float
 var time_since_in_range : float
 var last_objective_position : Vector2
 var searching_timeout : float
+var desired_position : Vector2
 
 func receive_signal(event : Event) -> Event:
 	if event is BeenHitEvent:
@@ -69,10 +70,10 @@ func has_los_to(global_pos : Vector2) -> bool:
 
 func _on_walking_state_entered() -> void:
 	bored_timer = 0.1 + 0.4 * randf()
-	walk_direction = Vector2.RIGHT.rotated(randf() * TAU)
+	walk_direction = Vector2.RIGHT.rotated(randf() * TAU) * 32
 
 func _on_walking_state_physics_processing(delta: float) -> void:
-	parent.distribute_signal(InputMoveEvent.new(walk_direction))
+	desired_position = global_position + walk_direction
 
 func _on_idle_state_physics_processing(delta: float) -> void:
 	bored_timer -= delta
@@ -90,9 +91,7 @@ func _on_standing_state_entered() -> void:
 
 func _on_following_state_physics_processing(delta: float) -> void:
 	var to_target : Vector2 = target.global_position - global_position
-	var desired_position : Vector2 = target.global_position - to_target.normalized() * desired_distance
-	var dir : Vector2 = find_direction_to(desired_position).normalized()
-	parent.distribute_signal(InputMoveEvent.new(dir))
+	desired_position = target.global_position - to_target.normalized() * desired_distance
 	if parent.global_position.distance_to(target.global_position) < attack_range:
 		time_since_in_range += delta
 		attack(target.global_position)
@@ -105,16 +104,17 @@ func _on_seeking_state_physics_processing(delta: float) -> void:
 		state_chart.send_event("lost_sight")
 		return
 	if not has_los_to(target.global_position):
-		parent.looking_at = target.global_position
 		state_chart.send_event("lost_sight")
 	else:
 		last_target_position = target.global_position
+		state_chart.send_event("player_seen")
+	parent.looking_at = target.global_position
 
 func _on_searching_state_physics_processing(delta: float) -> void:
 	searching_timeout -= delta
 	if searching_timeout < 0:
 		state_chart.send_event("reached_target")
-	parent.distribute_signal(InputMoveEvent.new(find_direction_to(last_target_position)))
+	desired_position = last_target_position
 	if global_position.distance_to(last_target_position) < 16:
 		state_chart.send_event("reached_target")
 
@@ -124,3 +124,12 @@ func _on_following_state_entered() -> void:
 
 func _on_searching_state_entered() -> void:
 	searching_timeout = 5
+
+
+func _on_main_state_physics_processing(delta: float) -> void:
+	var to_target : Vector2 = desired_position - global_position
+	if to_target.length() < 8:
+		return
+	var dir : Vector2 = find_direction_to(desired_position).normalized()
+	parent.distribute_signal(InputMoveEvent.new(dir))
+	parent.looking_at = desired_position

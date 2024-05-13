@@ -22,6 +22,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
+	if not parent is Player:
+		sprite.flip_h = not (parent.global_position.direction_to(parent.looking_at).angle_to(Vector2.UP) < 0)
 	if not moved:
 		sprite.play("idle")
 	moved = false
@@ -42,9 +44,9 @@ func receive_signal(event : Event) -> Event:
 			if not sprite.animation == "move":
 				sprite.play("move")
 			moved = true
-			if (event as InputMoveEvent).direction.x < 0.0:
+			if (event as InputMoveEvent).direction.x < 0.0 and parent is Player:
 				sprite.flip_h = true
-			elif (event as InputMoveEvent).direction.x > 0.0:
+			elif (event as InputMoveEvent).direction.x > 0.0 and parent is Player:
 				sprite.flip_h = false
 		Event.types.take_damage:
 			flash()

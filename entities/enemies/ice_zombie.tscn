@@ -71,7 +71,6 @@ shape = SubResource("CapsuleShape2D_huuuy")
 attack_range = 96.0
 attack_windup = 0.1
 attack_cooldown = 0.4
-show_states = false
 desired_distance = 12.0
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("area") instance=ExtResource("5_gve5p")]

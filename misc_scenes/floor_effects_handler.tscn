@@ -1,6 +1,7 @@
-[gd_scene load_steps=28 format=3 uid="uid://d2gefhko3sbry"]
+[gd_scene load_steps=30 format=3 uid="uid://d2gefhko3sbry"]
 
 [ext_resource type="Script" path="res://misc_scenes/floor_effects_handler.gd" id="1_o44qe"]
+[ext_resource type="Texture2D" uid="uid://dy68yc3yu732g" path="res://assets/dungeon/floor_1.png" id="2_2jxtq"]
 [ext_resource type="Shader" path="res://shaders/elements.gdshader" id="2_a5i2d"]
 [ext_resource type="Shader" path="res://shaders/floor_effects_handler.gdshader" id="3_x41kc"]
 
@@ -9,7 +10,7 @@
 [sub_resource type="Gradient" id="Gradient_l77eg"]
 interpolation_mode = 1
 offsets = PackedFloat32Array(0, 0.114754, 0.196721, 0.295082, 0.360656, 0.483607)
-colors = PackedColorArray(1, 1, 0, 1, 1, 0.909804, 0, 1, 1, 0.729412, 0, 1, 1, 0.392157, 0, 1, 1, 0.392157, 0, 1, 1, 1, 0, 0)
+colors = PackedColorArray(1, 1, 0, 1, 1, 0.909804, 0, 1, 1, 0.729412, 0, 1, 1, 0.392157, 0, 1, 1, 0.258824, 0, 1, 1, 1, 0, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_0d851"]
 gradient = SubResource("Gradient_l77eg")
@@ -86,7 +87,7 @@ shader_parameter/water_colour = Color(0, 0.478431, 0.945098, 0.67451)
 shader_parameter/wave_colour = Color(0.996078, 0.92549, 0.996078, 0.776471)
 shader_parameter/water_transition_colour = Color(0.141176, 0.643137, 1, 0.8)
 shader_parameter/wave_speed = 0.004
-shader_parameter/wave_subtract_speed = 0.15
+shader_parameter/wave_subtract_speed = 0.05
 shader_parameter/transition_length = 0.245
 shader_parameter/fire_speed = 0.0
 shader_parameter/fire_subtract_speed = 0.065
@@ -100,15 +101,14 @@ shader_parameter/fire_noise_2 = SubResource("NoiseTexture2D_8hned")
 shader_parameter/elements = SubResource("NoiseTexture2D_owj2b")
 
 [sub_resource type="Gradient" id="Gradient_seels"]
-interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.05, 0.25, 0.3, 0.5, 0.55, 0.75)
-colors = PackedColorArray(0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1)
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.402597, 0.454545, 0.512987, 0.590909, 0.636364, 0.675325)
+colors = PackedColorArray(0.954113, -0.00860915, 0, 1, 0, 0, 0, 1, 0, -0.0210285, 0.81329, 1, 0, -0.0210285, 0.81329, 1, 0, 0, 0, 1, 0, 1, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_qvylg"]
 gradient = SubResource("Gradient_seels")
-width = 24
-fill_from = Vector2(0, 0.5)
-fill_to = Vector2(1, 0.5)
+fill_from = Vector2(1, 0)
+fill_to = Vector2(0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hfvbw"]
 shader = ExtResource("3_x41kc")
@@ -117,11 +117,16 @@ shader = ExtResource("3_x41kc")
 blend_mode = 2
 light_mode = 1
 
-[sub_resource type="Gradient" id="Gradient_67vmn"]
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.858824)
+[sub_resource type="Gradient" id="Gradient_kbwvm"]
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_0xlk1"]
-gradient = SubResource("Gradient_67vmn")
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_73u2u"]
+frequency = 0.0503
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_oq7ci"]
+width = 64
+height = 64
+color_ramp = SubResource("Gradient_kbwvm")
+noise = SubResource("FastNoiseLite_73u2u")
 
 [node name="FloorEffectsHandler" type="Node2D" groups=["floor_effects_handler"]]
 visibility_layer = 2
@@ -132,6 +137,14 @@ decay_rate = 0.005
 resolution_factor = 4
 decay_amount = 0.2
 zero_threshold = 0.5
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.295867, 0.295866, 0.295866, 1)
+texture_repeat = 2
+texture = ExtResource("2_2jxtq")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 256, 256)
 
 [node name="Effects" type="Sprite2D" parent="."]
 y_sort_enabled = true
@@ -156,5 +169,5 @@ z_index = 10
 texture_filter = 2
 material = SubResource("CanvasItemMaterial_y237a")
 scale = Vector2(4, 4)
-texture = SubResource("GradientTexture2D_0xlk1")
+texture = SubResource("NoiseTexture2D_oq7ci")
 centered = false

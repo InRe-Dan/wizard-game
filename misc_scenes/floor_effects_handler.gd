@@ -24,6 +24,9 @@ var floor_map : TileMap
 var thread : Thread = Thread.new()
 var wait : bool = true
 
+func _ready() -> void:
+	remove_child($Sprite2D)
+
 func try_decay(i : int, j : int, grid : Array[Array]) -> void:
 	var neighbours : int = 0
 	neighbours += 1 if grid[max(i - 1, 0)][j] else 0

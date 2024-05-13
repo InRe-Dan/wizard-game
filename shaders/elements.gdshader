@@ -58,7 +58,7 @@ vec4 water(vec2 pos, vec4 col) {
 vec4 ice(vec2 pos, vec4 col) {
 	vec4 returned = texture(snow_noise, pos / vec2(textureSize(snow_noise, 0).xy));
 	returned = texture(snow_gradient, returned.xy);
-	vec4 rand = texture(snow_noise, 20. * pos / vec2(textureSize(snow_noise, 0)));
+	vec4 rand = texture(snow_noise, 10. * pos / vec2(textureSize(snow_noise, 0)));
 	returned.a = 0.5;
 	if (col.g < rand.r) {
 		returned.a = 0.;

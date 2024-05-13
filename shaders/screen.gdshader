@@ -27,7 +27,7 @@ void fragment() {
 	vec3 ditherProb = remainder / stepSize;
 	vec2 uv = world_pos / vec2(textureSize(noise_texture, 0));
 	float rand = texture(noise_texture, uv + TIME * 0.2 * vec2(0.001, 0.00345)).r * 0.5;
-	rand += texture(noise_texture, uv + TIME * 0.3 * vec2(-0.03, +0.02)).r * 0.25;
+	rand += texture(noise_texture, uv + TIME * 0.3 * vec2(-0.03, 0.02)).r * 0.25;
 	rand += texture(noise_texture, uv + TIME * 0.4 * vec2(+0.003, -0.05)).r * 0.12;
 	rand += texture(noise_texture, uv + TIME * 0.5 * vec2(-0.03, -0.01)).r * 0.13;
 	vec3 dither_colour = vec3(bvec3(ditherProb.x > rand, ditherProb.y > rand, ditherProb.z > rand));

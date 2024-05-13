@@ -28,12 +28,12 @@ func _physics_process(delta: float) -> void:
 		var vector_to_mouse : Vector2 = get_global_mouse_position() - global_position 
 		destination_position = global_position + 5 * offset_scale * vector_to_mouse
 	current_position += Vector2(destination_position.x - current_position.x, destination_position.y - current_position.y) / SMOOTHING_DURATION * delta
-	global_position = current_position.round()
 	if is_shaking:
-		global_position += (shake_time_elapsed / shake_duration) * shake_radius * Vector2.RIGHT.rotated(randf() * TAU)
+		current_position += (shake_time_elapsed / shake_duration) * shake_radius * Vector2.RIGHT.rotated(randf() * TAU)
 		shake_time_elapsed += delta
 		if shake_time_elapsed > shake_duration:
 			is_shaking = false
+	global_position = current_position.round()
 	force_update_scroll()
 
 func shake(duration : float) -> void:
