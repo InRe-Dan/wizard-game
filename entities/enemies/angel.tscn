@@ -19,7 +19,7 @@
 [ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="17_eyouo"]
 [ext_resource type="PackedScene" uid="uid://db8b4lwo0gdvi" path="res://components/health_bar.tscn" id="18_4c1in"]
 [ext_resource type="PackedScene" uid="uid://uajwl8rwegui" path="res://components/inventory.tscn" id="19_ddlqy"]
-[ext_resource type="Resource" uid="uid://rw34krfqyx5s" path="res://resources/items/ice_shards.tres" id="20_vsquw"]
+[ext_resource type="Resource" uid="uid://b2va7dwqlsr5a" path="res://resources/items/wisps.tres" id="20_7mh2h"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sunu4"]
 radius = 9.0
@@ -97,7 +97,6 @@ particles = ExtResource("13_4yxaj")
 
 [node name="OnGetHit" type="Node" parent="EffectContainer"]
 script = ExtResource("13_bwhpk")
-event_type = 4
 
 [node name="PlayHitSound" type="Node" parent="EffectContainer/OnGetHit"]
 script = ExtResource("14_wk3ko")
@@ -105,7 +104,6 @@ sound = ExtResource("15_rqwpq")
 
 [node name="OnDeath" type="Node" parent="EffectContainer"]
 script = ExtResource("13_bwhpk")
-event_type = 8
 
 [node name="PlayDeathSound" type="Node" parent="EffectContainer/OnDeath"]
 script = ExtResource("14_wk3ko")
@@ -117,4 +115,4 @@ sound = ExtResource("16_lmhrm")
 position = Vector2(0, -12)
 
 [node name="Inventory" parent="." instance=ExtResource("19_ddlqy")]
-default_item = ExtResource("20_vsquw")
+default_item = ExtResource("20_7mh2h")

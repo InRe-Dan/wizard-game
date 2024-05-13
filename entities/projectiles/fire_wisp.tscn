@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dp4nrpk7lws44"]
+[gd_scene load_steps=26 format=3 uid="uid://dp4nrpk7lws44"]
 
 [ext_resource type="PackedScene" uid="uid://7neyiej0xx17" path="res://components/hitbox_component.tscn" id="2_6yrp5"]
 [ext_resource type="PackedScene" uid="uid://bn1kf1pq2gcxx" path="res://components/turning_graphics_component.tscn" id="2_xaxyh"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://effects/on_spawn_actions.gd" id="8_vi36i"]
 [ext_resource type="AudioStream" uid="uid://btklr1o52eh7" path="res://assets/sounds/laserShoot.wav" id="9_e3bts"]
 [ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="10_6t788"]
+[ext_resource type="Script" path="res://actions/burn_secondary.gd" id="11_vpr1s"]
 
 [sub_resource type="GDScript" id="GDScript_xv4it"]
 script/source = "extends Entity
@@ -160,6 +161,10 @@ script = ExtResource("5_ymdga")
 [node name="PlaySoundAction" type="Node" parent="EffectContainer/OnHit"]
 script = ExtResource("6_vfmos")
 sound = ExtResource("7_af81q")
+
+[node name="Fire" type="Node" parent="EffectContainer/OnHit"]
+script = ExtResource("11_vpr1s")
+buildup = 0.4
 
 [node name="OnSpawnActionsEffect" type="Node" parent="EffectContainer"]
 script = ExtResource("8_vi36i")

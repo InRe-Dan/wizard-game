@@ -30,6 +30,7 @@ func _on_action_finish() -> void:
 
 # Returns whether or not the item has been consumed
 func use(owner : Entity, direction : Vector2) -> bool:
+	print(awaited_signal_count)
 	if not is_ready():
 		return false
 	

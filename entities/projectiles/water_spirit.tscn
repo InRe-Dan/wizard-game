@@ -1,6 +1,6 @@
-[gd_scene load_steps=20 format=3 uid="uid://clncaxcqx6vp"]
+[gd_scene load_steps=26 format=3 uid="uid://clncaxcqx6vp"]
 
-[ext_resource type="Script" path="res://base_classes/entity.gd" id="1_k3md0"]
+[ext_resource type="Script" path="res://entities/projectiles/water_spirit.gd" id="1_1u2e7"]
 [ext_resource type="Script" path="res://components/hitbox_component.gd" id="2_gytxb"]
 [ext_resource type="Script" path="res://misc_scripts/damage_data.gd" id="3_jnlc4"]
 [ext_resource type="PackedScene" uid="uid://bueaitn7te0q1" path="res://components/projectile_despawner_component.tscn" id="4_eraea"]
@@ -10,11 +10,49 @@
 [ext_resource type="AudioStream" uid="uid://btklr1o52eh7" path="res://assets/sounds/laserShoot.wav" id="13_qmtwu"]
 [ext_resource type="PackedScene" uid="uid://blmob811wmm2h" path="res://components/physics_handler_component.tscn" id="14_fenal"]
 
+[sub_resource type="Curve" id="Curve_tq44c"]
+max_value = 3.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.986667, 1.35165), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_51yon"]
+curve = SubResource("Curve_tq44c")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_f1bbi"]
+particle_flag_disable_z = true
+particle_flag_damping_as_friction = true
+emission_shape = 1
+emission_sphere_radius = 16.0
+spread = 70.0
+initial_velocity_max = 258.43
+gravity = Vector3(0, 0, 0)
+damping_min = 2.0
+damping_max = 5.081
+scale_min = 0.0
+scale_max = 1.5
+scale_over_velocity_max = 30.0
+scale_over_velocity_curve = SubResource("CurveTexture_51yon")
+color = Color(0, 0.568627, 1, 1)
+hue_variation_min = -0.11
+turbulence_enabled = true
+collision_mode = 2
+
+[sub_resource type="Gradient" id="Gradient_o1or4"]
+offsets = PackedFloat32Array(0, 0.798701)
+colors = PackedColorArray(0.1975, 0.49375, 0.79, 1, 0.196078, 0.494118, 0.788235, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vbfhc"]
+gradient = SubResource("Gradient_o1or4")
+width = 4
+height = 4
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
 [sub_resource type="GDScript" id="GDScript_gilg8"]
 resource_name = "script"
 script/source = "extends EntityComponent
 
-@onready var los : RayCast2D = $Los
+@onready var los : ShapeCast2D = $Los
 
 @export var detection_area : Area2D
 @export var rotation_speed : float = TAU
@@ -78,6 +116,8 @@ func receive_signal(event : Event) -> Event:
 
 "
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_jipaa"]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_hi2b0"]
 radius = 73.0069
 
@@ -124,13 +164,16 @@ fill_from = Vector2(0.5, 0.5)
 [node name="Water Sprit" type="CharacterBody2D" groups=["npcs"]]
 collision_layer = 0
 collision_mask = 2
-script = ExtResource("1_k3md0")
+script = ExtResource("1_1u2e7")
+particle_material = SubResource("ParticleProcessMaterial_f1bbi")
+particle_texture = SubResource("GradientTexture2D_vbfhc")
 
 [node name="RotationalHoming" type="Node2D" parent="." node_paths=PackedStringArray("detection_area")]
 script = SubResource("GDScript_gilg8")
 detection_area = NodePath("Area2D")
 
-[node name="Los" type="RayCast2D" parent="RotationalHoming"]
+[node name="Los" type="ShapeCast2D" parent="RotationalHoming"]
+shape = SubResource("CircleShape2D_jipaa")
 collision_mask = 2
 collide_with_areas = true
 

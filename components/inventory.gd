@@ -35,13 +35,12 @@ func get_selected() -> InventoryItem:
 func use(direction : Vector2) -> void:
 	var item : InventoryItem = get_selected()
 	if item:
-		if item.is_ready():
-			if item.use(parent, direction):
-				active.remove_child(item)
-				consumed.add_child(item)
-				slots[selected] = null
-				cycleItems(-1)
-				parent.distribute_signal(ItemConsumedEvent.new(item))
+		if item.use(parent, direction):
+			active.remove_child(item)
+			consumed.add_child(item)
+			slots[selected] = null
+			cycleItems(-1)
+			parent.distribute_signal(ItemConsumedEvent.new(item))
 	else:
 		if not default:
 			pass

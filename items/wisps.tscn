@@ -8,7 +8,7 @@
 [node name="Wisps" type="Node"]
 script = ExtResource("1_hacyi")
 
-[node name="Node" type="Node" parent="."]
+[node name="Shoot" type="Node" parent="."]
 script = ExtResource("2_kdyn0")
 projectile_resource = ExtResource("3_f610t")
 shots = 5
