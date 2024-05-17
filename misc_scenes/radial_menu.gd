@@ -9,7 +9,7 @@ class_name RadialMenu extends Control
 @export var dot_selected_texture : Texture2D
 @export var label_settings : LabelSettings
 
-@export var time_slow_capacity : float = 3.0
+@export var time_slow_capacity : float = 1.0
 
 var time_slow_juice : float = 0
 var center : Vector2
@@ -108,14 +108,14 @@ func _process(delta : float) -> void:
 		if time_slow_juice < 0:
 			time_slow_juice = 0
 		if time_slow_juice > 0:
-			Engine.time_scale = 1
+			Engine.time_scale = 0.3
 		else:
 			Engine.time_scale = 1
 		draw_big(inventory)
 	else:
-		Engine.time_scale = 0.3
+		Engine.time_scale = 1
 		time_bar.visible = false
-		time_slow_juice += delta
+		time_slow_juice += delta * 0.5
 		if time_slow_juice > time_slow_capacity:
 			time_slow_juice = time_slow_capacity
 		draw_small(inventory)
