@@ -118,7 +118,6 @@ shape = SubResource("CircleShape2D_b1i4r")
 
 [node name="OnGetHit" type="Node" parent="EffectContainer"]
 script = ExtResource("14_tlggt")
-event_type = 4
 
 [node name="PlayHitSound" type="Node" parent="EffectContainer/OnGetHit"]
 script = ExtResource("15_vojiu")
@@ -132,7 +131,6 @@ script = ExtResource("14_3i7el")
 
 [node name="OnDeath" type="Node" parent="EffectContainer"]
 script = ExtResource("14_tlggt")
-event_type = 8
 
 [node name="PlayDeathSound" type="Node" parent="EffectContainer/OnDeath"]
 script = ExtResource("15_vojiu")

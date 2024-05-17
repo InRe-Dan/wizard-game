@@ -71,6 +71,7 @@ shape = SubResource("CapsuleShape2D_huuuy")
 attack_range = 96.0
 attack_windup = 0.1
 attack_cooldown = 0.4
+show_states = false
 desired_distance = 12.0
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("area") instance=ExtResource("5_gve5p")]
@@ -112,7 +113,6 @@ particles = ExtResource("13_dseqh")
 
 [node name="OnGetHit" type="Node" parent="EffectContainer"]
 script = ExtResource("13_t4g6t")
-event_type = 4
 
 [node name="PlayHitSound" type="Node" parent="EffectContainer/OnGetHit"]
 script = ExtResource("14_p6is2")
@@ -120,7 +120,6 @@ sound = ExtResource("15_vki1l")
 
 [node name="OnDeath" type="Node" parent="EffectContainer"]
 script = ExtResource("13_t4g6t")
-event_type = 8
 
 [node name="PlayDeathSound" type="Node" parent="EffectContainer/OnDeath"]
 script = ExtResource("14_p6is2")

@@ -108,12 +108,12 @@ func _process(delta : float) -> void:
 		if time_slow_juice < 0:
 			time_slow_juice = 0
 		if time_slow_juice > 0:
-			Engine.time_scale = 0.5
+			Engine.time_scale = 1
 		else:
 			Engine.time_scale = 1
 		draw_big(inventory)
 	else:
-		Engine.time_scale = 1
+		Engine.time_scale = 0.3
 		time_bar.visible = false
 		time_slow_juice += delta
 		if time_slow_juice > time_slow_capacity:
