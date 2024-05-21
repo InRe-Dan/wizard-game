@@ -1051,3 +1051,17 @@ https://steamdb.info/stats/releases/?tagid=0
 
 Very nice summary of roguelike history
 https://arstechnica.com/gaming/2020/03/ascii-art-permadeath-the-history-of-roguelike-games/
+
+18/4/24
+
+https://medium.com/@guribemontero/dungeon-generation-using-binary-space-trees-47d4a668e2d0
+This way of adding corridors would have been much easier...
+
+Defining a new term is usually italicized
+\textit or \emph 
+
+20/4/24
+
+https://www.reddit.com/r/roguelikedev/comments/4pru74/implementation_of_brian_bucklews_component_system/
+
+Appendix to list passives and items as a data sheet
